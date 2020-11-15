@@ -22,6 +22,28 @@
         
     
   
+    
+        ,"post2": {
+            "title": "New notebook",
+            "content": "from imports import * %config InlineBackend.figure_format = &#39;retina&#39; %load_ext autoreload %autoreload 2 . Sources . Fluent Python | Python Cookbook | Learning Python | Python for Data Analysis | Python Data Science Handbook | .",
+            "url": "https://fabiangunzinger.github.io/blog/python/2020/01/01/test.html",
+            "relUrl": "/python/2020/01/01/test.html",
+            "date": " • Jan 1, 2020"
+        }
+        
+    
+  
+    
+        ,"post3": {
+            "title": "Test post",
+            "content": "from imports import * %config InlineBackend.figure_format = &#39;retina&#39; %load_ext autoreload %autoreload 2 . plt.plot([0, 1]) . [&lt;matplotlib.lines.Line2D at 0x1a196b0a10&gt;] . Sources . Fluent Python | Python Cookbook | Learning Python | Python for Data Analysis | Python Data Science Handbook | .",
+            "url": "https://fabiangunzinger.github.io/blog/python/2000/01/01/new.html",
+            "relUrl": "/python/2000/01/01/new.html",
+            "date": " • Jan 1, 2000"
+        }
+        
+    
+  
 
   
   
