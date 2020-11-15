@@ -1,0 +1,2058 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Documenting sample selection (part 2) | fastpages</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Documenting sample selection (part 2)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<meta property="og:description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<link rel="canonical" href="https://fabiangunzinger.github.io/blog/python/2020/11/14/documenting-sample-selection-two.html" />
+<meta property="og:url" content="https://fabiangunzinger.github.io/blog/python/2020/11/14/documenting-sample-selection-two.html" />
+<meta property="og:site_name" content="fastpages" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-11-14T00:00:00-06:00" />
+<script type="application/ld+json">
+{"url":"https://fabiangunzinger.github.io/blog/python/2020/11/14/documenting-sample-selection-two.html","@type":"BlogPosting","headline":"Documenting sample selection (part 2)","dateModified":"2020-11-14T00:00:00-06:00","datePublished":"2020-11-14T00:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://fabiangunzinger.github.io/blog/python/2020/11/14/documenting-sample-selection-two.html"},"description":"An easy to use blogging platform with support for Jupyter Notebooks.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://fabiangunzinger.github.io/blog/feed.xml" title="fastpages" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">fastpages</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Documenting sample selection (part 2)</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-11-14T00:00:00-06:00" itemprop="datePublished">
+        Nov 14, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      3 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/blog/categories/#python">python</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/fabiangunzinger/blog/tree/master/_notebooks/3000-01-01-documenting-sample-selection-two.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/blog/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/fabiangunzinger/blog/master?filepath=_notebooks%2F3000-01-01-documenting-sample-selection-two.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/blog/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/fabiangunzinger/blog/blob/master/_notebooks/3000-01-01-documenting-sample-selection-two.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/blog/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#Main-sources">Main sources </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/3000-01-01-documenting-sample-selection-two.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>First, build a counter object.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">OrderedCounter</span><span class="p">(</span><span class="n">Counter</span><span class="p">,</span> <span class="n">OrderedDict</span><span class="p">):</span>
+    <span class="s1">'Counter that remembers the order elements are first encountered'</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">'</span><span class="si">{!s}</span><span class="s1">(</span><span class="si">{!r}</span><span class="s1">)'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">OrderedDict</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__reduce__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="p">(</span><span class="n">OrderedDict</span><span class="p">(</span><span class="bp">self</span><span class="p">),)</span>
+    
+<span class="n">OrderedCounter</span><span class="p">({</span><span class="s1">'a'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>OrderedCounter(OrderedDict([('a', 1), ('b', 2)]))</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Method resolution order:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">OrderedCounter</span><span class="o">.</span><span class="vm">__mro__</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(__main__.OrderedCounter,
+ collections.Counter,
+ collections.OrderedDict,
+ dict,
+ object)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'/Users/fgu/tmp/tab.csv'</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>step</th>
+      <th>counts</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>start-users</td>
+      <td>283.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>start-txs</td>
+      <td>662580.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>start-value</td>
+      <td>122286176.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>drop_noise-users</td>
+      <td>283.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>drop_noise-txs</td>
+      <td>662580.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[[</span><span class="s1">'step'</span><span class="p">,</span> <span class="s1">'metric'</span><span class="p">]]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">step</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'-'</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>step</th>
+      <th>counts</th>
+      <th>metric</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>start</td>
+      <td>283.0</td>
+      <td>users</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>start</td>
+      <td>662580.0</td>
+      <td>txs</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>start</td>
+      <td>122286176.0</td>
+      <td>value</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>drop_noise</td>
+      <td>283.0</td>
+      <td>users</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>drop_noise</td>
+      <td>662580.0</td>
+      <td>txs</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>From here: <a href="https://stackoverflow.com/a/44988732/13666841">https://stackoverflow.com/a/44988732/13666841</a></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">'step'</span><span class="p">,</span> <span class="s1">'metric'</span><span class="p">],</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+      <span class="o">.</span><span class="n">counts</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+      <span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="s1">'metric'</span><span class="p">)</span>
+      <span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+      <span class="o">.</span><span class="n">reset_index</span><span class="p">())</span>
+<span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>step</th>
+      <th>users</th>
+      <th>txs</th>
+      <th>value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>start</td>
+      <td>283.0</td>
+      <td>662580.0</td>
+      <td>1.222862e+08</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>drop_noise</td>
+      <td>283.0</td>
+      <td>662580.0</td>
+      <td>1.222862e+08</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>min_number_of_months</td>
+      <td>239.0</td>
+      <td>653239.0</td>
+      <td>1.207088e+08</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>current_account</td>
+      <td>227.0</td>
+      <td>636792.0</td>
+      <td>1.185223e+08</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>min_spend</td>
+      <td>151.0</td>
+      <td>439269.0</td>
+      <td>7.942254e+07</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>min_number_transactions</td>
+      <td>129.0</td>
+      <td>384487.0</td>
+      <td>6.776514e+07</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>diverse_spending</td>
+      <td>129.0</td>
+      <td>384487.0</td>
+      <td>6.776514e+07</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>end</td>
+      <td>129.0</td>
+      <td>384487.0</td>
+      <td>6.776514e+07</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">'step'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'step'</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">desc</span><span class="p">)</span>
+<span class="n">ints</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'users'</span><span class="p">,</span> <span class="s1">'acc'</span><span class="p">,</span> <span class="s1">'txs'</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="n">ints</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">ints</span><span class="p">]</span><span class="o">.</span><span class="n">applymap</span><span class="p">(</span><span class="s1">'</span><span class="si">{:,.0f}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">)</span>
+<span class="n">floats</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'value'</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="n">floats</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">floats</span><span class="p">]</span><span class="o">.</span><span class="n">applymap</span><span class="p">(</span><span class="s1">'</span><span class="si">{:,.1f}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-68-11ca7dd323f3&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg"># Formatting</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> 
+<span class="ansi-green-fg">----&gt; 3</span><span class="ansi-red-fg"> </span>df<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">'step'</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> df<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">'step'</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>map<span class="ansi-blue-fg">(</span>desc<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> ints <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">'users'</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">'acc'</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">'txs'</span><span class="ansi-blue-fg">]</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> df<span class="ansi-blue-fg">[</span>ints<span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> df<span class="ansi-blue-fg">[</span>ints<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>applymap<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">'{:,.0f}'</span><span class="ansi-blue-fg">.</span>format<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NameError</span>: name 'desc' is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="s1">'number'</span><span class="p">)</span><span class="o">.</span><span class="n">applymap</span><span class="p">(</span><span class="s1">'</span><span class="si">{:,.0f}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">)</span>
+<span class="n">k</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>users</th>
+      <th>txs</th>
+      <th>value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>283</td>
+      <td>662,580</td>
+      <td>122,286,176</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>283</td>
+      <td>662,580</td>
+      <td>122,286,173</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>239</td>
+      <td>653,239</td>
+      <td>120,708,756</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>227</td>
+      <td>636,792</td>
+      <td>118,522,330</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>151</td>
+      <td>439,269</td>
+      <td>79,422,540</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>129</td>
+      <td>384,487</td>
+      <td>67,765,143</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>129</td>
+      <td>384,487</td>
+      <td>67,765,143</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>129</td>
+      <td>384,487</td>
+      <td>67,765,143</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[[</span><span class="s1">'value'</span><span class="p">]]</span><span class="o">.</span><span class="n">applymap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.222862e+09</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.222862e+09</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.207088e+09</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.185223e+09</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>7.942254e+08</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6.776514e+08</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>6.776514e+08</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>6.776514e+08</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">to_latex</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="s1">'number'</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span>
+<span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>step</th>
+      <th>users</th>
+      <th>txs</th>
+      <th>value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>start</td>
+      <td>283</td>
+      <td>662,580</td>
+      <td>122,286,176</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>drop_noise</td>
+      <td>283</td>
+      <td>662,580</td>
+      <td>122,286,173</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>min_number_of_months</td>
+      <td>239</td>
+      <td>653,239</td>
+      <td>120,708,755</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>current_account</td>
+      <td>227</td>
+      <td>636,792</td>
+      <td>118,522,329</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>min_spend</td>
+      <td>151</td>
+      <td>439,269</td>
+      <td>79,422,540</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>min_number_transactions</td>
+      <td>129</td>
+      <td>384,487</td>
+      <td>67,765,143</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>diverse_spending</td>
+      <td>129</td>
+      <td>384,487</td>
+      <td>67,765,143</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>end</td>
+      <td>129</td>
+      <td>384,487</td>
+      <td>67,765,143</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fmt</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'users'</span><span class="p">:</span> <span class="s1">'</span><span class="si">{:.0f}</span><span class="s1">'</span><span class="p">,</span>
+    <span class="s1">'txs'</span><span class="p">:</span> <span class="s1">'</span><span class="si">{:.0f}</span><span class="s1">'</span><span class="p">,</span>
+    <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'</span><span class="si">{:,.0f}</span><span class="s1">'</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fmt</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<style type="text/css">
+</style>
+<table id="T_fd89fbf0_fd65_11ea_afd2_acde48001122">
+<thead>    <tr>        <th class="blank level0"></th>        <th class="col_heading level0 col0">step</th>        <th class="col_heading level0 col1">users</th>        <th class="col_heading level0 col2">txs</th>        <th class="col_heading level0 col3">value</th>    </tr>
+</thead>
+<tbody>
+                <tr>
+                        <th id="T_fd89fbf0_fd65_11ea_afd2_acde48001122level0_row0" class="row_heading level0 row0">0</th>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row0_col0" class="data row0 col0">start</td>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row0_col1" class="data row0 col1">283</td>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row0_col2" class="data row0 col2">662580</td>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row0_col3" class="data row0 col3">122,286,176</td>
+            </tr>
+            <tr>
+                        <th id="T_fd89fbf0_fd65_11ea_afd2_acde48001122level0_row1" class="row_heading level0 row1">1</th>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row1_col0" class="data row1 col0">drop_noise</td>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row1_col1" class="data row1 col1">283</td>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row1_col2" class="data row1 col2">662580</td>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row1_col3" class="data row1 col3">122,286,173</td>
+            </tr>
+            <tr>
+                        <th id="T_fd89fbf0_fd65_11ea_afd2_acde48001122level0_row2" class="row_heading level0 row2">2</th>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row2_col0" class="data row2 col0">min_number_of_months</td>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row2_col1" class="data row2 col1">239</td>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row2_col2" class="data row2 col2">653239</td>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row2_col3" class="data row2 col3">120,708,756</td>
+            </tr>
+            <tr>
+                        <th id="T_fd89fbf0_fd65_11ea_afd2_acde48001122level0_row3" class="row_heading level0 row3">3</th>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row3_col0" class="data row3 col0">current_account</td>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row3_col1" class="data row3 col1">227</td>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row3_col2" class="data row3 col2">636792</td>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row3_col3" class="data row3 col3">118,522,330</td>
+            </tr>
+            <tr>
+                        <th id="T_fd89fbf0_fd65_11ea_afd2_acde48001122level0_row4" class="row_heading level0 row4">4</th>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row4_col0" class="data row4 col0">min_spend</td>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row4_col1" class="data row4 col1">151</td>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row4_col2" class="data row4 col2">439269</td>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row4_col3" class="data row4 col3">79,422,540</td>
+            </tr>
+            <tr>
+                        <th id="T_fd89fbf0_fd65_11ea_afd2_acde48001122level0_row5" class="row_heading level0 row5">5</th>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row5_col0" class="data row5 col0">min_number_transactions</td>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row5_col1" class="data row5 col1">129</td>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row5_col2" class="data row5 col2">384487</td>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row5_col3" class="data row5 col3">67,765,143</td>
+            </tr>
+            <tr>
+                        <th id="T_fd89fbf0_fd65_11ea_afd2_acde48001122level0_row6" class="row_heading level0 row6">6</th>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row6_col0" class="data row6 col0">diverse_spending</td>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row6_col1" class="data row6 col1">129</td>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row6_col2" class="data row6 col2">384487</td>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row6_col3" class="data row6 col3">67,765,143</td>
+            </tr>
+            <tr>
+                        <th id="T_fd89fbf0_fd65_11ea_afd2_acde48001122level0_row7" class="row_heading level0 row7">7</th>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row7_col0" class="data row7 col0">end</td>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row7_col1" class="data row7 col1">129</td>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row7_col2" class="data row7 col2">384487</td>
+                        <td id="T_fd89fbf0_fd65_11ea_afd2_acde48001122row7_col3" class="data row7 col3">67,765,143</td>
+            </tr>
+    </tbody>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="s1">'number'</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'str'</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-38-193c9cdb9caa&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>df <span class="ansi-blue-fg">=</span> df<span class="ansi-blue-fg">.</span>select_dtypes<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">'number'</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>astype<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">'str'</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> df
+
+<span class="ansi-red-fg">AttributeError</span>: 'Styler' object has no attribute 'select_dtypes'</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 8 entries, 0 to 7
+Data columns (total 3 columns):
+ #   Column  Non-Null Count  Dtype 
+---  ------  --------------  ----- 
+ 0   users   8 non-null      object
+ 1   txs     8 non-null      object
+ 2   value   8 non-null      object
+dtypes: object(3)
+memory usage: 320.0+ bytes
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">to_csv</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">'step'</span><span class="p">,</span> <span class="s1">'metric'</span><span class="p">])</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>counts</th>
+    </tr>
+    <tr>
+      <th>step</th>
+      <th>metric</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="3" valign="top">start</th>
+      <th>users</th>
+      <td>283.0</td>
+    </tr>
+    <tr>
+      <th>txs</th>
+      <td>662580.0</td>
+    </tr>
+    <tr>
+      <th>value</th>
+      <td>122286176.0</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">drop_noise</th>
+      <th>users</th>
+      <td>283.0</td>
+    </tr>
+    <tr>
+      <th>txs</th>
+      <td>662580.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="3" halign="left">counts</th>
+    </tr>
+    <tr>
+      <th>metric</th>
+      <th>txs</th>
+      <th>users</th>
+      <th>value</th>
+    </tr>
+    <tr>
+      <th>step</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>current_account</th>
+      <td>636792.0</td>
+      <td>227.0</td>
+      <td>1.185223e+08</td>
+    </tr>
+    <tr>
+      <th>diverse_spending</th>
+      <td>384487.0</td>
+      <td>129.0</td>
+      <td>6.776514e+07</td>
+    </tr>
+    <tr>
+      <th>drop_noise</th>
+      <td>662580.0</td>
+      <td>283.0</td>
+      <td>1.222862e+08</td>
+    </tr>
+    <tr>
+      <th>end</th>
+      <td>384487.0</td>
+      <td>129.0</td>
+      <td>6.776514e+07</td>
+    </tr>
+    <tr>
+      <th>min_number_of_months</th>
+      <td>653239.0</td>
+      <td>239.0</td>
+      <td>1.207088e+08</td>
+    </tr>
+    <tr>
+      <th>min_number_transactions</th>
+      <td>384487.0</td>
+      <td>129.0</td>
+      <td>6.776514e+07</td>
+    </tr>
+    <tr>
+      <th>min_spend</th>
+      <td>439269.0</td>
+      <td>151.0</td>
+      <td>7.942254e+07</td>
+    </tr>
+    <tr>
+      <th>start</th>
+      <td>662580.0</td>
+      <td>283.0</td>
+      <td>1.222862e+08</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">droplevel</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="3" halign="left">counts</th>
+    </tr>
+    <tr>
+      <th>metric</th>
+      <th>txs</th>
+      <th>users</th>
+      <th>value</th>
+    </tr>
+    <tr>
+      <th>step</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>current_account</th>
+      <td>636792.0</td>
+      <td>227.0</td>
+      <td>1.185223e+08</td>
+    </tr>
+    <tr>
+      <th>diverse_spending</th>
+      <td>384487.0</td>
+      <td>129.0</td>
+      <td>6.776514e+07</td>
+    </tr>
+    <tr>
+      <th>drop_noise</th>
+      <td>662580.0</td>
+      <td>283.0</td>
+      <td>1.222862e+08</td>
+    </tr>
+    <tr>
+      <th>end</th>
+      <td>384487.0</td>
+      <td>129.0</td>
+      <td>6.776514e+07</td>
+    </tr>
+    <tr>
+      <th>min_number_of_months</th>
+      <td>653239.0</td>
+      <td>239.0</td>
+      <td>1.207088e+08</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dd</span><span class="o">.</span><span class="n">drop</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-19-b48532f5290c&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>dd<span class="ansi-blue-fg">.</span>drop
+
+<span class="ansi-red-fg">AttributeError</span>: 'NoneType' object has no attribute 'drop'</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">OrderedCounter</span><span class="p">()</span>
+<span class="n">a</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">s_a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">s_b</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">k_a</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">k_b</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">a</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">s_a</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">s_b</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">k_a</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">k_b</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">a</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>OrderedCounter(OrderedDict([('s_a', 6), ('s_b', 8), ('k_a', 10), ('k_b', 12)]))</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Turn it into a dataframe.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">'step'</span><span class="p">,</span> <span class="s1">'count'</span><span class="p">])</span>
+<span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>step</th>
+      <th>count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>s_a</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>s_b</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>k_a</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>k_b</td>
+      <td>12</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Split the step column</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[[</span><span class="s1">'step'</span><span class="p">,</span> <span class="s1">'metric'</span><span class="p">]]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">step</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'_'</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>step</th>
+      <th>count</th>
+      <th>metric</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>s</td>
+      <td>6</td>
+      <td>a</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>s</td>
+      <td>8</td>
+      <td>b</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>k</td>
+      <td>10</td>
+      <td>a</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>k</td>
+      <td>12</td>
+      <td>b</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Unstack</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">'step'</span><span class="p">,</span> <span class="s1">'metric'</span><span class="p">])</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="2" halign="left">count</th>
+    </tr>
+    <tr>
+      <th>metric</th>
+      <th>a</th>
+      <th>b</th>
+    </tr>
+    <tr>
+      <th>step</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>k</th>
+      <td>10</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>s</th>
+      <td>6</td>
+      <td>8</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Flatten</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">droplevel</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>metric</th>
+      <th>a</th>
+      <th>b</th>
+    </tr>
+    <tr>
+      <th>step</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>k</th>
+      <td>10</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>s</th>
+      <td>6</td>
+      <td>8</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+    </tr>
+    <tr>
+      <th>step</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>k</th>
+      <td>10</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>s</th>
+      <td>6</td>
+      <td>8</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>step</th>
+      <th>a</th>
+      <th>b</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>k</td>
+      <td>10</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>s</td>
+      <td>6</td>
+      <td>8</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Main-sources">
+<a class="anchor" href="#Main-sources" aria-hidden="true"><span class="octicon octicon-link"></span></a>Main sources<a class="anchor-link" href="#Main-sources"> </a>
+</h2>
+<ul>
+<li><a href="https://www.oreilly.com/library/view/fluent-python/9781491946237/">Fluent Python</a></li>
+<li><a href="https://www.oreilly.com/library/view/python-cookbook-3rd/9781449357337/">Python Cookbook</a></li>
+<li><a href="https://www.oreilly.com/library/view/learning-python-5th/9781449355722/">Learning Python</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="fabiangunzinger/blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/blog/python/2020/11/14/documenting-sample-selection-two.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/fastai" title="fastai"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/fastdotai" title="fastdotai"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

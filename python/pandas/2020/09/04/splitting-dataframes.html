@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Splitting dataframes based on column values | fastpages</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Splitting dataframes based on column values" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<meta property="og:description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<link rel="canonical" href="https://fabiangunzinger.github.io/blog/python/pandas/2020/09/04/splitting-dataframes.html" />
+<meta property="og:url" content="https://fabiangunzinger.github.io/blog/python/pandas/2020/09/04/splitting-dataframes.html" />
+<meta property="og:site_name" content="fastpages" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-04T00:00:00-05:00" />
+<script type="application/ld+json">
+{"url":"https://fabiangunzinger.github.io/blog/python/pandas/2020/09/04/splitting-dataframes.html","@type":"BlogPosting","headline":"Splitting dataframes based on column values","dateModified":"2020-09-04T00:00:00-05:00","datePublished":"2020-09-04T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://fabiangunzinger.github.io/blog/python/pandas/2020/09/04/splitting-dataframes.html"},"description":"An easy to use blogging platform with support for Jupyter Notebooks.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://fabiangunzinger.github.io/blog/feed.xml" title="fastpages" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">fastpages</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Splitting dataframes based on column values</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-09-04T00:00:00-05:00" itemprop="datePublished">
+        Sep 4, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      5 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/blog/categories/#python">python</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#pandas">pandas</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/fabiangunzinger/blog/tree/master/_notebooks/2020-09-04-splitting-dataframes.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/blog/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/fabiangunzinger/blog/master?filepath=_notebooks%2F2020-09-04-splitting-dataframes.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/blog/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/fabiangunzinger/blog/blob/master/_notebooks/2020-09-04-splitting-dataframes.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/blog/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#The-problem">The problem </a></li>
+<li class="toc-entry toc-h2"><a href="#Understanding-the-cookbook-solution">Understanding the cookbook solution </a></li>
+<li class="toc-entry toc-h2"><a href="#Simplifying-the-code">Simplifying the code </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-09-04-splitting-dataframes.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="The-problem">
+<a class="anchor" href="#The-problem" aria-hidden="true"><span class="octicon octicon-link"></span></a>The problem<a class="anchor-link" href="#The-problem"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">'case'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'A'</span><span class="p">,</span> <span class="s1">'A'</span><span class="p">,</span> <span class="s1">'A'</span><span class="p">,</span> <span class="s1">'B'</span><span class="p">,</span> <span class="s1">'A'</span><span class="p">,</span> <span class="s1">'A'</span><span class="p">,</span> <span class="s1">'B'</span><span class="p">,</span> <span class="s1">'A'</span><span class="p">,</span><span class="s1">'A'</span><span class="p">],</span>
+                        <span class="s1">'data'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">9</span><span class="p">)})</span>
+<span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>case</th>
+      <th>data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>A</td>
+      <td>0.684978</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>A</td>
+      <td>0.000269</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>A</td>
+      <td>-1.040497</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>B</td>
+      <td>0.451358</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>A</td>
+      <td>0.448596</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>A</td>
+      <td>0.222168</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>B</td>
+      <td>1.031011</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>A</td>
+      <td>-2.208787</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>A</td>
+      <td>-0.440758</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You want to split the dataframe every time case equals B and store the resulting dataframes in a list.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Understanding-the-cookbook-solution">
+<a class="anchor" href="#Understanding-the-cookbook-solution" aria-hidden="true"><span class="octicon octicon-link"></span></a>Understanding the cookbook solution<a class="anchor-link" href="#Understanding-the-cookbook-solution"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>From the <a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/cookbook.html#id2">cookbook</a>:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dfs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">((</span><span class="mi">1</span> <span class="o">*</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'case'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'B'</span><span class="p">))</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">min_periods</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">median</span><span class="p">())))[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">dfs</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(  case      data
+ 0    A  0.684978
+ 1    A  0.000269
+ 2    A -1.040497
+ 3    B  0.451358,
+   case      data
+ 4    A  0.448596
+ 5    A  0.222168
+ 6    B  1.031011,
+   case      data
+ 7    A -2.208787
+ 8    A -0.440758)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This works. But because it's so heavily nested and uses methods like <code>rolling()</code> and <code>median()</code> not really designed for that purpose, the code is impossible to interpret at a glance.</p>
+<p>Let's break this down into separate pieces.</p>
+<p>First, the code creates a grouping variable that changes its value each time <em>case</em> equaled <em>B</em> on the previous row. The code below shows how it does this.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">case</span> <span class="o">==</span> <span class="s1">'B'</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">*</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">case</span> <span class="o">==</span> <span class="s1">'B'</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">*</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">case</span> <span class="o">==</span> <span class="s1">'B'</span><span class="p">)</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+<span class="n">d</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">*</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">case</span> <span class="o">==</span> <span class="s1">'B'</span><span class="p">)</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">min_periods</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(0    False
+ 1    False
+ 2    False
+ 3     True
+ 4    False
+ 5    False
+ 6     True
+ 7    False
+ 8    False
+ Name: case, dtype: bool,
+ 0    0
+ 1    0
+ 2    0
+ 3    1
+ 4    0
+ 5    0
+ 6    1
+ 7    0
+ 8    0
+ Name: case, dtype: int64,
+ 0    0
+ 1    0
+ 2    0
+ 3    1
+ 4    1
+ 5    1
+ 6    2
+ 7    2
+ 8    2
+ Name: case, dtype: int64,
+ 0    0.0
+ 1    0.0
+ 2    0.0
+ 3    0.0
+ 4    1.0
+ 5    1.0
+ 6    1.0
+ 7    2.0
+ 8    2.0
+ Name: case, dtype: float64)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Series <em>d</em> above is the argument passed to <code>groupby()</code> in the solution. This works, but is a very roundabout way to create such a series. I'll use a different approach below.</p>
+<p>Next, the code uses <code>list()</code>, <code>zip()</code>, and argument expansion to pack the data for each group into a single list of dataframes. Let's look at these one by one.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>First, a quick review of how argument expansion works:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">printer</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>    
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'Printing args:'</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'Printing kwargs:'</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">kwarg</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">kwarg</span><span class="p">)</span>
+    
+<span class="n">mylist</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'a'</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">'k'</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">mydict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'first'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'second'</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+
+<span class="n">printer</span><span class="p">(</span><span class="o">*</span><span class="n">mylist</span><span class="p">,</span> <span class="o">**</span><span class="n">mydict</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Printing args:
+a
+2
+k
+3
+Printing kwargs:
+('first', 1)
+('second', 2)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now, <code>groupby()</code> stores the grouped data as (label, dataframe) tuples, like so:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">groups</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'case'</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">g</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>('A',   case      data
+0    A  0.684978
+1    A  0.000269
+2    A -1.040497
+4    A  0.448596
+5    A  0.222168
+7    A -2.208787
+8    A -0.440758)
+&lt;class 'tuple'&gt;
+('B',   case      data
+3    B  0.451358
+6    B  1.031011)
+&lt;class 'tuple'&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>So <code>zip()</code> is used to separate the group label from the data, and <code>list()</code> consumes the iterator created by zip and displays its content.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">groups</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[('A', 'B'),
+ (  case      data
+  0    A  0.684978
+  1    A  0.000269
+  2    A -1.040497
+  4    A  0.448596
+  5    A  0.222168
+  7    A -2.208787
+  8    A -0.440758,
+    case      data
+  3    B  0.451358
+  6    B  1.031011)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Because we only want the data, we select the last element from the list:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">groups</span><span class="p">))[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(  case      data
+ 0    A  0.684978
+ 1    A  0.000269
+ 2    A -1.040497
+ 4    A  0.448596
+ 5    A  0.222168
+ 7    A -2.208787
+ 8    A -0.440758,
+   case      data
+ 3    B  0.451358
+ 6    B  1.031011)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we're basically done. What remains is to use the <code>list(zip(*groups))</code> procedure on the more complicated grouping variable, to obtain the original result.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">*</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">case</span> <span class="o">==</span> <span class="s1">'B'</span><span class="p">)</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">min_periods</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+<span class="n">groups</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">groups</span><span class="p">))[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(  case      data
+ 0    A  0.684978
+ 1    A  0.000269
+ 2    A -1.040497
+ 3    B  0.451358,
+   case      data
+ 4    A  0.448596
+ 5    A  0.222168
+ 6    B  1.031011,
+   case      data
+ 7    A -2.208787
+ 8    A -0.440758)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Simplifying-the-code">
+<a class="anchor" href="#Simplifying-the-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Simplifying the code<a class="anchor-link" href="#Simplifying-the-code"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I think this can be made much more readable like so:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>case</th>
+      <th>data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>A</td>
+      <td>0.684978</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>A</td>
+      <td>0.000269</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>A</td>
+      <td>-1.040497</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>B</td>
+      <td>0.451358</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>A</td>
+      <td>0.448596</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>A</td>
+      <td>0.222168</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>B</td>
+      <td>1.031011</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>A</td>
+      <td>-2.208787</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>A</td>
+      <td>-0.440758</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grouper</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">case</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="s1">'B'</span><span class="p">)</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span><span class="o">.</span><span class="n">shift</span><span class="p">()</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">grouper</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0    0.0
+1    0.0
+2    0.0
+3    0.0
+4    1.0
+5    1.0
+6    1.0
+7    2.0
+8    2.0
+Name: case, dtype: float64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dfs</span> <span class="o">=</span> <span class="p">[</span><span class="n">df</span> <span class="k">for</span> <span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">grouper</span><span class="p">)]</span>
+<span class="n">dfs</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[  case      data
+ 0    A  0.684978
+ 1    A  0.000269
+ 2    A -1.040497
+ 3    B  0.451358,
+   case      data
+ 4    A  0.448596
+ 5    A  0.222168
+ 6    B  1.031011,
+   case      data
+ 7    A -2.208787
+ 8    A -0.440758]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In case the logic of this isn't immediately obvious, the below makes clear what's going on.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dd</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">'case'</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>   <span class="c1"># Use case as index for clarity</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">case</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="s1">'B'</span><span class="p">)</span>                     <span class="c1"># Boolean logic</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>                          <span class="c1"># Create groups</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">shift</span><span class="p">()</span>                           <span class="c1"># Shift so B included in previous group</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>                         <span class="c1"># Replace 0th element emptied by shift</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(case
+ A    False
+ A    False
+ A    False
+ B     True
+ A    False
+ A    False
+ B     True
+ A    False
+ A    False
+ Name: case, dtype: bool,
+ case
+ A    0
+ A    0
+ A    0
+ B    1
+ A    1
+ A    1
+ B    2
+ A    2
+ A    2
+ Name: case, dtype: int64,
+ case
+ A    NaN
+ A    0.0
+ A    0.0
+ B    0.0
+ A    1.0
+ A    1.0
+ B    1.0
+ A    2.0
+ A    2.0
+ Name: case, dtype: float64,
+ case
+ A    0.0
+ A    0.0
+ A    0.0
+ B    0.0
+ A    1.0
+ A    1.0
+ B    1.0
+ A    2.0
+ A    2.0
+ Name: case, dtype: float64)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="fabiangunzinger/blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/blog/python/pandas/2020/09/04/splitting-dataframes.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/fastai" title="fastai"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/fastdotai" title="fastdotai"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
