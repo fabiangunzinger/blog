@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      2 min read
+      3 min read
     
 </span></p>
 
@@ -164,14 +164,83 @@ window.onload = wrap_img;
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered">
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
 <div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>pre-processing pipeline</p>
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="s1">'/Users/fgu/tmp/data_777.csv'</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">'|'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="nb">next</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+    
+    <span class="n">pattern</span> <span class="o">=</span> <span class="s1">'"\d+"\|"(\d+)"'</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">match</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">groups</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>"688293"|"777"|"2011-07-20"|"1969"|"20K to 30K"|"WA1 4"|"E01012553"|"E02002603"|"M"|"2012-01-25"|"262916"|"NatWest Bank"|"Current"|"364.22"|"9572 24jan12 , tcs bowdon , bowdon gb - pos"|"Debit"|"25.03"|"No Tag"|"No Tag"|"No Tag"|"No Merchant"|"Unknown Merchant"|"2011-07-20"|"2020-07-21 20:32:00"|"2014-07-18"|"2017-10-24"|"U"
+
+&lt;re.Match object; span=(0, 14), match='"688293"|"777"'&gt;
+('777',)
+</pre>
+</div>
+</div>
 
 </div>
 </div>
+
 </div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">Match</span><span class="o">.</span><span class="n">group</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
     
     
 <div class="cell border-box-sizing code_cell rendered">
