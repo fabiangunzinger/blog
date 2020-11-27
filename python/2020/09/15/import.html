@@ -132,7 +132,8 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
-<li class="toc-entry toc-h2"><a href="#Relative-imports">Relative imports </a></li>
+<li class="toc-entry toc-h2"><a href="#Import-basics">Import basics </a></li>
+<li class="toc-entry toc-h2"><a href="#Running-files-as-scripts-or-modules">Running files as scripts or modules </a></li>
 <li class="toc-entry toc-h2"><a href="#Main-sources">Main sources </a></li>
 </ul><!--
 #################################################
@@ -146,28 +147,30 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Import-basics">
+<a class="anchor" href="#Import-basics" aria-hidden="true"><span class="octicon octicon-link"></span></a>Import basics<a class="anchor-link" href="#Import-basics"> </a>
+</h2>
 <p>From reading Chapter 8 in <a href="https://www.oreilly.com/library/view/python-essential-reference/9780768687040/">Python Essential Reference</a>:</p>
 <ul>
 <li>
-<p><code>Import module</code> for the first time does three things:</p>
+<p>Calling <code>import module</code> for the first time does three things:</p>
 <ol>
 <li>
 <p>Create a new namespace that acts as the global namespace for all objects defined in module.</p>
 </li>
 <li>
-<p>Execute module.</p>
+<p>Execute the entire module.</p>
 </li>
 <li>
-<p>Create a name -- identical to the module name -- within the caller that references to the module and can be used like module.method.</p>
-<p>After this import, all the objects in module will be available to the caller namespace though the module's namespace and can be accessed as <code>module.foo</code>.</p>
+<p>Create a name -- identical to the module name -- within the caller namespace that references to the module. This can be used to access module objects in the caller namespace as <code>module.object</code>.</p>
 </li>
 </ol>
 </li>
 <li>
-<p><code>From module import symbol</code> imports <code>symbol</code> into the current namespace. However, the global namespace for symbol (if it's a function) always remains the namespace in which it was defined, not the current namespace.</p>
+<p>Calling <code>from module import symbol</code> imports <code>symbol</code> into the current namespace. However, the global namespace for symbol (if it's a function) always remains the namespace in which it was defined, not the caller's namespace.</p>
 </li>
 <li>
-<p>One reason <code>from module import *</code> is generally discouraged is that it directly imports all the module's objects into the caller's namespace, which is often said to "clutter" the latter. Especially when importing large modules this makes sense, as it's very nice to have objects defined in imported modules defined in separate namespaces and accessed via <code>module.object</code>. Anohter reason is that it makese code harder to read and debug because it's not obvious where <code>object</code> comes from if it's called without the preceeding namespace identifier.</p>
+<p>One reason <code>from module import *</code> is generally discouraged is that it directly imports all the module's objects into the caller's namespace, which is often said to cluter it up. Especially when importing large modules this makes sense, as it's much cleaner to keep objects defined in imported modules in eponymous namespaces and accessing them via <code>module.object</code>, which immediately makes clear where <code>object</code> comes from and can help greatly with debugging.</p>
 </li>
 </ul>
 
@@ -177,12 +180,11 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Relative-imports">
-<a class="anchor" href="#Relative-imports" aria-hidden="true"><span class="octicon octicon-link"></span></a>Relative imports<a class="anchor-link" href="#Relative-imports"> </a>
+<h2 id="Running-files-as-scripts-or-modules">
+<a class="anchor" href="#Running-files-as-scripts-or-modules" aria-hidden="true"><span class="octicon octicon-link"></span></a>Running files as scripts or modules<a class="anchor-link" href="#Running-files-as-scripts-or-modules"> </a>
 </h2>
 <ul>
-<li>For relative imports to work as described, for instance, <a href="https://docs.python.org/2/tutorial/modules.html#packages">here</a> and in Chapter 8 in Python Essential References and in recipees 10.1 and 10.3 in the Python Cookbook, the file into which you import has itself to be a module rather than a top-level script. If it's the latter, it's name will be <strong>main</strong> and it won't be considered part of a package, regardless of where on the file system it is saved. Generally, for a file to be considered part of a package, it needs to nave a dot (.) in its name, as in package.submodule.modulename. From <a href="https://stackoverflow.com/questions/14132789/relative-imports-in-python-2-7/14132912#14132912">here</a>
-</li>
+<li>For relative imports to work as described, for instance, <a href="https://docs.python.org/2/tutorial/modules.html#packages">here</a> and in Chapter 8 in Python Essential References and in recipees 10.1 and 10.3 in the Python Cookbook, the file into which you import has itself to be a module rather than a top-level script. If it's the latter, it's name will be <strong>main</strong> and it won't be considered part of a package, regardless of where on the file system it is saved. Generally, for a file to be considered part of a package, it needs to nave a dot (.) in its name, as in package.submodule.modulename. From <a href="https://stackoverflow.com/questions/14132789/relative-imports-in-python-2-7/14132912#14132912">this</a> brilliant SO answer.</li>
 </ul>
 
 </div>
@@ -202,6 +204,8 @@ window.onload = wrap_img;
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
 <li><a href="https://docs.python-guide.org/writing/structure/">The Hitchhiker's Guide to Python</a></li>
+<li><a href="https://www.oreilly.com/library/view/fluent-python/9781491946237/">Fluent Python</a></li>
+<li><a href="https://www.oreilly.com/library/view/python-cookbook-3rd/9781449357337/">Python Cookbook</a></li>
 </ul>
 
 </div>
