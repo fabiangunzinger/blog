@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      2 min read
+      3 min read
     
 </span></p>
 
@@ -147,7 +147,7 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>From chapter 8 in <a href="https://www.oreilly.com/library/view/fluent-python/9781491946237/">Fluent Python</a>.</p>
+<p><em>Notes based on chapter 8 in <a href="https://www.oreilly.com/library/view/fluent-python/9781491946237/">Fluent Python</a>.</em></p>
 
 </div>
 </div>
@@ -155,10 +155,10 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Functions that take mutable objects as arguments require caution, because function arguments are aliases for the passed arguments. This can cause two types of unintended behaviour:</p>
+<p>Functions that take mutable objects as arguments require caution, because function arguments are aliases for the passed arguments. This can cause unintended behaviour in two types of situations:</p>
 <ul>
-<li>when setting a mutable object as defaults</li>
-<li>when aliasing a mutable object passed to the constructor.</li>
+<li>When setting a mutable object as default</li>
+<li>When aliasing a mutable object passed to the constructor</li>
 </ul>
 
 </div>
@@ -231,7 +231,33 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This happens because the default list <code>[]</code> is evaluated when the function is defined, which means that we create a single empty list that is then aliased by all instances of bus to which we don't pass passenger list, buses 2 and 3 above. Because it is the same list, changes made to it either from bus2 or bus3 change the list of the other bus, too, because -- again -- it is the same list. (It is an example of why it matters of whether we think of variables/aliases as boxes or labels; the former cannot explain such behaviour, the latter can.)</p>
+<p>Between bus 1 and 2, all works as intended, since we passed our own list when creating bus 1. Then things get a bit weird, though: how did Heather get into bus 3? When we define the <code>HauntedBus</code> class, we create a single empty list that is kept in the background and will be used whenever we instantiate a new bus without a custom passenger list. Importantly, all such buses will operate on the same list. We can see this by checking the object ids of the three buses' passenger lists:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">bus1</span><span class="o">.</span><span class="n">passengers</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">bus2</span><span class="o">.</span><span class="n">passengers</span>
+<span class="k">assert</span> <span class="n">bus2</span><span class="o">.</span><span class="n">passengers</span> <span class="ow">is</span> <span class="n">bus3</span><span class="o">.</span><span class="n">passengers</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This shows that while the passenger list of bus 1 and 2 are not the same object, the lists of bus 2 and 3 are. Once we know that, the above behaviour makes sense: all passenger list operations on buses without a custom list operate on the same list. Anohter way of seeing this by inspecting the default dict of <code>HauntedBus</code> after our operations abve.</p>
 
 </div>
 </div>
@@ -314,7 +340,15 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>What to do instead? The solution is to create a new empty list each time no list is provided.</p>
+<p>This behaviour is an example of why it matters whether we think of variables as boxes or labels. If we think that variables are boxes, then the above bevaviour doesn't make sense, since each passenger list would be its own box with its own content. But when we think of variables as labels -- the correct way to think about them in Python -- then the behaviour makes complete sense: each time we instantiate a bus without a custom passenger list, we create a new label -- of the form <code>name-of-bus.passengers</code> -- for the empty list we created when we loaded or created <code>HauntedBus</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>What to do to avoid the unwanted behaviour? The solution is to create a new empty list each time no list is provided.</p>
 
 </div>
 </div>
@@ -484,7 +518,7 @@ window.onload = wrap_img;
 <p><strong>To summarise:</strong> unless there is a good reason for an exception, for functions that take mutable objects as arguments do the following:</p>
 <ol>
 <li>
-<p>Create a new empty list each time a class is instantiated rather than at function definition (usually when the class is loaded) by using None as the default parameter.</p>
+<p>Create a new object each time a class is instantiated by using None as the default parameter, rather than creating the object at the time of the function definition.</p>
 </li>
 <li>
 <p>Make a copy of the mutable object for processing inside the function to leave the original object unchanged.</p>
