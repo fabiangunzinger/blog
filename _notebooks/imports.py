@@ -1,3 +1,5 @@
+import functools
+import operator
 import os
 import random
 import re
