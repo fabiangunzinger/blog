@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      2 min read
+      3 min read
     
 </span></p>
 
@@ -135,14 +135,17 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
-<li class="toc-entry toc-h2"><a href="#Numpy">Numpy </a>
+<li class="toc-entry toc-h2"><a href="#Understanding-ravel()">Understanding ravel() </a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#Questions">Questions </a></li>
-<li class="toc-entry toc-h3"><a href="#True-of-false?">True of false? </a></li>
-<li class="toc-entry toc-h3"><a href="#Summing-values">Summing values </a></li>
+<li class="toc-entry toc-h3"><a href="#Basics">Basics </a></li>
+<li class="toc-entry toc-h3"><a href="#ravel()-vs-flatten()-vs-reshape(-1)">ravel() vs flatten() vs reshape(-1) </a></li>
+<li class="toc-entry toc-h3"><a href="#ravel_multi_index()">ravel_multi_index() </a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h2"><a href="#Mixed-essentials">Mixed essentials </a>
+<li class="toc-entry toc-h2"><a href="#Questions">Questions </a></li>
+<li class="toc-entry toc-h2"><a href="#True-of-false?">True of false? </a></li>
+<li class="toc-entry toc-h2"><a href="#Summing-values">Summing values </a></li>
+<li class="toc-entry toc-h2"><a href="#Fluency-exercises">Fluency exercises </a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#Draw-and-plot-a-100-points-from-a-multivariate-normal-distribution-and-highlight-a-random-sample-of-20">Draw and plot a 100 points from a multivariate normal distribution and highlight a random sample of 20 </a></li>
 <li class="toc-entry toc-h3"><a href="#Manually-draw-a-histogram-of-1000-random-values-using-only-numpy-functions-and-plt.plot().">Manually draw a histogram of 1000 random values using only numpy functions and plt.plot(). </a></li>
@@ -184,22 +187,272 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Numpy">
-<a class="anchor" href="#Numpy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Numpy<a class="anchor-link" href="#Numpy"> </a>
+<h2 id="Understanding-ravel()">
+<a class="anchor" href="#Understanding-ravel()" aria-hidden="true"><span class="octicon octicon-link"></span></a>Understanding <code>ravel()</code><a class="anchor-link" href="#Understanding-ravel()"> </a>
 </h2>
-<h3 id="Questions">
-<a class="anchor" href="#Questions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Questions<a class="anchor-link" href="#Questions"> </a>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Basics">
+<a class="anchor" href="#Basics" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basics<a class="anchor-link" href="#Basics"> </a>
 </h3>
 <ul>
+<li>Ravel (meaning to untangle) flattens arrays.</li>
 <li>
-<p>What's the main difference between a Python list and a NumPy (or C) array? What is the main trade-off involved?</p>
-</li>
-<li>
-<p>Do array slices return a view or a copy? What can this be useful for?</p>
-</li>
-<li>
-<p>What are four methods to access and modify data in an array?</p>
-</li>
+<code>ravel()</code> returns a one dimensional array (i.e. a list) of the values of the input array in the specified <a href="https://en.wikipedia.org/wiki/Row-_and_column-major_order">order</a>.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+<span class="n">a</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([1, 2, 3, 4, 5, 6])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Different order types</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="s1">'C'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([1, 2, 3, 4, 5, 6])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="s1">'F'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([1, 4, 2, 5, 3, 6])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="s1">'A'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([1, 2, 3, 4, 5, 6])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="s1">'K'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([1, 2, 3, 4, 5, 6])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="o">==</span> <span class="n">a</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="ow">and</span> <span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="o">==</span> <span class="n">a</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="ravel()-vs-flatten()-vs-reshape(-1)">
+<a class="anchor" href="#ravel()-vs-flatten()-vs-reshape(-1)" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>ravel()</code> vs <code>flatten()</code> vs <code>reshape(-1)</code><a class="anchor-link" href="#ravel()-vs-flatten()-vs-reshape(-1)"> </a>
+</h3>
+<p><a href="https://stackoverflow.com/questions/28930465/what-is-the-difference-between-flatten-and-ravel-functions-in-numpy">https://stackoverflow.com/questions/28930465/what-is-the-difference-between-flatten-and-ravel-functions-in-numpy</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Then on to <a href="https://stackoverflow.com/questions/38143717/groupby-in-python-pandas-fast-way">https://stackoverflow.com/questions/38143717/groupby-in-python-pandas-fast-way</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="ravel_multi_index()">
+<a class="anchor" href="#ravel_multi_index()" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>ravel_multi_index()</code><a class="anchor-link" href="#ravel_multi_index()"> </a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Questions">
+<a class="anchor" href="#Questions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Questions<a class="anchor-link" href="#Questions"> </a>
+</h2>
+<ul>
+<li>What's the main difference between a Python list and a NumPy (or C) array? What is the main trade-off involved?</li>
+<li>Do array slices return a view or a copy? What can this be useful for?</li>
+<li>What are four methods to access and modify data in an array?</li>
 </ul>
 
 </div>
@@ -208,9 +461,9 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="True-of-false?">
+<h2 id="True-of-false?">
 <a class="anchor" href="#True-of-false?" aria-hidden="true"><span class="octicon octicon-link"></span></a>True of false?<a class="anchor-link" href="#True-of-false?"> </a>
-</h3>
+</h2>
 </div>
 </div>
 </div>
@@ -483,9 +736,10 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Summing-values">
+<h2 id="Summing-values">
 <a class="anchor" href="#Summing-values" aria-hidden="true"><span class="octicon octicon-link"></span></a>Summing values<a class="anchor-link" href="#Summing-values"> </a>
-</h3>
+</h2>
+<p>Lessons:</p>
 <ul>
 <li>NumPy methods perform best on NumPy arrays; builtins, on lists.</li>
 <li>
@@ -640,8 +894,8 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Mixed-essentials">
-<a class="anchor" href="#Mixed-essentials" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mixed essentials<a class="anchor-link" href="#Mixed-essentials"> </a>
+<h2 id="Fluency-exercises">
+<a class="anchor" href="#Fluency-exercises" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fluency exercises<a class="anchor-link" href="#Fluency-exercises"> </a>
 </h2>
 </div>
 </div>

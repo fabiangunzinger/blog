@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      4 min read
+      7 min read
     
 </span></p>
 
@@ -164,6 +164,584 @@ window.onload = wrap_img;
 </div>
     
 
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;/Users/fgu/tmp/data_777.parquet&#39;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>(115197, 21)
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>user_id</th>
+      <th>transaction_date</th>
+      <th>amount</th>
+      <th>transaction_description</th>
+      <th>merchant_name</th>
+      <th>tag</th>
+      <th>transaction_id</th>
+      <th>user_registration_date</th>
+      <th>account_last_refreshed</th>
+      <th>bank</th>
+      <th>latest_balance</th>
+      <th>year_of_birth</th>
+      <th>salary_range</th>
+      <th>gender</th>
+      <th>ym</th>
+      <th>credit_debit</th>
+      <th>account_id</th>
+      <th>postcode</th>
+      <th>account_created</th>
+      <th>account_type</th>
+      <th>merchant_business_line</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>6553</th>
+      <td>14777</td>
+      <td>2012-10-10</td>
+      <td>5.00</td>
+      <td>new southern railw cd 7715</td>
+      <td>southern rail</td>
+      <td>public transport</td>
+      <td>2994290</td>
+      <td>2013-01-07</td>
+      <td>2015-01-13 05:19:00</td>
+      <td>lloyds bank</td>
+      <td>729.59</td>
+      <td>1986.0</td>
+      <td>NaN</td>
+      <td>m</td>
+      <td>2012-10</td>
+      <td>debit</td>
+      <td>247061</td>
+      <td>sw11 5</td>
+      <td>2013-01-07</td>
+      <td>current</td>
+      <td>southern rail</td>
+    </tr>
+    <tr>
+      <th>6554</th>
+      <td>14777</td>
+      <td>2012-10-10</td>
+      <td>11.10</td>
+      <td>new southern railw cd 7715</td>
+      <td>southern rail</td>
+      <td>public transport</td>
+      <td>2994291</td>
+      <td>2013-01-07</td>
+      <td>2015-01-13 05:19:00</td>
+      <td>lloyds bank</td>
+      <td>729.59</td>
+      <td>1986.0</td>
+      <td>NaN</td>
+      <td>m</td>
+      <td>2012-10</td>
+      <td>debit</td>
+      <td>247061</td>
+      <td>sw11 5</td>
+      <td>2013-01-07</td>
+      <td>current</td>
+      <td>southern rail</td>
+    </tr>
+    <tr>
+      <th>6555</th>
+      <td>14777</td>
+      <td>2012-10-10</td>
+      <td>26.91</td>
+      <td>ticketscript*14064 cd 7715</td>
+      <td>no merchant</td>
+      <td>public transport</td>
+      <td>2994292</td>
+      <td>2013-01-07</td>
+      <td>2015-01-13 05:19:00</td>
+      <td>lloyds bank</td>
+      <td>729.59</td>
+      <td>1986.0</td>
+      <td>NaN</td>
+      <td>m</td>
+      <td>2012-10</td>
+      <td>debit</td>
+      <td>247061</td>
+      <td>sw11 5</td>
+      <td>2013-01-07</td>
+      <td>current</td>
+      <td>unknown merchant</td>
+    </tr>
+    <tr>
+      <th>6556</th>
+      <td>14777</td>
+      <td>2012-10-10</td>
+      <td>83.20</td>
+      <td>selfserve ticket cd 2412</td>
+      <td>south west trains</td>
+      <td>public transport</td>
+      <td>2994293</td>
+      <td>2013-01-07</td>
+      <td>2015-01-13 05:19:00</td>
+      <td>lloyds bank</td>
+      <td>729.59</td>
+      <td>1986.0</td>
+      <td>NaN</td>
+      <td>m</td>
+      <td>2012-10</td>
+      <td>debit</td>
+      <td>247061</td>
+      <td>sw11 5</td>
+      <td>2013-01-07</td>
+      <td>current</td>
+      <td>south west trains</td>
+    </tr>
+    <tr>
+      <th>6557</th>
+      <td>14777</td>
+      <td>2012-10-11</td>
+      <td>19.00</td>
+      <td>liv*livingsocial cd 7715</td>
+      <td>no merchant</td>
+      <td>dining and drinking</td>
+      <td>2994289</td>
+      <td>2013-01-07</td>
+      <td>2015-01-13 05:19:00</td>
+      <td>lloyds bank</td>
+      <td>729.59</td>
+      <td>1986.0</td>
+      <td>NaN</td>
+      <td>m</td>
+      <td>2012-10</td>
+      <td>debit</td>
+      <td>247061</td>
+      <td>sw11 5</td>
+      <td>2013-01-07</td>
+      <td>current</td>
+      <td>unknown merchant</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>it
+
+<span class="c1"># baseline</span>
+
+<span class="k">def</span> <span class="nf">income_pmts</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">prop</span><span class="o">=</span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Income payments in prop of all observed months.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">helper</span><span class="p">(</span><span class="n">g</span><span class="p">):</span>
+        <span class="n">tot_months</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">ym</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
+        <span class="n">inc_months</span> <span class="o">=</span> <span class="n">g</span><span class="p">[</span><span class="n">g</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;_income&#39;</span><span class="p">)]</span><span class="o">.</span><span class="n">ym</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">inc_months</span> <span class="o">/</span> <span class="n">tot_months</span><span class="p">)</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">prop</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span> <span class="s1">&#39;transaction_date&#39;</span><span class="p">,</span> <span class="s1">&#39;tag&#39;</span><span class="p">,</span> <span class="s1">&#39;ym&#39;</span><span class="p">]]</span>
+    <span class="n">usrs</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;user_id&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">helper</span><span class="p">)</span><span class="o">.</span><span class="n">user_id</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">user_id</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">usrs</span><span class="p">)]</span>
+
+<span class="n">income_pmts</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>119 ms ± 6.28 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Ravel">Ravel<a class="anchor-link" href="#Ravel"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+<span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([1, 2, 3, 4, 5, 6])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([1, 4, 2, 5, 3, 6])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[1, 4],
+       [2, 5],
+       [3, 6]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    
+    <span class="n">tag</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="s1">&#39;str&#39;</span><span class="p">)</span>
+    <span class="n">income</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">char</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="s1">&#39;_income&#39;</span><span class="p">)</span>
+    
+    <span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span> <span class="s1">&#39;ym&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+    <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">T</span>
+    
+<span class="c1">#     return np.ravel_multi_index(data.T, data.max(0)[0] + 1)</span>
+    
+<span class="n">new</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[14777, 14777, 14777, ..., 579777, 579777, 579777],
+       [&#39;2012-10&#39;, &#39;2012-10&#39;, &#39;2012-10&#39;, ..., &#39;2020-7&#39;, &#39;2020-7&#39;,
+        &#39;2020-7&#39;]], dtype=object)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">ravel_multi_index</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">iris</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s1">&#39;iris&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
+<span class="n">np</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[array([1, 1]),
+ array([2]),
+ array([3]),
+ array([4, 4, 4]),
+ array([5, 5]),
+ array([6])]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sort</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>it
+
+<span class="k">def</span> <span class="nf">mygroupby</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    
+    <span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="n">idx</span><span class="p">,</span> <span class="n">x</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">group_boundaries</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="n">grouped</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">group_boundaries</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">grouped</span><span class="p">]</span>
+    
+<span class="n">mygroupby</span><span class="p">(</span><span class="n">iris</span><span class="p">,</span> <span class="s1">&#39;species&#39;</span><span class="p">,</span> <span class="s1">&#39;petal_width&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>592 µs ± 15.4 µs per loop (mean ± std. dev. of 7 runs, 1000 loops each)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">timeit</span> iris.groupby(&#39;species&#39;).petal_width.sum()
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>490 µs ± 17 µs per loop (mean ± std. dev. of 7 runs, 1000 loops each)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="numpy-index-package">numpy index package<a class="anchor-link" href="#numpy-index-package"> </a></h3>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Use-NumPy-for-groupbys">Use NumPy for groupbys<a class="anchor-link" href="#Use-NumPy-for-groupbys"> </a></h2>
@@ -482,6 +1060,97 @@ window.onload = wrap_img;
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>152 µs ± 9.11 µs per loop (mean ± std. dev. of 7 runs, 10000 loops each)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="group-means">group means<a class="anchor-link" href="#group-means"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s1">&#39;iris&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">timeit</span> df.groupby(&#39;species&#39;).sepal_length.mean()
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>497 µs ± 19 µs per loop (mean ± std. dev. of 7 runs, 1000 loops each)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>it
+
+<span class="c1"># from https://cmdlinetips.com/2019/05/how-to-implement-pandas-groupby-operation-with-numpy/</span>
+<span class="n">spec</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">species</span><span class="o">.</span><span class="n">values</span>
+<span class="n">sl</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sepal_length</span><span class="o">.</span><span class="n">values</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">species</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+<span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sl</span><span class="p">[</span><span class="n">spec</span> <span class="o">==</span> <span class="n">i</span><span class="p">]))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">g</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>102 µs ± 2.87 µs per loop (mean ± std. dev. of 7 runs, 10000 loops each)
 </pre>
 </div>
 </div>
