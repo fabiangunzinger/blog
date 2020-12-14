@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      13 min read
+      15 min read
     
 </span></p>
 
@@ -2148,7 +2148,7 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The most mind-bending bit for me is definitely the calculation of the point-wise differences. To wrap my head around this, I start with a simple case:</p>
+<p>The most mind-bending bit for me is the calculation of the point-wise differences. To wrap my head around this, I start with a simple case:</p>
 
 </div>
 </div>
@@ -2483,6 +2483,298 @@ window.onload = wrap_img;
 
        [[ 0,  1],
         [-1,  0]]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can now do the same for our original array.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[0.48006582, 0.87269436],
+       [0.26206854, 0.54435165],
+       [0.80940987, 0.30935821],
+       [0.79793289, 0.53996637],
+       [0.60556561, 0.89826711],
+       [0.7396078 , 0.5417521 ],
+       [0.23673655, 0.75051346],
+       [0.82613073, 0.44904746],
+       [0.76975985, 0.70890145],
+       [0.90891511, 0.72593866]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[[0.48006582, 0.87269436],
+        [0.26206854, 0.54435165],
+        [0.80940987, 0.30935821],
+        [0.79793289, 0.53996637],
+        [0.60556561, 0.89826711],
+        [0.7396078 , 0.5417521 ],
+        [0.23673655, 0.75051346],
+        [0.82613073, 0.44904746],
+        [0.76975985, 0.70890145],
+        [0.90891511, 0.72593866]]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[[0.48006582, 0.87269436]],
+
+       [[0.26206854, 0.54435165]],
+
+       [[0.80940987, 0.30935821]],
+
+       [[0.79793289, 0.53996637]],
+
+       [[0.60556561, 0.89826711]],
+
+       [[0.7396078 , 0.5417521 ]],
+
+       [[0.23673655, 0.75051346]],
+
+       [[0.82613073, 0.44904746]],
+
+       [[0.76975985, 0.70890145]],
+
+       [[0.90891511, 0.72593866]]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>When we subtract the second from the first array, broadcasting will expand both arrays to shape (10, 10, 2), thus building our vertical (from the first array) and horizontal (from the second array) cubes on which it then performs element-wise subtraction. (We didn't actually need to create the new zeroth dimension in our first array, because broadcasting pads the shorter array with new dimensions on the left and would thus perform this step for us.) The result is what we want: the difference in each dimension for each of the ten points to all of the ten points. Once we have this, we can square the values and sum them along dimension 2 (the last dimension, hence the use of -1 in the code above), which gives us the distances between the points.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[[ 0.        ,  0.        ],
+        [-0.21799727, -0.32834271],
+        [ 0.32934406, -0.56333615],
+        [ 0.31786708, -0.33272799],
+        [ 0.1254998 ,  0.02557275],
+        [ 0.25954198, -0.33094226],
+        [-0.24332927, -0.1221809 ],
+        [ 0.34606492, -0.4236469 ],
+        [ 0.28969403, -0.16379291],
+        [ 0.4288493 , -0.1467557 ]],
+
+       [[ 0.21799727,  0.32834271],
+        [ 0.        ,  0.        ],
+        [ 0.54734133, -0.23499343],
+        [ 0.53586435, -0.00438527],
+        [ 0.34349707,  0.35391547],
+        [ 0.47753926, -0.00259954],
+        [-0.02533199,  0.20616181],
+        [ 0.56406219, -0.09530419],
+        [ 0.5076913 ,  0.1645498 ],
+        [ 0.64684657,  0.18158701]],
+
+       [[-0.32934406,  0.56333615],
+        [-0.54734133,  0.23499343],
+        [ 0.        ,  0.        ],
+        [-0.01147698,  0.23060816],
+        [-0.20384426,  0.5889089 ],
+        [-0.06980207,  0.23239389],
+        [-0.57267332,  0.44115524],
+        [ 0.01672086,  0.13968924],
+        [-0.03965003,  0.39954324],
+        [ 0.09950524,  0.41658045]],
+
+       [[-0.31786708,  0.33272799],
+        [-0.53586435,  0.00438527],
+        [ 0.01147698, -0.23060816],
+        [ 0.        ,  0.        ],
+        [-0.19236728,  0.35830074],
+        [-0.05832509,  0.00178573],
+        [-0.56119634,  0.21054708],
+        [ 0.02819784, -0.09091892],
+        [-0.02817305,  0.16893507],
+        [ 0.11098222,  0.18597228]],
+
+       [[-0.1254998 , -0.02557275],
+        [-0.34349707, -0.35391547],
+        [ 0.20384426, -0.5889089 ],
+        [ 0.19236728, -0.35830074],
+        [ 0.        ,  0.        ],
+        [ 0.13404219, -0.35651501],
+        [-0.36882906, -0.14775366],
+        [ 0.22056512, -0.44921966],
+        [ 0.16419424, -0.18936566],
+        [ 0.3033495 , -0.17232845]],
+
+       [[-0.25954198,  0.33094226],
+        [-0.47753926,  0.00259954],
+        [ 0.06980207, -0.23239389],
+        [ 0.05832509, -0.00178573],
+        [-0.13404219,  0.35651501],
+        [ 0.        ,  0.        ],
+        [-0.50287125,  0.20876135],
+        [ 0.08652294, -0.09270465],
+        [ 0.03015205,  0.16714935],
+        [ 0.16930731,  0.18418656]],
+
+       [[ 0.24332927,  0.1221809 ],
+        [ 0.02533199, -0.20616181],
+        [ 0.57267332, -0.44115524],
+        [ 0.56119634, -0.21054708],
+        [ 0.36882906,  0.14775366],
+        [ 0.50287125, -0.20876135],
+        [ 0.        ,  0.        ],
+        [ 0.58939418, -0.301466  ],
+        [ 0.5330233 , -0.04161201],
+        [ 0.67217856, -0.0245748 ]],
+
+       [[-0.34606492,  0.4236469 ],
+        [-0.56406219,  0.09530419],
+        [-0.01672086, -0.13968924],
+        [-0.02819784,  0.09091892],
+        [-0.22056512,  0.44921966],
+        [-0.08652294,  0.09270465],
+        [-0.58939418,  0.301466  ],
+        [ 0.        ,  0.        ],
+        [-0.05637089,  0.25985399],
+        [ 0.08278438,  0.2768912 ]],
+
+       [[-0.28969403,  0.16379291],
+        [-0.5076913 , -0.1645498 ],
+        [ 0.03965003, -0.39954324],
+        [ 0.02817305, -0.16893507],
+        [-0.16419424,  0.18936566],
+        [-0.03015205, -0.16714935],
+        [-0.5330233 ,  0.04161201],
+        [ 0.05637089, -0.25985399],
+        [ 0.        ,  0.        ],
+        [ 0.13915527,  0.01703721]],
+
+       [[-0.4288493 ,  0.1467557 ],
+        [-0.64684657, -0.18158701],
+        [-0.09950524, -0.41658045],
+        [-0.11098222, -0.18597228],
+        [-0.3033495 ,  0.17232845],
+        [-0.16930731, -0.18418656],
+        [-0.67217856,  0.0245748 ],
+        [-0.08278438, -0.2768912 ],
+        [-0.13915527, -0.01703721],
+        [ 0.        ,  0.        ]]])</pre>
 </div>
 
 </div>
