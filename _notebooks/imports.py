@@ -32,4 +32,4 @@ sns.set_style("whitegrid")
 
 # global vars
 TEMPDIR = '/Users/fgu/tmp/'
-SAMPLEDATA = '/Users/fgu/tmp/data_777.parquet'
+SAMPLEDATA = '/Users/fgu/tmp/mdb/data_777.parquet'
