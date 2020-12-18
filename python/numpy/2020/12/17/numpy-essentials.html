@@ -163,12 +163,12 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h3"><a href="#Draw-and-plot-a-100-points-from-a-multivariate-normal-distribution-and-highlight-a-random-sample-of-20">Draw and plot a 100 points from a multivariate normal distribution and highlight a random sample of 20 </a></li>
 <li class="toc-entry toc-h3"><a href="#Manually-draw-a-histogram-of-1000-random-values-using-only-numpy-functions-and-plt.plot().">Manually draw a histogram of 1000 random values using only numpy functions and plt.plot(). </a></li>
 <li class="toc-entry toc-h3"><a href="#Write-a-simple-selection-sort-algorithm">Write a simple selection sort algorithm </a></li>
-<li class="toc-entry toc-h3"><a href="#Find-index-of-values-in-array">Find index of values in array </a></li>
 <li class="toc-entry toc-h3"><a href="#Use-np-and-plt-functions-to-calculate-the-k-nearest-neighbours-of-10-random-points-and-visualise-the-result">Use np and plt functions to calculate the k nearest neighbours of 10 random points and visualise the result </a>
 <ul>
 <li class="toc-entry toc-h4"><a href="#Understanding-the-solution">Understanding the solution </a></li>
 </ul>
 </li>
+<li class="toc-entry toc-h3"><a href="#Find-index-of-values-in-array">Find index of values in array </a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#Sources">Sources </a></li>
@@ -2158,114 +2158,6 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Find-index-of-values-in-array">
-<a class="anchor" href="#Find-index-of-values-in-array" aria-hidden="true"><span class="octicon octicon-link"></span></a>Find index of values in array<a class="anchor-link" href="#Find-index-of-values-in-array"> </a>
-</h3>
-<p>I want to find a list of indices representing the index of each row of one array in another array (From <a href="https://stackoverflow.com/questions/38674027/find-the-row-indexes-of-several-values-in-a-numpy-array">here</a>).</p>
-
-</div>
-</div>
-</div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">,</span>  <span class="mi">2</span><span class="p">],</span>
-              <span class="p">[</span><span class="mi">9</span><span class="p">,</span>  <span class="mi">3</span><span class="p">],</span>
-              <span class="p">[</span><span class="mi">8</span><span class="p">,</span>  <span class="mi">5</span><span class="p">],</span>
-              <span class="p">[</span><span class="mi">3</span><span class="p">,</span>  <span class="mi">3</span><span class="p">],</span>
-              <span class="p">[</span><span class="mi">5</span><span class="p">,</span>  <span class="mi">6</span><span class="p">]])</span>
-
-<span class="n">tofind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
-                   <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
-                   <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
-
-<span class="c1"># desired result: [0, 3, 4]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">tofind</span><span class="p">:</span>
-    <span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">([((</span><span class="n">x</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="mi">1</span><span class="p">)])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-<span class="n">result</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[0, 3, 4]</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">x</span> <span class="o">==</span> <span class="n">tofind</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))[</span><span class="mi">1</span><span class="p">]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([0, 3, 4])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Use-np-and-plt-functions-to-calculate-the-k-nearest-neighbours-of-10-random-points-and-visualise-the-result">
 <a class="anchor" href="#Use-np-and-plt-functions-to-calculate-the-k-nearest-neighbours-of-10-random-points-and-visualise-the-result" aria-hidden="true"><span class="octicon octicon-link"></span></a>Use np and plt functions to calculate the k nearest neighbours of 10 random points and visualise the result<a class="anchor-link" href="#Use-np-and-plt-functions-to-calculate-the-k-nearest-neighbours-of-10-random-points-and-visualise-the-result"> </a>
 </h3>
@@ -2958,6 +2850,114 @@ window.onload = wrap_img;
         [-0.08278438, -0.2768912 ],
         [-0.13915527, -0.01703721],
         [ 0.        ,  0.        ]]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Find-index-of-values-in-array">
+<a class="anchor" href="#Find-index-of-values-in-array" aria-hidden="true"><span class="octicon octicon-link"></span></a>Find index of values in array<a class="anchor-link" href="#Find-index-of-values-in-array"> </a>
+</h3>
+<p>I want to find a list of indices representing the index of each row of one array in another array (From <a href="https://stackoverflow.com/questions/38674027/find-the-row-indexes-of-several-values-in-a-numpy-array">here</a>).</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">,</span>  <span class="mi">2</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">9</span><span class="p">,</span>  <span class="mi">3</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">8</span><span class="p">,</span>  <span class="mi">5</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">3</span><span class="p">,</span>  <span class="mi">3</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">5</span><span class="p">,</span>  <span class="mi">6</span><span class="p">]])</span>
+
+<span class="n">tofind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                   <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+                   <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+
+<span class="c1"># desired result: [0, 3, 4]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">tofind</span><span class="p">:</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">([((</span><span class="n">x</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="mi">1</span><span class="p">)])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="n">result</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[0, 3, 4]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">x</span> <span class="o">==</span> <span class="n">tofind</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([0, 3, 4])</pre>
 </div>
 
 </div>
