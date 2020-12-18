@@ -372,68 +372,6 @@ window.onload = wrap_img;
 </div>
     
 
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">iso</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">transaction_date</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">isocalendar</span><span class="p">()</span>
-<span class="n">iso</span><span class="o">.</span><span class="n">year</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">+</span> <span class="n">iso</span><span class="o">.</span><span class="n">week</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>6553      201241
-6554      201241
-6555      201241
-6556      201241
-6557      201241
-           ...  
-115192    202027
-115193    202027
-115194    202027
-115195    202027
-115196    202027
-Length: 115197, dtype: UInt32</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">merge</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Applications">Applications<a class="anchor-link" href="#Applications"> </a></h2>
@@ -493,7 +431,7 @@ Length: 115197, dtype: UInt32</pre>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>500 ms ± 10.2 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+<pre>575 ms ± 38.9 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
 </pre>
 </div>
 </div>
@@ -528,8 +466,8 @@ Length: 115197, dtype: UInt32</pre>
 <div class="output_text output_subarea ">
 <pre>Timer unit: 1e-06 s
 
-Total time: 0.931279 s
-File: &lt;ipython-input-52-2d7d76d03c1f&gt;
+Total time: 0.826138 s
+File: &lt;ipython-input-3-2d7d76d03c1f&gt;
 Function: min_txns_and_spend at line 1
 
 Line #      Hits         Time  Per Hit   % Time  Line Contents
@@ -538,27 +476,27 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
      2                                               &#34;&#34;&#34;At least 5 monthly debits totalling GBP200.
      3                                               Drops first and last month for each user due to possible partial data.
      4                                               &#34;&#34;&#34;
-     5         1          2.0      2.0      0.0      cols = [&#39;user_id&#39;, &#39;transaction_date&#39;, &#39;amount&#39;]
-     6         1      15143.0  15143.0      1.6      spend = df.loc[df.amount &gt; 0, cols]
-     7         1       1364.0   1364.0      0.1      spend = spend.set_index(&#39;transaction_date&#39;)
-     8         1     442903.0 442903.0     47.6      spend[&#39;ym&#39;] = df.transaction_date.dt.to_period(&#39;M&#39;)
+     5         1        119.0    119.0      0.0      cols = [&#39;user_id&#39;, &#39;transaction_date&#39;, &#39;amount&#39;]
+     6         1      19079.0  19079.0      2.3      spend = df.loc[df.amount &gt; 0, cols]
+     7         1       1543.0   1543.0      0.2      spend = spend.set_index(&#39;transaction_date&#39;)
+     8         1     414730.0 414730.0     50.2      spend[&#39;ym&#39;] = df.transaction_date.dt.to_period(&#39;M&#39;)
      9                                           
-    10         1        306.0    306.0      0.0      g = spend.groupby(&#39;user_id&#39;)
-    11         1       4437.0   4437.0      0.5      spend[&#39;first_month&#39;] = g.ym.transform(min)
-    12         1       2989.0   2989.0      0.3      spend[&#39;last_month&#39;] = g.ym.transform(max)
-    13         1        922.0    922.0      0.1      spend = spend[(spend.ym != spend.first_month)
-    14         1       5874.0   5874.0      0.6                    &amp; (spend.ym != spend.last_month)]
+    10         1        243.0    243.0      0.0      g = spend.groupby(&#39;user_id&#39;)
+    11         1       3671.0   3671.0      0.4      spend[&#39;first_month&#39;] = g.ym.transform(min)
+    12         1       1960.0   1960.0      0.2      spend[&#39;last_month&#39;] = g.ym.transform(max)
+    13         1        761.0    761.0      0.1      spend = spend[(spend.ym != spend.first_month)
+    14         1       4761.0   4761.0      0.6                    &amp; (spend.ym != spend.last_month)]
     15                                           
     16         1          2.0      2.0      0.0      mins = (spend
-    17         1        299.0    299.0      0.0              .groupby(&#39;user_id&#39;)
-    18         1      16136.0  16136.0      1.7              .resample(&#39;M&#39;)
+    17         1        284.0    284.0      0.0              .groupby(&#39;user_id&#39;)
+    18         1      13216.0  13216.0      1.6              .resample(&#39;M&#39;)
     19                                                       .amount
-    20         1     425127.0 425127.0     45.6              .agg([&#39;count&#39;, &#39;sum&#39;])
-    21         1       1567.0   1567.0      0.2              .groupby(&#39;user_id&#39;)
+    20         1     350782.0 350782.0     42.5              .agg([&#39;count&#39;, &#39;sum&#39;])
+    21         1       1273.0   1273.0      0.2              .groupby(&#39;user_id&#39;)
     22                                                       .min())
-    23         1       1411.0   1411.0      0.2      mask = (mins &gt;= (min_txns, min_spend)).all(1)
-    24         1        393.0    393.0      0.0      users = mins[mask].index
-    25         1      12404.0  12404.0      1.3      return df[df.user_id.isin(users)]</pre>
+    23         1       1664.0   1664.0      0.2      mask = (mins &gt;= (min_txns, min_spend)).all(1)
+    24         1        438.0    438.0      0.1      users = mins[mask].index
+    25         1      11612.0  11612.0      1.4      return df[df.user_id.isin(users)]</pre>
 </div>
 
 </div>
@@ -622,8 +560,8 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 <div class="output_text output_subarea ">
 <pre>Timer unit: 1e-06 s
 
-Total time: 0.049063 s
-File: &lt;ipython-input-58-15b18e57e686&gt;
+Total time: 0.061221 s
+File: &lt;ipython-input-5-15b18e57e686&gt;
 Function: fast at line 1
 
 Line #      Hits         Time  Per Hit   % Time  Line Contents
@@ -633,29 +571,29 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
      3                                               At least 5 monthly debits totalling GBP200.
      4                                               Drops first and last month for each user due to possible partial data.
      5                                               &#34;&#34;&#34;
-     6         1       3707.0   3707.0      7.6      data = df[[&#39;user_id&#39;, &#39;ym&#39;, &#39;amount&#39;]]
+     6         1       4073.0   4073.0      6.7      data = df[[&#39;user_id&#39;, &#39;ym&#39;, &#39;amount&#39;]]
      7                                           
      8                                               # keep debits
-     9         1       4541.0   4541.0      9.3      data = data[data.amount &gt; 0]
+     9         1       5935.0   5935.0      9.7      data = data[data.amount &gt; 0]
     10                                           
     11                                               # remove first and last month from each user
-    12         1        470.0    470.0      1.0      g = data.groupby(&#39;user_id&#39;)
-    13         1       4018.0   4018.0      8.2      first_month = g.ym.transform(min)
-    14         1       1670.0   1670.0      3.4      last_month = g.ym.transform(max)
-    15         1       5160.0   5160.0     10.5      data = data[(data.ym &gt; first_month) &amp; (data.ym &lt; last_month)]
+    12         1        335.0    335.0      0.5      g = data.groupby(&#39;user_id&#39;)
+    13         1       3383.0   3383.0      5.5      first_month = g.ym.transform(min)
+    14         1       1950.0   1950.0      3.2      last_month = g.ym.transform(max)
+    15         1       5665.0   5665.0      9.3      data = data[(data.ym &gt; first_month) &amp; (data.ym &lt; last_month)]
     16                                           
     17                                               # calculate min spend and count per month per user
-    18         1        553.0    553.0      1.1      g = data.groupby([&#39;user_id&#39;, &#39;ym&#39;]).amount
-    19         1       6348.0   6348.0     12.9      spend = g.sum()
-    20         1        681.0    681.0      1.4      count = g.size()
-    21         1       1179.0   1179.0      2.4      min_spend = spend.groupby(&#39;user_id&#39;).min()
-    22         1       2280.0   2280.0      4.6      min_count = count.groupby(&#39;user_id&#39;).min()
+    18         1        560.0    560.0      0.9      g = data.groupby([&#39;user_id&#39;, &#39;ym&#39;]).amount
+    19         1       8496.0   8496.0     13.9      spend = g.sum()
+    20         1        918.0    918.0      1.5      count = g.size()
+    21         1       1239.0   1239.0      2.0      min_spend = spend.groupby(&#39;user_id&#39;).min()
+    22         1       5522.0   5522.0      9.0      min_count = count.groupby(&#39;user_id&#39;).min()
     23                                           
     24                                               # keep users
-    25         1       2345.0   2345.0      4.8      users = (min_count &gt;= 10) &amp; (min_spend &gt;= 200)
-    26         1        976.0    976.0      2.0      users = users[users].index
+    25         1       4018.0   4018.0      6.6      users = (min_count &gt;= 10) &amp; (min_spend &gt;= 200)
+    26         1        627.0    627.0      1.0      users = users[users].index
     27                                           
-    28         1      15135.0  15135.0     30.8      return df[df.user_id.isin(users)]</pre>
+    28         1      18500.0  18500.0     30.2      return df[df.user_id.isin(users)]</pre>
 </div>
 
 </div>
