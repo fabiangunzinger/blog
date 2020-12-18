@@ -139,6 +139,7 @@ window.onload = wrap_img;
 <ul>
 <li class="toc-entry toc-h3"><a href="#List-content-of-bucket">List content of bucket </a></li>
 <li class="toc-entry toc-h3"><a href="#Read-file-from-S3">Read file from S3 </a></li>
+<li class="toc-entry toc-h3"><a href="#Read-data-with-selected-profile">Read data with selected profile </a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#Sources">Sources </a></li>
@@ -282,6 +283,50 @@ window.onload = wrap_img;
 
 </div>
 
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Read-data-with-selected-profile">
+<a class="anchor" href="#Read-data-with-selected-profile" aria-hidden="true"><span class="octicon octicon-link"></span></a>Read data with selected profile<a class="anchor-link" href="#Read-data-with-selected-profile"> </a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If there are multiple profile in aws credential file, can select desired one as below. In this case, I select different profile depending on where code is being run. Botocore is required because Pandas uses it to read s3 files, and, by default, uses the aws default profile to read data. If, as below, I instead want Pandas to read data using another profile, I need to use a botocore session.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">profile</span> <span class="o">=</span> <span class="s1">'tracker-fgu'</span>
+
+<span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">'Linux'</span><span class="p">:</span>
+    <span class="n">profile</span> <span class="o">=</span> <span class="s1">'default'</span>
+
+<span class="n">session</span> <span class="o">=</span> <span class="n">botocore</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">profile</span><span class="o">=</span><span class="n">profile</span><span class="p">)</span>
+<span class="n">fs</span> <span class="o">=</span> <span class="n">s3fs</span><span class="o">.</span><span class="n">S3FileSystem</span><span class="p">(</span><span class="n">session</span><span class="o">=</span><span class="n">session</span><span class="p">)</span>
+<span class="n">fs</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="s1">'/'</span><span class="p">)</span>
+
+<span class="n">path</span> <span class="o">=</span> <span class="s1">'path-to-file'</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+</pre></div>
+
+    </div>
 </div>
 </div>
 
