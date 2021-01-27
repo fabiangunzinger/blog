@@ -6,6 +6,8 @@ title: Software design principles
 
 - A function should do one and only one thing (and -- as a rule of thumb --  be no longer than 50 lines of code).
 
+- Don't reapeat yourself. (Don't copy and paste more than once.)
+
 
 # SOLID
 
