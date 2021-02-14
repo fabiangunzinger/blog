@@ -200,10 +200,10 @@
   
     
         ,"post18": {
-            "title": "Development setup",
-            "content": "iTerm . https://iterm2.com/index.html | . Vim . Dough Black’s good vimrc . | Using help: https://vim.fandom.com/wiki/Learn_to_use_help | Idiomatic VIM | Awesome vimrc: https://github.com/amix/vimrc | Vim as Python IDE: https://realpython.com/vim-and-python-a-match-made-in-heaven/ . | :help vimrc-intro . | .",
-            "url": "https://fabiangunzinger.github.io/blog/vim/2020/12/27/vim-resources.html",
-            "relUrl": "/vim/2020/12/27/vim-resources.html",
+            "title": "My (n)vim setup",
+            "content": "My (n)vim setup . Mostly for my future self, this post documents the main choices I made when setting up vim. . Use Neovim . I use neovim rather than vim because it seems to be the future; it’s open source, uses lua rather than vim-script, and is used by people I implicitly trust. From browsing on the web, it seems like many people are contemplating switching over, and as someone who’s just starting out, it seems like there is no good reason to carefully set up vim with an expectation to switch in the future. | . YouCompleteMe for code completion . - Often doesn’t work with Anaconda Python, and I seem to be one of those cases. Followed the suggestion in the link. . I first tried compiling with /usr/bin/python3, but this didn’t work. | I then tried /usr/local/bin/python3.9, following this, which seems to have worked. - - | . iTerm . https://iterm2.com/index.html | . Vim . Dough Black’s good vimrc . | Using help: https://vim.fandom.com/wiki/Learn_to_use_help | Idiomatic VIM | Awesome vimrc: https://github.com/amix/vimrc | Vim as Python IDE: https://realpython.com/vim-and-python-a-match-made-in-heaven/ . | :help vimrc-intro . | .",
+            "url": "https://fabiangunzinger.github.io/blog/tools/vim/2020/12/27/vim-setup.html",
+            "relUrl": "/tools/vim/2020/12/27/vim-setup.html",
             "date": " • Dec 27, 2020"
         }
         
