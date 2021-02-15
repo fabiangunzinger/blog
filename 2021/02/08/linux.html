@@ -38,17 +38,21 @@ title: Linux
   <code class="language-plaintext highlighter-rouge">chmod g+w</code> adds write permission for group, <code class="language-plaintext highlighter-rouge">chmod u-x</code> removes execute permission for
   owner, <code class="language-plaintext highlighter-rouge">chmod a+rwx</code> grants all permission to everyone. <code class="language-plaintext highlighter-rouge">chmod</code> stands for
   change file mode bits.</li>
-  <li>Shortcuts: Remember the following:
-  | Octal    | Binary   |
-  | ——– | ——– |
-  |        0 |      000 |
-  |        1 |      001 |
-  |        2 |      010 |
-  |        3 |      011 |
-  |        4 |      100 |
-  |        5 |      101 |
-  |        6 |      110 |
-  |        7 |      111 |</li>
+  <li>
+    <p>Shortcuts: Remember the following:
+   Octal    | Binary 
+   ——– | ——– 
+          0 |      000 
+          1 |      001 
+          2 |      010 
+          3 |      011 
+          4 |      100 
+          5 |      101 
+          6 |      110 
+          7 |      111</p>
+
+    <p>This is handy, because we can use the binary numbers to refer to rwx and the Octal ones as shortcuts (e.g. 5 is r-x). Further using the order of users as ugo, and using one Octal shortcut for each user, we can quickly set permissions for all users (e.g. 753 is rwxr-x-wx).</p>
+  </li>
 </ul>
 
 <h2 id="useful-commands">Useful commands</h2>
