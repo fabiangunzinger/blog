@@ -1,0 +1,45 @@
+<p>hide: false
+layout: post
+categories: [tools, linux]
+title: Linux
+—</p>
+
+<h1 id="linux">Linux</h1>
+
+<p>Notes on useful linux functionality as reference for my future self.</p>
+
+<h2 id="bash-scripting">Bash scripting</h2>
+<p>Basics and variables</p>
+<ul>
+  <li>A process is a running instance of a program.</li>
+  <li><code class="language-plaintext highlighter-rouge">'</code> interpret all content literally, <code class="language-plaintext highlighter-rouge">"</code> allow for variable substitution.</li>
+  <li><code class="language-plaintext highlighter-rouge">$( command )</code> saves command output into a variable.</li>
+  <li><code class="language-plaintext highlighter-rouge">export var</code> makes <code class="language-plaintext highlighter-rouge">var</code> available to child process.</li>
+  <li><code class="language-plaintext highlighter-rouge">/dev/stdin</code> reads input from pipe.</li>
+</ul>
+
+<p>Arithmetic</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">let</code> assigns result of expression to a variable.</li>
+  <li><code class="language-plaintext highlighter-rouge">expr</code> prints result of expression.</li>
+  <li><code class="language-plaintext highlighter-rouge">$(( expression ))</code> returns the result of expression.</li>
+  <li><code class="language-plaintext highlighter-rouge">${#var}</code> returns the length of <code class="language-plaintext highlighter-rouge">var</code> in characters.</li>
+</ul>
+
+<p>Functions</p>
+<ul>
+  <li>`function_name () {
+    <commands>
+ }` 
+ is the basic format (there is also `function function_name {`, but I prefer this.
+
+
+</commands>
+  </li>
+</ul>
+<h2 id="sources">Sources</h2>
+<ul>
+  <li><a href="https://ryanstutorials.net/bash-scripting-tutorial/">Ryan’s bash-scripting tutorial</a></li>
+  <li><a href="https://ryanstutorials.net/bash-scripting-tutorial/">Ryan’s linux tutorial</a></li>
+</ul>
+
