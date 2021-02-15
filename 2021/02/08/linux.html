@@ -8,10 +8,59 @@ title: Linux
 
 <p>Notes on useful linux functionality as reference for my future self.</p>
 
-<h2 id="bash-scripting">Bash scripting</h2>
-<p>Basics and variables</p>
+<h2 id="getting-help-and-finding-stuff">Getting help and finding stuff</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">man &lt;command&gt;</code> opens the manual for <code class="language-plaintext highlighter-rouge">&lt;command&gt;</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">man -k &lt;search term&gt;</code> lists all commands with <code class="language-plaintext highlighter-rouge">&lt;search term&gt;</code> in the manual
+  pages.</li>
+  <li>Search inside manual works as in vim.</li>
+</ul>
+
+<h2 id="basics">Basics</h2>
+
 <ul>
   <li>A process is a running instance of a program.</li>
+  <li>Everything is a fiele (the keyboard is read-only, the screen write only)</li>
+</ul>
+
+<h2 id="permissions">Permissions</h2>
+
+<ul>
+  <li>Three actions: <code class="language-plaintext highlighter-rouge">r</code> (read), <code class="language-plaintext highlighter-rouge">w</code> (write), <code class="language-plaintext highlighter-rouge">x</code> (execute).</li>
+  <li>Three types of people: owner (u), group (g), and others (o). (a) applies to
+  all types.</li>
+  <li>Permission info is 10 characters long: first character is file type (<code class="language-plaintext highlighter-rouge">-</code> for
+  file, <code class="language-plaintext highlighter-rouge">d</code> for directory), the remaining ones are rwx permissions for owner,
+  group, and others, with letter indicating permission on, hyphen
+  indicating permission off.</li>
+  <li>Changing persmission: <code class="language-plaintext highlighter-rouge">chmod &lt;for whom&gt;&lt;add or remove&gt;&lt;permission type&gt;</code>. Example:
+  <code class="language-plaintext highlighter-rouge">chmod g+w</code> adds write permission for group, <code class="language-plaintext highlighter-rouge">chmod u-x</code> removes execute permission for
+  owner, <code class="language-plaintext highlighter-rouge">chmod a+rwx</code> grants all permission to everyone. <code class="language-plaintext highlighter-rouge">chmod</code> stands for
+  change file mode bits.</li>
+  <li>Shortcuts: Remember the following:
+  | Octal    | Binary   |
+  | ——– | ——– |
+  |        0 |      000 |
+  |        1 |      001 |
+  |        2 |      010 |
+  |        3 |      011 |
+  |        4 |      100 |
+  |        5 |      101 |
+  |        6 |      110 |
+  |        7 |      111 |</li>
+</ul>
+
+<h2 id="useful-commands">Useful commands</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">file</code> lists file type of all files in a directory</li>
+</ul>
+
+<h2 id="bash-scripting">Bash scripting</h2>
+
+<p>Variables</p>
+<ul>
   <li><code class="language-plaintext highlighter-rouge">'</code> interpret all content literally, <code class="language-plaintext highlighter-rouge">"</code> allow for variable substitution.</li>
   <li><code class="language-plaintext highlighter-rouge">$( command )</code> saves command output into a variable.</li>
   <li><code class="language-plaintext highlighter-rouge">export var</code> makes <code class="language-plaintext highlighter-rouge">var</code> available to child process.</li>
