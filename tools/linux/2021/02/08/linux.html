@@ -155,11 +155,8 @@ window.onload = wrap_img;
   <li>
 <code class="language-plaintext highlighter-rouge">wc</code> returns the number of words, lines, and bytes of the input file. Options
   -w, -l, -c return any one of those counts, -m returns the number of
-  characters. (Remember difference between <code class="language-plaintext highlighter-rouge">wc -w &lt;filename&gt;</code> and `wc -w &lt;
-    <filename>`: former prints file name, latter redirects file content to
-  command anonymously, so prints result only.)
-</filename>
-  </li>
+  characters. (Remember difference between <code class="language-plaintext highlighter-rouge">wc -w &lt;filename&gt;</code> and <code class="language-plaintext highlighter-rouge">wc -w &lt; &lt;filename&gt;</code>: former prints file name, latter redirects file content to
+  command anonymously, so prints result only.)</li>
   <li>
 <code class="language-plaintext highlighter-rouge">cut</code> print certain columns of input file.</li>
   <li>
@@ -279,21 +276,6 @@ window.onload = wrap_img;
     <tr>
       <td>7</td>
       <td>111</td>
-    </tr>
-  </tbody>
-</table>
-
-<table>
-  <thead>
-    <tr>
-      <th>Column 1</th>
-      <th>Column 2</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>A thing</td>
-      <td>Another thing</td>
     </tr>
   </tbody>
 </table>
