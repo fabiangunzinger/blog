@@ -28,7 +28,7 @@ title: Linux
 
 <ul>
   <li>Three actions: <code class="language-plaintext highlighter-rouge">r</code> (read), <code class="language-plaintext highlighter-rouge">w</code> (write), <code class="language-plaintext highlighter-rouge">x</code> (execute).</li>
-  <li>Three types of people: owner (u), group (g), and others (o). (a) applies to
+  <li>Three types of people: owner or user (u), group (g), and others (o). (a) applies to
   all types.</li>
   <li>Permission info is 10 characters long: first character is file type (<code class="language-plaintext highlighter-rouge">-</code> for
   file, <code class="language-plaintext highlighter-rouge">d</code> for directory), the remaining ones are rwx permissions for owner,
@@ -38,20 +38,60 @@ title: Linux
   <code class="language-plaintext highlighter-rouge">chmod g+w</code> adds write permission for group, <code class="language-plaintext highlighter-rouge">chmod u-x</code> removes execute permission for
   owner, <code class="language-plaintext highlighter-rouge">chmod a+rwx</code> grants all permission to everyone. <code class="language-plaintext highlighter-rouge">chmod</code> stands for
   change file mode bits.</li>
-  <li>
-    <p>Shortcuts: Remember the following:
-   Octal    | Binary 
-   ——– | ——– 
-          0 |      000 
-          1 |      001 
-          2 |      010 
-          3 |      011 
-          4 |      100 
-          5 |      101 
-          6 |      110 
-          7 |      111</p>
+  <li>Shortcuts: Remember the following:</li>
+</ul>
 
-    <p>This is handy, because we can use the binary numbers to refer to rwx and the Octal ones as shortcuts (e.g. 5 is r-x). Further using the order of users as ugo, and using one Octal shortcut for each user, we can quickly set permissions for all users (e.g. 753 is rwxr-x-wx).</p>
+<table>
+  <thead>
+    <tr>
+      <th>Octal</th>
+      <th>Binary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>000</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>001</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>010</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>011</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>101</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>110</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>111</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>
+    <p>This is useful because we can use the binary numbers to refer to rwx and the Octal ones as shortcuts (e.g. 5 is r-x). Further using the order of users as ugo, and using one Octal shortcut for each user, we can quickly set permissions for all users (e.g. 753 is rwxr-x-wx).</p>
+  </li>
+  <li>
+    <p>Directory permissions: r means you can read content (e.g. do ls), w means you
+  can write (e.g. create files or subdirectories), and x means you can enter
+  (e.g. cd).</p>
   </li>
 </ul>
 
