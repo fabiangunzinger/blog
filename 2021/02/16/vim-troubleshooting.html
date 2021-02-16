@@ -1,0 +1,16 @@
+<h1 id="vim-troubleshooting">Vim troubleshooting</h1>
+
+<h2 id="css-indent-not-working">CSS indent not working</h2>
+<ul>
+  <li>Vim recognised css files, but used my global indent of 4 spaces rather than
+  a file-type specific indent of 2 spaces.</li>
+  <li><code class="language-plaintext highlighter-rouge">h: filetype</code> notes that filetype detection files are located in the
+  runtime path. Going there, I found the <code class="language-plaintext highlighter-rouge">ftplugins</code> folder that contains the
+  default file settings. Looking at <code class="language-plaintext highlighter-rouge">css.vim</code> makes clear that it doesn’t set
+  any tabstop settings, which explains why the defaults were used.</li>
+  <li>Googling something along the lines of “custom filetype indent vim” let me to
+  <a href="https://stackoverflow.com/a/159066">this</a> SO answer, which helpfully links
+  to <code class="language-plaintext highlighter-rouge">h: filetype-plugins</code>. Once there, it was easy to find the relevant
+  section, <code class="language-plaintext highlighter-rouge">ftplugin-overrule</code> that documents how to add custom filetype
+  settings. This is what I did, and it worked like a charm.</li>
+</ul>
