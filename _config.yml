@@ -36,17 +36,17 @@ url: "https://fabiangunzinger.github.io" # the base hostname & protocol for your
 #
 baseurl: "/blog" # the subpath of your site, e.g. "/blog".
 
-# Github and twitter are optional:
-minima:
-  social_links:
-    twitter: fastdotai
-    github: fastai
+# # Github and twitter are optional:
+# minima:
+#   social_links:
+#     twitter: fastdotai
+#     github: fastai
 
 # Set this to true to get LaTeX math equation support
 use_math: true
 
 # Set this to true to display the summary of your blog post under your title on the Home page.
-show_description: true
+show_description: false
 
 # Set this to true to display image previews on home page, if they exist
 show_image: false
@@ -71,9 +71,9 @@ include:
 
 # This specifies what badges are turned on by default for notebook posts.
 default_badges:
-  github: true
-  binder: true
-  colab: true
+  github: false
+  binder: false
+  colab: false
 
 # Escape HTML in post descriptions
 html_escape:
