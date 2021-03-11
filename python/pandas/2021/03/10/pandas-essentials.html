@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      3 min read
+      1 min read
     
 </span></p>
 
@@ -120,14 +120,7 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
-<li class="toc-entry toc-h2"><a href="#Questions">Questions </a></li>
-<li class="toc-entry toc-h2"><a href="#True-of-False">True of False </a></li>
-<li class="toc-entry toc-h2"><a href="#Fluency-exercises">Fluency exercises </a></li>
-<li class="toc-entry toc-h2"><a href="#Topics">Topics </a>
-<ul>
-<li class="toc-entry toc-h4"><a href="#Groupby">Groupby </a></li>
-</ul>
-</li>
+<li class="toc-entry toc-h2"><a href="#Grouping">Grouping </a></li>
 <li class="toc-entry toc-h2"><a href="#Topics">Topics </a></li>
 <li class="toc-entry toc-h2"><a href="#Sources">Sources </a></li>
 </ul><!--
@@ -146,11 +139,9 @@ window.onload = wrap_img;
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">imports</span> <span class="kn">import</span> <span class="o">*</span>
-
-<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = 'retina'
-<span class="o">%</span><span class="k">load_ext</span> autoreload
-<span class="o">%</span><span class="k">autoreload</span> 2
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 </pre></div>
 
     </div>
@@ -160,6 +151,14 @@ window.onload = wrap_img;
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Load a sample dataset</p>
+
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -167,7 +166,19 @@ window.onload = wrap_img;
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">SAMPLEDATA</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'user_id'</span><span class="p">:</span> <span class="s1">'user'</span><span class="p">,</span>
+    <span class="s1">'transaction_date'</span><span class="p">:</span> <span class="s1">'date'</span><span class="p">,</span>
+    <span class="s1">'amount'</span><span class="p">:</span> <span class="s1">'amount'</span><span class="p">,</span>
+    <span class="s1">'transaction_description'</span><span class="p">:</span> <span class="s1">'desc'</span><span class="p">,</span>
+    <span class="s1">'merchant_name'</span><span class="p">:</span> <span class="s1">'merchant'</span><span class="p">,</span>
+    <span class="s1">'gender'</span><span class="p">:</span> <span class="s1">'gender'</span><span class="p">,</span>
+    <span class="s1">'year_of_birth'</span><span class="p">:</span> <span class="s1">'yob'</span><span class="p">,</span>
+    <span class="s1">'salary_range'</span><span class="p">:</span> <span class="s1">'salary'</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">fp</span> <span class="o">=</span> <span class="s1">'./data/sample.parquet'</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">cols</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">cols</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
@@ -182,7 +193,7 @@ window.onload = wrap_img;
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>(157287, 22)
+<pre>(157287, 8)
 </pre>
 </div>
 </div>
@@ -209,28 +220,14 @@ window.onload = wrap_img;
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>user_id</th>
-      <th>transaction_date</th>
+      <th>user</th>
+      <th>date</th>
       <th>amount</th>
-      <th>transaction_description</th>
-      <th>merchant_name</th>
-      <th>tag</th>
+      <th>desc</th>
+      <th>merchant</th>
       <th>gender</th>
-      <th>up_tag</th>
-      <th>account_id</th>
-      <th>year_of_birth</th>
-      <th>merchant_business_line</th>
-      <th>salary_range</th>
-      <th>latest_balance</th>
-      <th>account_type</th>
-      <th>credit_debit</th>
-      <th>transaction_id</th>
-      <th>bank</th>
-      <th>postcode</th>
-      <th>ym</th>
-      <th>account_created</th>
-      <th>user_registration_date</th>
-      <th>account_last_refreshed</th>
+      <th>yob</th>
+      <th>salary</th>
     </tr>
   </thead>
   <tbody>
@@ -241,73 +238,31 @@ window.onload = wrap_img;
       <td>3.03</td>
       <td>aviva pa - d/d</td>
       <td>aviva</td>
-      <td>life insurance</td>
       <td>m</td>
-      <td>life insurance</td>
-      <td>262916</td>
       <td>1969.0</td>
-      <td>aviva</td>
       <td>20k to 30k</td>
-      <td>364.22</td>
-      <td>current</td>
-      <td>debit</td>
-      <td>688262</td>
-      <td>natwest bank</td>
-      <td>wa1 4</td>
-      <td>201201</td>
-      <td>2011-07-20</td>
-      <td>2011-07-20</td>
-      <td>2020-07-21 20:32:00</td>
     </tr>
     <tr>
       <th>1</th>
       <td>777</td>
       <td>2012-01-03</td>
       <td>6.68</td>
-      <td>9572 31dec11 , tesco stores 3345 , warrington gb - pos</td>
+      <td>9572 31dec11 , tesco stores 3345 , warrington ...</td>
       <td>tesco</td>
-      <td>food, groceries, household</td>
       <td>m</td>
-      <td>food, groceries, household</td>
-      <td>262916</td>
       <td>1969.0</td>
-      <td>tesco supermarket</td>
       <td>20k to 30k</td>
-      <td>364.22</td>
-      <td>current</td>
-      <td>debit</td>
-      <td>688263</td>
-      <td>natwest bank</td>
-      <td>wa1 4</td>
-      <td>201201</td>
-      <td>2011-07-20</td>
-      <td>2011-07-20</td>
-      <td>2020-07-21 20:32:00</td>
     </tr>
     <tr>
       <th>2</th>
       <td>777</td>
       <td>2012-01-03</td>
       <td>10.27</td>
-      <td>9572 30dec11 , mcdonalds , restaurant , winwick road gb - pos</td>
+      <td>9572 30dec11 , mcdonalds , restaurant , winwic...</td>
       <td>mcdonalds</td>
-      <td>dining and drinking</td>
       <td>m</td>
-      <td>dining and drinking</td>
-      <td>262916</td>
       <td>1969.0</td>
-      <td>mcdonalds</td>
       <td>20k to 30k</td>
-      <td>364.22</td>
-      <td>current</td>
-      <td>debit</td>
-      <td>688264</td>
-      <td>natwest bank</td>
-      <td>wa1 4</td>
-      <td>201201</td>
-      <td>2011-07-20</td>
-      <td>2011-07-20</td>
-      <td>2020-07-21 20:32:00</td>
     </tr>
   </tbody>
 </table>
@@ -329,8 +284,7 @@ window.onload = wrap_img;
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-<span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -343,329 +297,110 @@ window.onload = wrap_img;
 <div class="output_area">
 
 
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>user_id</th>
-      <th>transaction_date</th>
-      <th>amount</th>
-      <th>transaction_description</th>
-      <th>merchant_name</th>
-      <th>tag</th>
-      <th>gender</th>
-      <th>up_tag</th>
-      <th>account_id</th>
-      <th>year_of_birth</th>
-      <th>merchant_business_line</th>
-      <th>salary_range</th>
-      <th>latest_balance</th>
-      <th>account_type</th>
-      <th>credit_debit</th>
-      <th>transaction_id</th>
-      <th>bank</th>
-      <th>postcode</th>
-      <th>ym</th>
-      <th>account_created</th>
-      <th>user_registration_date</th>
-      <th>account_last_refreshed</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1</th>
-      <td>777.0</td>
-      <td>2012-01-03</td>
-      <td>6.68</td>
-      <td>9572 31dec11 , tesco stores 3345 , warrington gb - pos</td>
-      <td>tesco</td>
-      <td>food, groceries, household</td>
-      <td>m</td>
-      <td>food, groceries, household</td>
-      <td>262916</td>
-      <td>1969.0</td>
-      <td>tesco supermarket</td>
-      <td>20k to 30k</td>
-      <td>364.22</td>
-      <td>current</td>
-      <td>debit</td>
-      <td>688263</td>
-      <td>natwest bank</td>
-      <td>wa1 4</td>
-      <td>201201</td>
-      <td>2011-07-20</td>
-      <td>2011-07-20</td>
-      <td>2020-07-21 20:32:00</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>777.0</td>
-      <td>2012-01-03</td>
-      <td>10.27</td>
-      <td>9572 30dec11 , mcdonalds , restaurant , winwick road gb - pos</td>
-      <td>mcdonalds</td>
-      <td>dining and drinking</td>
-      <td>m</td>
-      <td>dining and drinking</td>
-      <td>262916</td>
-      <td>1969.0</td>
-      <td>mcdonalds</td>
-      <td>20k to 30k</td>
-      <td>364.22</td>
-      <td>current</td>
-      <td>debit</td>
-      <td>688264</td>
-      <td>natwest bank</td>
-      <td>wa1 4</td>
-      <td>201201</td>
-      <td>2011-07-20</td>
-      <td>2011-07-20</td>
-      <td>2020-07-21 20:32:00</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>777.0</td>
-      <td>2012-01-03</td>
-      <td>12.00</td>
-      <td>9572 31dec11 , tesco stores 3345 , warrington gb - pos</td>
-      <td>tesco</td>
-      <td>food, groceries, household</td>
-      <td>m</td>
-      <td>food, groceries, household</td>
-      <td>262916</td>
-      <td>1969.0</td>
-      <td>tesco supermarket</td>
-      <td>20k to 30k</td>
-      <td>364.22</td>
-      <td>current</td>
-      <td>debit</td>
-      <td>688265</td>
-      <td>natwest bank</td>
-      <td>wa1 4</td>
-      <td>201201</td>
-      <td>2011-07-20</td>
-      <td>2011-07-20</td>
-      <td>2020-07-21 20:32:00</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>777.0</td>
-      <td>2012-01-03</td>
-      <td>400.00</td>
-      <td>&lt;mdbremoved&gt; - s/o</td>
-      <td>no merchant</td>
-      <td>other account</td>
-      <td>m</td>
-      <td>other account</td>
-      <td>262916</td>
-      <td>1969.0</td>
-      <td>non merchant mbl</td>
-      <td>20k to 30k</td>
-      <td>364.22</td>
-      <td>current</td>
-      <td>debit</td>
-      <td>688261</td>
-      <td>natwest bank</td>
-      <td>wa1 4</td>
-      <td>201201</td>
-      <td>2011-07-20</td>
-      <td>2011-07-20</td>
-      <td>2020-07-21 20:32:00</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>777.0</td>
-      <td>2012-01-04</td>
-      <td>8.74</td>
-      <td>9572 03jan12 , tesco-stores sacat, sale gb - pos</td>
-      <td>tesco</td>
-      <td>food, groceries, household</td>
-      <td>m</td>
-      <td>food, groceries, household</td>
-      <td>262916</td>
-      <td>1969.0</td>
-      <td>tesco supermarket</td>
-      <td>20k to 30k</td>
-      <td>364.22</td>
-      <td>current</td>
-      <td>debit</td>
-      <td>688267</td>
-      <td>natwest bank</td>
-      <td>wa1 4</td>
-      <td>201201</td>
-      <td>2011-07-20</td>
-      <td>2011-07-20</td>
-      <td>2020-07-21 20:32:00</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>157282</th>
-      <td>579777.0</td>
-      <td>2020-07-01</td>
-      <td>85.00</td>
-      <td>&lt;mdbremoved&gt;</td>
-      <td>no merchant</td>
-      <td>transfers</td>
-      <td>m</td>
-      <td>transfers</td>
-      <td>1655945</td>
-      <td>1986.0</td>
-      <td>non merchant mbl</td>
-      <td>20k to 30k</td>
-      <td>6684.43</td>
-      <td>current</td>
-      <td>debit</td>
-      <td>793743159</td>
-      <td>halifax personal banking</td>
-      <td>m4 6</td>
-      <td>202007</td>
-      <td>2020-04-07</td>
-      <td>2020-04-07</td>
-      <td>2020-07-05 06:34:00</td>
-    </tr>
-    <tr>
-      <th>157283</th>
-      <td>579777.0</td>
-      <td>2020-07-01</td>
-      <td>474.54</td>
-      <td>halifax</td>
-      <td>halifax</td>
-      <td>personal loan</td>
-      <td>m</td>
-      <td>personal loan</td>
-      <td>1655945</td>
-      <td>1986.0</td>
-      <td>halifax</td>
-      <td>20k to 30k</td>
-      <td>6684.43</td>
-      <td>current</td>
-      <td>debit</td>
-      <td>793743154</td>
-      <td>halifax personal banking</td>
-      <td>m4 6</td>
-      <td>202007</td>
-      <td>2020-04-07</td>
-      <td>2020-04-07</td>
-      <td>2020-07-05 06:34:00</td>
-    </tr>
-    <tr>
-      <th>157284</th>
-      <td>579777.0</td>
-      <td>2020-07-01</td>
-      <td>750.00</td>
-      <td>&lt;mdbremoved&gt;</td>
-      <td>no merchant</td>
-      <td>transfers</td>
-      <td>m</td>
-      <td>transfers</td>
-      <td>1655945</td>
-      <td>1986.0</td>
-      <td>non merchant mbl</td>
-      <td>20k to 30k</td>
-      <td>6684.43</td>
-      <td>current</td>
-      <td>debit</td>
-      <td>793743157</td>
-      <td>halifax personal banking</td>
-      <td>m4 6</td>
-      <td>202007</td>
-      <td>2020-04-07</td>
-      <td>2020-04-07</td>
-      <td>2020-07-05 06:34:00</td>
-    </tr>
-    <tr>
-      <th>157285</th>
-      <td>579777.0</td>
-      <td>2020-07-02</td>
-      <td>-27.98</td>
-      <td>payment received - thank you</td>
-      <td>no merchant</td>
-      <td>credit card</td>
-      <td>m</td>
-      <td>credit card</td>
-      <td>1655946</td>
-      <td>1986.0</td>
-      <td>account provider</td>
-      <td>20k to 30k</td>
-      <td>-30.80</td>
-      <td>credit card</td>
-      <td>credit</td>
-      <td>794507339</td>
-      <td>halifax personal banking</td>
-      <td>m4 6</td>
-      <td>202007</td>
-      <td>2020-04-07</td>
-      <td>2020-04-07</td>
-      <td>2020-07-05 06:34:00</td>
-    </tr>
-    <tr>
-      <th>157286</th>
-      <td>579777.0</td>
-      <td>2020-07-02</td>
-      <td>60.00</td>
-      <td>bulb energy</td>
-      <td>no merchant</td>
-      <td>energy - gas, elec, other</td>
-      <td>m</td>
-      <td>energy - gas, elec, other</td>
-      <td>1655945</td>
-      <td>1986.0</td>
-      <td>no merchant business line</td>
-      <td>20k to 30k</td>
-      <td>6684.43</td>
-      <td>current</td>
-      <td>debit</td>
-      <td>794296457</td>
-      <td>halifax personal banking</td>
-      <td>m4 6</td>
-      <td>202007</td>
-      <td>2020-04-07</td>
-      <td>2020-04-07</td>
-      <td>2020-07-05 06:34:00</td>
-    </tr>
-  </tbody>
-</table>
-<p>26490 rows × 22 columns</p>
+<div class="output_text output_subarea output_execute_result">
+<pre>0    2012
+1    2013
+2    2012
+3    2013
+4    2014
+Name: date, dtype: int64</pre>
 </div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">randomise_date</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
+    
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">({</span>
+        <span class="s1">'year'</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">series</span><span class="p">)),</span>
+        <span class="s1">'month'</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span><span class="p">,</span>
+        <span class="s1">'day'</span><span class="p">:</span> <span class="n">series</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">day</span>
+    <span class="p">})</span>
+
+<span class="n">randomise_date</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">date</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0        2012-01-03
+1        2012-01-03
+2        2012-01-03
+3        2012-01-03
+4        2012-01-03
+            ...    
+157282   2020-07-01
+157283   2020-07-01
+157284   2020-07-01
+157285   2020-07-02
+157286   2020-07-02
+Length: 157287, dtype: datetime64[ns]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">year</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="mi">2000</span><span class="p">]</span>
+<span class="n">month</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">day</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">({</span>
+    <span class="s1">'year'</span><span class="p">:</span> <span class="n">year</span><span class="p">,</span>
+    <span class="s1">'month'</span><span class="p">:</span> <span class="n">month</span><span class="p">,</span>
+    <span class="s1">'day'</span><span class="p">:</span> <span class="n">day</span>
+<span class="p">})</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0   2000-01-04
+1   2000-02-05
+2   2000-03-06
+dtype: datetime64[ns]</pre>
 </div>
 
 </div>
@@ -679,45 +414,9 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Questions">
-<a class="anchor" href="#Questions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Questions<a class="anchor-link" href="#Questions"> </a>
+<h2 id="Grouping">
+<a class="anchor" href="#Grouping" aria-hidden="true"><span class="octicon octicon-link"></span></a>Grouping<a class="anchor-link" href="#Grouping"> </a>
 </h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="True-of-False">
-<a class="anchor" href="#True-of-False" aria-hidden="true"><span class="octicon octicon-link"></span></a>True of False<a class="anchor-link" href="#True-of-False"> </a>
-</h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Fluency-exercises">
-<a class="anchor" href="#Fluency-exercises" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fluency exercises<a class="anchor-link" href="#Fluency-exercises"> </a>
-</h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Topics">
-<a class="anchor" href="#Topics" aria-hidden="true"><span class="octicon octicon-link"></span></a>Topics<a class="anchor-link" href="#Topics"> </a>
-</h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Groupby">
-<a class="anchor" href="#Groupby" aria-hidden="true"><span class="octicon octicon-link"></span></a>Groupby<a class="anchor-link" href="#Groupby"> </a>
-</h4>
 </div>
 </div>
 </div>
@@ -738,7 +437,7 @@ window.onload = wrap_img;
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s1">'iris'</span><span class="p">)</span>
 <span class="n">pieces</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'species'</span><span class="p">)))</span>
-<span class="n">pieces</span><span class="p">[</span><span class="s1">'setosa'</span><span class="p">][:</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">pieces</span><span class="p">[</span><span class="s1">'setosa'</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -802,6 +501,22 @@ window.onload = wrap_img;
       <td>0.2</td>
       <td>setosa</td>
     </tr>
+    <tr>
+      <th>3</th>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
   </tbody>
 </table>
 </div>
@@ -809,23 +524,6 @@ window.onload = wrap_img;
 
 </div>
 
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span>
-</pre></div>
-
-    </div>
 </div>
 </div>
 
