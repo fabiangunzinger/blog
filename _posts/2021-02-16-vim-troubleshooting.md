@@ -1,6 +1,6 @@
 ---
 hide: false
-style: post
+layout: post
 title: Vim troubleshooting
 ---
 
