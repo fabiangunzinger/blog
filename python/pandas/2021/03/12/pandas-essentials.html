@@ -120,7 +120,11 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
-<li class="toc-entry toc-h1"><a href="#Categories">Categories </a></li>
+<li class="toc-entry toc-h1"><a href="#Categories">Categories </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#Manual-sort-order">Manual sort order </a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h1"><a href="#Dates-and-times">Dates and times </a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#Parsing-string-dates">Parsing string dates </a></li>
@@ -128,9 +132,15 @@ window.onload = wrap_img;
 </ul>
 </li>
 <li class="toc-entry toc-h1"><a href="#Grouping">Grouping </a></li>
+<li class="toc-entry toc-h1"><a href="#Mappings">Mappings </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#Creating-new-columns-based-on-existing-ones-using-mappings">Creating new columns based on existing ones using mappings </a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h1"><a href="#Fluency-exercises">Fluency exercises </a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#Create-a-table-that-shows-the-number-of-planets-discovered-by-each-method-in-each-decade">Create a table that shows the number of planets discovered by each method in each decade </a></li>
+<li class="toc-entry toc-h2"><a href="#Sort-by-closeness-of-column-CCC-to-myval">Sort by closeness of column CCC to myval </a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h1"><a href="#Sources">Sources </a></li>
@@ -307,211 +317,12 @@ window.onload = wrap_img;
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="s1">'http://bit.ly/drinksbycountry'</span>
-<span class="n">drinks</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">drinks</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="n">drinks</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>(193, 6)
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>country</th>
-      <th>beer_servings</th>
-      <th>spirit_servings</th>
-      <th>wine_servings</th>
-      <th>total_litres_of_pure_alcohol</th>
-      <th>continent</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Afghanistan</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0.0</td>
-      <td>Asia</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Albania</td>
-      <td>89</td>
-      <td>132</td>
-      <td>54</td>
-      <td>4.9</td>
-      <td>Europe</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Algeria</td>
-      <td>25</td>
-      <td>0</td>
-      <td>14</td>
-      <td>0.7</td>
-      <td>Africa</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Andorra</td>
-      <td>245</td>
-      <td>138</td>
-      <td>312</td>
-      <td>12.4</td>
-      <td>Europe</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Angola</td>
-      <td>217</td>
-      <td>57</td>
-      <td>45</td>
-      <td>5.9</td>
-      <td>Africa</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">drinks</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">memory_usage</span><span class="o">=</span><span class="s1">'deep'</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>&lt;class 'pandas.core.frame.DataFrame'&gt;
-RangeIndex: 193 entries, 0 to 192
-Data columns (total 6 columns):
- #   Column                        Non-Null Count  Dtype  
----  ------                        --------------  -----  
- 0   country                       193 non-null    object 
- 1   beer_servings                 193 non-null    int64  
- 2   spirit_servings               193 non-null    int64  
- 3   wine_servings                 193 non-null    int64  
- 4   total_litres_of_pure_alcohol  193 non-null    float64
- 5   continent                     193 non-null    object 
-dtypes: float64(1), int64(3), object(2)
-memory usage: 30.5 KB
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">drinks</span><span class="o">.</span><span class="n">memory_usage</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="s1">'true'</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>Index                             128
-country                         12588
-beer_servings                    1544
-spirit_servings                  1544
-wine_servings                    1544
-total_litres_of_pure_alcohol     1544
-continent                       12332
-dtype: int64</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Convert country to category type</p>
-
+<h2 id="Manual-sort-order">
+<a class="anchor" href="#Manual-sort-order" aria-hidden="true"><span class="octicon octicon-link"></span></a>Manual sort order<a class="anchor-link" href="#Manual-sort-order"> </a>
+</h2>
 </div>
 </div>
 </div>
@@ -522,182 +333,11 @@ dtype: int64</pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">drinks</span><span class="o">.</span><span class="n">continent</span> <span class="o">=</span> <span class="n">drinks</span><span class="o">.</span><span class="n">continent</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'category'</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">drinks</span><span class="o">.</span><span class="n">memory_usage</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="s1">'true'</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>Index                             128
-country                         18094
-beer_servings                    1544
-spirit_servings                  1544
-wine_servings                    1544
-total_litres_of_pure_alcohol     1544
-continent                         744
-dtype: int64</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">drinks</span><span class="o">.</span><span class="n">continent</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>Index(['Africa', 'Asia', 'Europe', 'North America', 'Oceania',
-       'South America'],
-      dtype='object')</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">'id'</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="s1">'quality'</span><span class="p">:[</span><span class="s1">'good'</span><span class="p">,</span> <span class="s1">'excellent'</span><span class="p">,</span> <span class="s1">'very good'</span><span class="p">,</span> <span class="s1">'excellent'</span><span class="p">,</span> <span class="s1">'good'</span><span class="p">]})</span>
-<span class="n">df</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>id</th>
-      <th>quality</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>good</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2</td>
-      <td>excellent</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>3</td>
-      <td>very good</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>4</td>
-      <td>excellent</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>5</td>
-      <td>good</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">'quality'</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">'id'</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+    <span class="s1">'quality'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'good'</span><span class="p">,</span> <span class="s1">'excellent'</span><span class="p">,</span> <span class="s1">'very good'</span><span class="p">,</span> <span class="s1">'excellent'</span><span class="p">,</span> <span class="s1">'good'</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">'quality'</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -781,8 +421,8 @@ dtype: int64</pre>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pandas.api.types</span> <span class="kn">import</span> <span class="n">CategoricalDtype</span>
 <span class="n">quality_cat</span> <span class="o">=</span> <span class="n">CategoricalDtype</span><span class="p">([</span><span class="s1">'good'</span><span class="p">,</span> <span class="s1">'very good'</span><span class="p">,</span> <span class="s1">'excellent'</span><span class="p">],</span> <span class="n">ordered</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">quality</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">quality</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">quality_cat</span><span class="p">)</span>
-<span class="n">df</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'quality'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">quality</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">quality_cat</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">'quality'</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -825,9 +465,9 @@ dtype: int64</pre>
       <td>good</td>
     </tr>
     <tr>
-      <th>1</th>
-      <td>2</td>
-      <td>excellent</td>
+      <th>4</th>
+      <td>5</td>
+      <td>good</td>
     </tr>
     <tr>
       <th>2</th>
@@ -835,155 +475,14 @@ dtype: int64</pre>
       <td>very good</td>
     </tr>
     <tr>
-      <th>3</th>
-      <td>4</td>
-      <td>excellent</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>5</td>
-      <td>good</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">quality</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>0         good
-1    excellent
-2    very good
-3    excellent
-4         good
-Name: quality, dtype: category
-Categories (3, object): [good &lt; very good &lt; excellent]</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dummies</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">quality</span><span class="p">)</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">dummies</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">df</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>id</th>
-      <th>quality</th>
-      <th>good</th>
-      <th>very good</th>
-      <th>excellent</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>good</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
       <th>1</th>
       <td>2</td>
       <td>excellent</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>3</td>
-      <td>very good</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
     </tr>
     <tr>
       <th>3</th>
       <td>4</td>
       <td>excellent</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>5</td>
-      <td>good</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
     </tr>
   </tbody>
 </table>
@@ -1150,11 +649,11 @@ Categories (3, object): [good &lt; very good &lt; excellent]</pre>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>2018Q1   -0.484997
-2018Q2   -0.817007
-2018Q3    2.018879
-2018Q4   -0.176754
-2019Q1   -1.085844
+<pre>2018Q1   -0.210888
+2018Q2    0.217048
+2018Q3    0.093228
+2018Q4   -0.280792
+2019Q1   -1.017585
 Freq: Q-DEC, dtype: float64
 </pre>
 </div>
@@ -1165,11 +664,11 @@ Freq: Q-DEC, dtype: float64
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>2018-01-01   -0.484997
-2018-04-01   -0.817007
-2018-07-01    2.018879
-2018-10-01   -0.176754
-2019-01-01   -1.085844
+<pre>2018-01-01   -0.210888
+2018-04-01    0.217048
+2018-07-01    0.093228
+2018-10-01   -0.280792
+2019-01-01   -1.017585
 Freq: D, dtype: float64</pre>
 </div>
 
@@ -1270,38 +769,38 @@ Freq: M, dtype: float64</pre>
   <tbody>
     <tr>
       <th>2000-01-01</th>
-      <td>1.478093</td>
-      <td>2.355484</td>
-      <td>-1.320692</td>
-      <td>-1.036503</td>
+      <td>-0.148350</td>
+      <td>2.901749</td>
+      <td>-2.153478</td>
+      <td>-0.657941</td>
     </tr>
     <tr>
       <th>2000-01-02</th>
-      <td>0.736884</td>
-      <td>1.764789</td>
-      <td>-2.652206</td>
-      <td>-0.965161</td>
+      <td>-0.964828</td>
+      <td>1.569833</td>
+      <td>-1.415382</td>
+      <td>0.399700</td>
     </tr>
     <tr>
       <th>2000-01-03</th>
-      <td>-0.308438</td>
-      <td>2.355778</td>
-      <td>-1.502893</td>
-      <td>1.162360</td>
+      <td>-0.545781</td>
+      <td>1.263261</td>
+      <td>-1.940718</td>
+      <td>-1.940718</td>
     </tr>
     <tr>
       <th>2000-01-04</th>
-      <td>1.109930</td>
-      <td>1.786124</td>
-      <td>-1.424925</td>
-      <td>1.269311</td>
+      <td>-0.406149</td>
+      <td>1.658944</td>
+      <td>-1.393457</td>
+      <td>-0.656099</td>
     </tr>
     <tr>
       <th>2000-01-05</th>
-      <td>0.474575</td>
-      <td>0.487767</td>
-      <td>0.116583</td>
-      <td>0.369565</td>
+      <td>-1.839502</td>
+      <td>0.957588</td>
+      <td>-1.839502</td>
+      <td>-0.092540</td>
     </tr>
   </tbody>
 </table>
@@ -1421,6 +920,335 @@ Freq: M, dtype: float64</pre>
       <td>1.4</td>
       <td>0.2</td>
       <td>setosa</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Mappings">
+<a class="anchor" href="#Mappings" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mappings<a class="anchor-link" href="#Mappings"> </a>
+</h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Creating-new-columns-based-on-existing-ones-using-mappings">
+<a class="anchor" href="#Creating-new-columns-based-on-existing-ones-using-mappings" aria-hidden="true"><span class="octicon octicon-link"></span></a>Creating new columns based on existing ones using mappings<a class="anchor-link" href="#Creating-new-columns-based-on-existing-ones-using-mappings"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The below is a straightforward adaptation from the <a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/cookbook.html#new-columns">cookbook</a>:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">'AAA'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+                   <span class="s1">'BBB'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                   <span class="s1">'CCC'</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]})</span>
+
+<span class="n">source_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'AAA'</span><span class="p">,</span> <span class="s1">'BBB'</span><span class="p">]</span>
+<span class="n">new_cols</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'_cat'</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">source_cols</span><span class="p">]</span>
+<span class="n">cats</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="s1">'One'</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s1">'Two'</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s1">'Three'</span><span class="p">}</span>
+
+<span class="n">dd</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">dd</span><span class="p">[</span><span class="n">new_cols</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">source_cols</span><span class="p">]</span><span class="o">.</span><span class="n">applymap</span><span class="p">(</span><span class="n">cats</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
+<span class="n">dd</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>AAA</th>
+      <th>BBB</th>
+      <th>CCC</th>
+      <th>AAA_cat</th>
+      <th>BBB_cat</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>One</td>
+      <td>One</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Two</td>
+      <td>One</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>4</td>
+      <td>3</td>
+      <td>One</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>2</td>
+      <td>1</td>
+      <td>Three</td>
+      <td>Two</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>But it made me wonder why applymap required the use of the get method while we can map values of a series like so:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">s</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">cats</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0      One
+1      Two
+2    Three
+3      One
+dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>or so</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">cats</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0      One
+1      Two
+2    Three
+3      One
+dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The answer is simple: applymap requires a function as argument, while map takes functions or mappings.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>One limitation of the cookbook solution above is that is doesn't seem to allow for default values (notice that 4 gets substituted with "None").</p>
+<p>One way around this is the following:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="n">new_cols</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">source_cols</span><span class="p">]</span><span class="o">.</span><span class="n">applymap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">cats</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">'Hello'</span><span class="p">))</span>
+<span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>AAA</th>
+      <th>BBB</th>
+      <th>CCC</th>
+      <th>AAA_cat</th>
+      <th>BBB_cat</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>One</td>
+      <td>One</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Two</td>
+      <td>One</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>4</td>
+      <td>3</td>
+      <td>One</td>
+      <td>Hello</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>2</td>
+      <td>1</td>
+      <td>Three</td>
+      <td>Two</td>
     </tr>
   </tbody>
 </table>
@@ -1842,6 +1670,15 @@ Freq: M, dtype: float64</pre>
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Sort-by-closeness-of-column-CCC-to-myval">
+<a class="anchor" href="#Sort-by-closeness-of-column-CCC-to-myval" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sort by closeness of column CCC to myval<a class="anchor-link" href="#Sort-by-closeness-of-column-CCC-to-myval"> </a>
+</h2>
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -1849,9 +1686,10 @@ Freq: M, dtype: float64</pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'./data/births.csv'</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">'a'</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+                   <span class="s1">'b'</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span>
+                   <span class="s1">'c'</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="o">-</span><span class="mi">50</span><span class="p">]})</span>
+<span class="n">df</span>
 </pre></div>
 
     </div>
@@ -1863,56 +1701,145 @@ Freq: M, dtype: float64</pre>
 
 <div class="output_area">
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">FileNotFoundError</span>                         Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-25-978dfbd01cfc&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>df <span class="ansi-blue-fg">=</span> pd<span class="ansi-blue-fg">.</span>read_csv<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">'./data/births.csv'</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      2</span> print<span class="ansi-blue-fg">(</span>df<span class="ansi-blue-fg">.</span>shape<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      3</span> df<span class="ansi-blue-fg">.</span>head<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
 
-<span class="ansi-green-fg">~/miniconda3/envs/habits/lib/python3.7/site-packages/pandas/io/parsers.py</span> in <span class="ansi-cyan-fg">read_csv</span><span class="ansi-blue-fg">(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, squeeze, prefix, mangle_dupe_cols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, dialect, error_bad_lines, warn_bad_lines, delim_whitespace, low_memory, memory_map, float_precision)</span>
-<span class="ansi-green-intense-fg ansi-bold">    684</span>     )
-<span class="ansi-green-intense-fg ansi-bold">    685</span> 
-<span class="ansi-green-fg">--&gt; 686</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">return</span> _read<span class="ansi-blue-fg">(</span>filepath_or_buffer<span class="ansi-blue-fg">,</span> kwds<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    687</span> 
-<span class="ansi-green-intense-fg ansi-bold">    688</span> 
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ansi-green-fg">~/miniconda3/envs/habits/lib/python3.7/site-packages/pandas/io/parsers.py</span> in <span class="ansi-cyan-fg">_read</span><span class="ansi-blue-fg">(filepath_or_buffer, kwds)</span>
-<span class="ansi-green-intense-fg ansi-bold">    450</span> 
-<span class="ansi-green-intense-fg ansi-bold">    451</span>     <span class="ansi-red-fg"># Create the parser.</span>
-<span class="ansi-green-fg">--&gt; 452</span><span class="ansi-red-fg">     </span>parser <span class="ansi-blue-fg">=</span> TextFileReader<span class="ansi-blue-fg">(</span>fp_or_buf<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwds<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    453</span> 
-<span class="ansi-green-intense-fg ansi-bold">    454</span>     <span class="ansi-green-fg">if</span> chunksize <span class="ansi-green-fg">or</span> iterator<span class="ansi-blue-fg">:</span>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-<span class="ansi-green-fg">~/miniconda3/envs/habits/lib/python3.7/site-packages/pandas/io/parsers.py</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, f, engine, **kwds)</span>
-<span class="ansi-green-intense-fg ansi-bold">    944</span>             self<span class="ansi-blue-fg">.</span>options<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">"has_index_names"</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> kwds<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">"has_index_names"</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">    945</span> 
-<span class="ansi-green-fg">--&gt; 946</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>_make_engine<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>engine<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    947</span> 
-<span class="ansi-green-intense-fg ansi-bold">    948</span>     <span class="ansi-green-fg">def</span> close<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">~/miniconda3/envs/habits/lib/python3.7/site-packages/pandas/io/parsers.py</span> in <span class="ansi-cyan-fg">_make_engine</span><span class="ansi-blue-fg">(self, engine)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1176</span>     <span class="ansi-green-fg">def</span> _make_engine<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> engine<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">"c"</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">   1177</span>         <span class="ansi-green-fg">if</span> engine <span class="ansi-blue-fg">==</span> <span class="ansi-blue-fg">"c"</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">-&gt; 1178</span><span class="ansi-red-fg">             </span>self<span class="ansi-blue-fg">.</span>_engine <span class="ansi-blue-fg">=</span> CParserWrapper<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>f<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>self<span class="ansi-blue-fg">.</span>options<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1179</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">   1180</span>             <span class="ansi-green-fg">if</span> engine <span class="ansi-blue-fg">==</span> <span class="ansi-blue-fg">"python"</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">~/miniconda3/envs/habits/lib/python3.7/site-packages/pandas/io/parsers.py</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, src, **kwds)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2006</span>         kwds<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">"usecols"</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>usecols
-<span class="ansi-green-intense-fg ansi-bold">   2007</span> 
-<span class="ansi-green-fg">-&gt; 2008</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>_reader <span class="ansi-blue-fg">=</span> parsers<span class="ansi-blue-fg">.</span>TextReader<span class="ansi-blue-fg">(</span>src<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwds<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2009</span>         self<span class="ansi-blue-fg">.</span>unnamed_cols <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>_reader<span class="ansi-blue-fg">.</span>unnamed_cols
-<span class="ansi-green-intense-fg ansi-bold">   2010</span> 
-
-<span class="ansi-green-fg">pandas/_libs/parsers.pyx</span> in <span class="ansi-cyan-fg">pandas._libs.parsers.TextReader.__cinit__</span><span class="ansi-blue-fg">()</span>
-
-<span class="ansi-green-fg">pandas/_libs/parsers.pyx</span> in <span class="ansi-cyan-fg">pandas._libs.parsers.TextReader._setup_parser_source</span><span class="ansi-blue-fg">()</span>
-
-<span class="ansi-red-fg">FileNotFoundError</span>: [Errno 2] No such file or directory: './data/births.csv'</pre>
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>4</td>
+      <td>10</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5</td>
+      <td>20</td>
+      <td>50</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>6</td>
+      <td>30</td>
+      <td>-30</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>7</td>
+      <td>40</td>
+      <td>-50</td>
+    </tr>
+  </tbody>
+</table>
 </div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">myval</span> <span class="o">=</span> <span class="mi">34</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df</span><span class="o">.</span><span class="n">c</span> <span class="o">-</span> <span class="n">myval</span><span class="p">)</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">argsort</span><span class="p">()]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>5</td>
+      <td>20</td>
+      <td>50</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>6</td>
+      <td>30</td>
+      <td>-30</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>4</td>
+      <td>10</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>7</td>
+      <td>40</td>
+      <td>-50</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
 </div>
 
 </div>
@@ -1924,6 +1851,66 @@ Freq: M, dtype: float64</pre>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>Reminder of what happens here:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">c</span> <span class="o">-</span> <span class="n">myval</span><span class="p">)</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">argsort</span><span class="p">()</span> 
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(0    66
+ 1    16
+ 2    64
+ 3    84
+ Name: c, dtype: int64,
+ 0    1
+ 1    2
+ 2    0
+ 3    3
+ Name: c, dtype: int64)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>argsort</code> returns a series of indexes, so that <code>df[a]</code> returns an ordered dataframe. The first elemnt in <code>b</code> thus refers to the index of the smallest element in <code>a</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Sources">
 <a class="anchor" href="#Sources" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sources<a class="anchor-link" href="#Sources"> </a>
 </h1>
@@ -1931,6 +1918,7 @@ Freq: M, dtype: float64</pre>
 <li><a href="https://www.oreilly.com/library/view/python-for-data/9781491957653/">Python for Data Analysis</a></li>
 <li>
 <a href="https://www.oreilly.com/library/view/python-data-science/9781491912126/">Python Data Science Handbook</a> (PDSH)</li>
+<li><a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/cookbook.html">Pandas cookbook</a></li>
 </ul>
 <!-- - [Fluent Python](https://www.oreilly.com/library/view/fluent-python/9781491946237/)
 - [Python Cookbook](https://www.oreilly.com/library/view/python-cookbook-3rd/9781449357337/)
