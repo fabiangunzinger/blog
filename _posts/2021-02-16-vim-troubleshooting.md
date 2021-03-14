@@ -1,5 +1,6 @@
 ---
 hide: false
+style: post
 title: Vim troubleshooting
 ---
 
