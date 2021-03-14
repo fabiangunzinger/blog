@@ -478,12 +478,4 @@ pre code { font-size: 15px !important; }
 
 p code { font-size: 19px; }
 
-:root { --title-size: 50%; }
-
-.post-content p, .post-content li { font-size: 16px; color: #515151; }
-
-h1, h2, h3, h4 { font-weight: normal !important; margin-bottom: 0.5rem !important; font-size: var(--title-size); }
-
-h1 code, h2 code, h3 code, h4 code { font-size: 60%; }
-
 /*# sourceMappingURL=style.css.map */

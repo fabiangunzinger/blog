@@ -2,10 +2,10 @@
   
     
         "post0": {
-            "title": "New post",
-            "content": "from imports import * %config InlineBackend.figure_format = &#39;retina&#39; %load_ext autoreload %autoreload 2 . plt.plot([0, 1]) . [&lt;matplotlib.lines.Line2D at 0x1a196b0a10&gt;] . Sources . Fluent Python | Python Cookbook | Learning Python | The Hitchhiker&#39;s Guide to Python | Effective Python | Python for Data Analysis | Python Data Science Handbook | .",
-            "url": "https://fabiangunzinger.github.io/blog/python/2021/03/14/aws.html",
-            "relUrl": "/python/2021/03/14/aws.html",
+            "title": "AWS",
+            "content": "Basic AWS interaction patterns. . import platform import botocore import pandas as pd import s3fs . Setup . There are multiple ways to access your AWS account. I store config and credential files in ~/.aws as discussed here. AWS access methods find these files automatically so I don&#39;t have to worry about anything. . Sources . Fluent Python | Python Cookbook | Learning Python | The Hitchhiker&#39;s Guide to Python | Effective Python | Python for Data Analysis | Python Data Science Handbook | .",
+            "url": "https://fabiangunzinger.github.io/blog/python/tools/2021/03/14/aws.html",
+            "relUrl": "/python/tools/2021/03/14/aws.html",
             "date": " • Mar 14, 2021"
         }
         
