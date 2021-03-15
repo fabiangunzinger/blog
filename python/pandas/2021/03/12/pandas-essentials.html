@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      3 min read
+      4 min read
     
 </span></p>
 
@@ -120,6 +120,12 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#Aggregate">Aggregate </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#count-vs-size">count vs size </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#Filter">Filter </a></li>
 <li class="toc-entry toc-h1"><a href="#Categories">Categories </a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#Manual-sort-order">Manual sort order </a></li>
@@ -134,6 +140,7 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h1"><a href="#Grouping">Grouping </a></li>
 <li class="toc-entry toc-h1"><a href="#Mappings">Mappings </a>
 <ul>
+<li class="toc-entry toc-h2"><a href="#apply-vs-map-vs-applymap">apply vs map vs applymap </a></li>
 <li class="toc-entry toc-h2"><a href="#Creating-new-columns-based-on-existing-ones-using-mappings">Creating new columns based on existing ones using mappings </a></li>
 </ul>
 </li>
@@ -259,7 +266,7 @@ window.onload = wrap_img;
     <tr>
       <th>0</th>
       <td>777</td>
-      <td>2012-01-03</td>
+      <td>2010-01-03</td>
       <td>3.03</td>
       <td>aviva pa - d/d</td>
       <td>aviva</td>
@@ -270,7 +277,7 @@ window.onload = wrap_img;
     <tr>
       <th>1</th>
       <td>777</td>
-      <td>2009-01-03</td>
+      <td>2010-01-03</td>
       <td>6.68</td>
       <td>9572 31dec11 , tesco stores 3345 , warrington ...</td>
       <td>tesco</td>
@@ -281,7 +288,7 @@ window.onload = wrap_img;
     <tr>
       <th>2</th>
       <td>777</td>
-      <td>2011-01-03</td>
+      <td>2012-01-03</td>
       <td>10.27</td>
       <td>9572 30dec11 , mcdonalds , restaurant , winwic...</td>
       <td>mcdonalds</td>
@@ -292,6 +299,200 @@ window.onload = wrap_img;
   </tbody>
 </table>
 </div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Aggregate">
+<a class="anchor" href="#Aggregate" aria-hidden="true"><span class="octicon octicon-link"></span></a>Aggregate<a class="anchor-link" href="#Aggregate"> </a>
+</h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="count-vs-size">
+<a class="anchor" href="#count-vs-size" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>count</code> vs <code>size</code><a class="anchor-link" href="#count-vs-size"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'user'</span><span class="p">)</span>
+
+<span class="c1"># number of rows per group as a series</span>
+<span class="n">display</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+
+<span class="c1"># non-missing observations per group for each variable</span>
+<span class="n">g</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea ">
+<pre>user
+777      6302
+14777    2101
+20777    6452
+dtype: int64</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>date</th>
+      <th>amount</th>
+      <th>desc</th>
+      <th>merchant</th>
+      <th>gender</th>
+      <th>yob</th>
+      <th>salary</th>
+    </tr>
+    <tr>
+      <th>user</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>777</th>
+      <td>6291</td>
+      <td>6302</td>
+      <td>6302</td>
+      <td>6302</td>
+      <td>6302</td>
+      <td>6302</td>
+      <td>6302</td>
+    </tr>
+    <tr>
+      <th>14777</th>
+      <td>2101</td>
+      <td>2101</td>
+      <td>2101</td>
+      <td>2101</td>
+      <td>2101</td>
+      <td>2101</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>20777</th>
+      <td>6443</td>
+      <td>6452</td>
+      <td>6452</td>
+      <td>6452</td>
+      <td>6452</td>
+      <td>6452</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Filter">
+<a class="anchor" href="#Filter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Filter<a class="anchor-link" href="#Filter"> </a>
+</h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Different approaches to filter data in decreasing order of preference</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cutoff</span> <span class="o">=</span> <span class="mi">30_000</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">amount</span> <span class="o">&gt;</span> <span class="n">cutoff</span><span class="p">]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">'amount &gt; @cutoff'</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">amount</span> <span class="o">&gt;</span> <span class="n">cutoff</span><span class="p">]</span>
+<span class="nb">all</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">)</span> <span class="o">==</span> <span class="nb">all</span><span class="p">(</span><span class="n">b</span> <span class="o">==</span> <span class="n">c</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
 </div>
 
 </div>
@@ -934,6 +1135,286 @@ Freq: M, dtype: float64</pre>
 <h1 id="Mappings">
 <a class="anchor" href="#Mappings" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mappings<a class="anchor-link" href="#Mappings"> </a>
 </h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="apply-vs-map-vs-applymap">
+<a class="anchor" href="#apply-vs-map-vs-applymap" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>apply</code> vs <code>map</code> vs <code>applymap</code><a class="anchor-link" href="#apply-vs-map-vs-applymap"> </a>
+</h2>
+<ul>
+<li>
+<code>apply</code> applies a function along an axis of a dataframe or on series values</li>
+<li>
+<code>map</code> applies a correspondance to each value in a series</li>
+<li>
+<code>applymap</code> applies a function to each element in a dataframe</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="s1">'gender'</span><span class="p">,</span> <span class="s1">'merchant'</span><span class="p">]]</span>
+<span class="n">gender</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'m'</span><span class="p">:</span> <span class="s1">'male'</span><span class="p">,</span> <span class="s1">'f'</span><span class="p">:</span> <span class="s1">'female'</span><span class="p">}</span>
+<span class="n">data</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gender</th>
+      <th>merchant</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>m</td>
+      <td>aviva</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>m</td>
+      <td>tesco</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>m</td>
+      <td>mcdonalds</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">gender</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gender</th>
+      <th>merchant</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>male</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>male</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>male</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">gender</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">gender</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0    male
+1    male
+2    male
+Name: gender, dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">applymap</span><span class="p">(</span><span class="n">gender</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gender</th>
+      <th>merchant</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>male</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>male</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>male</td>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>get</code> turns a dictionary into a function that takes a key and returns its corresponding value if the key is in the dictionary and a default value otherwise.</p>
+
 </div>
 </div>
 </div>
