@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Randomisation | Fabian’s online notebook</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Randomisation" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Online notebook for code and thoughts." />
+<meta property="og:description" content="Online notebook for code and thoughts." />
+<link rel="canonical" href="https://fabiangunzinger.github.io/blog/2021/03/16/randomisation.html" />
+<meta property="og:url" content="https://fabiangunzinger.github.io/blog/2021/03/16/randomisation.html" />
+<meta property="og:site_name" content="Fabian’s online notebook" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-16T00:00:00-05:00" />
+<script type="application/ld+json">
+{"url":"https://fabiangunzinger.github.io/blog/2021/03/16/randomisation.html","@type":"BlogPosting","headline":"Randomisation","dateModified":"2021-03-16T00:00:00-05:00","datePublished":"2021-03-16T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://fabiangunzinger.github.io/blog/2021/03/16/randomisation.html"},"description":"Online notebook for code and thoughts.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://fabiangunzinger.github.io/blog/feed.xml" title="Fabian's online notebook" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">Fabian&#39;s online notebook</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Randomisation</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-03-16T00:00:00-05:00" itemprop="datePublished">
+        Mar 16, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      1 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          
+          
+          
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/3000-01-01-randomisation.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>An experiment is a proceedure to test whether one or multiple variations of the status quo deliver superior results.</p>
+<p>We generally proceed in the following ways:</p>
+<ol>
+<li>Define the problem (e.g. improve search experience)</li>
+<li>Design solution (e.g. new landing page for dead searches)</li>
+<li>Define outcome metric to be improved (e.g. number of dead searches)</li>
+<li>Define target population and smapling approach</li>
+<li>Specify hypothesis</li>
+<li>Conduct power calculations</li>
+<li>Randomise units into groups</li>
+<li>Run experiment</li>
+<li>Analyse results</li>
+<li>Communicate results</li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Randomisation-functions">Randomisation functions<a class="anchor-link" href="#Randomisation-functions"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span><span class="p">,</span> <span class="n">bernoulli</span><span class="p">,</span> <span class="n">uniform</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">231286</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">cities</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;London&#39;</span><span class="p">,</span> <span class="s1">&#39;Manchester&#39;</span><span class="p">,</span> <span class="s1">&#39;Birmingham&#39;</span><span class="p">]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;ids&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">),</span>
+    <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;female&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span>
+    <span class="s1">&#39;city&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">cities</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ids</th>
+      <th>age</th>
+      <th>female</th>
+      <th>city</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>55</td>
+      <td>0</td>
+      <td>Manchester</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>50</td>
+      <td>0</td>
+      <td>Manchester</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>53</td>
+      <td>1</td>
+      <td>Manchester</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>61</td>
+      <td>1</td>
+      <td>Birmingham</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>58</td>
+      <td>1</td>
+      <td>Manchester</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>5</td>
+      <td>39</td>
+      <td>1</td>
+      <td>Birmingham</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>6</td>
+      <td>31</td>
+      <td>1</td>
+      <td>London</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>7</td>
+      <td>50</td>
+      <td>0</td>
+      <td>London</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>8</td>
+      <td>40</td>
+      <td>0</td>
+      <td>Manchester</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>9</td>
+      <td>28</td>
+      <td>1</td>
+      <td>Manchester</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">simple_rand</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">n_groups</span><span class="p">):</span>
+    
+    <span class="c1"># Randomly sort df rows</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="c1"># Allocate to groups</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">n_groups</span> <span class="o">*</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="k">def</span> <span class="nf">blocked_rand</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">n_groups</span><span class="p">,</span> <span class="n">block_vars</span><span class="p">):</span>
+    
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">block_vars</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">simple_rand</span><span class="p">,</span> <span class="n">n_groups</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="p">)</span>
+
+<span class="n">blocked_rand</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;city&#39;</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ids</th>
+      <th>age</th>
+      <th>female</th>
+      <th>city</th>
+      <th>group</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>33</td>
+      <td>22</td>
+      <td>0</td>
+      <td>Birmingham</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>20</td>
+      <td>12</td>
+      <td>0</td>
+      <td>Birmingham</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>46</td>
+      <td>47</td>
+      <td>0</td>
+      <td>Birmingham</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>73</td>
+      <td>21</td>
+      <td>0</td>
+      <td>Birmingham</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>34</td>
+      <td>38</td>
+      <td>0</td>
+      <td>Birmingham</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span>np.random.random_sample<span class="o">?</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Misc">Misc<a class="anchor-link" href="#Misc"> </a></h1>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">1e6</span><span class="p">)</span>
+<span class="n">bins</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">);</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><a class="u-url" href="/blog/2021/03/16/randomisation.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Online notebook for code and thoughts.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

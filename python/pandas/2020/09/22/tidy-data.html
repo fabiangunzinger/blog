@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Data cleaning | Fabian’s online notebook</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Data cleaning" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Online notebook for code and thoughts." />
+<meta property="og:description" content="Online notebook for code and thoughts." />
+<link rel="canonical" href="https://fabiangunzinger.github.io/blog/python/pandas/2020/09/22/tidy-data.html" />
+<meta property="og:url" content="https://fabiangunzinger.github.io/blog/python/pandas/2020/09/22/tidy-data.html" />
+<meta property="og:site_name" content="Fabian’s online notebook" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-22T00:00:00-05:00" />
+<script type="application/ld+json">
+{"url":"https://fabiangunzinger.github.io/blog/python/pandas/2020/09/22/tidy-data.html","@type":"BlogPosting","headline":"Data cleaning","dateModified":"2020-09-22T00:00:00-05:00","datePublished":"2020-09-22T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://fabiangunzinger.github.io/blog/python/pandas/2020/09/22/tidy-data.html"},"description":"Online notebook for code and thoughts.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://fabiangunzinger.github.io/blog/feed.xml" title="Fabian's online notebook" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">Fabian&#39;s online notebook</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Data cleaning</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-09-22T00:00:00-05:00" itemprop="datePublished">
+        Sep 22, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      5 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/blog/categories/#python">python</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#pandas">pandas</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          
+          
+          
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#Creating-tidy-data">Creating tidy data </a></li>
+<li class="toc-entry toc-h2"><a href="#Columns-are-values">Columns are values </a></li>
+<li class="toc-entry toc-h2"><a href="#Multiple-variables-stored-in-one-column">Multiple variables stored in one column </a></li>
+<li class="toc-entry toc-h2"><a href="#Variables-are-stored-in-both-rows-and-columns">Variables are stored in both rows and columns </a></li>
+<li class="toc-entry toc-h2"><a href="#Multiple-types-of-observational-units-are-stored-in-a-single-table">Multiple types of observational units are stored in a single table </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-09-22-tidy-data.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Based on excellent materials materials from Daniel Chen <a href="https://github.com/chendaniely/pydatadc_2018-tidy">here</a> and talk <a href="https://www.youtube.com/watch?v=iYie42M1ZyU">here</a></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">imports</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="o">%</span><span class="k">load_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Creating-tidy-data">
+<a class="anchor" href="#Creating-tidy-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Creating tidy data<a class="anchor-link" href="#Creating-tidy-data"> </a>
+</h2>
+<p>Definition by Wikham <a href="http://vita.had.co.nz/papers/tidy-data.pdf">here</a>:</p>
+<ol>
+<li>Each variable is a column</li>
+<li>Each observation is a row</li>
+<li>Each type of observational unit is a table.</li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Columns-are-values">
+<a class="anchor" href="#Columns-are-values" aria-hidden="true"><span class="octicon octicon-link"></span></a>Columns are values<a class="anchor-link" href="#Columns-are-values"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pew</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'https://raw.githubusercontent.com/chendaniely/pydatadc_2018-tidy/master/data/pew.csv'</span><span class="p">)</span>
+<span class="n">pew</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>religion</th>
+      <th>&lt;$10k</th>
+      <th>$10-20k</th>
+      <th>$20-30k</th>
+      <th>$30-40k</th>
+      <th>$40-50k</th>
+      <th>$50-75k</th>
+      <th>$75-100k</th>
+      <th>$100-150k</th>
+      <th>&gt;150k</th>
+      <th>Don't know/refused</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Agnostic</td>
+      <td>27</td>
+      <td>34</td>
+      <td>60</td>
+      <td>81</td>
+      <td>76</td>
+      <td>137</td>
+      <td>122</td>
+      <td>109</td>
+      <td>84</td>
+      <td>96</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Atheist</td>
+      <td>12</td>
+      <td>27</td>
+      <td>37</td>
+      <td>52</td>
+      <td>35</td>
+      <td>70</td>
+      <td>73</td>
+      <td>59</td>
+      <td>74</td>
+      <td>76</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Buddhist</td>
+      <td>27</td>
+      <td>21</td>
+      <td>30</td>
+      <td>34</td>
+      <td>33</td>
+      <td>58</td>
+      <td>62</td>
+      <td>39</td>
+      <td>53</td>
+      <td>54</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Catholic</td>
+      <td>418</td>
+      <td>617</td>
+      <td>732</td>
+      <td>670</td>
+      <td>638</td>
+      <td>1116</td>
+      <td>949</td>
+      <td>792</td>
+      <td>633</td>
+      <td>1489</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Don’t know/refused</td>
+      <td>15</td>
+      <td>14</td>
+      <td>15</td>
+      <td>11</td>
+      <td>10</td>
+      <td>35</td>
+      <td>21</td>
+      <td>17</td>
+      <td>18</td>
+      <td>116</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pew</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span>
+    <span class="n">id_vars</span><span class="o">=</span><span class="s1">'religion'</span><span class="p">,</span>
+    <span class="n">var_name</span><span class="o">=</span><span class="s1">'income'</span><span class="p">,</span>
+    <span class="n">value_name</span><span class="o">=</span><span class="s1">'count'</span>
+<span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>religion</th>
+      <th>income</th>
+      <th>count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Agnostic</td>
+      <td>&lt;$10k</td>
+      <td>27</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Atheist</td>
+      <td>&lt;$10k</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Buddhist</td>
+      <td>&lt;$10k</td>
+      <td>27</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Catholic</td>
+      <td>&lt;$10k</td>
+      <td>418</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Don’t know/refused</td>
+      <td>&lt;$10k</td>
+      <td>15</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">billboard</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'https://raw.githubusercontent.com/chendaniely/pydatadc_2018-tidy/master/data/billboard.csv'</span><span class="p">)</span>
+<span class="n">billboard</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Index(['year', 'artist', 'track', 'time', 'date.entered', 'wk1', 'wk2', 'wk3',
+       'wk4', 'wk5', 'wk6', 'wk7', 'wk8', 'wk9', 'wk10', 'wk11', 'wk12',
+       'wk13', 'wk14', 'wk15', 'wk16', 'wk17', 'wk18', 'wk19', 'wk20', 'wk21',
+       'wk22', 'wk23', 'wk24', 'wk25', 'wk26', 'wk27', 'wk28', 'wk29', 'wk30',
+       'wk31', 'wk32', 'wk33', 'wk34', 'wk35', 'wk36', 'wk37', 'wk38', 'wk39',
+       'wk40', 'wk41', 'wk42', 'wk43', 'wk44', 'wk45', 'wk46', 'wk47', 'wk48',
+       'wk49', 'wk50', 'wk51', 'wk52', 'wk53', 'wk54', 'wk55', 'wk56', 'wk57',
+       'wk58', 'wk59', 'wk60', 'wk61', 'wk62', 'wk63', 'wk64', 'wk65', 'wk66',
+       'wk67', 'wk68', 'wk69', 'wk70', 'wk71', 'wk72', 'wk73', 'wk74', 'wk75',
+       'wk76'],
+      dtype='object')</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idvars</span> <span class="o">=</span> <span class="n">billboard</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">~</span><span class="n">bb</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'wk'</span><span class="p">)]</span>
+
+<span class="n">tidy_billboard</span> <span class="o">=</span> <span class="n">billboard</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span>
+    <span class="n">id_vars</span><span class="o">=</span><span class="n">idvars</span><span class="p">,</span>
+    <span class="n">var_name</span><span class="o">=</span><span class="s1">'week'</span><span class="p">,</span> 
+    <span class="n">value_name</span><span class="o">=</span><span class="s1">'rating'</span>
+<span class="p">)</span>
+<span class="n">tidy_billboard</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>artist</th>
+      <th>track</th>
+      <th>time</th>
+      <th>date.entered</th>
+      <th>week</th>
+      <th>rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2000</td>
+      <td>2 Pac</td>
+      <td>Baby Don't Cry (Keep...</td>
+      <td>4:22</td>
+      <td>2000-02-26</td>
+      <td>wk1</td>
+      <td>87.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2000</td>
+      <td>2Ge+her</td>
+      <td>The Hardest Part Of ...</td>
+      <td>3:15</td>
+      <td>2000-09-02</td>
+      <td>wk1</td>
+      <td>91.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2000</td>
+      <td>3 Doors Down</td>
+      <td>Kryptonite</td>
+      <td>3:53</td>
+      <td>2000-04-08</td>
+      <td>wk1</td>
+      <td>81.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2000</td>
+      <td>3 Doors Down</td>
+      <td>Loser</td>
+      <td>4:24</td>
+      <td>2000-10-21</td>
+      <td>wk1</td>
+      <td>76.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2000</td>
+      <td>504 Boyz</td>
+      <td>Wobble Wobble</td>
+      <td>3:35</td>
+      <td>2000-04-15</td>
+      <td>wk1</td>
+      <td>57.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Multiple-variables-stored-in-one-column">
+<a class="anchor" href="#Multiple-variables-stored-in-one-column" aria-hidden="true"><span class="octicon octicon-link"></span></a>Multiple variables stored in one column<a class="anchor-link" href="#Multiple-variables-stored-in-one-column"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ebola</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'https://raw.githubusercontent.com/chendaniely/pydatadc_2018-tidy/master/data/country_timeseries.csv'</span><span class="p">)</span>
+<span class="n">ebola</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date</th>
+      <th>Day</th>
+      <th>Cases_Guinea</th>
+      <th>Cases_Liberia</th>
+      <th>Cases_SierraLeone</th>
+      <th>Cases_Nigeria</th>
+      <th>Cases_Senegal</th>
+      <th>Cases_UnitedStates</th>
+      <th>Cases_Spain</th>
+      <th>Cases_Mali</th>
+      <th>Deaths_Guinea</th>
+      <th>Deaths_Liberia</th>
+      <th>Deaths_SierraLeone</th>
+      <th>Deaths_Nigeria</th>
+      <th>Deaths_Senegal</th>
+      <th>Deaths_UnitedStates</th>
+      <th>Deaths_Spain</th>
+      <th>Deaths_Mali</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1/5/2015</td>
+      <td>289</td>
+      <td>2776.0</td>
+      <td>NaN</td>
+      <td>10030.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1786.0</td>
+      <td>NaN</td>
+      <td>2977.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1/4/2015</td>
+      <td>288</td>
+      <td>2775.0</td>
+      <td>NaN</td>
+      <td>9780.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1781.0</td>
+      <td>NaN</td>
+      <td>2943.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1/3/2015</td>
+      <td>287</td>
+      <td>2769.0</td>
+      <td>8166.0</td>
+      <td>9722.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1767.0</td>
+      <td>3496.0</td>
+      <td>2915.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1/2/2015</td>
+      <td>286</td>
+      <td>NaN</td>
+      <td>8157.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3496.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>12/31/2014</td>
+      <td>284</td>
+      <td>2730.0</td>
+      <td>8115.0</td>
+      <td>9633.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1739.0</td>
+      <td>3471.0</td>
+      <td>2827.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tidy_ebola</span> <span class="o">=</span> <span class="n">ebola</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">'Date'</span><span class="p">,</span> <span class="s1">'Day'</span><span class="p">],</span> <span class="n">value_name</span><span class="o">=</span><span class="s1">'Cases'</span><span class="p">)</span>
+<span class="n">tidy_ebola</span><span class="p">[[</span><span class="s1">'Statistic'</span><span class="p">,</span> <span class="s1">'Country'</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span><span class="n">tidy_ebola</span><span class="o">.</span><span class="n">variable</span>
+                                        <span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'_'</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="n">tidy_ebola</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">'variable'</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">tidy_ebola</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date</th>
+      <th>Day</th>
+      <th>Cases</th>
+      <th>Statistic</th>
+      <th>Country</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1/5/2015</td>
+      <td>289</td>
+      <td>2776.0</td>
+      <td>Cases</td>
+      <td>Guinea</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1/4/2015</td>
+      <td>288</td>
+      <td>2775.0</td>
+      <td>Cases</td>
+      <td>Guinea</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1/3/2015</td>
+      <td>287</td>
+      <td>2769.0</td>
+      <td>Cases</td>
+      <td>Guinea</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1/2/2015</td>
+      <td>286</td>
+      <td>NaN</td>
+      <td>Cases</td>
+      <td>Guinea</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>12/31/2014</td>
+      <td>284</td>
+      <td>2730.0</td>
+      <td>Cases</td>
+      <td>Guinea</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">ebola</span>
+ <span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">'Date'</span><span class="p">,</span> <span class="s1">'Day'</span><span class="p">],</span> <span class="n">value_name</span><span class="o">=</span><span class="s1">'Cases'</span><span class="p">)</span>
+ <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">Statistic</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">variable</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'_'</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+ <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">Country</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">variable</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'_'</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+ <span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">'variable'</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date</th>
+      <th>Day</th>
+      <th>Cases</th>
+      <th>Statistic</th>
+      <th>Country</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1/5/2015</td>
+      <td>289</td>
+      <td>2776.0</td>
+      <td>Cases</td>
+      <td>Guinea</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1/4/2015</td>
+      <td>288</td>
+      <td>2775.0</td>
+      <td>Cases</td>
+      <td>Guinea</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1/3/2015</td>
+      <td>287</td>
+      <td>2769.0</td>
+      <td>Cases</td>
+      <td>Guinea</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1/2/2015</td>
+      <td>286</td>
+      <td>NaN</td>
+      <td>Cases</td>
+      <td>Guinea</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>12/31/2014</td>
+      <td>284</td>
+      <td>2730.0</td>
+      <td>Cases</td>
+      <td>Guinea</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Variables-are-stored-in-both-rows-and-columns">
+<a class="anchor" href="#Variables-are-stored-in-both-rows-and-columns" aria-hidden="true"><span class="octicon octicon-link"></span></a>Variables are stored in both rows and columns<a class="anchor-link" href="#Variables-are-stored-in-both-rows-and-columns"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">weather</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'https://raw.githubusercontent.com/chendaniely/pydatadc_2018-tidy/master/data/weather.csv'</span><span class="p">)</span>
+<span class="n">weather</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>year</th>
+      <th>month</th>
+      <th>element</th>
+      <th>d1</th>
+      <th>d2</th>
+      <th>d3</th>
+      <th>d4</th>
+      <th>d5</th>
+      <th>d6</th>
+      <th>d7</th>
+      <th>d8</th>
+      <th>d9</th>
+      <th>d10</th>
+      <th>d11</th>
+      <th>d12</th>
+      <th>d13</th>
+      <th>d14</th>
+      <th>d15</th>
+      <th>d16</th>
+      <th>d17</th>
+      <th>d18</th>
+      <th>d19</th>
+      <th>d20</th>
+      <th>d21</th>
+      <th>d22</th>
+      <th>d23</th>
+      <th>d24</th>
+      <th>d25</th>
+      <th>d26</th>
+      <th>d27</th>
+      <th>d28</th>
+      <th>d29</th>
+      <th>d30</th>
+      <th>d31</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>1</td>
+      <td>tmax</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>27.8</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>1</td>
+      <td>tmin</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>14.5</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>2</td>
+      <td>tmax</td>
+      <td>NaN</td>
+      <td>27.3</td>
+      <td>24.1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>29.7</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>29.9</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>2</td>
+      <td>tmin</td>
+      <td>NaN</td>
+      <td>14.4</td>
+      <td>14.4</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>13.4</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>10.7</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>3</td>
+      <td>tmax</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>32.1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>34.5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>31.1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">weather</span>
+ <span class="o">.</span><span class="n">melt</span><span class="p">(</span>
+     <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">'id'</span><span class="p">,</span> <span class="s1">'year'</span><span class="p">,</span> <span class="s1">'month'</span><span class="p">,</span> <span class="s1">'element'</span><span class="p">],</span>
+     <span class="n">var_name</span><span class="o">=</span><span class="s1">'day'</span><span class="p">,</span>
+     <span class="n">value_name</span><span class="o">=</span><span class="s1">'temp'</span>
+ <span class="p">)</span>
+ <span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
+     <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">'id'</span><span class="p">,</span> <span class="s1">'year'</span><span class="p">,</span> <span class="s1">'month'</span><span class="p">,</span> <span class="s1">'day'</span><span class="p">],</span>
+     <span class="n">columns</span><span class="o">=</span><span class="s1">'element'</span><span class="p">,</span>
+     <span class="n">values</span><span class="o">=</span><span class="s1">'temp'</span>
+ <span class="p">)</span>
+ <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+ <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">day</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">day</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="s1">'(\d+)'</span><span class="p">))</span>
+<span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>element</th>
+      <th>id</th>
+      <th>year</th>
+      <th>month</th>
+      <th>day</th>
+      <th>tmax</th>
+      <th>tmin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>1</td>
+      <td>30</td>
+      <td>27.8</td>
+      <td>14.5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>2</td>
+      <td>11</td>
+      <td>29.7</td>
+      <td>13.4</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>2</td>
+      <td>2</td>
+      <td>27.3</td>
+      <td>14.4</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>2</td>
+      <td>23</td>
+      <td>29.9</td>
+      <td>10.7</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>2</td>
+      <td>3</td>
+      <td>24.1</td>
+      <td>14.4</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Multiple-types-of-observational-units-are-stored-in-a-single-table">
+<a class="anchor" href="#Multiple-types-of-observational-units-are-stored-in-a-single-table" aria-hidden="true"><span class="octicon octicon-link"></span></a>Multiple types of observational units are stored in a single table<a class="anchor-link" href="#Multiple-types-of-observational-units-are-stored-in-a-single-table"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tidy_billboard</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">tidy_bb</span> <span class="o">=</span> <span class="n">tidy_billboard</span>
+<span class="n">tidy_bb</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>artist</th>
+      <th>track</th>
+      <th>time</th>
+      <th>date.entered</th>
+      <th>week</th>
+      <th>rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2000</td>
+      <td>2 Pac</td>
+      <td>Baby Don't Cry (Keep...</td>
+      <td>4:22</td>
+      <td>2000-02-26</td>
+      <td>wk1</td>
+      <td>87.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2000</td>
+      <td>2Ge+her</td>
+      <td>The Hardest Part Of ...</td>
+      <td>3:15</td>
+      <td>2000-09-02</td>
+      <td>wk1</td>
+      <td>91.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2000</td>
+      <td>3 Doors Down</td>
+      <td>Kryptonite</td>
+      <td>3:53</td>
+      <td>2000-04-08</td>
+      <td>wk1</td>
+      <td>81.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2000</td>
+      <td>3 Doors Down</td>
+      <td>Loser</td>
+      <td>4:24</td>
+      <td>2000-10-21</td>
+      <td>wk1</td>
+      <td>76.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2000</td>
+      <td>504 Boyz</td>
+      <td>Wobble Wobble</td>
+      <td>3:35</td>
+      <td>2000-04-15</td>
+      <td>wk1</td>
+      <td>57.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bb_songs</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">tidy_bb</span><span class="p">[[</span><span class="s1">'year'</span><span class="p">,</span> <span class="s1">'artist'</span><span class="p">,</span> <span class="s1">'track'</span><span class="p">,</span> <span class="s1">'time'</span><span class="p">,</span> <span class="s1">'date.entered'</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="nb">id</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)))</span>
+<span class="p">)</span>
+<span class="n">bb_songs</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>artist</th>
+      <th>track</th>
+      <th>time</th>
+      <th>date.entered</th>
+      <th>id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2000</td>
+      <td>2 Pac</td>
+      <td>Baby Don't Cry (Keep...</td>
+      <td>4:22</td>
+      <td>2000-02-26</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2000</td>
+      <td>2Ge+her</td>
+      <td>The Hardest Part Of ...</td>
+      <td>3:15</td>
+      <td>2000-09-02</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2000</td>
+      <td>3 Doors Down</td>
+      <td>Kryptonite</td>
+      <td>3:53</td>
+      <td>2000-04-08</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2000</td>
+      <td>3 Doors Down</td>
+      <td>Loser</td>
+      <td>4:24</td>
+      <td>2000-10-21</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2000</td>
+      <td>504 Boyz</td>
+      <td>Wobble Wobble</td>
+      <td>3:35</td>
+      <td>2000-04-15</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bb_ratings</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">tidy_bb</span>
+    <span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">bb_songs</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">'week'</span><span class="p">,</span> <span class="s1">'rating'</span><span class="p">,</span> <span class="s1">'id'</span><span class="p">]]</span>
+<span class="p">)</span>
+<span class="n">bb_ratings</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>week</th>
+      <th>rating</th>
+      <th>id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>wk1</td>
+      <td>87.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>wk2</td>
+      <td>82.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>wk3</td>
+      <td>72.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>wk4</td>
+      <td>77.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>wk5</td>
+      <td>87.0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="fabiangunzinger/blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/blog/python/pandas/2020/09/22/tidy-data.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Online notebook for code and thoughts.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
