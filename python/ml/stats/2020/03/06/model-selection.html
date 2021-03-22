@@ -123,9 +123,21 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#Notes">Notes </a>
+<ul>
 <li class="toc-entry toc-h2"><a href="#What-to-do-when-model-is-underperforming?">What to do when model is underperforming? </a></li>
 <li class="toc-entry toc-h2"><a href="#Train-and-test-vs-cross-validation">Train and test vs cross-validation </a></li>
 <li class="toc-entry toc-h2"><a href="#Assessing-model-accuracy">Assessing model accuracy </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#Confusion-matrix">Confusion matrix </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#Terminology">Terminology </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#ROC-curves-and-AUC">ROC curves and AUC </a></li>
+<li class="toc-entry toc-h1"><a href="#Precision-recall-curves">Precision-recall curves </a></li>
+<li class="toc-entry toc-h1"><a href="#Learning-curves">Learning curves </a></li>
 <li class="toc-entry toc-h1"><a href="#Sources">Sources </a></li>
 </ul><!--
 #################################################
@@ -139,7 +151,16 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The ultimate trade-off for model performance is that between bias and variance. Simple models will have higher bias and lower variance, more complex models lower bias but higher variance (becuse they tend to overfit the training data).</p>
+<h1 id="Notes">
+<a class="anchor" href="#Notes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Notes<a class="anchor-link" href="#Notes"> </a>
+</h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The ultimate trade-off for model performance is between bias and variance. Simple models will have higher bias and lower variance, more complex models lower bias but higher variance (becuse they tend to overfit the training data).</p>
 <p>Two things mainly determine model performance:</p>
 <ul>
 <li>Model complexity (validation curves in PDSH)</li>
@@ -171,7 +192,9 @@ window.onload = wrap_img;
 <h2 id="Train-and-test-vs-cross-validation">
 <a class="anchor" href="#Train-and-test-vs-cross-validation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Train and test vs cross-validation<a class="anchor-link" href="#Train-and-test-vs-cross-validation"> </a>
 </h2>
-<p>I used to wonder how to decide whether to use train and test data or cross-validation to validate a model. Turns out these are not alternative but complementary approaches, as nicely explained in the <a href="https://scikit-learn.org/stable/modules/cross_validation.html">Scikit-learn</a> docs. The generall process is to split the data into a training and a testing dataset, and then to use cross-validation on the training data to find the optimal hyperparameters.</p>
+<ul>
+<li>These approaches are complementary, as nicely explained in the <a href="https://scikit-learn.org/stable/modules/cross_validation.html">Scikit-learn</a> docs: the generall process is to split the data into a training and a testing dataset, and then to use cross-validation on the training data to find the optimal hyperparameters.</li>
+</ul>
 
 </div>
 </div>
@@ -232,7 +255,7 @@ window.onload = wrap_img;
 <p>Bayesian classifier as unattainable benchmark (we don't know P(y|x)).</p>
 </li>
 <li>
-<p>KNN one approach to estimate P(y|x), then uses bayesian classifier.</p>
+<p>KNN one approach to estimate P(y|x), then use bayesian classifier.</p>
 </li>
 <li>
 <p>Intuition as for MSE error: testing error rate is U-shaped in K (higher K means more flexibel model).</p>
@@ -245,19 +268,9 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Confusion matrix</p>
-<ul>
-<li>
-<p>Can be used to calculate precision, recall, specificity, accuracy, etc.</p>
-</li>
-<li>
-<p>True positive: there was an event and we predicted one.</p>
-</li>
-<li>True negative: there was no event and we didn't predict one.</li>
-<li>False positive: there was no event but we predicted one (i.e. we predicted 1 instead of 0).</li>
-<li>False negative: there was an event but we didn't preditc one (i.e. we predicted 0 instead of 1)</li>
-</ul>
-
+<h1 id="Confusion-matrix">
+<a class="anchor" href="#Confusion-matrix" aria-hidden="true"><span class="octicon octicon-link"></span></a>Confusion matrix<a class="anchor-link" href="#Confusion-matrix"> </a>
+</h1>
 </div>
 </div>
 </div>
@@ -313,25 +326,73 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>ROC curves and AUC</p>
+<h2 id="Terminology">
+<a class="anchor" href="#Terminology" aria-hidden="true"><span class="octicon octicon-link"></span></a>Terminology<a class="anchor-link" href="#Terminology"> </a>
+</h2>
+<p>Can think of "+" as "diseases" or "alternative hypothesis", and of "-" as "no disease" or "null hypothesis".</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Predicted</th>
+<th style="text-align:center">-</th>
+<th style="text-align:center">+</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>True</td>
+<td>-</td>
+<td style="text-align:center">True negative (TN)</td>
+<td style="text-align:center">False positive (FP)</td>
+<td>N</td>
+</tr>
+<tr>
+<td></td>
+<td>+</td>
+<td style="text-align:center">False negative (FN)</td>
+<td style="text-align:center">True positive (TP)</td>
+<td>P</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td style="text-align:center">N*</td>
+<td style="text-align:center">P*</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>True positive rate: $\frac{TP}{TP + FN} = \frac{TP}{P}$, is the proportion of positives that we correctly predict as such. Also called sensitivity, of hit rate, or recall.</p>
+</li>
+<li>
+<p>False positive rate: $\frac{FP}{FP + TN} = \frac{FP}{N}$, is the proportion of negatives events we incorrectly predict as positives. Also called the alarm rate or inverted specificity, where specificity is $\frac{TN}{FP + TN} = \frac{TN}{N}$.</p>
+</li>
+<li>
+<p>Precision: $\frac{TP}{TP + FP} = \frac{TP}{P*}$.</p>
+</li>
+<li>
+<p>Precision and recall originate in the field of information retrieval (e.g. getting documents from a query). In its original context, precision is useful documents as a proportion of all retrieved documents, recall the retrieved useful documents as a proportion of all available useful documents. In the context of machine learning, we can think of precision as positive predictive power (how good is the model at predicting the positive class), while recall is the same as sensitivity -- the proportion of all events that were successfully predicted.</p>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="ROC-curves-and-AUC">
+<a class="anchor" href="#ROC-curves-and-AUC" aria-hidden="true"><span class="octicon octicon-link"></span></a>ROC curves and AUC<a class="anchor-link" href="#ROC-curves-and-AUC"> </a>
+</h1>
 <ul>
 <li>
 <p>Plots the trade-off between the false positive rate (x-axis) and the true positive rate (y-axis) - the trade-off between the false alarm rate and the hit rate.</p>
 </li>
 <li>
-<p>True positive rate $= \frac{True Positives}{True Positives + False Negatives} = \frac{True Positives}{All Events}$.</p>
-</li>
-<li>
-<p>The true positive rate is also called sensitivity. And we can think of it as the hit rate: the propostion of events that we correctly classified as such.</p>
-</li>
-<li>
-<p>False positive rate $= \frac{False Positives}{False Positives + True Negatives} = \frac{False Positives}{All NonEvents}$.</p>
-</li>
-<li>
-<p>The false positive rate is also called the false alarm rate, the proportion of cases incorrectly classified as an event among all cases that are not an event. It is also referred to as inverterd specificity, where specificity is $= \frac{True Negatives}{False Positives + True Negatives}$.</p>
-</li>
-<li>
-<p>The ROC is useful because it directly shows false/true negatives (on the x-axis) and false/true positives (on the y-axis) for different thresholds and thus helps choose the best threshold, and because the AUC can be read as an overall model summary, and thus allows us to compare different models.</p>
+<p>The ROC is useful because it directly shows false/true negatives (on the x-axis) and false/true positives (on the y-axis) for different thresholds and thus helps choose the best threshold, and because the area under the curve (AUC) can be interpreted as an overall model summary, and thus allows us to compare different models.</p>
 </li>
 </ul>
 
@@ -395,23 +456,10 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Precision-recall curves</p>
+<h1 id="Precision-recall-curves">
+<a class="anchor" href="#Precision-recall-curves" aria-hidden="true"><span class="octicon octicon-link"></span></a>Precision-recall curves<a class="anchor-link" href="#Precision-recall-curves"> </a>
+</h1>
 <ul>
-<li>
-<p>Precision and recall originate in the field of information retrieval (e.g. getting documents from a query) but are also useful in machine learning.</p>
-</li>
-<li>
-<p>Precision $= \frac{True Positives}{True Positives + False Positives} = \frac{True Positives}{All Positives}$</p>
-</li>
-<li>
-<p>Recall $= \frac{True Positives}{True Positives + False Negatives} = \frac{True Positives}{All Events}$</p>
-</li>
-<li>
-<p>In the context of document retriavel, precision is the useful documents as a proportion of all retrieved documents, recall the retrieved useful documents as a proportion of all available useful documents.</p>
-</li>
-<li>
-<p>We can think of precision as positive predictive power (how good is the model at predicting the positive class?), while recall is the same as sensitivity -- the proportion of all events that were successfully predicted.</p>
-</li>
 <li>
 <p>The precision-recall curve is particularly useful when we have much more no-event than event cases. In this case, we're often not interested much in correctly predicting no-events but focused on correctly predicting events. Because neither precision nor recall use true negatives in their calculations, they are well suited to this context (<a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0118432">paper</a>).</p>
 </li>
@@ -473,12 +521,22 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Learning-curves">
+<a class="anchor" href="#Learning-curves" aria-hidden="true"><span class="octicon octicon-link"></span></a>Learning curves<a class="anchor-link" href="#Learning-curves"> </a>
+</h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Sources">
 <a class="anchor" href="#Sources" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sources<a class="anchor-link" href="#Sources"> </a>
 </h1>
 <ul>
 <li><a href="https://www.statlearning.com">An introduction to statistical learning</a></li>
 <li><a href="https://www.oreilly.com/library/view/hands-on-machine-learning/9781492032632/">Hands on machine learning with scikit-learn, keras, and tenserflow</a></li>
+<li><a href="https://www.oreilly.com/library/view/python-data-science/9781491912126/">Python Data Science Handbook</a></li>
 <li><a href="http://themlbook.com">The hundred-page machine learning book</a></li>
 </ul>
 
