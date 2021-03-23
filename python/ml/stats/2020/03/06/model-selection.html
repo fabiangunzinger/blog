@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      5 min read
+      7 min read
     
 </span></p>
 
@@ -130,6 +130,14 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#Assessing-model-accuracy">Assessing model accuracy </a></li>
 </ul>
 </li>
+<li class="toc-entry toc-h1"><a href="#Cross-validation">Cross validation </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#Holdout-set-approach">Holdout set approach </a></li>
+<li class="toc-entry toc-h2"><a href="#Leave-one-out-cross-validation">Leave one out cross-validation </a></li>
+<li class="toc-entry toc-h2"><a href="#k-fold-cross-validation">k-fold cross-validation </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#Bootstrap">Bootstrap </a></li>
 <li class="toc-entry toc-h1"><a href="#Confusion-matrix">Confusion matrix </a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#Terminology">Terminology </a></li>
@@ -260,6 +268,83 @@ window.onload = wrap_img;
 <li>
 <p>Intuition as for MSE error: testing error rate is U-shaped in K (higher K means more flexibel model).</p>
 </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Cross-validation">
+<a class="anchor" href="#Cross-validation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cross validation<a class="anchor-link" href="#Cross-validation"> </a>
+</h1>
+<p>Use cases:</p>
+<ul>
+<li>Model assessment ("how good is model fit?")</li>
+<li>Model selection (hypterparameter tuning)</li>
+</ul>
+<h2 id="Holdout-set-approach">
+<a class="anchor" href="#Holdout-set-approach" aria-hidden="true"><span class="octicon octicon-link"></span></a>Holdout set approach<a class="anchor-link" href="#Holdout-set-approach"> </a>
+</h2>
+<p>How it works:</p>
+<ul>
+<li>Split data into training and test data, fit model on the training data, assess on the test data.</li>
+</ul>
+<p>Advantages:</p>
+<ul>
+<li>Conceptually simple and computationally cheap.</li>
+</ul>
+<p>Disadvantages:</p>
+<ul>
+<li>Very sensitive to train-test split, especially for small samples.</li>
+<li>Because we only use a fraction of the available data to train the model, model fit is poorer comparated to using entire dataset, and thus we tend to overestimate test error.</li>
+</ul>
+<h2 id="Leave-one-out-cross-validation">
+<a class="anchor" href="#Leave-one-out-cross-validation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Leave one out cross-validation<a class="anchor-link" href="#Leave-one-out-cross-validation"> </a>
+</h2>
+<p>How it works:</p>
+<ul>
+<li>If we have <code>n</code> observations, fit model using <code>n-1</code> observations and calculate MSE for nth observation. Repeat n times and then average MSEs to get test error rate.</li>
+</ul>
+<p>Advantage:</p>
+<ul>
+<li>Deals with both problems of holdout set approach.</li>
+</ul>
+<p>Disadvantage:</p>
+<ul>
+<li>Computationally expensive or prohibitive for large ns</li>
+</ul>
+<h2 id="k-fold-cross-validation">
+<a class="anchor" href="#k-fold-cross-validation" aria-hidden="true"><span class="octicon octicon-link"></span></a>k-fold cross-validation<a class="anchor-link" href="#k-fold-cross-validation"> </a>
+</h2>
+<p>How it works:</p>
+<ul>
+<li>Similar to LOOCV (which is a special case where k = n), but we split data into k groups (folds), and then use each of them in turn as the test training set while training the model on the remaining k-1 folds. We again average the k MSEs to get the overall test error rate.</li>
+</ul>
+<p>Advantage:</p>
+<ul>
+<li>Computationally cheaper than LOOCV</li>
+<li>Beats LOOCV in terms of MSE because it trades-off bias and variance in a more balanced way: LOOCV has virtually no bias (as we use almost the entire data to fit the model each time) but has higher variance because all k MSE estimates are highly correlated (because each model is fit with almost identical data). In contrast, training data for k-fold CV is less similar, meaning MSEs are less correlated, meaning reduction in variance from averaging is greater.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Bootstrap">
+<a class="anchor" href="#Bootstrap" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bootstrap<a class="anchor-link" href="#Bootstrap"> </a>
+</h1>
+<p>Use cases</p>
+<ul>
+<li>Model assessment ("how good is parameter fit?")</li>
+</ul>
+<p>How it works</p>
+<ul>
+<li>To get an estimate for our model fit, we would ideally want to fit the model on many random population samples, so that we could then calculate means and standard deviations of our model assessment metric of interest.</li>
+<li>We can't draw multiple samples from the population, but the bootstrap mimics this approach by repeatedly sampling (with replacement) from our original sample.</li>
 </ul>
 
 </div>
