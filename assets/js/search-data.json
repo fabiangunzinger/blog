@@ -3,7 +3,7 @@
     
         "post0": {
             "title": "vim essentials",
-            "content": "Normal mode . Compound commands . C ($c) | S (^C) | . Command-line mode . ex commands . basic syntax: [range]command | .",
+            "content": "Normal mode . Compound commands . C (synonym for $c) | s (cl) | S (^C) | I (^i) | A ($a) | o (A) | O (ko) | . Command-line mode . ex commands . basic syntax: [range]command | .",
             "url": "https://fabiangunzinger.github.io/blog/markdown/2021/03/27/vim-essentials.html",
             "relUrl": "/markdown/2021/03/27/vim-essentials.html",
             "date": " • Mar 27, 2021"
