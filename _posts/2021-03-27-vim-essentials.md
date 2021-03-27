@@ -11,9 +11,13 @@ title: vim essentials
 
 ## Compound commands
 
-- C ($c)
+- C (synonym for $c)
+- s (cl)
 - S (^C)
-
+- I (^i)
+- A ($a)
+- o (A<cr>)
+- O (ko)
 
 
 
