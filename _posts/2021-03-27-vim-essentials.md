@@ -3,7 +3,7 @@ hide: false
 toc: true
 layout: post
 description: my collection of vim commands to remember
-categories: [markdown]
+categories: [vim]
 title: vim essentials
 ---
 
@@ -28,4 +28,4 @@ title: vim essentials
 
 - basic syntax: [range]command
 
-
+This is a test line 92
