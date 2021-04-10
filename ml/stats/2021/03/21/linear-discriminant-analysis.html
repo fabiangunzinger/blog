@@ -4,19 +4,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>vim essentials | Fabian’s online notebook</title>
+<title>Linear discriminant analysis | Fabian’s online notebook</title>
 <meta name="generator" content="Jekyll v4.1.1" />
-<meta property="og:title" content="vim essentials" />
+<meta property="og:title" content="Linear discriminant analysis" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="my collection of vim commands to remember" />
-<meta property="og:description" content="my collection of vim commands to remember" />
-<link rel="canonical" href="https://fabiangunzinger.github.io/blog/vim/2021/03/27/vim-essentials.html" />
-<meta property="og:url" content="https://fabiangunzinger.github.io/blog/vim/2021/03/27/vim-essentials.html" />
+<meta name="description" content="Online notebook for code and thoughts." />
+<meta property="og:description" content="Online notebook for code and thoughts." />
+<link rel="canonical" href="https://fabiangunzinger.github.io/blog/ml/stats/2021/03/21/linear-discriminant-analysis.html" />
+<meta property="og:url" content="https://fabiangunzinger.github.io/blog/ml/stats/2021/03/21/linear-discriminant-analysis.html" />
 <meta property="og:site_name" content="Fabian’s online notebook" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2021-03-27T00:00:00-05:00" />
+<meta property="article:published_time" content="2021-03-21T00:00:00-05:00" />
 <script type="application/ld+json">
-{"url":"https://fabiangunzinger.github.io/blog/vim/2021/03/27/vim-essentials.html","@type":"BlogPosting","headline":"vim essentials","dateModified":"2021-03-27T00:00:00-05:00","datePublished":"2021-03-27T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://fabiangunzinger.github.io/blog/vim/2021/03/27/vim-essentials.html"},"description":"my collection of vim commands to remember","@context":"https://schema.org"}</script>
+{"url":"https://fabiangunzinger.github.io/blog/ml/stats/2021/03/21/linear-discriminant-analysis.html","@type":"BlogPosting","headline":"Linear discriminant analysis","dateModified":"2021-03-21T00:00:00-05:00","datePublished":"2021-03-21T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://fabiangunzinger.github.io/blog/ml/stats/2021/03/21/linear-discriminant-analysis.html"},"description":"Online notebook for code and thoughts.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://fabiangunzinger.github.io/blog/feed.xml" title="Fabian's online notebook" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -87,8 +87,8 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">vim essentials</h1><p class="page-description">my collection of vim commands to remember</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-03-27T00:00:00-05:00" itemprop="datePublished">
-        Mar 27, 2021
+    <h1 class="post-title p-name" itemprop="name headline">Linear discriminant analysis</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-03-21T00:00:00-05:00" itemprop="datePublished">
+        Mar 21, 2021
       </time>
        • <span class="read-time" title="Estimated read time">
     
@@ -100,105 +100,101 @@ window.onload = wrap_img;
     
       <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
       
-        <a class="category-tags-link" href="/blog/categories/#vim">vim</a>
+        <a class="category-tags-link" href="/blog/categories/#ml">ml</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#stats">stats</a>
         
       
       </p>
     
 
-    </header>
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          
+          
+          
+        </div>
+      </header>
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
-<li class="toc-entry toc-h1"><a href="#modes">Modes</a>
+<li class="toc-entry toc-h1"><a href="#Sources">Sources </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/3333-04-01-linear-discriminant-analysis.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Advantages over logistic regression:</p>
 <ul>
-<li class="toc-entry toc-h2"><a href="#normal-mode">Normal mode</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#compound-commands">Compound commands</a></li>
-</ul>
+<li>
+<p>More stable if responses are clearly separated.</p>
 </li>
-<li class="toc-entry toc-h2"><a href="#insert-mode">Insert mode</a></li>
-<li class="toc-entry toc-h2"><a href="#visual-mode">Visual mode</a></li>
-<li class="toc-entry toc-h2"><a href="#command-line-mode">Command-line mode</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#ex-commands">Ex commands</a></li>
-</ul>
+<li>
+<p>More stable if featurs are all approximately normally distributed.</p>
+</li>
+<li>
+<p>Often preferrable if response can take more than two classes.</p>
 </li>
 </ul>
-</li>
-<li class="toc-entry toc-h1"><a href="#sources">Sources</a></li>
-</ul><h1 id="modes">
-<a class="anchor" href="#modes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Modes</h1>
 
-<h2 id="normal-mode">
-<a class="anchor" href="#normal-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Normal mode</h2>
-
-<h3 id="compound-commands">
-<a class="anchor" href="#compound-commands" aria-hidden="true"><span class="octicon octicon-link"></span></a>Compound commands</h3>
-
-<table>
-  <tbody>
-    <tr>
-      <td>Compound command</td>
-      <td>Equivalent in longhand</td>
-    </tr>
-    <tr>
-      <td>C</td>
-      <td>c$</td>
-    </tr>
-    <tr>
-      <td>s</td>
-      <td>cl</td>
-    </tr>
-    <tr>
-      <td>S</td>
-      <td>^C</td>
-    </tr>
-    <tr>
-      <td>I</td>
-      <td>^i</td>
-    </tr>
-    <tr>
-      <td>A</td>
-      <td>$a</td>
-    </tr>
-    <tr>
-      <td>o</td>
-      <td>A<cr></cr>
-</td>
-    </tr>
-    <tr>
-      <td>O</td>
-      <td>ko</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="insert-mode">
-<a class="anchor" href="#insert-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Insert mode</h2>
-
-<h2 id="visual-mode">
-<a class="anchor" href="#visual-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Visual mode</h2>
-
-<h2 id="command-line-mode">
-<a class="anchor" href="#command-line-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Command-line mode</h2>
-
-<h3 id="ex-commands">
-<a class="anchor" href="#ex-commands" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ex commands</h3>
-
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Sources">
+<a class="anchor" href="#Sources" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sources<a class="anchor-link" href="#Sources"> </a>
+</h1>
 <ul>
-  <li>basic syntax: [range]command</li>
+<li><a href="https://www.statlearning.com">An introduction to statistical learning</a></li>
 </ul>
 
-<h1 id="sources">
-<a class="anchor" href="#sources" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sources</h1>
+</div>
+</div>
+</div>
+</div>
 
-<ul>
-  <li><a href="https://pragprog.com/titles/dnvim2/practical-vim-second-edition/">Practical
-  Vim</a></li>
-</ul>
 
-  </div><a class="u-url" href="/blog/vim/2021/03/27/vim-essentials.html" hidden></a>
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="fabiangunzinger/blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/blog/ml/stats/2021/03/21/linear-discriminant-analysis.html" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">

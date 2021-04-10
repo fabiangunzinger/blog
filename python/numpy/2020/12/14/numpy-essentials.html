@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      16 min read
+      13 min read
     
 </span></p>
 
@@ -181,6 +181,21 @@ window.onload = wrap_img;
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The autoreload extension is already loaded. To reload it, use:
+  %reload_ext autoreload
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -307,7 +322,100 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Indexing and fancy indexing</p>
+<p>Slicing</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="nb">all</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Explanation: slicing works like <code>[start:stop:stride]</code>, with <code>start</code> being included and <code>stop</code> being excluded in the result, and with defaults being, respectively, <code>0</code>, <code>length of array</code>, and <code>1</code>. If the <code>stride</code> is negative, then the defaults for <code>start</code> and <code>stop</code> get reversed, and <code>start</code> is now the endpoint of array but will still be included (it's still the start element), and <code>stop</code> is now the start point (but, if specified, will still be ommitted).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Fancy indexing</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">idx</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="nb">all</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">==</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>False</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>2d fancy indexing</p>
 
 </div>
 </div>
@@ -383,6 +491,97 @@ window.onload = wrap_img;
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Fancy indexing and simple indexing</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">all</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">==</span> <span class="p">[</span><span class="mi">11</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Fancy indexing and slicing</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span> <span class="o">==</span> <span class="p">[[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+                  <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]])</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Fancy indexing and masking</p>
+
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -533,39 +732,6 @@ window.onload = wrap_img;
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([0, 1, 1])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="nb">all</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 </pre></div>
@@ -672,8 +838,8 @@ window.onload = wrap_img;
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span>
               <span class="p">[</span><span class="mi">70</span><span class="p">,</span> <span class="mi">90</span><span class="p">]])</span>
 <span class="n">imax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">np</span><span class="o">.</span><span class="n">put_along_axis</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">imax</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="p">[[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span> <span class="p">[</span><span class="mi">70</span><span class="p">,</span> <span class="mi">97</span><span class="p">]])</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="n">np</span><span class="o">.</span><span class="n">put_along_axis</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">imax</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="p">[[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span> <span class="p">[</span><span class="mi">70</span><span class="p">,</span> <span class="mi">99</span><span class="p">]])</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -699,6 +865,14 @@ window.onload = wrap_img;
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As exercise, replace column mins with 55.</p>
+
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -822,7 +996,7 @@ window.onload = wrap_img;
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>1.47 µs ± 21.8 ns per loop (mean ± std. dev. of 7 runs, 1000000 loops each)
+<pre>1.33 µs ± 3.88 ns per loop (mean ± std. dev. of 7 runs, 1000000 loops each)
 </pre>
 </div>
 </div>
@@ -853,7 +1027,7 @@ window.onload = wrap_img;
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>3.6 µs ± 87.6 ns per loop (mean ± std. dev. of 7 runs, 100000 loops each)
+<pre>3.39 µs ± 107 ns per loop (mean ± std. dev. of 7 runs, 100000 loops each)
 </pre>
 </div>
 </div>
@@ -884,7 +1058,7 @@ window.onload = wrap_img;
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>12.4 µs ± 1.35 µs per loop (mean ± std. dev. of 7 runs, 100000 loops each)
+<pre>11.6 µs ± 175 ns per loop (mean ± std. dev. of 7 runs, 100000 loops each)
 </pre>
 </div>
 </div>
@@ -915,7 +1089,7 @@ window.onload = wrap_img;
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>45 µs ± 1.33 µs per loop (mean ± std. dev. of 7 runs, 10000 loops each)
+<pre>43.9 µs ± 301 ns per loop (mean ± std. dev. of 7 runs, 10000 loops each)
 </pre>
 </div>
 </div>
@@ -1003,28 +1177,17 @@ window.onload = wrap_img;
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[ 2,  3,  4,  5],
-       [ 4,  6,  8, 10],
-       [ 6,  9, 12, 15],
-       [ 8, 12, 16, 20]])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Explanation: <code>-1</code> automatically determines the dimension in which it occurs based on all other specified dimensions. When creating <code>x</code> above, we create an np-array of length 4 and then specify that we want a single column while specifying <code>-1</code> for the row dimension, so we end up with four rows.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1055,25 +1218,6 @@ window.onload = wrap_img;
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[-1.,  0.,  1.],
-       [-1.,  0.,  1.],
-       [-1.,  0.,  1.],
-       [-1.,  0.,  1.]])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
     
 
@@ -1099,36 +1243,6 @@ window.onload = wrap_img;
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[[1, 5],
-        [9, 8],
-        [4, 3]],
-
-       [[6, 5],
-        [8, 8],
-        [8, 3]],
-
-       [[6, 8],
-        [6, 5],
-        [7, 6]],
-
-       [[1, 9],
-        [6, 7],
-        [6, 5]]])</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -1161,24 +1275,6 @@ window.onload = wrap_img;
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[3.5 , 6.75],
-       [7.25, 7.  ],
-       [6.25, 4.25]])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
     
 
@@ -1207,33 +1303,20 @@ window.onload = wrap_img;
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[[-2.5 , -1.75],
-        [ 1.75,  1.  ],
-        [-2.25, -1.25]],
-
-       [[ 2.5 , -1.75],
-        [ 0.75,  1.  ],
-        [ 1.75, -1.25]],
-
-       [[ 2.5 ,  1.25],
-        [-1.25, -2.  ],
-        [ 0.75,  1.75]],
-
-       [[-2.5 ,  2.25],
-        [-1.25,  0.  ],
-        [-0.25,  0.75]]])</pre>
 </div>
+    
 
-</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
 
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">mean0</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+    </div>
 </div>
 </div>
 
@@ -1258,30 +1341,28 @@ window.onload = wrap_img;
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mean1</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">mean1</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[4.66666667, 5.33333333],
-       [7.33333333, 5.33333333],
-       [6.33333333, 6.33333333],
-       [4.33333333, 7.        ]])</pre>
 </div>
+    
 
-</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
 
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mean1</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">mean1</span>
+</pre></div>
+
+    </div>
 </div>
 </div>
 
@@ -1307,25 +1388,6 @@ window.onload = wrap_img;
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-92-5a9fe4bf9cf9&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>a <span class="ansi-blue-fg">-</span> mean1
-
-<span class="ansi-red-fg">ValueError</span>: operands could not be broadcast together with shapes (4,3,2) (4,2) </pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -1355,28 +1417,6 @@ window.onload = wrap_img;
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[[4.66666667, 5.33333333]],
-
-       [[7.33333333, 5.33333333]],
-
-       [[6.33333333, 6.33333333]],
-
-       [[4.33333333, 7.        ]]])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
     
 
@@ -1399,36 +1439,6 @@ window.onload = wrap_img;
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[[-3.66666667, -0.33333333],
-        [ 4.33333333,  2.66666667],
-        [-0.66666667, -2.33333333]],
-
-       [[-1.33333333, -0.33333333],
-        [ 0.66666667,  2.66666667],
-        [ 0.66666667, -2.33333333]],
-
-       [[-0.33333333,  1.66666667],
-        [-0.33333333, -1.33333333],
-        [ 0.66666667, -0.33333333]],
-
-       [[-3.33333333,  2.        ],
-        [ 1.66666667,  0.        ],
-        [ 1.66666667, -2.        ]]])</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -1465,36 +1475,6 @@ window.onload = wrap_img;
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[[-2. ,  2. ],
-        [ 0.5, -0.5],
-        [ 0.5, -0.5]],
-
-       [[ 0.5, -0.5],
-        [ 0. ,  0. ],
-        [ 2.5, -2.5]],
-
-       [[-1. ,  1. ],
-        [ 0.5, -0.5],
-        [ 0.5, -0.5]],
-
-       [[-4. ,  4. ],
-        [-0.5,  0.5],
-        [ 0.5, -0.5]]])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
     
 
@@ -1523,25 +1503,6 @@ window.onload = wrap_img;
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[5., 5., 5.],
-       [5., 5., 5.],
-       [5., 5., 5.],
-       [5., 5., 5.]])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
     
 
@@ -1561,25 +1522,6 @@ window.onload = wrap_img;
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[1., 1., 1.],
-       [2., 2., 2.],
-       [3., 3., 3.],
-       [4., 4., 4.]])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
     
 
@@ -1596,25 +1538,6 @@ window.onload = wrap_img;
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[8., 8., 8.],
-       [9., 9., 9.],
-       [3., 3., 3.],
-       [4., 4., 4.]])</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -1870,7 +1793,8 @@ window.onload = wrap_img;
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">x</span>
 </pre></div>
 
     </div>
@@ -1885,11 +1809,11 @@ window.onload = wrap_img;
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>array([[[0, 1],
-        [2, 3]],
+<pre>array([[[ 0,  1,  2,  3]],
 
-       [[4, 5],
-        [6, 7]]])</pre>
+       [[ 4,  5,  6,  7]],
+
+       [[ 8,  9, 10, 11]]])</pre>
 </div>
 
 </div>
@@ -1922,7 +1846,7 @@ window.onload = wrap_img;
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>array([0, 1, 2, 3, 4, 5, 6, 7])</pre>
+<pre>array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11])</pre>
 </div>
 
 </div>
@@ -1955,7 +1879,7 @@ window.onload = wrap_img;
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>array([0, 4, 2, 6, 1, 5, 3, 7])</pre>
+<pre>array([ 0,  4,  8,  1,  5,  9,  2,  6, 10,  3,  7, 11])</pre>
 </div>
 
 </div>
@@ -2143,6 +2067,14 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>Explain in words why <code>a, b = b, a</code> works. Because of Python's evaluation order when performing value assignment, its tuple creation syntax, and tuple unpacking. When performing value assignment, Python evaluates the right-hand side first, and in this case produces the tuple <code>(b, a)</code> because two comma-separated values are evaluated as a tuple. Next, Python assigns the tuple to the the left-hand side. Because left-hand side consists of more than one element Python attempts tupe unpacking, assigning the first value of the tuple to the first element on the left-hand side, and the second element to the second.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Use-np-and-plt-functions-to-calculate-the-k-nearest-neighbours-of-10-random-points-and-visualise-the-result">
 <a class="anchor" href="#Use-np-and-plt-functions-to-calculate-the-k-nearest-neighbours-of-10-random-points-and-visualise-the-result" aria-hidden="true"><span class="octicon octicon-link"></span></a>Use np and plt functions to calculate the k nearest neighbours of 10 random points and visualise the result<a class="anchor-link" href="#Use-np-and-plt-functions-to-calculate-the-k-nearest-neighbours-of-10-random-points-and-visualise-the-result"> </a>
 </h3>
@@ -2228,22 +2160,6 @@ window.onload = wrap_img;
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([0, 1, 2, 3, 4])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
     
 
@@ -2267,26 +2183,6 @@ window.onload = wrap_img;
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[ 0, -1, -2, -3, -4],
-       [ 1,  0, -1, -2, -3],
-       [ 2,  1,  0, -1, -2],
-       [ 3,  2,  1,  0, -1],
-       [ 4,  3,  2,  1,  0]])</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -2315,26 +2211,6 @@ window.onload = wrap_img;
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[1, 0, 2, 3, 4],
-       [1, 2, 0, 3, 4],
-       [3, 2, 1, 0, 4],
-       [3, 2, 4, 1, 0],
-       [3, 4, 2, 1, 0]])</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -2368,24 +2244,6 @@ window.onload = wrap_img;
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>0 [1, 2]
-1 [2, 0]
-2 [3, 1]
-3 [2, 4]
-4 [3, 2]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     
 
@@ -2409,23 +2267,6 @@ window.onload = wrap_img;
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[0, 1],
-       [2, 3]])</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -2455,26 +2296,6 @@ window.onload = wrap_img;
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[[0, 1],
-        [2, 3]],
-
-       [[0, 1],
-        [2, 3]]])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
     
 
@@ -2493,26 +2314,6 @@ window.onload = wrap_img;
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[[0, 1],
-        [0, 1]],
-
-       [[2, 3],
-        [2, 3]]])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
     
 
@@ -2527,26 +2328,6 @@ window.onload = wrap_img;
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[[ 0,  1],
-        [-1,  0]],
-
-       [[ 0,  1],
-        [-1,  0]]])</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -2575,31 +2356,6 @@ window.onload = wrap_img;
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[0.48006582, 0.87269436],
-       [0.26206854, 0.54435165],
-       [0.80940987, 0.30935821],
-       [0.79793289, 0.53996637],
-       [0.60556561, 0.89826711],
-       [0.7396078 , 0.5417521 ],
-       [0.23673655, 0.75051346],
-       [0.82613073, 0.44904746],
-       [0.76975985, 0.70890145],
-       [0.90891511, 0.72593866]])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
     
 
@@ -2617,31 +2373,6 @@ window.onload = wrap_img;
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[[0.48006582, 0.87269436],
-        [0.26206854, 0.54435165],
-        [0.80940987, 0.30935821],
-        [0.79793289, 0.53996637],
-        [0.60556561, 0.89826711],
-        [0.7396078 , 0.5417521 ],
-        [0.23673655, 0.75051346],
-        [0.82613073, 0.44904746],
-        [0.76975985, 0.70890145],
-        [0.90891511, 0.72593866]]])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
     
 
@@ -2656,40 +2387,6 @@ window.onload = wrap_img;
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[[0.48006582, 0.87269436]],
-
-       [[0.26206854, 0.54435165]],
-
-       [[0.80940987, 0.30935821]],
-
-       [[0.79793289, 0.53996637]],
-
-       [[0.60556561, 0.89826711]],
-
-       [[0.7396078 , 0.5417521 ]],
-
-       [[0.23673655, 0.75051346]],
-
-       [[0.82613073, 0.44904746]],
-
-       [[0.76975985, 0.70890145]],
-
-       [[0.90891511, 0.72593866]]])</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -2715,130 +2412,6 @@ window.onload = wrap_img;
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[[ 0.        ,  0.        ],
-        [-0.21799727, -0.32834271],
-        [ 0.32934406, -0.56333615],
-        [ 0.31786708, -0.33272799],
-        [ 0.1254998 ,  0.02557275],
-        [ 0.25954198, -0.33094226],
-        [-0.24332927, -0.1221809 ],
-        [ 0.34606492, -0.4236469 ],
-        [ 0.28969403, -0.16379291],
-        [ 0.4288493 , -0.1467557 ]],
-
-       [[ 0.21799727,  0.32834271],
-        [ 0.        ,  0.        ],
-        [ 0.54734133, -0.23499343],
-        [ 0.53586435, -0.00438527],
-        [ 0.34349707,  0.35391547],
-        [ 0.47753926, -0.00259954],
-        [-0.02533199,  0.20616181],
-        [ 0.56406219, -0.09530419],
-        [ 0.5076913 ,  0.1645498 ],
-        [ 0.64684657,  0.18158701]],
-
-       [[-0.32934406,  0.56333615],
-        [-0.54734133,  0.23499343],
-        [ 0.        ,  0.        ],
-        [-0.01147698,  0.23060816],
-        [-0.20384426,  0.5889089 ],
-        [-0.06980207,  0.23239389],
-        [-0.57267332,  0.44115524],
-        [ 0.01672086,  0.13968924],
-        [-0.03965003,  0.39954324],
-        [ 0.09950524,  0.41658045]],
-
-       [[-0.31786708,  0.33272799],
-        [-0.53586435,  0.00438527],
-        [ 0.01147698, -0.23060816],
-        [ 0.        ,  0.        ],
-        [-0.19236728,  0.35830074],
-        [-0.05832509,  0.00178573],
-        [-0.56119634,  0.21054708],
-        [ 0.02819784, -0.09091892],
-        [-0.02817305,  0.16893507],
-        [ 0.11098222,  0.18597228]],
-
-       [[-0.1254998 , -0.02557275],
-        [-0.34349707, -0.35391547],
-        [ 0.20384426, -0.5889089 ],
-        [ 0.19236728, -0.35830074],
-        [ 0.        ,  0.        ],
-        [ 0.13404219, -0.35651501],
-        [-0.36882906, -0.14775366],
-        [ 0.22056512, -0.44921966],
-        [ 0.16419424, -0.18936566],
-        [ 0.3033495 , -0.17232845]],
-
-       [[-0.25954198,  0.33094226],
-        [-0.47753926,  0.00259954],
-        [ 0.06980207, -0.23239389],
-        [ 0.05832509, -0.00178573],
-        [-0.13404219,  0.35651501],
-        [ 0.        ,  0.        ],
-        [-0.50287125,  0.20876135],
-        [ 0.08652294, -0.09270465],
-        [ 0.03015205,  0.16714935],
-        [ 0.16930731,  0.18418656]],
-
-       [[ 0.24332927,  0.1221809 ],
-        [ 0.02533199, -0.20616181],
-        [ 0.57267332, -0.44115524],
-        [ 0.56119634, -0.21054708],
-        [ 0.36882906,  0.14775366],
-        [ 0.50287125, -0.20876135],
-        [ 0.        ,  0.        ],
-        [ 0.58939418, -0.301466  ],
-        [ 0.5330233 , -0.04161201],
-        [ 0.67217856, -0.0245748 ]],
-
-       [[-0.34606492,  0.4236469 ],
-        [-0.56406219,  0.09530419],
-        [-0.01672086, -0.13968924],
-        [-0.02819784,  0.09091892],
-        [-0.22056512,  0.44921966],
-        [-0.08652294,  0.09270465],
-        [-0.58939418,  0.301466  ],
-        [ 0.        ,  0.        ],
-        [-0.05637089,  0.25985399],
-        [ 0.08278438,  0.2768912 ]],
-
-       [[-0.28969403,  0.16379291],
-        [-0.5076913 , -0.1645498 ],
-        [ 0.03965003, -0.39954324],
-        [ 0.02817305, -0.16893507],
-        [-0.16419424,  0.18936566],
-        [-0.03015205, -0.16714935],
-        [-0.5330233 ,  0.04161201],
-        [ 0.05637089, -0.25985399],
-        [ 0.        ,  0.        ],
-        [ 0.13915527,  0.01703721]],
-
-       [[-0.4288493 ,  0.1467557 ],
-        [-0.64684657, -0.18158701],
-        [-0.09950524, -0.41658045],
-        [-0.11098222, -0.18597228],
-        [-0.3033495 ,  0.17232845],
-        [-0.16930731, -0.18418656],
-        [-0.67217856,  0.0245748 ],
-        [-0.08278438, -0.2768912 ],
-        [-0.13915527, -0.01703721],
-        [ 0.        ,  0.        ]]])</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -2901,22 +2474,6 @@ window.onload = wrap_img;
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[0, 3, 4]</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
     
 
@@ -2931,22 +2488,6 @@ window.onload = wrap_img;
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([0, 3, 4])</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
