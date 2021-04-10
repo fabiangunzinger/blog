@@ -2,7 +2,7 @@
 keywords: fastai
 title: Creating dummy variables in Pandas
 toc: true
-badges: true
+badges: false
 comments: true
 categories: [python, pandas]
 nb_path: _notebooks/2020-04-01-creating-dummies.ipynb
@@ -20,7 +20,7 @@ layout: notebook
         
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>A quick post to remind my future self of how to create dummy variables. All based on <a href="https://www.youtube.com/watch?v=0s_1IsROgDc&amp;list=PL5-da3qGB5ICCsgW1MxlZ0Hq8LL5U3u9y&amp;index=24">this</a> video from Data School.</p>
+<p>A quick post to remind my future self of how to create dummy variables.</p>
 
 </div>
 </div>
@@ -49,7 +49,10 @@ layout: notebook
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;id&#39;</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="s1">&#39;quality&#39;</span><span class="p">:[</span><span class="s1">&#39;good&#39;</span><span class="p">,</span> <span class="s1">&#39;excellent&#39;</span><span class="p">,</span> <span class="s1">&#39;very good&#39;</span><span class="p">,</span> <span class="s1">&#39;excellent&#39;</span><span class="p">,</span> <span class="s1">&#39;good&#39;</span><span class="p">]})</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+    <span class="s1">&#39;quality&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;good&#39;</span><span class="p">,</span> <span class="s1">&#39;excellent&#39;</span><span class="p">,</span> <span class="s1">&#39;very good&#39;</span><span class="p">,</span> <span class="s1">&#39;excellent&#39;</span><span class="p">,</span> <span class="s1">&#39;good&#39;</span><span class="p">]</span>
+<span class="p">})</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
@@ -612,7 +615,10 @@ layout: notebook
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Sources">Sources<a class="anchor-link" href="#Sources"> </a></h2>
+<h1 id="Sources">Sources<a class="anchor-link" href="#Sources"> </a></h1><ul>
+<li><a href="https://www.youtube.com/watch?v=0s_1IsROgDc&amp;list=PL5-da3qGB5ICCsgW1MxlZ0Hq8LL5U3u9y&amp;index=24">Data School</a></li>
+</ul>
+
 </div>
 </div>
 </div>

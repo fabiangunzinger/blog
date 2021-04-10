@@ -7,25 +7,34 @@ categories: [vim]
 title: vim essentials
 ---
 
-# Normal mode
+# Modes
 
-## Compound commands
+## Normal mode
 
-- C (synonym for $c)
-- s (cl)
-- S (^C)
-- I (^i)
-- A ($a)
-- o (A<cr>)
-- O (ko)
+### Compound commands
+
+Compound command | Equivalent in longhand
+C | c$
+s | cl
+S | ^C
+I | ^i
+A | $a
+o | A<cr>
+O | ko
 
 
+## Insert mode
 
+## Visual mode
 
-# Command-line mode
+## Command-line mode
 
-## ex commands
+### Ex commands
 
 - basic syntax: [range]command
 
-This is a test line 92
+
+# Sources
+
+- [Practical
+    Vim](https://pragprog.com/titles/dnvim2/practical-vim-second-edition/)
