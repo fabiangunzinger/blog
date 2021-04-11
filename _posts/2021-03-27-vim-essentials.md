@@ -7,6 +7,11 @@ categories: [vim]
 title: vim essentials
 ---
 
+# Setup
+
+- I've remaped the Caps Look key to <Ctrl>.
+
+
 # Mental models
 
 - One keystroke to move, one to execute: e.g. the dot-formula (PV p. 11)
@@ -69,6 +74,24 @@ O | ko
 
 
 ## Insert mode
+
+Useful keystrokes:
+- `<C-w>` to delete last few words without leaving insert mode
+- `<C-o>zz` to move current line to middle of screen without leaving insert mode
+
+Keystroke           | Action
+<C-h>               | Delete back one character (backspace)
+<C-w>               | Delete back one word
+<C-u>               | Delete back one line
+<C-o>               | Switch to Insert Normal mode (to execute a single Normal
+Mode command)
+<C-r>{register}     | Paste content from address (use 0 for last yanked text)
+<C-r>=              | Perform calculation in place
+r, R                | Enter replace mode for single replacement or until exit
+
+
+
+
 
 ## Visual mode
 
