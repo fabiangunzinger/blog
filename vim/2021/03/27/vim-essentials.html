@@ -110,10 +110,13 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#mental-models">Mental models</a></li>
 <li class="toc-entry toc-h1"><a href="#modes">Modes</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#normal-mode">Normal mode</a>
 <ul>
+<li class="toc-entry toc-h3"><a href="#operators">Operators</a></li>
+<li class="toc-entry toc-h3"><a href="#act-repeat-reverse">Act, repeat, reverse</a></li>
 <li class="toc-entry toc-h3"><a href="#compound-commands">Compound commands</a></li>
 </ul>
 </li>
@@ -127,11 +130,144 @@ window.onload = wrap_img;
 </ul>
 </li>
 <li class="toc-entry toc-h1"><a href="#sources">Sources</a></li>
-</ul><h1 id="modes">
+</ul><h1 id="mental-models">
+<a class="anchor" href="#mental-models" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mental models</h1>
+
+<ul>
+  <li>One keystroke to move, one to execute: e.g. the dot-formula (PV p. 11)</li>
+  <li>Chunk your undos; all changes in single insert-mode session count as a single
+  change, so go in and out of insert mode strategically.</li>
+</ul>
+
+<h1 id="modes">
 <a class="anchor" href="#modes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Modes</h1>
 
 <h2 id="normal-mode">
 <a class="anchor" href="#normal-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Normal mode</h2>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">*</code> to highlight word under cursor. Use <code class="language-plaintext highlighter-rouge">n</code> and <code class="language-plaintext highlighter-rouge">N</code> to cycle forwards and
+  backwards through matches.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">&lt;C-a&gt;</code> and <code class="language-plaintext highlighter-rouge">&lt;C-x&gt;</code> to add and subtract from the next number.</li>
+</ul>
+
+<h3 id="operators">
+<a class="anchor" href="#operators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Operators</h3>
+
+<ul>
+  <li>Operator + motion = action. E.g. <code class="language-plaintext highlighter-rouge">dl</code> deletes character to the right, <code class="language-plaintext highlighter-rouge">diw</code>
+  the word under the cursor, <code class="language-plaintext highlighter-rouge">dap</code> the current paragraph. Similarly, <code class="language-plaintext highlighter-rouge">gUap</code>
+  converts the current paragraph to uppercase.</li>
+</ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Trigger</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td>c</td>
+      <td>Change</td>
+    </tr>
+    <tr>
+      <td>d</td>
+      <td>Delete</td>
+    </tr>
+    <tr>
+      <td>y</td>
+      <td>Yank into register</td>
+    </tr>
+    <tr>
+      <td>g~</td>
+      <td>Swap case</td>
+    </tr>
+    <tr>
+      <td>gu</td>
+      <td>Make lowercase</td>
+    </tr>
+    <tr>
+      <td>gU</td>
+      <td>Make uppercase</td>
+    </tr>
+    <tr>
+      <td>&gt;</td>
+      <td>Shift right</td>
+    </tr>
+    <tr>
+      <td>&lt;</td>
+      <td>Shift left</td>
+    </tr>
+    <tr>
+      <td>=</td>
+      <td>Autoindent</td>
+    </tr>
+    <tr>
+      <td>!</td>
+      <td>Filter {motion} lines through an external program</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="act-repeat-reverse">
+<a class="anchor" href="#act-repeat-reverse" aria-hidden="true"><span class="octicon octicon-link"></span></a>Act, repeat, reverse</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Intent</td>
+      <td>Act</td>
+      <td>Repeat</td>
+      <td>Reverse</td>
+    </tr>
+    <tr>
+      <td>Make a change</td>
+      <td>{edit}</td>
+      <td>.</td>
+      <td>u</td>
+    </tr>
+    <tr>
+      <td>Scan line for next character</td>
+      <td>f{char}/t{char}</td>
+      <td>;</td>
+      <td>,</td>
+    </tr>
+    <tr>
+      <td>Scan line for previous character</td>
+      <td>F{char}/T{char}</td>
+      <td>;</td>
+      <td>,</td>
+    </tr>
+    <tr>
+      <td>Scan document for next match</td>
+      <td>/pattern<cr></cr>
+</td>
+      <td>n</td>
+      <td>N</td>
+    </tr>
+    <tr>
+      <td>Scan document for previous match</td>
+      <td>?pattern<cr></cr>
+</td>
+      <td>n</td>
+      <td>N</td>
+    </tr>
+    <tr>
+      <td>Perform substitution</td>
+      <td>:s/old/new</td>
+      <td>&amp;</td>
+      <td>u</td>
+    </tr>
+    <tr>
+      <td>Execute a sequence of changes</td>
+      <td>qx{change}q</td>
+      <td>@x</td>
+      <td>u</td>
+    </tr>
+  </tbody>
+</table>
 
 <h3 id="compound-commands">
 <a class="anchor" href="#compound-commands" aria-hidden="true"><span class="octicon octicon-link"></span></a>Compound commands</h3>
@@ -195,7 +331,7 @@ window.onload = wrap_img;
 
 <ul>
   <li><a href="https://pragprog.com/titles/dnvim2/practical-vim-second-edition/">Practical
-  Vim</a></li>
+  Vim (PV)</a></li>
 </ul>
 
   </div><a class="u-url" href="/blog/vim/2021/03/27/vim-essentials.html" hidden></a>
