@@ -110,6 +110,7 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#setup">Setup</a></li>
 <li class="toc-entry toc-h1"><a href="#mental-models">Mental models</a></li>
 <li class="toc-entry toc-h1"><a href="#modes">Modes</a>
 <ul>
@@ -121,16 +122,17 @@ window.onload = wrap_img;
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#insert-mode">Insert mode</a></li>
-<li class="toc-entry toc-h2"><a href="#visual-mode">Visual mode</a></li>
-<li class="toc-entry toc-h2"><a href="#command-line-mode">Command-line mode</a>
+</ul>
+</li>
+</ul><h1 id="setup">
+<a class="anchor" href="#setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setup</h1>
+
 <ul>
-<li class="toc-entry toc-h3"><a href="#ex-commands">Ex commands</a></li>
-</ul>
+  <li>I’ve remaped the Caps Look key to <ctrl>.</ctrl>
 </li>
 </ul>
-</li>
-<li class="toc-entry toc-h1"><a href="#sources">Sources</a></li>
-</ul><h1 id="mental-models">
+
+<h1 id="mental-models">
 <a class="anchor" href="#mental-models" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mental models</h1>
 
 <ul>
@@ -313,26 +315,42 @@ window.onload = wrap_img;
 <h2 id="insert-mode">
 <a class="anchor" href="#insert-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Insert mode</h2>
 
-<h2 id="visual-mode">
-<a class="anchor" href="#visual-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Visual mode</h2>
-
-<h2 id="command-line-mode">
-<a class="anchor" href="#command-line-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Command-line mode</h2>
-
-<h3 id="ex-commands">
-<a class="anchor" href="#ex-commands" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ex commands</h3>
-
+<p>Useful keystrokes:</p>
 <ul>
-  <li>basic syntax: [range]command</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">&lt;C-w&gt;</code> to delete last few words without leaving insert mode</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">&lt;C-o&gt;zz</code> to move current line to middle of screen without leaving insert mode</li>
 </ul>
 
-<h1 id="sources">
-<a class="anchor" href="#sources" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sources</h1>
+<p>Keystroke           | Action</p>
+<c-h>               | Delete back one character (backspace)
+<c-w>               | Delete back one word
+<c-u>               | Delete back one line
+<c-o>               | Switch to Insert Normal mode (to execute a single Normal
+Mode command)
+<c-r>{register}     | Paste content from address (use 0 for last yanked text)
+<c-r>=              | Perform calculation in place
+r, R                | Enter replace mode for single replacement or until exit
 
-<ul>
-  <li><a href="https://pragprog.com/titles/dnvim2/practical-vim-second-edition/">Practical
-  Vim (PV)</a></li>
-</ul>
+
+
+
+
+## Visual mode
+
+## Command-line mode
+
+### Ex commands
+
+- basic syntax: [range]command
+
+
+# Sources
+
+- [Practical
+    Vim (PV)](https://pragprog.com/titles/dnvim2/practical-vim-second-edition/)
+</c-r></c-r></c-o></c-u></c-w></c-h>
 
   </div><a class="u-url" href="/blog/vim/2021/03/27/vim-essentials.html" hidden></a>
 </article>
