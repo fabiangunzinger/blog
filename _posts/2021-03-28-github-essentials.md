@@ -13,8 +13,21 @@ title: Git(Hub) essentials
 
 
 - Create an [issue](https://guides.github.com/features/issues/) for each task.
+
 - Close issues automatically by mentioning their number in the pull request that completes the
     task.
+
+- Using `gh pr create --fill` from a topic branch that I want to merge
+    automatically creates a pull request to main with the branch name as the
+    title and all the commits to the branch as the body. Using commit messages
+    meaningful and linking issues (I'm gonna use `Fixes #<number>` as a
+    convention) makes this a super convenient way to track changes to the main
+    branch in a transparent way.
+
+- So, when I work on a new feature or issue, I create a branch with a meaningful
+    name, write meaningful commits, add `Fixes #<number>` to the final commit,
+    and then use `gh pr create --fill` and `gh pr merge` to create a pull
+    request an merge it.
 
 
 

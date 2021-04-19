@@ -12,27 +12,62 @@ title: vim essentials
 - I've remaped the Caps Look key to <Ctrl>.
 
 
-# Mental models
+# Mental models and reminders
 
 - One keystroke to move, one to execute: e.g. the dot-formula (PV p. 11)
 - Chunk your undos; all changes in single insert-mode session count as a single
     change, so go in and out of insert mode strategically.
 
 
+- If you hit cursor keys more than 2 or 3 times, there is a better way.
+
+- If you press backspace more than a couple times, there is a better way.
+
+- If you perform the same change on several lines, there is a better way.
+
+
+
 # Modes
 
 ## Normal mode
 
+
+### Useful stuff
+
 - `*` to highlight word under cursor. Use `n` and `N` to cycle forwards and
     backwards through matches.
+
 - `<C-a>` and `<C-x>` to add and subtract from the next number.
+
+- `<C-o>` to move backwards to the last location, `<C-l>` to move forward to next
+  location.
+
+
+### Move back and forth
+
+Forwards    | Backwards | Effect
+/           | ?         | Seach for pattern
+*           | #         | Search for word under cursor
+n           | N         | Jump to next search match
+$           | ^         | Jump to end of line
+f{char}     | F{char}   | Position cursor on {char}
+t{char}     | T{char}   | Position cursor before {char}
+;           | ,         | Repeat the last r, F, t, or T
+w           | b         | Move to the start of the next word
+W           | B         | Move to the start of the next WORD
+}           | {         | Move down one (blank-line-separated) paragraph
+gg                      | Jump to the first line of the document
+G                       | Jump to the last line of the document
+
+
+
+
 
 ### Operators
 
 - Operator + motion = action. E.g. `dl` deletes character to the right, `diw`
-    the word under the cursor, `dap` the current paragraph. Similarly, `gUap`
+    the word under the cursor (without the surrounding whitespace), `dap` the current paragraph (including the surrounding whitespace). Similarly, `gUap`
     converts the current paragraph to uppercase.
-
 
 Trigger | Effect
 c       | Change
@@ -46,7 +81,6 @@ gU      | Make uppercase
 =       | Autoindent
 !       | Filter {motion} lines through an external program
 
-
 ### Act, repeat, reverse
 
 Intent                              | Act               | Repeat    | Reverse
@@ -57,9 +91,6 @@ Scan document for next match        | /pattern<CR>      | n         | N
 Scan document for previous match    | ?pattern<CR>      | n         | N
 Perform substitution                | :s/old/new        | &         | u
 Execute a sequence of changes       | qx{change}q       | @x        | u
-
-
-
 
 ### Compound commands
 
@@ -72,6 +103,20 @@ A | $a
 o | A<cr>
 O | ko
 
+
+### Entering insert mode
+
+Trigger | Effect
+i       | Insert before cursor
+a       | Insert after cursor
+I       | Insert at beginning of current line
+A       | Insert at end of current line
+o       | Insert in a new line below the current one
+O       | Insert in a new line above the current one
+
+- To enter insert mode to replace existing text, use `cc` to replace the
+  current line, or `cc{motion}` as needed (e.g. `ci"` to replace text inside
+  quotes).
 
 ## Insert mode
 
