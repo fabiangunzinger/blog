@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      1 min read
+      3 min read
     
 </span></p>
 
@@ -111,14 +111,17 @@ window.onload = wrap_img;
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
 <li class="toc-entry toc-h1"><a href="#setup">Setup</a></li>
-<li class="toc-entry toc-h1"><a href="#mental-models">Mental models</a></li>
+<li class="toc-entry toc-h1"><a href="#mental-models-and-reminders">Mental models and reminders</a></li>
 <li class="toc-entry toc-h1"><a href="#modes">Modes</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#normal-mode">Normal mode</a>
 <ul>
+<li class="toc-entry toc-h3"><a href="#useful-stuff">Useful stuff</a></li>
+<li class="toc-entry toc-h3"><a href="#move-back-and-forth">Move back and forth</a></li>
 <li class="toc-entry toc-h3"><a href="#operators">Operators</a></li>
 <li class="toc-entry toc-h3"><a href="#act-repeat-reverse">Act, repeat, reverse</a></li>
 <li class="toc-entry toc-h3"><a href="#compound-commands">Compound commands</a></li>
+<li class="toc-entry toc-h3"><a href="#entering-insert-mode">Entering insert mode</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#insert-mode">Insert mode</a></li>
@@ -132,13 +135,22 @@ window.onload = wrap_img;
 </li>
 </ul>
 
-<h1 id="mental-models">
-<a class="anchor" href="#mental-models" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mental models</h1>
+<h1 id="mental-models-and-reminders">
+<a class="anchor" href="#mental-models-and-reminders" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mental models and reminders</h1>
 
 <ul>
   <li>One keystroke to move, one to execute: e.g. the dot-formula (PV p. 11)</li>
-  <li>Chunk your undos; all changes in single insert-mode session count as a single
-  change, so go in and out of insert mode strategically.</li>
+  <li>
+    <p>Chunk your undos; all changes in single insert-mode session count as a single
+  change, so go in and out of insert mode strategically.</p>
+  </li>
+  <li>
+    <p>If you hit cursor keys more than 2 or 3 times, there is a better way.</p>
+  </li>
+  <li>
+    <p>If you press backspace more than a couple times, there is a better way.</p>
+  </li>
+  <li>If you perform the same change on several lines, there is a better way.</li>
 </ul>
 
 <h1 id="modes">
@@ -147,20 +159,102 @@ window.onload = wrap_img;
 <h2 id="normal-mode">
 <a class="anchor" href="#normal-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Normal mode</h2>
 
+<h3 id="useful-stuff">
+<a class="anchor" href="#useful-stuff" aria-hidden="true"><span class="octicon octicon-link"></span></a>Useful stuff</h3>
+
 <ul>
   <li>
-<code class="language-plaintext highlighter-rouge">*</code> to highlight word under cursor. Use <code class="language-plaintext highlighter-rouge">n</code> and <code class="language-plaintext highlighter-rouge">N</code> to cycle forwards and
-  backwards through matches.</li>
+    <p><code class="language-plaintext highlighter-rouge">*</code> to highlight word under cursor. Use <code class="language-plaintext highlighter-rouge">n</code> and <code class="language-plaintext highlighter-rouge">N</code> to cycle forwards and
+  backwards through matches.</p>
+  </li>
   <li>
-<code class="language-plaintext highlighter-rouge">&lt;C-a&gt;</code> and <code class="language-plaintext highlighter-rouge">&lt;C-x&gt;</code> to add and subtract from the next number.</li>
+    <p><code class="language-plaintext highlighter-rouge">&lt;C-a&gt;</code> and <code class="language-plaintext highlighter-rouge">&lt;C-x&gt;</code> to add and subtract from the next number.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">&lt;C-o&gt;</code> to move backwards to the last location, <code class="language-plaintext highlighter-rouge">&lt;C-l&gt;</code> to move forward to next
+location.</p>
+  </li>
 </ul>
+
+<h3 id="move-back-and-forth">
+<a class="anchor" href="#move-back-and-forth" aria-hidden="true"><span class="octicon octicon-link"></span></a>Move back and forth</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Forwards</td>
+      <td>Backwards</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td>/</td>
+      <td>?</td>
+      <td>Seach for pattern</td>
+    </tr>
+    <tr>
+      <td>*</td>
+      <td>#</td>
+      <td>Search for word under cursor</td>
+    </tr>
+    <tr>
+      <td>n</td>
+      <td>N</td>
+      <td>Jump to next search match</td>
+    </tr>
+    <tr>
+      <td>$</td>
+      <td>^</td>
+      <td>Jump to end of line</td>
+    </tr>
+    <tr>
+      <td>f{char}</td>
+      <td>F{char}</td>
+      <td>Position cursor on {char}</td>
+    </tr>
+    <tr>
+      <td>t{char}</td>
+      <td>T{char}</td>
+      <td>Position cursor before {char}</td>
+    </tr>
+    <tr>
+      <td>;</td>
+      <td>,</td>
+      <td>Repeat the last r, F, t, or T</td>
+    </tr>
+    <tr>
+      <td>w</td>
+      <td>b</td>
+      <td>Move to the start of the next word</td>
+    </tr>
+    <tr>
+      <td>W</td>
+      <td>B</td>
+      <td>Move to the start of the next WORD</td>
+    </tr>
+    <tr>
+      <td>}</td>
+      <td>{</td>
+      <td>Move down one (blank-line-separated) paragraph</td>
+    </tr>
+    <tr>
+      <td>gg</td>
+      <td>Jump to the first line of the document</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>G</td>
+      <td>Jump to the last line of the document</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
 
 <h3 id="operators">
 <a class="anchor" href="#operators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Operators</h3>
 
 <ul>
   <li>Operator + motion = action. E.g. <code class="language-plaintext highlighter-rouge">dl</code> deletes character to the right, <code class="language-plaintext highlighter-rouge">diw</code>
-  the word under the cursor, <code class="language-plaintext highlighter-rouge">dap</code> the current paragraph. Similarly, <code class="language-plaintext highlighter-rouge">gUap</code>
+  the word under the cursor (without the surrounding whitespace), <code class="language-plaintext highlighter-rouge">dap</code> the current paragraph (including the surrounding whitespace). Similarly, <code class="language-plaintext highlighter-rouge">gUap</code>
   converts the current paragraph to uppercase.</li>
 </ul>
 
@@ -311,6 +405,48 @@ window.onload = wrap_img;
     </tr>
   </tbody>
 </table>
+
+<h3 id="entering-insert-mode">
+<a class="anchor" href="#entering-insert-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Entering insert mode</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Trigger</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td>i</td>
+      <td>Insert before cursor</td>
+    </tr>
+    <tr>
+      <td>a</td>
+      <td>Insert after cursor</td>
+    </tr>
+    <tr>
+      <td>I</td>
+      <td>Insert at beginning of current line</td>
+    </tr>
+    <tr>
+      <td>A</td>
+      <td>Insert at end of current line</td>
+    </tr>
+    <tr>
+      <td>o</td>
+      <td>Insert in a new line below the current one</td>
+    </tr>
+    <tr>
+      <td>O</td>
+      <td>Insert in a new line above the current one</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>To enter insert mode to replace existing text, use <code class="language-plaintext highlighter-rouge">cc</code> to replace the
+current line, or <code class="language-plaintext highlighter-rouge">cc{motion}</code> as needed (e.g. <code class="language-plaintext highlighter-rouge">ci"</code> to replace text inside
+quotes).</li>
+</ul>
 
 <h2 id="insert-mode">
 <a class="anchor" href="#insert-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Insert mode</h2>

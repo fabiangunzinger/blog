@@ -116,9 +116,27 @@ window.onload = wrap_img;
 <a class="anchor" href="#workflow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Workflow</h1>
 
 <ul>
-  <li>Create an <a href="https://guides.github.com/features/issues/">issue</a> for each task.</li>
-  <li>Close issues automatically by mentioning their number in the pull request that completes the
-  task.</li>
+  <li>
+    <p>Create an <a href="https://guides.github.com/features/issues/">issue</a> for each task.</p>
+  </li>
+  <li>
+    <p>Close issues automatically by mentioning their number in the pull request that completes the
+  task.</p>
+  </li>
+  <li>
+    <p>Using <code class="language-plaintext highlighter-rouge">gh pr create --fill</code> from a topic branch that I want to merge
+  automatically creates a pull request to main with the branch name as the
+  title and all the commits to the branch as the body. Using commit messages
+  meaningful and linking issues (I’m gonna use <code class="language-plaintext highlighter-rouge">Fixes #&lt;number&gt;</code> as a
+  convention) makes this a super convenient way to track changes to the main
+  branch in a transparent way.</p>
+  </li>
+  <li>
+    <p>So, when I work on a new feature or issue, I create a branch with a meaningful
+  name, write meaningful commits, add <code class="language-plaintext highlighter-rouge">Fixes #&lt;number&gt;</code> to the final commit,
+  and then use <code class="language-plaintext highlighter-rouge">gh pr create --fill</code> and <code class="language-plaintext highlighter-rouge">gh pr merge</code> to create a pull
+  request an merge it.</p>
+  </li>
 </ul>
 
 <h1 id="cli">
