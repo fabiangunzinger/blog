@@ -139,7 +139,9 @@ window.onload = wrap_img;
 <a class="anchor" href="#mental-models-and-reminders" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mental models and reminders</h1>
 
 <ul>
-  <li>One keystroke to move, one to execute: e.g. the dot-formula (PV p. 11)</li>
+  <li>
+    <p>One keystroke to move, one to execute: e.g. the dot-formula (PV p. 11)</p>
+  </li>
   <li>
     <p>Chunk your undos; all changes in single insert-mode session count as a single
   change, so go in and out of insert mode strategically.</p>
@@ -150,7 +152,9 @@ window.onload = wrap_img;
   <li>
     <p>If you press backspace more than a couple times, there is a better way.</p>
   </li>
-  <li>If you perform the same change on several lines, there is a better way.</li>
+  <li>
+    <p>If you perform the same change on several lines, there is a better way.</p>
+  </li>
 </ul>
 
 <h1 id="modes">
@@ -459,21 +463,26 @@ quotes).</li>
 <code class="language-plaintext highlighter-rouge">&lt;C-o&gt;zz</code> to move current line to middle of screen without leaving insert mode</li>
 </ul>
 
-<p>Keystroke           | Action</p>
-<c-h>               | Delete back one character (backspace)
-<c-w>               | Delete back one word
-<c-u>               | Delete back one line
-<c-o>               | Switch to Insert Normal mode (to execute a single Normal
+<p>Keystroke         | Action</p>
+<c-h>             | Delete back one character (backspace)
+<c-w>             | Delete back one word
+<c-u>             | Delete back one line
+<c-o>             | Switch to Insert Normal mode (to execute a single Normal
 Mode command)
-<c-r>{register}     | Paste content from address (use 0 for last yanked text)
-<c-r>=              | Perform calculation in place
-r, R                | Enter replace mode for single replacement or until exit
-
-
-
+<c-r>{register}   | Paste content from address (use 0 for last yanked text)
+<c-r>=            | Perform calculation in place
+r, R              | Enter replace mode for single replacement or until exit
 
 
 ## Visual mode
+
+Command  | Effect
+v        | Enter character-wise visual mode
+V        | Enter line-wise visual mode
+<c-v>    | Enter block-wise visual mode
+gv       | Reselect last visual selection
+o        | Toggle the free end of a selection
+
 
 ## Command-line mode
 
@@ -486,7 +495,7 @@ r, R                | Enter replace mode for single replacement or until exit
 
 - [Practical
     Vim (PV)](https://pragprog.com/titles/dnvim2/practical-vim-second-edition/)
-</c-r></c-r></c-o></c-u></c-w></c-h>
+</c-v></c-r></c-r></c-o></c-u></c-w></c-h>
 
   </div><a class="u-url" href="/blog/vim/2021/03/27/vim-essentials.html" hidden></a>
 </article>
