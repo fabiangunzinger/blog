@@ -15,9 +15,9 @@ title: vim essentials
 # Mental models and reminders
 
 - One keystroke to move, one to execute: e.g. the dot-formula (PV p. 11)
+
 - Chunk your undos; all changes in single insert-mode session count as a single
     change, so go in and out of insert mode strategically.
-
 
 - If you hit cursor keys more than 2 or 3 times, there is a better way.
 
@@ -26,11 +26,9 @@ title: vim essentials
 - If you perform the same change on several lines, there is a better way.
 
 
-
 # Modes
 
 ## Normal mode
-
 
 ### Useful stuff
 
@@ -41,7 +39,6 @@ title: vim essentials
 
 - `<C-o>` to move backwards to the last location, `<C-l>` to move forward to next
   location.
-
 
 ### Move back and forth
 
@@ -58,10 +55,6 @@ W           | B         | Move to the start of the next WORD
 }           | {         | Move down one (blank-line-separated) paragraph
 gg                      | Jump to the first line of the document
 G                       | Jump to the last line of the document
-
-
-
-
 
 ### Operators
 
@@ -118,27 +111,33 @@ O       | Insert in a new line above the current one
   current line, or `cc{motion}` as needed (e.g. `ci"` to replace text inside
   quotes).
 
+
 ## Insert mode
 
 Useful keystrokes:
 - `<C-w>` to delete last few words without leaving insert mode
 - `<C-o>zz` to move current line to middle of screen without leaving insert mode
 
-Keystroke           | Action
-<C-h>               | Delete back one character (backspace)
-<C-w>               | Delete back one word
-<C-u>               | Delete back one line
-<C-o>               | Switch to Insert Normal mode (to execute a single Normal
+Keystroke         | Action
+<C-h>             | Delete back one character (backspace)
+<C-w>             | Delete back one word
+<C-u>             | Delete back one line
+<C-o>             | Switch to Insert Normal mode (to execute a single Normal
 Mode command)
-<C-r>{register}     | Paste content from address (use 0 for last yanked text)
-<C-r>=              | Perform calculation in place
-r, R                | Enter replace mode for single replacement or until exit
-
-
-
+<C-r>{register}   | Paste content from address (use 0 for last yanked text)
+<C-r>=            | Perform calculation in place
+r, R              | Enter replace mode for single replacement or until exit
 
 
 ## Visual mode
+
+Command  | Effect
+v        | Enter character-wise visual mode
+V        | Enter line-wise visual mode
+<C-v>    | Enter block-wise visual mode
+gv       | Reselect last visual selection
+o        | Toggle the free end of a selection
+
 
 ## Command-line mode
 
