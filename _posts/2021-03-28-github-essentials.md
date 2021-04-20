@@ -16,8 +16,19 @@ title: Git(Hub) essentials
   directory. To tell Git where it is, use `$git config --global core.excludefile
   ~/.gitignore_global`.
 
+- [gitignore.io](https://www.toptal.com/developers/gitignore) let's you
+  select all languages used in a project and creates a good `.gitignore` file
+  that takes care of them all. Use this for projects. Alternatively,
+  [GitHub](https://github.com/github/gitignore) provides language specific
+  ignore templates.
+
 - To ignore a file that is already checked in, untrack the file before setting a
   rule to ignore it. To untrack, use `$ git rm --cached FILENAME`.
+
+- For ignore rules, check
+  [this](https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository#_ignoring)
+  section in the Pro Git book and [this](https://git-scm.com/docs/gitignore) one
+  in the man pages.
 
 
 # Workflow
