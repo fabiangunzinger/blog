@@ -188,13 +188,18 @@ j[oin]          Join lines
 s[ubstitute]
 
 
+# Extra functionality
 
+## Python 
 
+## Snippets
 
+## Latex integration
 
-
-
-- basic syntax: [range]command
+- You can use `<C-N>` completion for words that already appear in one of the
+  open buffers. This is especially useful for bibliography completion: just open
+  the .bib file in another buffer and `<C-N>` will provide a list of
+  available keys.
 
 
 # Sources
