@@ -32,13 +32,13 @@ title: vim essentials
 
 ### Useful stuff
 
-- `*` to highlight word under cursor. Use `n` and `N` to cycle forwards and
-    backwards through matches.
+Command             | Effect
+`<C-a>`/ `<C-x>`    | Add / subtract from the next number
+`<C-o>`/ `<C-l>`    | Move backwards to last / forward to previous location
+`u`/`<C-r>`         | Undo / redo change
+`ga`                | Reveal decimal, octal, hex representation of character
+under cursor.
 
-- `<C-a>` and `<C-x>` to add and subtract from the next number.
-
-- `<C-o>` to move backwards to the last location, `<C-l>` to move forward to next
-  location.
 
 ### Move back and forth
 
@@ -56,9 +56,20 @@ W           | B         | Move to the start of the next WORD
 gg                      | Jump to the first line of the document
 G                       | Jump to the last line of the document
 
+### Act, repeat, reverse
+
+Intent                              | Act               | Repeat    | Reverse
+Make a change                       | {edit}            | .         | u
+Scan line for next character        | f{char}/t{char}   | ;         | ,
+Scan line for previous character    | F{char}/T{char}   | ;         | ,
+Scan document for next match        | /pattern<CR>      | n         | N
+Scan document for previous match    | ?pattern<CR>      | n         | N
+Perform substitution                | :s/old/new        | &         | u
+Execute a sequence of changes       | qx{change}q       | @x        | u
+
 ### Operators
 
-- Operator + motion = action. E.g. `dl` deletes character to the right, `diw`
+Operator + motion = action. E.g. `dl` deletes character to the right, `diw`
     the word under the cursor (without the surrounding whitespace), `dap` the current paragraph (including the surrounding whitespace). Similarly, `gUap`
     converts the current paragraph to uppercase.
 
@@ -74,17 +85,6 @@ gU      | Make uppercase
 =       | Autoindent
 !       | Filter {motion} lines through an external program
 
-### Act, repeat, reverse
-
-Intent                              | Act               | Repeat    | Reverse
-Make a change                       | {edit}            | .         | u
-Scan line for next character        | f{char}/t{char}   | ;         | ,
-Scan line for previous character    | F{char}/T{char}   | ;         | ,
-Scan document for next match        | /pattern<CR>      | n         | N
-Scan document for previous match    | ?pattern<CR>      | n         | N
-Perform substitution                | :s/old/new        | &         | u
-Execute a sequence of changes       | qx{change}q       | @x        | u
-
 ### Compound commands
 
 Compound command | Equivalent in longhand
@@ -99,6 +99,10 @@ O | ko
 
 ### Entering insert mode
 
+To enter insert mode to replace existing text, use `cc` to replace the
+  current line, or `cc{motion}` as needed (e.g. `ci"` to replace text inside
+  quotes).
+
 Trigger | Effect
 i       | Insert before cursor
 a       | Insert after cursor
@@ -107,10 +111,6 @@ A       | Insert at end of current line
 o       | Insert in a new line below the current one
 O       | Insert in a new line above the current one
 
-- To enter insert mode to replace existing text, use `cc` to replace the
-  current line, or `cc{motion}` as needed (e.g. `ci"` to replace text inside
-  quotes).
-
 
 ## Insert mode
 
@@ -118,15 +118,18 @@ Useful keystrokes:
 - `<C-w>` to delete last few words without leaving insert mode
 - `<C-o>zz` to move current line to middle of screen without leaving insert mode
 
-Keystroke         | Action
-<C-h>             | Delete back one character (backspace)
-<C-w>             | Delete back one word
-<C-u>             | Delete back one line
-<C-o>             | Switch to Insert Normal mode (to execute a single Normal
+Keystroke             | Action
+<C-h>                 | Delete back one character (backspace)
+<C-w>                 | Delete back one word
+<C-u>                 | Delete back one line
+<C-o>                 | Switch to Insert Normal mode (to execute a single Normal
 Mode command)
-<C-r>{register}   | Paste content from address (use 0 for last yanked text)
-<C-r>=            | Perform calculation in place
-r, R              | Enter replace mode for single replacement or until exit
+<C-r>{register}       | Paste content from address (use 0 for last yanked text)
+<C-r>=                | Perform calculation in place
+r, R                  | Enter replace mode for single replacement or until exit
+<C-v>{123}            | Insert character by decimal code 
+<C-v>u{1234}          | Insert character by hexadecimal code 
+<C-v>{char1}{char2}   | Insert character by digraph
 
 
 ## Visual mode
@@ -141,7 +144,55 @@ o        | Toggle the free end of a selection
 
 ## Command-line mode
 
-### Ex commands
+- Ex-commands allow you to make changes (in multiple places) anywhere in
+  the file without moving the cursor -- they strike far and wide.
+
+### Execute an Ex-command on one or more consecutive lines
+
+The general syntax for Ex-commands is `:[range]{command}`, where `[range]` is
+either a single address or a range of addresses of the form `{start},{stop}`.
+
+There are three types of addresses: line numbers, visual selections, and
+patterns.
+
+Types of addresses:
+
+Command                 | Effect
+`:4{command}`           | Execute command on line 4
+`:4,8{command}`         | Execute command on lines 4 to 8
+`:'<,'>{command}`       | Execute command on selected lines (use visual mode to
+select lines, press `:` to make vim start the command with start and stop, then
+type command).
+`:/#/{command}`         | Execute command on next line with an `#`
+`:/#/##/{command}`      | Execute command on next batch of lines that start with
+a line with `#` and one with `##`.
+
+Useful address/range characters
+
+Symobol | Address
+1       | First line of the file
+$       | Last line of the file
+0       | Virtual line above first line (e.g. to paste to top of file)
+.       | Line of cursor
+'m      | Line containing mark m
+'<      | Start of visual selection
+'>      | End of visual selection
+%       | The entire file (short for :1,$)
+
+
+Common Ex-commands
+Command         Effect
+p[rint]         Print
+d[elete]        Delete
+j[oin]          Join lines
+s[ubstitute]
+
+
+
+
+
+
+
 
 - basic syntax: [range]command
 
