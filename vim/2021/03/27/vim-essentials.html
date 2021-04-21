@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      3 min read
+      4 min read
     
 </span></p>
 
@@ -118,8 +118,8 @@ window.onload = wrap_img;
 <ul>
 <li class="toc-entry toc-h3"><a href="#useful-stuff">Useful stuff</a></li>
 <li class="toc-entry toc-h3"><a href="#move-back-and-forth">Move back and forth</a></li>
-<li class="toc-entry toc-h3"><a href="#operators">Operators</a></li>
 <li class="toc-entry toc-h3"><a href="#act-repeat-reverse">Act, repeat, reverse</a></li>
+<li class="toc-entry toc-h3"><a href="#operators">Operators</a></li>
 <li class="toc-entry toc-h3"><a href="#compound-commands">Compound commands</a></li>
 <li class="toc-entry toc-h3"><a href="#entering-insert-mode">Entering insert mode</a></li>
 </ul>
@@ -166,19 +166,12 @@ window.onload = wrap_img;
 <h3 id="useful-stuff">
 <a class="anchor" href="#useful-stuff" aria-hidden="true"><span class="octicon octicon-link"></span></a>Useful stuff</h3>
 
-<ul>
-  <li>
-    <p><code class="language-plaintext highlighter-rouge">*</code> to highlight word under cursor. Use <code class="language-plaintext highlighter-rouge">n</code> and <code class="language-plaintext highlighter-rouge">N</code> to cycle forwards and
-  backwards through matches.</p>
-  </li>
-  <li>
-    <p><code class="language-plaintext highlighter-rouge">&lt;C-a&gt;</code> and <code class="language-plaintext highlighter-rouge">&lt;C-x&gt;</code> to add and subtract from the next number.</p>
-  </li>
-  <li>
-    <p><code class="language-plaintext highlighter-rouge">&lt;C-o&gt;</code> to move backwards to the last location, <code class="language-plaintext highlighter-rouge">&lt;C-l&gt;</code> to move forward to next
-location.</p>
-  </li>
-</ul>
+<p>Command             | Effect
+<code class="language-plaintext highlighter-rouge">&lt;C-a&gt;</code>/ <code class="language-plaintext highlighter-rouge">&lt;C-x&gt;</code>    | Add / subtract from the next number
+<code class="language-plaintext highlighter-rouge">&lt;C-o&gt;</code>/ <code class="language-plaintext highlighter-rouge">&lt;C-l&gt;</code>    | Move backwards to last / forward to previous location
+<code class="language-plaintext highlighter-rouge">u</code>/<code class="language-plaintext highlighter-rouge">&lt;C-r&gt;</code>         | Undo / redo change
+<code class="language-plaintext highlighter-rouge">ga</code>                | Reveal decimal, octal, hex representation of character
+under cursor.</p>
 
 <h3 id="move-back-and-forth">
 <a class="anchor" href="#move-back-and-forth" aria-hidden="true"><span class="octicon octicon-link"></span></a>Move back and forth</h3>
@@ -253,64 +246,6 @@ location.</p>
   </tbody>
 </table>
 
-<h3 id="operators">
-<a class="anchor" href="#operators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Operators</h3>
-
-<ul>
-  <li>Operator + motion = action. E.g. <code class="language-plaintext highlighter-rouge">dl</code> deletes character to the right, <code class="language-plaintext highlighter-rouge">diw</code>
-  the word under the cursor (without the surrounding whitespace), <code class="language-plaintext highlighter-rouge">dap</code> the current paragraph (including the surrounding whitespace). Similarly, <code class="language-plaintext highlighter-rouge">gUap</code>
-  converts the current paragraph to uppercase.</li>
-</ul>
-
-<table>
-  <tbody>
-    <tr>
-      <td>Trigger</td>
-      <td>Effect</td>
-    </tr>
-    <tr>
-      <td>c</td>
-      <td>Change</td>
-    </tr>
-    <tr>
-      <td>d</td>
-      <td>Delete</td>
-    </tr>
-    <tr>
-      <td>y</td>
-      <td>Yank into register</td>
-    </tr>
-    <tr>
-      <td>g~</td>
-      <td>Swap case</td>
-    </tr>
-    <tr>
-      <td>gu</td>
-      <td>Make lowercase</td>
-    </tr>
-    <tr>
-      <td>gU</td>
-      <td>Make uppercase</td>
-    </tr>
-    <tr>
-      <td>&gt;</td>
-      <td>Shift right</td>
-    </tr>
-    <tr>
-      <td>&lt;</td>
-      <td>Shift left</td>
-    </tr>
-    <tr>
-      <td>=</td>
-      <td>Autoindent</td>
-    </tr>
-    <tr>
-      <td>!</td>
-      <td>Filter {motion} lines through an external program</td>
-    </tr>
-  </tbody>
-</table>
-
 <h3 id="act-repeat-reverse">
 <a class="anchor" href="#act-repeat-reverse" aria-hidden="true"><span class="octicon octicon-link"></span></a>Act, repeat, reverse</h3>
 
@@ -369,6 +304,62 @@ location.</p>
   </tbody>
 </table>
 
+<h3 id="operators">
+<a class="anchor" href="#operators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Operators</h3>
+
+<p>Operator + motion = action. E.g. <code class="language-plaintext highlighter-rouge">dl</code> deletes character to the right, <code class="language-plaintext highlighter-rouge">diw</code>
+    the word under the cursor (without the surrounding whitespace), <code class="language-plaintext highlighter-rouge">dap</code> the current paragraph (including the surrounding whitespace). Similarly, <code class="language-plaintext highlighter-rouge">gUap</code>
+    converts the current paragraph to uppercase.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Trigger</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td>c</td>
+      <td>Change</td>
+    </tr>
+    <tr>
+      <td>d</td>
+      <td>Delete</td>
+    </tr>
+    <tr>
+      <td>y</td>
+      <td>Yank into register</td>
+    </tr>
+    <tr>
+      <td>g~</td>
+      <td>Swap case</td>
+    </tr>
+    <tr>
+      <td>gu</td>
+      <td>Make lowercase</td>
+    </tr>
+    <tr>
+      <td>gU</td>
+      <td>Make uppercase</td>
+    </tr>
+    <tr>
+      <td>&gt;</td>
+      <td>Shift right</td>
+    </tr>
+    <tr>
+      <td>&lt;</td>
+      <td>Shift left</td>
+    </tr>
+    <tr>
+      <td>=</td>
+      <td>Autoindent</td>
+    </tr>
+    <tr>
+      <td>!</td>
+      <td>Filter {motion} lines through an external program</td>
+    </tr>
+  </tbody>
+</table>
+
 <h3 id="compound-commands">
 <a class="anchor" href="#compound-commands" aria-hidden="true"><span class="octicon octicon-link"></span></a>Compound commands</h3>
 
@@ -413,6 +404,10 @@ location.</p>
 <h3 id="entering-insert-mode">
 <a class="anchor" href="#entering-insert-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Entering insert mode</h3>
 
+<p>To enter insert mode to replace existing text, use <code class="language-plaintext highlighter-rouge">cc</code> to replace the
+  current line, or <code class="language-plaintext highlighter-rouge">cc{motion}</code> as needed (e.g. <code class="language-plaintext highlighter-rouge">ci"</code> to replace text inside
+  quotes).</p>
+
 <table>
   <tbody>
     <tr>
@@ -446,12 +441,6 @@ location.</p>
   </tbody>
 </table>
 
-<ul>
-  <li>To enter insert mode to replace existing text, use <code class="language-plaintext highlighter-rouge">cc</code> to replace the
-current line, or <code class="language-plaintext highlighter-rouge">cc{motion}</code> as needed (e.g. <code class="language-plaintext highlighter-rouge">ci"</code> to replace text inside
-quotes).</li>
-</ul>
-
 <h2 id="insert-mode">
 <a class="anchor" href="#insert-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Insert mode</h2>
 
@@ -463,15 +452,18 @@ quotes).</li>
 <code class="language-plaintext highlighter-rouge">&lt;C-o&gt;zz</code> to move current line to middle of screen without leaving insert mode</li>
 </ul>
 
-<p>Keystroke         | Action</p>
-<c-h>             | Delete back one character (backspace)
-<c-w>             | Delete back one word
-<c-u>             | Delete back one line
-<c-o>             | Switch to Insert Normal mode (to execute a single Normal
+<p>Keystroke             | Action</p>
+<c-h>                 | Delete back one character (backspace)
+<c-w>                 | Delete back one word
+<c-u>                 | Delete back one line
+<c-o>                 | Switch to Insert Normal mode (to execute a single Normal
 Mode command)
-<c-r>{register}   | Paste content from address (use 0 for last yanked text)
-<c-r>=            | Perform calculation in place
-r, R              | Enter replace mode for single replacement or until exit
+<c-r>{register}       | Paste content from address (use 0 for last yanked text)
+<c-r>=                | Perform calculation in place
+r, R                  | Enter replace mode for single replacement or until exit
+<c-v>{123}            | Insert character by decimal code 
+<c-v>u{1234}          | Insert character by hexadecimal code 
+<c-v>{char1}{char2}   | Insert character by digraph
 
 
 ## Visual mode
@@ -486,7 +478,55 @@ o        | Toggle the free end of a selection
 
 ## Command-line mode
 
-### Ex commands
+- Ex-commands allow you to make changes (in multiple places) anywhere in
+  the file without moving the cursor -- they strike far and wide.
+
+### Execute an Ex-command on one or more consecutive lines
+
+The general syntax for Ex-commands is `:[range]{command}`, where `[range]` is
+either a single address or a range of addresses of the form `{start},{stop}`.
+
+There are three types of addresses: line numbers, visual selections, and
+patterns.
+
+Types of addresses:
+
+Command                 | Effect
+`:4{command}`           | Execute command on line 4
+`:4,8{command}`         | Execute command on lines 4 to 8
+`:'&lt;,'&gt;{command}`       | Execute command on selected lines (use visual mode to
+select lines, press `:` to make vim start the command with start and stop, then
+type command).
+`:/#/{command}`         | Execute command on next line with an `#`
+`:/#/##/{command}`      | Execute command on next batch of lines that start with
+a line with `#` and one with `##`.
+
+Useful address/range characters
+
+Symobol | Address
+1       | First line of the file
+$       | Last line of the file
+0       | Virtual line above first line (e.g. to paste to top of file)
+.       | Line of cursor
+'m      | Line containing mark m
+'&lt;      | Start of visual selection
+'&gt;      | End of visual selection
+%       | The entire file (short for :1,$)
+
+
+Common Ex-commands
+Command         Effect
+p[rint]         Print
+d[elete]        Delete
+j[oin]          Join lines
+s[ubstitute]
+
+
+
+
+
+
+
 
 - basic syntax: [range]command
 
@@ -495,7 +535,7 @@ o        | Toggle the free end of a selection
 
 - [Practical
     Vim (PV)](https://pragprog.com/titles/dnvim2/practical-vim-second-edition/)
-</c-v></c-r></c-r></c-o></c-u></c-w></c-h>
+</c-v></c-v></c-v></c-v></c-r></c-r></c-o></c-u></c-w></c-h>
 
   </div><a class="u-url" href="/blog/vim/2021/03/27/vim-essentials.html" hidden></a>
 </article>
