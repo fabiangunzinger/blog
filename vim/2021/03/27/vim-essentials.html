@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      6 min read
+      5 min read
     
 </span></p>
 
@@ -164,109 +164,228 @@ window.onload = wrap_img;
   converts the current paragraph to uppercase.</li>
 </ul>
 
-<p>Common operators:
-Trigger | Effect
-c       | Change
-d       | Delete
-y       | Yank into register
-g~      | Swap case
-gu      | Make lowercase
-gU      | Make uppercase</p>
-<blockquote>
-  <div class="language-plaintext highlighter-rouge">
-<div class="highlight"><pre class="highlight"><code>  | Shift right &lt;       | Shift left =       | Autoindent !       | Filter {motion} lines through an external program
-</code></pre></div>  </div>
-</blockquote>
+<p>Common operators:</p>
 
-<p>Move back and forth:
-Forwards    | Backwards | Effect
-/           | ?         | Seach for pattern</p>
-<ul>
-  <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>#</td>
-          <td>Search for word under cursor</td>
-          <td> </td>
-        </tr>
-        <tr>
-          <td>n</td>
-          <td>N</td>
-          <td>Jump to next search match</td>
-        </tr>
-        <tr>
-          <td>$</td>
-          <td>^</td>
-          <td>Jump to end of line</td>
-        </tr>
-        <tr>
-          <td>f{char}</td>
-          <td>F{char}</td>
-          <td>Position cursor on {char}</td>
-        </tr>
-        <tr>
-          <td>t{char}</td>
-          <td>T{char}</td>
-          <td>Position cursor before {char}</td>
-        </tr>
-        <tr>
-          <td>;</td>
-          <td>,</td>
-          <td>Repeat the last r, F, t, or T</td>
-        </tr>
-        <tr>
-          <td>w</td>
-          <td>b</td>
-          <td>Move to the start of the next word</td>
-        </tr>
-        <tr>
-          <td>W</td>
-          <td>B</td>
-          <td>Move to the start of the next WORD</td>
-        </tr>
-        <tr>
-          <td>}</td>
-          <td>{</td>
-          <td>Move down one (blank-line-separated) paragraph</td>
-        </tr>
-        <tr>
-          <td>gg</td>
-          <td>Jump to the first line of the document</td>
-          <td> </td>
-        </tr>
-        <tr>
-          <td>G</td>
-          <td>Jump to the last line of the document</td>
-          <td> </td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
-</ul>
+<table>
+  <tbody>
+    <tr>
+      <td>Trigger</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">c</code></td>
+      <td>Change</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">d</code></td>
+      <td>Delete</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">y</code></td>
+      <td>Yank into register</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">g~</code></td>
+      <td>Swap case</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">gu</code></td>
+      <td>Make lowercase</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">gU</code></td>
+      <td>Make uppercase</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&gt;</code></td>
+      <td>Shift right</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;</code></td>
+      <td>Shift left</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">=</code></td>
+      <td>Autoindent</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">!</code></td>
+      <td>Filter {motion} lines through an external program</td>
+    </tr>
+  </tbody>
+</table>
 
-<p>Act, repeat, reverse:
-Intent                              | Act               | Repeat    | Reverse
-Make a change                       | {edit}            | .         | u
-Scan line for next character        | f{char}/t{char}   | ;         | ,
-Scan line for previous character    | F{char}/T{char}   | ;         | ,
-Scan document for next match        | /pattern<cr>      | n         | N
-Scan document for previous match    | ?pattern<cr>      | n         | N
-Perform substitution                | :s/old/new        | &amp;         | u
-Execute a sequence of changes       | qx{change}q       | @x        | u</cr></cr></p>
+<p>Move back and forth:</p>
 
-<p>Compound commands:
-Compound command | Equivalent in longhand
-C | c$
-s | cl
-S | ^C
-I | ^i
-A | $a
-o | <code class="language-plaintext highlighter-rouge">A&lt;cr&gt;</code>
-O | ko</p>
+<table>
+  <tbody>
+    <tr>
+      <td>Forwards</td>
+      <td>Backwards</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td>/</td>
+      <td>?</td>
+      <td>Seach for pattern</td>
+    </tr>
+    <tr>
+      <td>*</td>
+      <td>#</td>
+      <td>Search for word under cursor</td>
+    </tr>
+    <tr>
+      <td>n</td>
+      <td>N</td>
+      <td>Jump to next search match</td>
+    </tr>
+    <tr>
+      <td>$</td>
+      <td>^</td>
+      <td>Jump to end of line</td>
+    </tr>
+    <tr>
+      <td>f{char}</td>
+      <td>F{char}</td>
+      <td>Position cursor on {char}</td>
+    </tr>
+    <tr>
+      <td>t{char}</td>
+      <td>T{char}</td>
+      <td>Position cursor before {char}</td>
+    </tr>
+    <tr>
+      <td>;</td>
+      <td>,</td>
+      <td>Repeat the last r, F, t, or T</td>
+    </tr>
+    <tr>
+      <td>w</td>
+      <td>b</td>
+      <td>Move to the start of the next word</td>
+    </tr>
+    <tr>
+      <td>W</td>
+      <td>B</td>
+      <td>Move to the start of the next WORD</td>
+    </tr>
+    <tr>
+      <td>}</td>
+      <td>{</td>
+      <td>Move down one (blank-line-separated) paragraph</td>
+    </tr>
+    <tr>
+      <td>gg</td>
+      <td>Jump to the first line of the document</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>G</td>
+      <td>Jump to the last line of the document</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
 
-<p>Miscellaneous:
-Command             | Effect
+<p>Act, repeat, reverse:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Intent</td>
+      <td>Act</td>
+      <td>Repeat</td>
+      <td>Reverse</td>
+    </tr>
+    <tr>
+      <td>Make a change</td>
+      <td>{edit}</td>
+      <td>.</td>
+      <td>u</td>
+    </tr>
+    <tr>
+      <td>Scan line for next character</td>
+      <td>f{char}/t{char}</td>
+      <td>;</td>
+      <td>,</td>
+    </tr>
+    <tr>
+      <td>Scan line for previous character</td>
+      <td>F{char}/T{char}</td>
+      <td>;</td>
+      <td>,</td>
+    </tr>
+    <tr>
+      <td>Scan document for next match</td>
+      <td>/pattern<cr></cr>
+</td>
+      <td>n</td>
+      <td>N</td>
+    </tr>
+    <tr>
+      <td>Scan document for previous match</td>
+      <td>?pattern<cr></cr>
+</td>
+      <td>n</td>
+      <td>N</td>
+    </tr>
+    <tr>
+      <td>Perform substitution</td>
+      <td>:s/old/new</td>
+      <td>&amp;</td>
+      <td>u</td>
+    </tr>
+    <tr>
+      <td>Execute a sequence of changes</td>
+      <td>qx{change}q</td>
+      <td>@x</td>
+      <td>u</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Compound commands:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Compound command</td>
+      <td>Equivalent in longhand</td>
+    </tr>
+    <tr>
+      <td>C</td>
+      <td>c$</td>
+    </tr>
+    <tr>
+      <td>s</td>
+      <td>cl</td>
+    </tr>
+    <tr>
+      <td>S</td>
+      <td>^C</td>
+    </tr>
+    <tr>
+      <td>I</td>
+      <td>^i</td>
+    </tr>
+    <tr>
+      <td>A</td>
+      <td>$a</td>
+    </tr>
+    <tr>
+      <td>o</td>
+      <td><code class="language-plaintext highlighter-rouge">A&lt;cr&gt;</code></td>
+    </tr>
+    <tr>
+      <td>O</td>
+      <td>ko</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Miscellaneous:</p>
+
+<p>Command             | Effect
 <code class="language-plaintext highlighter-rouge">&lt;C-a&gt;</code>/ <code class="language-plaintext highlighter-rouge">&lt;C-x&gt;</code>    | Add / subtract from the next number
 <code class="language-plaintext highlighter-rouge">&lt;C-o&gt;</code>/ <code class="language-plaintext highlighter-rouge">&lt;C-l&gt;</code>    | Move backwards to last / forward to previous location
 <code class="language-plaintext highlighter-rouge">u</code>/<code class="language-plaintext highlighter-rouge">&lt;C-r&gt;</code>         | Undo / redo change
@@ -290,17 +409,44 @@ quotes).</p>
   </li>
 </ul>
 
-<p>Entering insert mode:
-Trigger | Effect
-i       | Insert before cursor
-a       | Insert after cursor
-I       | Insert at beginning of current line
-A       | Insert at end of current line
-o       | Insert in a new line below the current one
-O       | Insert in a new line above the current one</p>
+<p>Entering insert mode:</p>
 
-<p>Useful commands:
-Keystroke               | Action
+<table>
+  <tbody>
+    <tr>
+      <td>Trigger</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td>i</td>
+      <td>Insert before cursor</td>
+    </tr>
+    <tr>
+      <td>a</td>
+      <td>Insert after cursor</td>
+    </tr>
+    <tr>
+      <td>I</td>
+      <td>Insert at beginning of current line</td>
+    </tr>
+    <tr>
+      <td>A</td>
+      <td>Insert at end of current line</td>
+    </tr>
+    <tr>
+      <td>o</td>
+      <td>Insert in a new line below the current one</td>
+    </tr>
+    <tr>
+      <td>O</td>
+      <td>Insert in a new line above the current one</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Useful commands:</p>
+
+<p>Keystroke               | Action
 <code class="language-plaintext highlighter-rouge">&lt;C-h&gt;</code>                 | Delete back one character (backspace)
 <code class="language-plaintext highlighter-rouge">&lt;C-w&gt;</code>                 | Delete back one word
 <code class="language-plaintext highlighter-rouge">&lt;C-u&gt;</code>                 | Delete back one line
@@ -316,13 +462,36 @@ Mode command)
 <h2 id="visual-mode">
 <a class="anchor" href="#visual-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Visual mode</h2>
 
-<p>Entering visual mode:
-Command  | Effect
-v        | Enter character-wise visual mode
-V        | Enter line-wise visual mode
-<code class="language-plaintext highlighter-rouge">&lt;C-v&gt;</code>  | Enter block-wise visual mode
-gv       | Reselect last visual selection
-o        | Toggle the free end of a selection</p>
+<p>Entering visual mode:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td>v</td>
+      <td>Enter character-wise visual mode</td>
+    </tr>
+    <tr>
+      <td>V</td>
+      <td>Enter line-wise visual mode</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;C-v&gt;</code></td>
+      <td>Enter block-wise visual mode</td>
+    </tr>
+    <tr>
+      <td>gv</td>
+      <td>Reselect last visual selection</td>
+    </tr>
+    <tr>
+      <td>o</td>
+      <td>Toggle the free end of a selection</td>
+    </tr>
+  </tbody>
+</table>
 
 <h2 id="command-line-mode">
 <a class="anchor" href="#command-line-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Command-line mode</h2>
@@ -364,34 +533,119 @@ useful for substitution (cursor to word, <code class="language-plaintext highlig
 vim.</li>
 </ul>
 
-<p>Types of addresses:
-Command                     | Effect
-<code class="language-plaintext highlighter-rouge">:4{cmd}</code>                   | execute command on line 4
-<code class="language-plaintext highlighter-rouge">:4,8{cmd}</code>                 | execute command on lines 4 to 8 (inclusive)
-<code class="language-plaintext highlighter-rouge">:/#/{cmd}</code>                 | execute command on next line with an <code class="language-plaintext highlighter-rouge">#</code>
-<code class="language-plaintext highlighter-rouge">:/&lt;tag&gt;/&lt;\/tag&gt;/{cmd}</code>     | Execute command inside next occurring html tag
-<code class="language-plaintext highlighter-rouge">:'&lt;,'&gt;{cmd}</code>               | Execute command on selected lines</p>
+<p>Types of addresses:</p>
 
-<p>Useful address/range characters:
-Symobol | Address
-<code class="language-plaintext highlighter-rouge">1</code>       | First line of the file
-<code class="language-plaintext highlighter-rouge">$</code>       | Last line of the file
-<code class="language-plaintext highlighter-rouge">0</code>       | Virtual line above first line (e.g. to paste to top of file)
-<code class="language-plaintext highlighter-rouge">.</code>       | Line of cursor
-<code class="language-plaintext highlighter-rouge">'m</code>      | Line containing mark m
-<code class="language-plaintext highlighter-rouge">'&lt;</code>      | Start of visual selection
-<code class="language-plaintext highlighter-rouge">'&gt;</code>      | End of visual selection
-<code class="language-plaintext highlighter-rouge">%</code>       | The entire file (short for :1,$)</p>
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:4{cmd}</code></td>
+      <td>execute command on line 4</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:4,8{cmd}</code></td>
+      <td>execute command on lines 4 to 8 (inclusive)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:/#/{cmd}</code></td>
+      <td>execute command on next line with an <code class="language-plaintext highlighter-rouge">#</code>
+</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:/&lt;tag&gt;/&lt;\/tag&gt;/{cmd}</code></td>
+      <td>Execute command inside next occurring html tag</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:'&lt;,'&gt;{cmd}</code></td>
+      <td>Execute command on selected lines</td>
+    </tr>
+  </tbody>
+</table>
 
-<p>Common Ex-commands: 
-Command       | Effect
-p[rint]       | Print
-d[elete]      | Delete
-j[oin]        | Join lines
-s[ubstitute]  | Substitute (e.g. <code class="language-plaintext highlighter-rouge">s/old/new</code>)
-n[ormal]      | Execute normal mode command
-m[ove]        | Move to <code class="language-plaintext highlighter-rouge">{address}</code>, (e.g. <code class="language-plaintext highlighter-rouge">:1,5m$</code> moves lines to end of file)
-copy (or t)   | Copy to <code class="language-plaintext highlighter-rouge">{address}</code>, (e.g. <code class="language-plaintext highlighter-rouge">:6t.</code> copies line 6 to current line)</p>
+<p>Useful address/range characters:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Symobol</td>
+      <td>Address</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">1</code></td>
+      <td>First line of the file</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$</code></td>
+      <td>Last line of the file</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0</code></td>
+      <td>Virtual line above first line (e.g. to paste to top of file)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">.</code></td>
+      <td>Line of cursor</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">'m</code></td>
+      <td>Line containing mark m</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">'&lt;</code></td>
+      <td>Start of visual selection</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">'&gt;</code></td>
+      <td>End of visual selection</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">%</code></td>
+      <td>The entire file (short for :1,$)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Common Ex-commands:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td>p[rint]</td>
+      <td>Print</td>
+    </tr>
+    <tr>
+      <td>d[elete]</td>
+      <td>Delete</td>
+    </tr>
+    <tr>
+      <td>j[oin]</td>
+      <td>Join lines</td>
+    </tr>
+    <tr>
+      <td>s[ubstitute]</td>
+      <td>Substitute (e.g. <code class="language-plaintext highlighter-rouge">s/old/new</code>)</td>
+    </tr>
+    <tr>
+      <td>n[ormal]</td>
+      <td>Execute normal mode command</td>
+    </tr>
+    <tr>
+      <td>m[ove]</td>
+      <td>Move to <code class="language-plaintext highlighter-rouge">{address}</code>, (e.g. <code class="language-plaintext highlighter-rouge">:1,5m$</code> moves lines to end of file)</td>
+    </tr>
+    <tr>
+      <td>copy (or t)</td>
+      <td>Copy to <code class="language-plaintext highlighter-rouge">{address}</code>, (e.g. <code class="language-plaintext highlighter-rouge">:6t.</code> copies line 6 to current line)</td>
+    </tr>
+  </tbody>
+</table>
 
 <h1 id="extra-functionality">
 <a class="anchor" href="#extra-functionality" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extra functionality</h1>
