@@ -19,29 +19,31 @@ title: vim essentials
 - Chunk your undos; all changes in single insert-mode session count as a single
     change, so go in and out of insert mode strategically.
 
-- If you hit cursor keys more than 2 or 3 times, there is a better way.
-
-- If you press backspace more than a couple times, there is a better way.
-
-- If you perform the same change on several lines, there is a better way.
+- If you hit cursor keys more than 2 or 3 times, there is a better way. If you press backspace more than a couple times, there is a better way. If you perform the same change on several lines, there is a better way.
 
 
 # Modes
 
 ## Normal mode
 
-### Useful stuff
+- Operators work as follows: operator + motion = action. E.g. `dl` deletes character to the right, `diw`
+    the word under the cursor (without the surrounding whitespace), `dap` the current paragraph (including the surrounding whitespace). Similarly, `gUap`
+    converts the current paragraph to uppercase.
 
-Command             | Effect
-`<C-a>`/ `<C-x>`    | Add / subtract from the next number
-`<C-o>`/ `<C-l>`    | Move backwards to last / forward to previous location
-`u`/`<C-r>`         | Undo / redo change
-`ga`                | Reveal decimal, octal, hex representation of character
-under cursor.
+Common operators:
+Trigger | Effect
+c       | Change
+d       | Delete
+y       | Yank into register
+g~      | Swap case
+gu      | Make lowercase
+gU      | Make uppercase
+>       | Shift right
+<       | Shift left
+=       | Autoindent
+!       | Filter {motion} lines through an external program
 
-
-### Move back and forth
-
+Move back and forth:
 Forwards    | Backwards | Effect
 /           | ?         | Seach for pattern
 *           | #         | Search for word under cursor
@@ -56,8 +58,7 @@ W           | B         | Move to the start of the next WORD
 gg                      | Jump to the first line of the document
 G                       | Jump to the last line of the document
 
-### Act, repeat, reverse
-
+Act, repeat, reverse:
 Intent                              | Act               | Repeat    | Reverse
 Make a change                       | {edit}            | .         | u
 Scan line for next character        | f{char}/t{char}   | ;         | ,
@@ -67,26 +68,7 @@ Scan document for previous match    | ?pattern<CR>      | n         | N
 Perform substitution                | :s/old/new        | &         | u
 Execute a sequence of changes       | qx{change}q       | @x        | u
 
-### Operators
-
-Operator + motion = action. E.g. `dl` deletes character to the right, `diw`
-    the word under the cursor (without the surrounding whitespace), `dap` the current paragraph (including the surrounding whitespace). Similarly, `gUap`
-    converts the current paragraph to uppercase.
-
-Trigger | Effect
-c       | Change
-d       | Delete
-y       | Yank into register
-g~      | Swap case
-gu      | Make lowercase
-gU      | Make uppercase
->       | Shift right
-<       | Shift left
-=       | Autoindent
-!       | Filter {motion} lines through an external program
-
-### Compound commands
-
+Compound commands:
 Compound command | Equivalent in longhand
 C | c$
 s | cl
@@ -96,13 +78,26 @@ A | $a
 o | `A<cr>`
 O | ko
 
+Miscellaneous:
+Command             | Effect
+`<C-a>`/ `<C-x>`    | Add / subtract from the next number
+`<C-o>`/ `<C-l>`    | Move backwards to last / forward to previous location
+`u`/`<C-r>`         | Undo / redo change
+`ga`                | Reveal decimal, octal, hex representation of character
+under cursor.
 
-### Entering insert mode
 
-To enter insert mode to replace existing text, use `cc` to replace the
+## Insert mode
+
+- To enter insert mode to replace existing text, use `cc` to replace the
   current line, or `cc{motion}` as needed (e.g. `ci"` to replace text inside
   quotes).
 
+- `<C-w>` to delete last few words without leaving insert mode
+
+- `<C-o>zz` to move current line to middle of screen without leaving insert mode
+
+Entering insert mode:
 Trigger | Effect
 i       | Insert before cursor
 a       | Insert after cursor
@@ -111,22 +106,16 @@ A       | Insert at end of current line
 o       | Insert in a new line below the current one
 O       | Insert in a new line above the current one
 
-
-## Insert mode
-
-Useful keystrokes:
-- `<C-w>` to delete last few words without leaving insert mode
-- `<C-o>zz` to move current line to middle of screen without leaving insert mode
-
+Useful commands:
 Keystroke               | Action
 `<C-h>`                 | Delete back one character (backspace)
 `<C-w>`                 | Delete back one word
 `<C-u>`                 | Delete back one line
 `<C-o>`                 | Switch to Insert Normal mode (to execute a single Normal
-`Mode` command)
+Mode command)
 `<C-r>{register}`       | Paste content from address (use 0 for last yanked text)
 `<C-r>=`                | Perform calculation in place
-`r,` R                  | Enter replace mode for single replacement or until exit
+`r,` `R`                | Enter replace mode for single replacement or until exit
 `<C-v>{123}`            | Insert character by decimal code 
 `<C-v>u{1234}`          | Insert character by hexadecimal code 
 `<C-v>{char1}{char2}`   | Insert character by digraph
@@ -135,7 +124,6 @@ Keystroke               | Action
 ## Visual mode
 
 Entering visual mode:
-
 Command  | Effect
 v        | Enter character-wise visual mode
 V        | Enter line-wise visual mode
@@ -168,6 +156,9 @@ marks.
   useful for substitution (cursor to word, `*`, `cw{new}<Esc>`,
   `:%s//<C-r><C-w>/g`) or to get vim help for word under cursor (`:h
   <C-r><C-w>`).
+
+- `<C-z>` puts vim in the background and returns to bash, `fg` returns back to
+  vim.
 
 Types of addresses:
 Command                     | Effect
