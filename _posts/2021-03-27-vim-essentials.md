@@ -134,6 +134,8 @@ Keystroke               | Action
 
 ## Visual mode
 
+Entering visual mode:
+
 Command  | Effect
 v        | Enter character-wise visual mode
 V        | Enter line-wise visual mode
@@ -147,16 +149,22 @@ o        | Toggle the free end of a selection
 - Ex-commands allow you to make changes (in multiple places) anywhere in
   the file without moving the cursor -- they strike far and wide.
 
-### Execute an Ex-command on one or more consecutive lines
-
-The general syntax for Ex-commands is `:[range]{command}`, where `[range]` is
-either a single address or a range of addresses of the form `{start},{stop}`.
-
-There are three types of addresses: line numbers, visual selections, and
+- The general syntax for Ex-commands is `:[range]{command}`, where `[range]` is
+either a single address or a range of addresses of the form `{start},{stop}`. There are three types of addresses: line numbers, visual selections, and
 patterns.
 
-#### Types of addresses:
+- To execute a command on all selected lines, use visual mode to make the
+selection and press `:`. This will start the command prompt with `'<, '>:`, to
+which you can then add the command.
 
+- We can also specify offsets. For example, `:/<tag>/+1<\/tag>/-1{cmd}` would
+operate on the lines inside the html tag but not the lines containing the tag
+marks.
+
+- To wrap all elements in the first column of the above table in quotes, I could
+  use `:190,197normal ysaW'`
+
+Types of addresses:
 Command                     | Effect
 `:4{cmd}`                   | execute command on line 4
 `:4,8{cmd}`                 | execute command on lines 4 to 8 (inclusive)
@@ -164,16 +172,7 @@ Command                     | Effect
 `:/<tag>/<\/tag>/{cmd}`     | Execute command inside next occurring html tag
 `:'<,'>{cmd}`               | Execute command on selected lines
 
-To execute a command on all selected lines, use visual mode to make the
-selection and press `:`. This will start the command prompt with `'<, '>:`, to
-which you can then add the command.
-
-We can also specify offsets. For example, `:/<tag>/+1<\/tag>/-1{cmd}` would
-operate on the lines inside the html tag but not the lines containing the tag
-marks.
-
-#### Useful address/range characters
-
+Useful address/range characters:
 Symobol | Address
 1       | First line of the file
 $       | Last line of the file
@@ -185,8 +184,7 @@ $       | Last line of the file
 %       | The entire file (short for :1,$)
 
 
-#### Common Ex-commands
-
+Common Ex-commands: 
 command       | Effect
 p[rint]       | Print
 d[elete]      | Delete
@@ -197,9 +195,6 @@ m[ove]        | Move to `{address}`, (e.g. `:1,5m$` moves lines to end of file)
 copy (or t)   | Copy to `{address}`, (e.g. `:6t.` copies line 6 to current line)
 
 
-Useful applications:
-- To wrap all elements in the first column of the above table in quotes, I could
-  use `:190,197normal ysaW'`
 
 
 # Extra functionality
