@@ -125,8 +125,28 @@ window.onload = wrap_img;
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#insert-mode">Insert mode</a></li>
+<li class="toc-entry toc-h2"><a href="#visual-mode">Visual mode</a></li>
+<li class="toc-entry toc-h2"><a href="#command-line-mode">Command-line mode</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#execute-an-ex-command-on-one-or-more-consecutive-lines">Execute an Ex-command on one or more consecutive lines</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#types-of-addresses">Types of addresses:</a></li>
+<li class="toc-entry toc-h4"><a href="#useful-addressrange-characters">Useful address/range characters</a></li>
+<li class="toc-entry toc-h4"><a href="#common-ex-commands">Common Ex-commands</a></li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#extra-functionality">Extra functionality</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#python">Python</a></li>
+<li class="toc-entry toc-h2"><a href="#snippets">Snippets</a></li>
+<li class="toc-entry toc-h2"><a href="#latex-integration">Latex integration</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#sources">Sources</a></li>
 </ul><h1 id="setup">
 <a class="anchor" href="#setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setup</h1>
 
@@ -391,8 +411,7 @@ under cursor.</p>
     </tr>
     <tr>
       <td>o</td>
-      <td>A<cr></cr>
-</td>
+      <td><code class="language-plaintext highlighter-rouge">A&lt;cr&gt;</code></td>
     </tr>
     <tr>
       <td>O</td>
@@ -452,95 +471,226 @@ under cursor.</p>
 <code class="language-plaintext highlighter-rouge">&lt;C-o&gt;zz</code> to move current line to middle of screen without leaving insert mode</li>
 </ul>
 
-<p>Keystroke             | Action</p>
-<c-h>                 | Delete back one character (backspace)
-<c-w>                 | Delete back one word
-<c-u>                 | Delete back one line
-<c-o>                 | Switch to Insert Normal mode (to execute a single Normal
-Mode command)
-<c-r>{register}       | Paste content from address (use 0 for last yanked text)
-<c-r>=                | Perform calculation in place
-r, R                  | Enter replace mode for single replacement or until exit
-<c-v>{123}            | Insert character by decimal code 
-<c-v>u{1234}          | Insert character by hexadecimal code 
-<c-v>{char1}{char2}   | Insert character by digraph
+<p>Keystroke               | Action
+<code class="language-plaintext highlighter-rouge">&lt;C-h&gt;</code>                 | Delete back one character (backspace)
+<code class="language-plaintext highlighter-rouge">&lt;C-w&gt;</code>                 | Delete back one word
+<code class="language-plaintext highlighter-rouge">&lt;C-u&gt;</code>                 | Delete back one line
+<code class="language-plaintext highlighter-rouge">&lt;C-o&gt;</code>                 | Switch to Insert Normal mode (to execute a single Normal
+<code class="language-plaintext highlighter-rouge">Mode</code> command)
+<code class="language-plaintext highlighter-rouge">&lt;C-r&gt;{register}</code>       | Paste content from address (use 0 for last yanked text)
+<code class="language-plaintext highlighter-rouge">&lt;C-r&gt;=</code>                | Perform calculation in place
+<code class="language-plaintext highlighter-rouge">r,</code> R                  | Enter replace mode for single replacement or until exit
+<code class="language-plaintext highlighter-rouge">&lt;C-v&gt;{123}</code>            | Insert character by decimal code 
+<code class="language-plaintext highlighter-rouge">&lt;C-v&gt;u{1234}</code>          | Insert character by hexadecimal code 
+<code class="language-plaintext highlighter-rouge">&lt;C-v&gt;{char1}{char2}</code>   | Insert character by digraph</p>
 
+<h2 id="visual-mode">
+<a class="anchor" href="#visual-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Visual mode</h2>
 
-## Visual mode
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td>v</td>
+      <td>Enter character-wise visual mode</td>
+    </tr>
+    <tr>
+      <td>V</td>
+      <td>Enter line-wise visual mode</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;C-v&gt;</code></td>
+      <td>Enter block-wise visual mode</td>
+    </tr>
+    <tr>
+      <td>gv</td>
+      <td>Reselect last visual selection</td>
+    </tr>
+    <tr>
+      <td>o</td>
+      <td>Toggle the free end of a selection</td>
+    </tr>
+  </tbody>
+</table>
 
-Command  | Effect
-v        | Enter character-wise visual mode
-V        | Enter line-wise visual mode
-<c-v>    | Enter block-wise visual mode
-gv       | Reselect last visual selection
-o        | Toggle the free end of a selection
+<h2 id="command-line-mode">
+<a class="anchor" href="#command-line-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Command-line mode</h2>
 
+<ul>
+  <li>Ex-commands allow you to make changes (in multiple places) anywhere in
+the file without moving the cursor – they strike far and wide.</li>
+</ul>
 
-## Command-line mode
+<h3 id="execute-an-ex-command-on-one-or-more-consecutive-lines">
+<a class="anchor" href="#execute-an-ex-command-on-one-or-more-consecutive-lines" aria-hidden="true"><span class="octicon octicon-link"></span></a>Execute an Ex-command on one or more consecutive lines</h3>
 
-- Ex-commands allow you to make changes (in multiple places) anywhere in
-  the file without moving the cursor -- they strike far and wide.
+<p>The general syntax for Ex-commands is <code class="language-plaintext highlighter-rouge">:[range]{command}</code>, where <code class="language-plaintext highlighter-rouge">[range]</code> is
+either a single address or a range of addresses of the form <code class="language-plaintext highlighter-rouge">{start},{stop}</code>.</p>
 
-### Execute an Ex-command on one or more consecutive lines
+<p>There are three types of addresses: line numbers, visual selections, and
+patterns.</p>
 
-The general syntax for Ex-commands is `:[range]{command}`, where `[range]` is
-either a single address or a range of addresses of the form `{start},{stop}`.
+<h4 id="types-of-addresses">
+<a class="anchor" href="#types-of-addresses" aria-hidden="true"><span class="octicon octicon-link"></span></a>Types of addresses:</h4>
 
-There are three types of addresses: line numbers, visual selections, and
-patterns.
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:4{cmd}</code></td>
+      <td>execute command on line 4</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:4,8{cmd}</code></td>
+      <td>execute command on lines 4 to 8 (inclusive)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:/#/{cmd}</code></td>
+      <td>execute command on next line with an <code class="language-plaintext highlighter-rouge">#</code>
+</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:/&lt;tag&gt;/&lt;\/tag&gt;/{cmd}</code></td>
+      <td>Execute command inside next occurring html tag</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:'&lt;,'&gt;{cmd}</code></td>
+      <td>Execute command on selected lines</td>
+    </tr>
+  </tbody>
+</table>
 
-Types of addresses:
+<p>To execute a command on all selected lines, use visual mode to make the
+selection and press <code class="language-plaintext highlighter-rouge">:</code>. This will start the command prompt with <code class="language-plaintext highlighter-rouge">'&lt;, '&gt;:</code>, to
+which you can then add the command.</p>
 
-Command                 | Effect
-`:4{command}`           | Execute command on line 4
-`:4,8{command}`         | Execute command on lines 4 to 8
-`:'&lt;,'&gt;{command}`       | Execute command on selected lines (use visual mode to
-select lines, press `:` to make vim start the command with start and stop, then
-type command).
-`:/#/{command}`         | Execute command on next line with an `#`
-`:/#/##/{command}`      | Execute command on next batch of lines that start with
-a line with `#` and one with `##`.
+<p>We can also specify offsets. For example, <code class="language-plaintext highlighter-rouge">:/&lt;tag&gt;/+1&lt;\/tag&gt;/-1{cmd}</code> would
+operate on the lines inside the html tag but not the lines containing the tag
+marks.</p>
 
-Useful address/range characters
+<h4 id="useful-addressrange-characters">
+<a class="anchor" href="#useful-addressrange-characters" aria-hidden="true"><span class="octicon octicon-link"></span></a>Useful address/range characters</h4>
 
-Symobol | Address
-1       | First line of the file
-$       | Last line of the file
-0       | Virtual line above first line (e.g. to paste to top of file)
-.       | Line of cursor
-'m      | Line containing mark m
-'&lt;      | Start of visual selection
-'&gt;      | End of visual selection
-%       | The entire file (short for :1,$)
+<table>
+  <tbody>
+    <tr>
+      <td>Symobol</td>
+      <td>Address</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>First line of the file</td>
+    </tr>
+    <tr>
+      <td>$</td>
+      <td>Last line of the file</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>Virtual line above first line (e.g. to paste to top of file)</td>
+    </tr>
+    <tr>
+      <td>.</td>
+      <td>Line of cursor</td>
+    </tr>
+    <tr>
+      <td>‘m</td>
+      <td>Line containing mark m</td>
+    </tr>
+    <tr>
+      <td>’&lt;</td>
+      <td>Start of visual selection</td>
+    </tr>
+    <tr>
+      <td>’&gt;</td>
+      <td>End of visual selection</td>
+    </tr>
+    <tr>
+      <td>%</td>
+      <td>The entire file (short for :1,$)</td>
+    </tr>
+  </tbody>
+</table>
 
+<h4 id="common-ex-commands">
+<a class="anchor" href="#common-ex-commands" aria-hidden="true"><span class="octicon octicon-link"></span></a>Common Ex-commands</h4>
 
-Common Ex-commands
-Command         Effect
-p[rint]         Print
-d[elete]        Delete
-j[oin]          Join lines
-s[ubstitute]
+<table>
+  <tbody>
+    <tr>
+      <td>command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td>p[rint]</td>
+      <td>Print</td>
+    </tr>
+    <tr>
+      <td>d[elete]</td>
+      <td>Delete</td>
+    </tr>
+    <tr>
+      <td>j[oin]</td>
+      <td>Join lines</td>
+    </tr>
+    <tr>
+      <td>s[ubstitute]</td>
+      <td>Substitute (e.g. <code class="language-plaintext highlighter-rouge">s/old/new</code>)</td>
+    </tr>
+    <tr>
+      <td>n[ormal]</td>
+      <td>Execute normal mode command</td>
+    </tr>
+    <tr>
+      <td>m[ove]</td>
+      <td>Move to <code class="language-plaintext highlighter-rouge">{address}</code>, (e.g. <code class="language-plaintext highlighter-rouge">:1,5m$</code> moves lines to end of file)</td>
+    </tr>
+    <tr>
+      <td>copy (or t)</td>
+      <td>Copy to <code class="language-plaintext highlighter-rouge">{address}</code>, (e.g. <code class="language-plaintext highlighter-rouge">:6t.</code> copies line 6 to current line)</td>
+    </tr>
+  </tbody>
+</table>
 
+<p>Useful applications:</p>
+<ul>
+  <li>To wrap all elements in the first column of the above table in quotes, I could
+use <code class="language-plaintext highlighter-rouge">:190,197normal ysaW'</code>
+</li>
+</ul>
 
-# Extra functionality
+<h1 id="extra-functionality">
+<a class="anchor" href="#extra-functionality" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extra functionality</h1>
 
-## Python 
+<h2 id="python">
+<a class="anchor" href="#python" aria-hidden="true"><span class="octicon octicon-link"></span></a>Python</h2>
 
-## Snippets
+<h2 id="snippets">
+<a class="anchor" href="#snippets" aria-hidden="true"><span class="octicon octicon-link"></span></a>Snippets</h2>
 
-## Latex integration
+<h2 id="latex-integration">
+<a class="anchor" href="#latex-integration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Latex integration</h2>
 
-- You can use `<c-n>` completion for words that already appear in one of the
-  open buffers. This is especially useful for bibliography completion: just open
-  the .bib file in another buffer and `<c-n>` will provide a list of
-  available keys.
+<ul>
+  <li>You can use <code class="language-plaintext highlighter-rouge">&lt;C-N&gt;</code> completion for words that already appear in one of the
+open buffers. This is especially useful for bibliography completion: just open
+the .bib file in another buffer and <code class="language-plaintext highlighter-rouge">&lt;C-N&gt;</code> will provide a list of
+available keys.</li>
+</ul>
 
+<h1 id="sources">
+<a class="anchor" href="#sources" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sources</h1>
 
-# Sources
-
-- [Practical
-    Vim (PV)](https://pragprog.com/titles/dnvim2/practical-vim-second-edition/)
-</c-n></c-n></c-v></c-v></c-v></c-v></c-r></c-r></c-o></c-u></c-w></c-h>
+<ul>
+  <li><a href="https://pragprog.com/titles/dnvim2/practical-vim-second-edition/">Practical
+  Vim (PV)</a></li>
+</ul>
 
   </div><a class="u-url" href="/blog/vim/2021/03/27/vim-essentials.html" hidden></a>
 </article>
