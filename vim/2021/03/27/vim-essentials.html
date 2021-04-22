@@ -532,11 +532,18 @@ operate on the lines inside the html tag but not the lines containing the tag
 marks.</p>
   </li>
   <li>
-    <p>To wrap all elements in the first column of the above table in quotes, I could
-use <code class="language-plaintext highlighter-rouge">:190,197normal ysaW'</code></p>
+    <p>To wrap all elements in the first column of a table in quotes, I could
+use <code class="language-plaintext highlighter-rouge">:{start},{stop}normal ysaW'</code>.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">&lt;C-r&gt;&lt;C-w&gt;</code> inserts the word under the cursor in the command prompt. Can be
+useful for substitution (cursor to word, <code class="language-plaintext highlighter-rouge">*</code>, <code class="language-plaintext highlighter-rouge">cw{new}&lt;Esc&gt;</code>,
+<code class="language-plaintext highlighter-rouge">:%s//&lt;C-r&gt;&lt;C-w&gt;/g</code>) or to get vim help for word under cursor (`:h</p>
+    <c-r><c-w>`).
+
+</c-w></c-r>
   </li>
 </ul>
-
 <p>Types of addresses:
 Command                     | Effect
 <code class="language-plaintext highlighter-rouge">:4{cmd}</code>                   | execute command on line 4
@@ -557,7 +564,7 @@ $       | Last line of the file
 %       | The entire file (short for :1,$)</p>
 
 <p>Common Ex-commands: 
-command       | Effect
+Command       | Effect
 p[rint]       | Print
 d[elete]      | Delete
 j[oin]        | Join lines
