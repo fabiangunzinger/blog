@@ -93,7 +93,7 @@ s | cl
 S | ^C
 I | ^i
 A | $a
-o | A<cr>
+o | `A<cr>`
 O | ko
 
 
@@ -118,18 +118,18 @@ Useful keystrokes:
 - `<C-w>` to delete last few words without leaving insert mode
 - `<C-o>zz` to move current line to middle of screen without leaving insert mode
 
-Keystroke             | Action
-<C-h>                 | Delete back one character (backspace)
-<C-w>                 | Delete back one word
-<C-u>                 | Delete back one line
-<C-o>                 | Switch to Insert Normal mode (to execute a single Normal
-Mode command)
-<C-r>{register}       | Paste content from address (use 0 for last yanked text)
-<C-r>=                | Perform calculation in place
-r, R                  | Enter replace mode for single replacement or until exit
-<C-v>{123}            | Insert character by decimal code 
-<C-v>u{1234}          | Insert character by hexadecimal code 
-<C-v>{char1}{char2}   | Insert character by digraph
+Keystroke               | Action
+`<C-h>`                 | Delete back one character (backspace)
+`<C-w>`                 | Delete back one word
+`<C-u>`                 | Delete back one line
+`<C-o>`                 | Switch to Insert Normal mode (to execute a single Normal
+`Mode` command)
+`<C-r>{register}`       | Paste content from address (use 0 for last yanked text)
+`<C-r>=`                | Perform calculation in place
+`r,` R                  | Enter replace mode for single replacement or until exit
+`<C-v>{123}`            | Insert character by decimal code 
+`<C-v>u{1234}`          | Insert character by hexadecimal code 
+`<C-v>{char1}{char2}`   | Insert character by digraph
 
 
 ## Visual mode
@@ -137,7 +137,7 @@ r, R                  | Enter replace mode for single replacement or until exit
 Command  | Effect
 v        | Enter character-wise visual mode
 V        | Enter line-wise visual mode
-<C-v>    | Enter block-wise visual mode
+`<C-v>`  | Enter block-wise visual mode
 gv       | Reselect last visual selection
 o        | Toggle the free end of a selection
 
@@ -155,19 +155,24 @@ either a single address or a range of addresses of the form `{start},{stop}`.
 There are three types of addresses: line numbers, visual selections, and
 patterns.
 
-Types of addresses:
+#### Types of addresses:
 
-Command                 | Effect
-`:4{command}`           | Execute command on line 4
-`:4,8{command}`         | Execute command on lines 4 to 8
-`:'<,'>{command}`       | Execute command on selected lines (use visual mode to
-select lines, press `:` to make vim start the command with start and stop, then
-type command).
-`:/#/{command}`         | Execute command on next line with an `#`
-`:/#/##/{command}`      | Execute command on next batch of lines that start with
-a line with `#` and one with `##`.
+Command                     | Effect
+`:4{cmd}`                   | execute command on line 4
+`:4,8{cmd}`                 | execute command on lines 4 to 8 (inclusive)
+`:/#/{cmd}`                 | execute command on next line with an `#`
+`:/<tag>/<\/tag>/{cmd}`     | Execute command inside next occurring html tag
+`:'<,'>{cmd}`               | Execute command on selected lines
 
-Useful address/range characters
+To execute a command on all selected lines, use visual mode to make the
+selection and press `:`. This will start the command prompt with `'<, '>:`, to
+which you can then add the command.
+
+We can also specify offsets. For example, `:/<tag>/+1<\/tag>/-1{cmd}` would
+operate on the lines inside the html tag but not the lines containing the tag
+marks.
+
+#### Useful address/range characters
 
 Symobol | Address
 1       | First line of the file
@@ -180,12 +185,21 @@ $       | Last line of the file
 %       | The entire file (short for :1,$)
 
 
-Common Ex-commands
-Command         Effect
-p[rint]         Print
-d[elete]        Delete
-j[oin]          Join lines
-s[ubstitute]
+#### Common Ex-commands
+
+command       | Effect
+p[rint]       | Print
+d[elete]      | Delete
+j[oin]        | Join lines
+s[ubstitute]  | Substitute (e.g. `s/old/new`)
+n[ormal]      | Execute normal mode command
+m[ove]        | Move to `{address}`, (e.g. `:1,5m$` moves lines to end of file)
+copy (or t)   | Copy to `{address}`, (e.g. `:6t.` copies line 6 to current line)
+
+
+Useful applications:
+- To wrap all elements in the first column of the above table in quotes, I could
+  use `:190,197normal ysaW'`
 
 
 # Extra functionality
