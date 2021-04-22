@@ -170,14 +170,14 @@ Command                     | Effect
 
 Useful address/range characters:
 Symobol | Address
-1       | First line of the file
-$       | Last line of the file
-0       | Virtual line above first line (e.g. to paste to top of file)
-.       | Line of cursor
-'m      | Line containing mark m
-'<      | Start of visual selection
-'>      | End of visual selection
-%       | The entire file (short for :1,$)
+`1`       | First line of the file
+`$`       | Last line of the file
+`0`       | Virtual line above first line (e.g. to paste to top of file)
+`.`       | Line of cursor
+`'m`      | Line containing mark m
+`'<`      | Start of visual selection
+`'>`      | End of visual selection
+`%`       | The entire file (short for :1,$)
 
 Common Ex-commands: 
 Command       | Effect
