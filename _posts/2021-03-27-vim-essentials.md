@@ -209,10 +209,21 @@ copy (or t)   | Copy to `{address}`, (e.g. `:6t.` copies line 6 to current line)
 
 ## Latex integration
 
+No plugins:
+
 - You can use `<C-N>` completion for words that already appear in one of the
   open buffers. This is especially useful for bibliography completion: just open
   the .bib file in another buffer and `<C-N>` will provide a list of
   available keys.
+
+[vimtex](https://github.com/lervag/vimtex)
+
+- Most shortcuts use `localleader`, which, by default, is set to `\`.
+
+- I use `skim` as my viewer.
+
+- `\ll` toggles continuous compilation using `latexmk`.
+
 
 
 # Sources
