@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      5 min read
+      6 min read
     
 </span></p>
 
@@ -114,16 +114,7 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h1"><a href="#mental-models-and-reminders">Mental models and reminders</a></li>
 <li class="toc-entry toc-h1"><a href="#modes">Modes</a>
 <ul>
-<li class="toc-entry toc-h2"><a href="#normal-mode">Normal mode</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#useful-stuff">Useful stuff</a></li>
-<li class="toc-entry toc-h3"><a href="#move-back-and-forth">Move back and forth</a></li>
-<li class="toc-entry toc-h3"><a href="#act-repeat-reverse">Act, repeat, reverse</a></li>
-<li class="toc-entry toc-h3"><a href="#operators">Operators</a></li>
-<li class="toc-entry toc-h3"><a href="#compound-commands">Compound commands</a></li>
-<li class="toc-entry toc-h3"><a href="#entering-insert-mode">Entering insert mode</a></li>
-</ul>
-</li>
+<li class="toc-entry toc-h2"><a href="#normal-mode">Normal mode</a></li>
 <li class="toc-entry toc-h2"><a href="#insert-mode">Insert mode</a></li>
 <li class="toc-entry toc-h2"><a href="#visual-mode">Visual mode</a></li>
 <li class="toc-entry toc-h2"><a href="#command-line-mode">Command-line mode</a></li>
@@ -157,13 +148,7 @@ window.onload = wrap_img;
   change, so go in and out of insert mode strategically.</p>
   </li>
   <li>
-    <p>If you hit cursor keys more than 2 or 3 times, there is a better way.</p>
-  </li>
-  <li>
-    <p>If you press backspace more than a couple times, there is a better way.</p>
-  </li>
-  <li>
-    <p>If you perform the same change on several lines, there is a better way.</p>
+    <p>If you hit cursor keys more than 2 or 3 times, there is a better way. If you press backspace more than a couple times, there is a better way. If you perform the same change on several lines, there is a better way.</p>
   </li>
 </ul>
 
@@ -173,303 +158,157 @@ window.onload = wrap_img;
 <h2 id="normal-mode">
 <a class="anchor" href="#normal-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Normal mode</h2>
 
-<h3 id="useful-stuff">
-<a class="anchor" href="#useful-stuff" aria-hidden="true"><span class="octicon octicon-link"></span></a>Useful stuff</h3>
+<ul>
+  <li>Operators work as follows: operator + motion = action. E.g. <code class="language-plaintext highlighter-rouge">dl</code> deletes character to the right, <code class="language-plaintext highlighter-rouge">diw</code>
+  the word under the cursor (without the surrounding whitespace), <code class="language-plaintext highlighter-rouge">dap</code> the current paragraph (including the surrounding whitespace). Similarly, <code class="language-plaintext highlighter-rouge">gUap</code>
+  converts the current paragraph to uppercase.</li>
+</ul>
 
-<p>Command             | Effect
+<p>Common operators:
+Trigger | Effect
+c       | Change
+d       | Delete
+y       | Yank into register
+g~      | Swap case
+gu      | Make lowercase
+gU      | Make uppercase</p>
+<blockquote>
+  <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  | Shift right &lt;       | Shift left =       | Autoindent !       | Filter {motion} lines through an external program
+</code></pre></div>  </div>
+</blockquote>
+
+<p>Move back and forth:
+Forwards    | Backwards | Effect
+/           | ?         | Seach for pattern</p>
+<ul>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>#</td>
+          <td>Search for word under cursor</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>n</td>
+          <td>N</td>
+          <td>Jump to next search match</td>
+        </tr>
+        <tr>
+          <td>$</td>
+          <td>^</td>
+          <td>Jump to end of line</td>
+        </tr>
+        <tr>
+          <td>f{char}</td>
+          <td>F{char}</td>
+          <td>Position cursor on {char}</td>
+        </tr>
+        <tr>
+          <td>t{char}</td>
+          <td>T{char}</td>
+          <td>Position cursor before {char}</td>
+        </tr>
+        <tr>
+          <td>;</td>
+          <td>,</td>
+          <td>Repeat the last r, F, t, or T</td>
+        </tr>
+        <tr>
+          <td>w</td>
+          <td>b</td>
+          <td>Move to the start of the next word</td>
+        </tr>
+        <tr>
+          <td>W</td>
+          <td>B</td>
+          <td>Move to the start of the next WORD</td>
+        </tr>
+        <tr>
+          <td>}</td>
+          <td>{</td>
+          <td>Move down one (blank-line-separated) paragraph</td>
+        </tr>
+        <tr>
+          <td>gg</td>
+          <td>Jump to the first line of the document</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>G</td>
+          <td>Jump to the last line of the document</td>
+          <td> </td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<p>Act, repeat, reverse:
+Intent                              | Act               | Repeat    | Reverse
+Make a change                       | {edit}            | .         | u
+Scan line for next character        | f{char}/t{char}   | ;         | ,
+Scan line for previous character    | F{char}/T{char}   | ;         | ,
+Scan document for next match        | /pattern<cr>      | n         | N
+Scan document for previous match    | ?pattern<cr>      | n         | N
+Perform substitution                | :s/old/new        | &amp;         | u
+Execute a sequence of changes       | qx{change}q       | @x        | u</cr></cr></p>
+
+<p>Compound commands:
+Compound command | Equivalent in longhand
+C | c$
+s | cl
+S | ^C
+I | ^i
+A | $a
+o | <code class="language-plaintext highlighter-rouge">A&lt;cr&gt;</code>
+O | ko</p>
+
+<p>Miscellaneous:
+Command             | Effect
 <code class="language-plaintext highlighter-rouge">&lt;C-a&gt;</code>/ <code class="language-plaintext highlighter-rouge">&lt;C-x&gt;</code>    | Add / subtract from the next number
 <code class="language-plaintext highlighter-rouge">&lt;C-o&gt;</code>/ <code class="language-plaintext highlighter-rouge">&lt;C-l&gt;</code>    | Move backwards to last / forward to previous location
 <code class="language-plaintext highlighter-rouge">u</code>/<code class="language-plaintext highlighter-rouge">&lt;C-r&gt;</code>         | Undo / redo change
 <code class="language-plaintext highlighter-rouge">ga</code>                | Reveal decimal, octal, hex representation of character
 under cursor.</p>
 
-<h3 id="move-back-and-forth">
-<a class="anchor" href="#move-back-and-forth" aria-hidden="true"><span class="octicon octicon-link"></span></a>Move back and forth</h3>
-
-<table>
-  <tbody>
-    <tr>
-      <td>Forwards</td>
-      <td>Backwards</td>
-      <td>Effect</td>
-    </tr>
-    <tr>
-      <td>/</td>
-      <td>?</td>
-      <td>Seach for pattern</td>
-    </tr>
-    <tr>
-      <td>*</td>
-      <td>#</td>
-      <td>Search for word under cursor</td>
-    </tr>
-    <tr>
-      <td>n</td>
-      <td>N</td>
-      <td>Jump to next search match</td>
-    </tr>
-    <tr>
-      <td>$</td>
-      <td>^</td>
-      <td>Jump to end of line</td>
-    </tr>
-    <tr>
-      <td>f{char}</td>
-      <td>F{char}</td>
-      <td>Position cursor on {char}</td>
-    </tr>
-    <tr>
-      <td>t{char}</td>
-      <td>T{char}</td>
-      <td>Position cursor before {char}</td>
-    </tr>
-    <tr>
-      <td>;</td>
-      <td>,</td>
-      <td>Repeat the last r, F, t, or T</td>
-    </tr>
-    <tr>
-      <td>w</td>
-      <td>b</td>
-      <td>Move to the start of the next word</td>
-    </tr>
-    <tr>
-      <td>W</td>
-      <td>B</td>
-      <td>Move to the start of the next WORD</td>
-    </tr>
-    <tr>
-      <td>}</td>
-      <td>{</td>
-      <td>Move down one (blank-line-separated) paragraph</td>
-    </tr>
-    <tr>
-      <td>gg</td>
-      <td>Jump to the first line of the document</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>G</td>
-      <td>Jump to the last line of the document</td>
-      <td> </td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="act-repeat-reverse">
-<a class="anchor" href="#act-repeat-reverse" aria-hidden="true"><span class="octicon octicon-link"></span></a>Act, repeat, reverse</h3>
-
-<table>
-  <tbody>
-    <tr>
-      <td>Intent</td>
-      <td>Act</td>
-      <td>Repeat</td>
-      <td>Reverse</td>
-    </tr>
-    <tr>
-      <td>Make a change</td>
-      <td>{edit}</td>
-      <td>.</td>
-      <td>u</td>
-    </tr>
-    <tr>
-      <td>Scan line for next character</td>
-      <td>f{char}/t{char}</td>
-      <td>;</td>
-      <td>,</td>
-    </tr>
-    <tr>
-      <td>Scan line for previous character</td>
-      <td>F{char}/T{char}</td>
-      <td>;</td>
-      <td>,</td>
-    </tr>
-    <tr>
-      <td>Scan document for next match</td>
-      <td>/pattern<cr></cr>
-</td>
-      <td>n</td>
-      <td>N</td>
-    </tr>
-    <tr>
-      <td>Scan document for previous match</td>
-      <td>?pattern<cr></cr>
-</td>
-      <td>n</td>
-      <td>N</td>
-    </tr>
-    <tr>
-      <td>Perform substitution</td>
-      <td>:s/old/new</td>
-      <td>&amp;</td>
-      <td>u</td>
-    </tr>
-    <tr>
-      <td>Execute a sequence of changes</td>
-      <td>qx{change}q</td>
-      <td>@x</td>
-      <td>u</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="operators">
-<a class="anchor" href="#operators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Operators</h3>
-
-<p>Operator + motion = action. E.g. <code class="language-plaintext highlighter-rouge">dl</code> deletes character to the right, <code class="language-plaintext highlighter-rouge">diw</code>
-    the word under the cursor (without the surrounding whitespace), <code class="language-plaintext highlighter-rouge">dap</code> the current paragraph (including the surrounding whitespace). Similarly, <code class="language-plaintext highlighter-rouge">gUap</code>
-    converts the current paragraph to uppercase.</p>
-
-<table>
-  <tbody>
-    <tr>
-      <td>Trigger</td>
-      <td>Effect</td>
-    </tr>
-    <tr>
-      <td>c</td>
-      <td>Change</td>
-    </tr>
-    <tr>
-      <td>d</td>
-      <td>Delete</td>
-    </tr>
-    <tr>
-      <td>y</td>
-      <td>Yank into register</td>
-    </tr>
-    <tr>
-      <td>g~</td>
-      <td>Swap case</td>
-    </tr>
-    <tr>
-      <td>gu</td>
-      <td>Make lowercase</td>
-    </tr>
-    <tr>
-      <td>gU</td>
-      <td>Make uppercase</td>
-    </tr>
-    <tr>
-      <td>&gt;</td>
-      <td>Shift right</td>
-    </tr>
-    <tr>
-      <td>&lt;</td>
-      <td>Shift left</td>
-    </tr>
-    <tr>
-      <td>=</td>
-      <td>Autoindent</td>
-    </tr>
-    <tr>
-      <td>!</td>
-      <td>Filter {motion} lines through an external program</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="compound-commands">
-<a class="anchor" href="#compound-commands" aria-hidden="true"><span class="octicon octicon-link"></span></a>Compound commands</h3>
-
-<table>
-  <tbody>
-    <tr>
-      <td>Compound command</td>
-      <td>Equivalent in longhand</td>
-    </tr>
-    <tr>
-      <td>C</td>
-      <td>c$</td>
-    </tr>
-    <tr>
-      <td>s</td>
-      <td>cl</td>
-    </tr>
-    <tr>
-      <td>S</td>
-      <td>^C</td>
-    </tr>
-    <tr>
-      <td>I</td>
-      <td>^i</td>
-    </tr>
-    <tr>
-      <td>A</td>
-      <td>$a</td>
-    </tr>
-    <tr>
-      <td>o</td>
-      <td><code class="language-plaintext highlighter-rouge">A&lt;cr&gt;</code></td>
-    </tr>
-    <tr>
-      <td>O</td>
-      <td>ko</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="entering-insert-mode">
-<a class="anchor" href="#entering-insert-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Entering insert mode</h3>
-
-<p>To enter insert mode to replace existing text, use <code class="language-plaintext highlighter-rouge">cc</code> to replace the
-  current line, or <code class="language-plaintext highlighter-rouge">cc{motion}</code> as needed (e.g. <code class="language-plaintext highlighter-rouge">ci"</code> to replace text inside
-  quotes).</p>
-
-<table>
-  <tbody>
-    <tr>
-      <td>Trigger</td>
-      <td>Effect</td>
-    </tr>
-    <tr>
-      <td>i</td>
-      <td>Insert before cursor</td>
-    </tr>
-    <tr>
-      <td>a</td>
-      <td>Insert after cursor</td>
-    </tr>
-    <tr>
-      <td>I</td>
-      <td>Insert at beginning of current line</td>
-    </tr>
-    <tr>
-      <td>A</td>
-      <td>Insert at end of current line</td>
-    </tr>
-    <tr>
-      <td>o</td>
-      <td>Insert in a new line below the current one</td>
-    </tr>
-    <tr>
-      <td>O</td>
-      <td>Insert in a new line above the current one</td>
-    </tr>
-  </tbody>
-</table>
-
 <h2 id="insert-mode">
 <a class="anchor" href="#insert-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Insert mode</h2>
 
-<p>Useful keystrokes:</p>
 <ul>
   <li>
-<code class="language-plaintext highlighter-rouge">&lt;C-w&gt;</code> to delete last few words without leaving insert mode</li>
+    <p>To enter insert mode to replace existing text, use <code class="language-plaintext highlighter-rouge">cc</code> to replace the
+current line, or <code class="language-plaintext highlighter-rouge">cc{motion}</code> as needed (e.g. <code class="language-plaintext highlighter-rouge">ci"</code> to replace text inside
+quotes).</p>
+  </li>
   <li>
-<code class="language-plaintext highlighter-rouge">&lt;C-o&gt;zz</code> to move current line to middle of screen without leaving insert mode</li>
+    <p><code class="language-plaintext highlighter-rouge">&lt;C-w&gt;</code> to delete last few words without leaving insert mode</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">&lt;C-o&gt;zz</code> to move current line to middle of screen without leaving insert mode</p>
+  </li>
 </ul>
 
-<p>Keystroke               | Action
+<p>Entering insert mode:
+Trigger | Effect
+i       | Insert before cursor
+a       | Insert after cursor
+I       | Insert at beginning of current line
+A       | Insert at end of current line
+o       | Insert in a new line below the current one
+O       | Insert in a new line above the current one</p>
+
+<p>Useful commands:
+Keystroke               | Action
 <code class="language-plaintext highlighter-rouge">&lt;C-h&gt;</code>                 | Delete back one character (backspace)
 <code class="language-plaintext highlighter-rouge">&lt;C-w&gt;</code>                 | Delete back one word
 <code class="language-plaintext highlighter-rouge">&lt;C-u&gt;</code>                 | Delete back one line
 <code class="language-plaintext highlighter-rouge">&lt;C-o&gt;</code>                 | Switch to Insert Normal mode (to execute a single Normal
-<code class="language-plaintext highlighter-rouge">Mode</code> command)
+Mode command)
 <code class="language-plaintext highlighter-rouge">&lt;C-r&gt;{register}</code>       | Paste content from address (use 0 for last yanked text)
 <code class="language-plaintext highlighter-rouge">&lt;C-r&gt;=</code>                | Perform calculation in place
-<code class="language-plaintext highlighter-rouge">r,</code> R                  | Enter replace mode for single replacement or until exit
+<code class="language-plaintext highlighter-rouge">r,</code> <code class="language-plaintext highlighter-rouge">R</code>                | Enter replace mode for single replacement or until exit
 <code class="language-plaintext highlighter-rouge">&lt;C-v&gt;{123}</code>            | Insert character by decimal code 
 <code class="language-plaintext highlighter-rouge">&lt;C-v&gt;u{1234}</code>          | Insert character by hexadecimal code 
 <code class="language-plaintext highlighter-rouge">&lt;C-v&gt;{char1}{char2}</code>   | Insert character by digraph</p>
@@ -477,36 +316,13 @@ under cursor.</p>
 <h2 id="visual-mode">
 <a class="anchor" href="#visual-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Visual mode</h2>
 
-<p>Entering visual mode:</p>
-
-<table>
-  <tbody>
-    <tr>
-      <td>Command</td>
-      <td>Effect</td>
-    </tr>
-    <tr>
-      <td>v</td>
-      <td>Enter character-wise visual mode</td>
-    </tr>
-    <tr>
-      <td>V</td>
-      <td>Enter line-wise visual mode</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">&lt;C-v&gt;</code></td>
-      <td>Enter block-wise visual mode</td>
-    </tr>
-    <tr>
-      <td>gv</td>
-      <td>Reselect last visual selection</td>
-    </tr>
-    <tr>
-      <td>o</td>
-      <td>Toggle the free end of a selection</td>
-    </tr>
-  </tbody>
-</table>
+<p>Entering visual mode:
+Command  | Effect
+v        | Enter character-wise visual mode
+V        | Enter line-wise visual mode
+<code class="language-plaintext highlighter-rouge">&lt;C-v&gt;</code>  | Enter block-wise visual mode
+gv       | Reselect last visual selection
+o        | Toggle the free end of a selection</p>
 
 <h2 id="command-line-mode">
 <a class="anchor" href="#command-line-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Command-line mode</h2>
@@ -536,14 +352,18 @@ marks.</p>
 use <code class="language-plaintext highlighter-rouge">:{start},{stop}normal ysaW'</code>.</p>
   </li>
   <li>
-    <p><code class="language-plaintext highlighter-rouge">&lt;C-r&gt;&lt;C-w&gt;</code> inserts the word under the cursor in the command prompt. Can be
+<code class="language-plaintext highlighter-rouge">&lt;C-r&gt;&lt;C-w&gt;</code> inserts the word under the cursor in the command prompt. Can be
 useful for substitution (cursor to word, <code class="language-plaintext highlighter-rouge">*</code>, <code class="language-plaintext highlighter-rouge">cw{new}&lt;Esc&gt;</code>,
-<code class="language-plaintext highlighter-rouge">:%s//&lt;C-r&gt;&lt;C-w&gt;/g</code>) or to get vim help for word under cursor (`:h</p>
+<code class="language-plaintext highlighter-rouge">:%s//&lt;C-r&gt;&lt;C-w&gt;/g</code>) or to get vim help for word under cursor (`:h
     <c-r><c-w>`).
 
 </c-w></c-r>
   </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">&lt;C-z&gt;</code> puts vim in the background and returns to bash, <code class="language-plaintext highlighter-rouge">fg</code> returns back to
+vim.</li>
 </ul>
+
 <p>Types of addresses:
 Command                     | Effect
 <code class="language-plaintext highlighter-rouge">:4{cmd}</code>                   | execute command on line 4
