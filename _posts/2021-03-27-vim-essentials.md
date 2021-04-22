@@ -31,19 +31,21 @@ title: vim essentials
     converts the current paragraph to uppercase.
 
 Common operators:
-Trigger | Effect
-c       | Change
-d       | Delete
-y       | Yank into register
-g~      | Swap case
-gu      | Make lowercase
-gU      | Make uppercase
->       | Shift right
-<       | Shift left
-=       | Autoindent
-!       | Filter {motion} lines through an external program
+
+Trigger   | Effect
+`c`       | Change
+`d`       | Delete
+`y`       | Yank into register
+`g~`      | Swap case
+`gu`      | Make lowercase
+`gU`      | Make uppercase
+`>`       | Shift right
+`<`       | Shift left
+`=`       | Autoindent
+`!`       | Filter {motion} lines through an external program
 
 Move back and forth:
+
 Forwards    | Backwards | Effect
 /           | ?         | Seach for pattern
 *           | #         | Search for word under cursor
@@ -59,6 +61,7 @@ gg                      | Jump to the first line of the document
 G                       | Jump to the last line of the document
 
 Act, repeat, reverse:
+
 Intent                              | Act               | Repeat    | Reverse
 Make a change                       | {edit}            | .         | u
 Scan line for next character        | f{char}/t{char}   | ;         | ,
@@ -69,6 +72,7 @@ Perform substitution                | :s/old/new        | &         | u
 Execute a sequence of changes       | qx{change}q       | @x        | u
 
 Compound commands:
+
 Compound command | Equivalent in longhand
 C | c$
 s | cl
@@ -79,6 +83,7 @@ o | `A<cr>`
 O | ko
 
 Miscellaneous:
+
 Command             | Effect
 `<C-a>`/ `<C-x>`    | Add / subtract from the next number
 `<C-o>`/ `<C-l>`    | Move backwards to last / forward to previous location
@@ -98,6 +103,7 @@ under cursor.
 - `<C-o>zz` to move current line to middle of screen without leaving insert mode
 
 Entering insert mode:
+
 Trigger | Effect
 i       | Insert before cursor
 a       | Insert after cursor
@@ -107,6 +113,7 @@ o       | Insert in a new line below the current one
 O       | Insert in a new line above the current one
 
 Useful commands:
+
 Keystroke               | Action
 `<C-h>`                 | Delete back one character (backspace)
 `<C-w>`                 | Delete back one word
@@ -124,6 +131,7 @@ Mode command)
 ## Visual mode
 
 Entering visual mode:
+
 Command  | Effect
 v        | Enter character-wise visual mode
 V        | Enter line-wise visual mode
@@ -161,6 +169,7 @@ marks.
   vim.
 
 Types of addresses:
+
 Command                     | Effect
 `:4{cmd}`                   | execute command on line 4
 `:4,8{cmd}`                 | execute command on lines 4 to 8 (inclusive)
@@ -169,6 +178,7 @@ Command                     | Effect
 `:'<,'>{cmd}`               | Execute command on selected lines
 
 Useful address/range characters:
+
 Symobol | Address
 `1`       | First line of the file
 `$`       | Last line of the file
@@ -180,6 +190,7 @@ Symobol | Address
 `%`       | The entire file (short for :1,$)
 
 Common Ex-commands: 
+
 Command       | Effect
 p[rint]       | Print
 d[elete]      | Delete
