@@ -161,8 +161,13 @@ which you can then add the command.
 operate on the lines inside the html tag but not the lines containing the tag
 marks.
 
-- To wrap all elements in the first column of the above table in quotes, I could
-  use `:190,197normal ysaW'`
+- To wrap all elements in the first column of a table in quotes, I could
+  use `:{start},{stop}normal ysaW'`.
+
+- `<C-r><C-w>` inserts the word under the cursor in the command prompt. Can be
+  useful for substitution (cursor to word, `*`, `cw{new}<Esc>`,
+  `:%s//<C-r><C-w>/g`) or to get vim help for word under cursor (`:h
+  <C-r><C-w>`).
 
 Types of addresses:
 Command                     | Effect
@@ -183,9 +188,8 @@ $       | Last line of the file
 '>      | End of visual selection
 %       | The entire file (short for :1,$)
 
-
 Common Ex-commands: 
-command       | Effect
+Command       | Effect
 p[rint]       | Print
 d[elete]      | Delete
 j[oin]        | Join lines
@@ -193,8 +197,6 @@ s[ubstitute]  | Substitute (e.g. `s/old/new`)
 n[ormal]      | Execute normal mode command
 m[ove]        | Move to `{address}`, (e.g. `:1,5m$` moves lines to end of file)
 copy (or t)   | Copy to `{address}`, (e.g. `:6t.` copies line 6 to current line)
-
-
 
 
 # Extra functionality
