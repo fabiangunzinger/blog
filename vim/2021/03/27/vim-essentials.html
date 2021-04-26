@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      5 min read
+      8 min read
     
 </span></p>
 
@@ -112,6 +112,7 @@ window.onload = wrap_img;
     <ul class="section-nav">
 <li class="toc-entry toc-h1"><a href="#setup">Setup</a></li>
 <li class="toc-entry toc-h1"><a href="#mental-models-and-reminders">Mental models and reminders</a></li>
+<li class="toc-entry toc-h1"><a href="#approach-to-problem-solving">Approach to problem solving</a></li>
 <li class="toc-entry toc-h1"><a href="#modes">Modes</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#normal-mode">Normal mode</a></li>
@@ -120,8 +121,17 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#command-line-mode">Command-line mode</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h1"><a href="#extra-functionality">Extra functionality</a>
+<li class="toc-entry toc-h1"><a href="#files">Files</a>
 <ul>
+<li class="toc-entry toc-h2"><a href="#buffers">Buffers</a></li>
+<li class="toc-entry toc-h2"><a href="#windows">Windows</a></li>
+<li class="toc-entry toc-h2"><a href="#tabs">Tabs</a></li>
+<li class="toc-entry toc-h2"><a href="#opening-files">Opening files</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#extra-functionality-and-awesome-plugins">Extra functionality and awesome plugins</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#vim-unimpaired">vim-unimpaired</a></li>
 <li class="toc-entry toc-h2"><a href="#python">Python</a></li>
 <li class="toc-entry toc-h2"><a href="#snippets">Snippets</a></li>
 <li class="toc-entry toc-h2"><a href="#latex-integration">Latex integration</a></li>
@@ -149,6 +159,19 @@ window.onload = wrap_img;
   </li>
   <li>
     <p>If you hit cursor keys more than 2 or 3 times, there is a better way. If you press backspace more than a couple times, there is a better way. If you perform the same change on several lines, there is a better way.</p>
+  </li>
+</ul>
+
+<h1 id="approach-to-problem-solving">
+<a class="anchor" href="#approach-to-problem-solving" aria-hidden="true"><span class="octicon octicon-link"></span></a>Approach to problem solving</h1>
+
+<ul>
+  <li>
+    <p>Don’t solve a problem unless I come across it frequently.</p>
+  </li>
+  <li>
+    <p>Check whether one of Tim Pope’s plugins solves the problem (chances are oen
+of them does).</p>
   </li>
 </ul>
 
@@ -353,44 +376,78 @@ window.onload = wrap_img;
       <td>Equivalent in longhand</td>
     </tr>
     <tr>
-      <td>C</td>
-      <td>c$</td>
+      <td><code class="language-plaintext highlighter-rouge">C</code></td>
+      <td>
+<code class="language-plaintext highlighter-rouge">c$</code> (delete until end of line and start insert)</td>
     </tr>
     <tr>
-      <td>s</td>
-      <td>cl</td>
+      <td><code class="language-plaintext highlighter-rouge">D</code></td>
+      <td>
+<code class="language-plaintext highlighter-rouge">d$</code> (delete until end of line)</td>
     </tr>
     <tr>
-      <td>S</td>
-      <td>^C</td>
+      <td><code class="language-plaintext highlighter-rouge">s</code></td>
+      <td>
+<code class="language-plaintext highlighter-rouge">cl</code> (delete single character and start insert)</td>
     </tr>
     <tr>
-      <td>I</td>
-      <td>^i</td>
+      <td><code class="language-plaintext highlighter-rouge">S</code></td>
+      <td>
+<code class="language-plaintext highlighter-rouge">^c</code> (delete entire line and start inster, synonym for <code class="language-plaintext highlighter-rouge">cc</code>)</td>
     </tr>
     <tr>
-      <td>A</td>
-      <td>$a</td>
+      <td><code class="language-plaintext highlighter-rouge">I</code></td>
+      <td>
+<code class="language-plaintext highlighter-rouge">^i</code> (jump to beginning of line and start insert)</td>
     </tr>
     <tr>
-      <td>o</td>
+      <td><code class="language-plaintext highlighter-rouge">A</code></td>
+      <td>
+<code class="language-plaintext highlighter-rouge">$a</code> (jumpt to end of line and start insert)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">o</code></td>
       <td><code class="language-plaintext highlighter-rouge">A&lt;cr&gt;</code></td>
     </tr>
     <tr>
-      <td>O</td>
-      <td>ko</td>
+      <td><code class="language-plaintext highlighter-rouge">O</code></td>
+      <td><code class="language-plaintext highlighter-rouge">ko</code></td>
     </tr>
   </tbody>
 </table>
 
 <p>Miscellaneous:</p>
 
-<p>Command             | Effect
-<code class="language-plaintext highlighter-rouge">&lt;C-a&gt;</code>/ <code class="language-plaintext highlighter-rouge">&lt;C-x&gt;</code>    | Add / subtract from the next number
-<code class="language-plaintext highlighter-rouge">&lt;C-o&gt;</code>/ <code class="language-plaintext highlighter-rouge">&lt;C-l&gt;</code>    | Move backwards to last / forward to previous location
-<code class="language-plaintext highlighter-rouge">u</code>/<code class="language-plaintext highlighter-rouge">&lt;C-r&gt;</code>         | Undo / redo change
-<code class="language-plaintext highlighter-rouge">ga</code>                | Reveal decimal, octal, hex representation of character
-under cursor.</p>
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">&lt;C-a&gt;</code>/ <code class="language-plaintext highlighter-rouge">&lt;C-x&gt;</code>
+</td>
+      <td>Add / subtract from the next number</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">&lt;C-o&gt;</code>/ <code class="language-plaintext highlighter-rouge">&lt;C-l&gt;</code>
+</td>
+      <td>Move backwards to last / forward to previous location</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">u</code>/<code class="language-plaintext highlighter-rouge">&lt;C-r&gt;</code>
+</td>
+      <td>Undo / redo change</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ga</code></td>
+      <td>Reveal numeric representation of character under cursor</td>
+    </tr>
+  </tbody>
+</table>
 
 <h2 id="insert-mode">
 <a class="anchor" href="#insert-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Insert mode</h2>
@@ -446,18 +503,56 @@ quotes).</p>
 
 <p>Useful commands:</p>
 
-<p>Keystroke               | Action
-<code class="language-plaintext highlighter-rouge">&lt;C-h&gt;</code>                 | Delete back one character (backspace)
-<code class="language-plaintext highlighter-rouge">&lt;C-w&gt;</code>                 | Delete back one word
-<code class="language-plaintext highlighter-rouge">&lt;C-u&gt;</code>                 | Delete back one line
-<code class="language-plaintext highlighter-rouge">&lt;C-o&gt;</code>                 | Switch to Insert Normal mode (to execute a single Normal
-Mode command)
-<code class="language-plaintext highlighter-rouge">&lt;C-r&gt;{register}</code>       | Paste content from address (use 0 for last yanked text)
-<code class="language-plaintext highlighter-rouge">&lt;C-r&gt;=</code>                | Perform calculation in place
-<code class="language-plaintext highlighter-rouge">r,</code> <code class="language-plaintext highlighter-rouge">R</code>                | Enter replace mode for single replacement or until exit
-<code class="language-plaintext highlighter-rouge">&lt;C-v&gt;{123}</code>            | Insert character by decimal code 
-<code class="language-plaintext highlighter-rouge">&lt;C-v&gt;u{1234}</code>          | Insert character by hexadecimal code 
-<code class="language-plaintext highlighter-rouge">&lt;C-v&gt;{char1}{char2}</code>   | Insert character by digraph</p>
+<table>
+  <tbody>
+    <tr>
+      <td>Keystroke</td>
+      <td>action</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;c-h&gt;</code></td>
+      <td>delete back one character (backspace)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;c-w&gt;</code></td>
+      <td>delete back one word</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;c-u&gt;</code></td>
+      <td>delete back one line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;c-o&gt;</code></td>
+      <td>Enter insert normal mode to execute a single normal cmd</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;C-r&gt;{register}</code></td>
+      <td>Paste content from address (use 0 for last yanked text)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;C-r&gt;=</code></td>
+      <td>Perform calculation in place</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">r,</code> <code class="language-plaintext highlighter-rouge">R</code>
+</td>
+      <td>Enter replace mode for single replacement or until exit</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;C-v&gt;{123}</code></td>
+      <td>Insert character by decimal code</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;C-v&gt;u{1234}</code></td>
+      <td>Insert character by hexadecimal code</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;C-v&gt;{char1}{char2}</code></td>
+      <td>Insert character by digraph</td>
+    </tr>
+  </tbody>
+</table>
 
 <h2 id="visual-mode">
 <a class="anchor" href="#visual-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Visual mode</h2>
@@ -647,8 +742,236 @@ vim.</li>
   </tbody>
 </table>
 
-<h1 id="extra-functionality">
-<a class="anchor" href="#extra-functionality" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extra functionality</h1>
+<h1 id="files">
+<a class="anchor" href="#files" aria-hidden="true"><span class="octicon octicon-link"></span></a>Files</h1>
+
+<p>Setting the working directory:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:pwd</code></td>
+      <td>Show current directory window</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:cd</code></td>
+      <td>Set directory for all windows</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:lcd</code></td>
+      <td>Set directory for current window</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:tcd</code></td>
+      <td>Set directory for current tab</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="buffers">
+<a class="anchor" href="#buffers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Buffers</h2>
+
+<ul>
+  <li>
+    <p>A buffer is an in-memory representation of a file.</p>
+  </li>
+  <li>
+    <p>A hidden buffer is one that contains changes you haven’t written to disk
+yet but switched away from. For a session with hidden buffers, quitting will
+raise error messages, and vim will automatically display the first hidden
+buffer. You now have the following options: <code class="language-plaintext highlighter-rouge">:w[rite]</code> to write the buffer’s
+content to disk, <code class="language-plaintext highlighter-rouge">:e[dit]!</code> to reread the file from disk and thus revert all
+changes made, <code class="language-plaintext highlighter-rouge">:qa[ll]!</code> to discard all changes, and <code class="language-plaintext highlighter-rouge">:wa[ll]</code> to write all
+modified buffers to disk.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">:bufdo</code> executes an Ex command in all open buffers, <code class="language-plaintext highlighter-rouge">:argo</code> in all grouped
+ones (e.g. <code class="language-plaintext highlighter-rouge">:argdo %s/hello/world/g</code> substitutes <code class="language-plaintext highlighter-rouge">world</code> for <code class="language-plaintext highlighter-rouge">hello</code> in all
+buffers in <code class="language-plaintext highlighter-rouge">:args</code>, <code class="language-plaintext highlighter-rouge">:argdo edit!</code> reverts all changes, and <code class="language-plaintext highlighter-rouge">:argdo update</code>
+writes changed buffers to disk.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">:[range]bd</code> deletes buffers in range, with <code class="language-plaintext highlighter-rouge">[range]</code> working as for other
+Ex-commands (see above).</p>
+  </li>
+</ul>
+
+<h2 id="windows">
+<a class="anchor" href="#windows" aria-hidden="true"><span class="octicon octicon-link"></span></a>Windows</h2>
+
+<ul>
+  <li>A window is a viewport onto a buffer. We can open different windows that all
+provide a (different) view onto the same buffer, or load multiple buffers into
+one window.</li>
+</ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;C-w&gt;s</code></td>
+      <td>Split window horizontally</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;C-w&gt;v</code></td>
+      <td>Split window vertically</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:sp[lit] {file}</code></td>
+      <td>Horizontally split window and load {file} into new buffer</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:vsp[lit] {file}</code></td>
+      <td>Vertically split window and load {file} into new buffer</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">on[ly]</code></td>
+      <td>Close all but current window</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;C-w&gt;=</code></td>
+      <td>Equalize width and height of all windows</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;C-w&gt;r</code></td>
+      <td>Rorate windows</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;C-w&gt;x</code></td>
+      <td>Exchange position of current window with its neighbour</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">q[uit]</code></td>
+      <td>Close current window</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:vert sb N</code></td>
+      <td>Open buffer number N in vertical split</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="tabs">
+<a class="anchor" href="#tabs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tabs</h2>
+
+<ul>
+  <li>A tab is a container of windows.</li>
+</ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:tabe[dit]{file}</code></td>
+      <td>Open new tab with {file} if specified or empty otherwise</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;C-w&gt;T</code></td>
+      <td>Move current window into new tab</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:tabc[lose]</code></td>
+      <td>Close current tab with all its windows</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:tabo[nly]</code></td>
+      <td>Close all tabs but the current one</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">{N}</code>gt</td>
+      <td>Go to tab {N} if specified, or to next otherwise</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">gT</code></td>
+      <td>Go to previous tab</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="opening-files">
+<a class="anchor" href="#opening-files" aria-hidden="true"><span class="octicon octicon-link"></span></a>Opening files</h2>
+
+<ul>
+  <li>
+    <p>To easily open a new file from the same directory as the current buffer in a
+new window/split/vertical split/tab I use the mappings <code class="language-plaintext highlighter-rouge">&lt;leader&gt;ew/es/ev/et</code>,
+following <a href="http://vimcasts.org/episodes/the-edit-command/">this</a> Vimcast.</p>
+  </li>
+  <li>
+    <p>To navigate file trees, I use <code class="language-plaintext highlighter-rouge">netrw</code> and <code class="language-plaintext highlighter-rouge">vinegar</code>.</p>
+  </li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">netrw</code> commands:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">e[dit].</code></td>
+      <td>Open file explorer for current working directory</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">E[xplore]</code></td>
+      <td>Open file explorer for the directory of active buffer</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">%</code></td>
+      <td>Open new file in current directory</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">d</code></td>
+      <td>Create new directory in current one</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">R</code></td>
+      <td>Rename file or directory under cursor</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">D</code></td>
+      <td>Delete file or directory under cursor</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="extra-functionality-and-awesome-plugins">
+<a class="anchor" href="#extra-functionality-and-awesome-plugins" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extra functionality and awesome plugins</h1>
+
+<h2 id="vim-unimpaired">
+<a class="anchor" href="#vim-unimpaired" aria-hidden="true"><span class="octicon octicon-link"></span></a>vim-unimpaired</h2>
+
+<ul>
+  <li>
+    <p>Provides a set of normal mode commands to move between <strong>next</strong> (<code class="language-plaintext highlighter-rouge">]</code>) and <strong>previous</strong>
+(<code class="language-plaintext highlighter-rouge">[</code>), toggle <strong>options</strong>, and special <strong>pasting</strong>. Some commands I use often
+are listed below.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">]&lt;space&gt;</code> adds [count] blank lines below the cursor; <code class="language-plaintext highlighter-rouge">[&lt;space&gt;</code>, above the
+cursor. Mnemonic: <code class="language-plaintext highlighter-rouge">]</code> is next, here the next line, which is the line below.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">]e</code> exchanges the current line with the line below; <code class="language-plaintext highlighter-rouge">[e</code>, with the line above.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">yob</code> toggles light background, <code class="language-plaintext highlighter-rouge">yoc</code> the cursor line, <code class="language-plaintext highlighter-rouge">yon</code> line numbers,
+<code class="language-plaintext highlighter-rouge">yor</code> relative line numbers, <code class="language-plaintext highlighter-rouge">yos</code> the spell checker.</p>
+  </li>
+</ul>
 
 <h2 id="python">
 <a class="anchor" href="#python" aria-hidden="true"><span class="octicon octicon-link"></span></a>Python</h2>
@@ -671,15 +994,12 @@ available keys.</li>
 <p><a href="https://github.com/lervag/vimtex">vimtex</a></p>
 
 <ul>
-  <li>
-    <p>Most shortcuts use <code class="language-plaintext highlighter-rouge">localleader</code>, which, by default, is set to <code class="language-plaintext highlighter-rouge">\</code>.</p>
-  </li>
+  <li>Most shortcuts use <code class="language-plaintext highlighter-rouge">localleader</code>, which, by default, is set to <code class="language-plaintext highlighter-rouge">\</code>.</li>
   <li>
     <p>I use <code class="language-plaintext highlighter-rouge">skim</code> as my viewer.</p>
   </li>
   <li>
-    <p><code class="language-plaintext highlighter-rouge">\ll</code> toggles continuous compilation using <code class="language-plaintext highlighter-rouge">latexmk</code>.</p>
-  </li>
+<code class="language-plaintext highlighter-rouge">\ll</code> toggles continuous compilation using <code class="language-plaintext highlighter-rouge">latexmk</code>.</li>
 </ul>
 
 <h1 id="sources">
