@@ -1,6 +1,6 @@
 ---
-hide: false
 toc: true
+hide: false
 layout: post
 description: my collection of vim commands to remember
 categories: [vim]
@@ -20,6 +20,14 @@ title: vim essentials
     change, so go in and out of insert mode strategically.
 
 - If you hit cursor keys more than 2 or 3 times, there is a better way. If you press backspace more than a couple times, there is a better way. If you perform the same change on several lines, there is a better way.
+
+# Approach to problem solving
+
+- Don't solve a problem unless I come across it frequently.
+
+- Check whether one of Tim Pope's plugins solves the problem (chances are oen
+  of them does).
+
 
 
 # Modes
@@ -74,13 +82,14 @@ Execute a sequence of changes       | qx{change}q       | @x        | u
 Compound commands:
 
 Compound command | Equivalent in longhand
-C | c$
-s | cl
-S | ^C
-I | ^i
-A | $a
-o | `A<cr>`
-O | ko
+`C` | `c$` (delete until end of line and start insert)
+`D` | `d$` (delete until end of line)
+`s` | `cl` (delete single character and start insert)
+`S` | `^c` (delete entire line and start inster, synonym for `cc`)
+`I` | `^i` (jump to beginning of line and start insert)
+`A` | `$a` (jumpt to end of line and start insert)
+`o` | `A<cr>`
+`O` | `ko`
 
 Miscellaneous:
 
@@ -88,8 +97,7 @@ Command             | Effect
 `<C-a>`/ `<C-x>`    | Add / subtract from the next number
 `<C-o>`/ `<C-l>`    | Move backwards to last / forward to previous location
 `u`/`<C-r>`         | Undo / redo change
-`ga`                | Reveal decimal, octal, hex representation of character
-under cursor.
+`ga`                | Reveal numeric representation of character under cursor
 
 
 ## Insert mode
@@ -114,18 +122,17 @@ O       | Insert in a new line above the current one
 
 Useful commands:
 
-Keystroke               | Action
-`<C-h>`                 | Delete back one character (backspace)
-`<C-w>`                 | Delete back one word
-`<C-u>`                 | Delete back one line
-`<C-o>`                 | Switch to Insert Normal mode (to execute a single Normal
-Mode command)
-`<C-r>{register}`       | Paste content from address (use 0 for last yanked text)
-`<C-r>=`                | Perform calculation in place
-`r,` `R`                | Enter replace mode for single replacement or until exit
-`<C-v>{123}`            | Insert character by decimal code 
-`<C-v>u{1234}`          | Insert character by hexadecimal code 
-`<C-v>{char1}{char2}`   | Insert character by digraph
+Keystroke            | action
+`<c-h>`              | delete back one character (backspace)
+`<c-w>`              | delete back one word
+`<c-u>`              | delete back one line
+`<c-o>`              | Enter insert normal mode to execute a single normal cmd
+`<C-r>{register}`    | Paste content from address (use 0 for last yanked text)
+`<C-r>=`             | Perform calculation in place
+`r,` `R`             | Enter replace mode for single replacement or until exit
+`<C-v>{123}`         | Insert character by decimal code 
+`<C-v>u{1234}`       | Insert character by hexadecimal code 
+`<C-v>{char1}{char2}`| Insert character by digraph
 
 
 ## Visual mode
@@ -201,7 +208,105 @@ m[ove]        | Move to `{address}`, (e.g. `:1,5m$` moves lines to end of file)
 copy (or t)   | Copy to `{address}`, (e.g. `:6t.` copies line 6 to current line)
 
 
-# Extra functionality
+# Files
+
+Setting the working directory:
+
+Command             | Effect
+`:pwd`              | Show current directory window
+`:cd`               | Set directory for all windows
+`:lcd`              | Set directory for current window
+`:tcd`              | Set directory for current tab
+
+## Buffers
+
+- A buffer is an in-memory representation of a file.
+
+- A hidden buffer is one that contains changes you haven't written to disk
+  yet but switched away from. For a session with hidden buffers, quitting will
+  raise error messages, and vim will automatically display the first hidden
+  buffer. You now have the following options: `:w[rite]` to write the buffer's
+  content to disk, `:e[dit]!` to reread the file from disk and thus revert all
+  changes made, `:qa[ll]!` to discard all changes, and `:wa[ll]` to write all
+  modified buffers to disk.
+
+- `:bufdo` executes an Ex command in all open buffers, `:argo` in all grouped
+  ones (e.g. `:argdo %s/hello/world/g` substitutes `world` for `hello` in all
+  buffers in `:args`, `:argdo edit!` reverts all changes, and `:argdo update`
+  writes changed buffers to disk.
+
+- `:[range]bd` deletes buffers in range, with `[range]` working as for other
+  Ex-commands (see above).
+
+
+## Windows 
+
+- A window is a viewport onto a buffer. We can open different windows that all
+  provide a (different) view onto the same buffer, or load multiple buffers into
+  one window.
+
+Command             | Effect
+`<C-w>s`            | Split window horizontally
+`<C-w>v`            | Split window vertically
+`:sp[lit] {file}`   | Horizontally split window and load {file} into new buffer
+`:vsp[lit] {file}`  | Vertically split window and load {file} into new buffer
+`on[ly]`            | Close all but current window
+`<C-w>=`            | Equalize width and height of all windows
+`<C-w>r`            | Rorate windows
+`<C-w>x`            | Exchange position of current window with its neighbour
+`q[uit]`            | Close current window
+`:vert sb N`        | Open buffer number N in vertical split
+
+
+## Tabs
+
+- A tab is a container of windows.
+
+Command             | Effect
+`:tabe[dit]{file}`  | Open new tab with {file} if specified or empty otherwise
+`<C-w>T`            | Move current window into new tab
+`:tabc[lose]`       | Close current tab with all its windows
+`:tabo[nly]`        | Close all tabs but the current one
+`{N}`gt             | Go to tab {N} if specified, or to next otherwise
+`gT`                | Go to previous tab
+
+## Opening files
+
+- To easily open a new file from the same directory as the current buffer in a
+  new window/split/vertical split/tab I use the mappings `<leader>ew/es/ev/et`,
+  following [this](http://vimcasts.org/episodes/the-edit-command/) Vimcast.
+
+- To navigate file trees, I use `netrw` and `vinegar`.
+
+`netrw` commands:
+
+Command             | Effect
+`e[dit].`           | Open file explorer for current working directory
+`E[xplore]`         | Open file explorer for the directory of active buffer
+`%`                 | Open new file in current directory
+`d`                 | Create new directory in current one
+`R`                 | Rename file or directory under cursor
+`D`                 | Delete file or directory under cursor
+
+
+# Extra functionality and awesome plugins
+
+## vim-unimpaired
+
+- Provides a set of normal mode commands to move between **next** (`]`) and **previous**
+  (`[`), toggle **options**, and special **pasting**. Some commands I use often
+  are listed below.
+
+- `]<space>` adds [count] blank lines below the cursor; `[<space>`, above the
+  cursor. Mnemonic: `]` is next, here the next line, which is the line below.
+
+- `]e` exchanges the current line with the line below; `[e`, with the line above.
+
+- `yob` toggles light background, `yoc` the cursor line, `yon` line numbers,
+  `yor` relative line numbers, `yos` the spell checker.
+
+
+
 
 ## Python 
 
@@ -219,7 +324,6 @@ No plugins:
 [vimtex](https://github.com/lervag/vimtex)
 
 - Most shortcuts use `localleader`, which, by default, is set to `\`.
-
 - I use `skim` as my viewer.
 
 - `\ll` toggles continuous compilation using `latexmk`.
