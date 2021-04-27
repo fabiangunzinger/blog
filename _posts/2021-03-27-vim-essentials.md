@@ -60,7 +60,7 @@ Forwards    | Backwards | Effect
 n           | N         | Jump to next search match
 $           | ^         | Jump to end of line
 f{char}     | F{char}   | Position cursor on {char}
-t{char}     | T{char}   | Position cursor before {char}
+t{char}     | T{char}   | Position cursor before {char} (search till char)
 ;           | ,         | Repeat the last r, F, t, or T
 w           | b         | Move to the start of the next word
 W           | B         | Move to the start of the next WORD
@@ -278,6 +278,10 @@ Command             | Effect
 
 - To navigate file trees, I use `netrw` and `vinegar`.
 
+- Deleting folders: `netrw` uses `delete()` with the `d` flat to delete
+  directories. As explained in `:h delete()`, this only removes empty
+  directories. I leave this default for now.
+
 `netrw` commands:
 
 Command             | Effect
@@ -287,6 +291,45 @@ Command             | Effect
 `d`                 | Create new directory in current one
 `R`                 | Rename file or directory under cursor
 `D`                 | Delete file or directory under cursor
+
+
+# Moving
+
+- Motions move within a file, jumps between files.
+
+- Learn more motions by working your way through `:h motion.txt`
+
+
+General:
+
+Command             | Effect
+`<C-g>`             | Shows current filepath and line number
+
+
+Lines:
+
+Command             | Effect
+`g{line-motion}`    | Move by display rather than real line (e.g. `gj` vs `j`)
+`j`/`k`             | Down/up one line (think of `j` as a down arrow)
+`0`/`^`/`$`         | To first non-blank/first/last character of line.
+
+Words:
+
+Command             | Effect
+Capital w/e/b below | Move WORD rather than word wise
+`w`/`e`             | Forward to start/end of current or next word
+`b`/`ge`            | Backward to start/end of current or previous word
+
+Search:
+
+Command             | Effect
+`f{char}`\`F{char}` | Forward/backward to next occurrence of {char}
+`t{char}`\`T{char}` | Forward/backward till (before) next occurrence of {char}
+`f,dt.`             | Useful example: deletes the last clause of a sentence
+
+Some sentence out of which I delete unneeded words without fuss.
+
+
 
 
 # Extra functionality and awesome plugins
@@ -328,6 +371,9 @@ No plugins:
 
 - `\ll` toggles continuous compilation using `latexmk`.
 
+Command             | Effect
+`\ll`               | Toggle continuous compilation using `latexmk`
+`<C-x><C-o>/`       | Citation completion (inside `\cite{`)
 
 
 # Sources
