@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      8 min read
+      9 min read
     
 </span></p>
 
@@ -129,6 +129,7 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#opening-files">Opening files</a></li>
 </ul>
 </li>
+<li class="toc-entry toc-h1"><a href="#moving">Moving</a></li>
 <li class="toc-entry toc-h1"><a href="#extra-functionality-and-awesome-plugins">Extra functionality and awesome plugins</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#vim-unimpaired">vim-unimpaired</a></li>
@@ -275,7 +276,7 @@ of them does).</p>
     <tr>
       <td>t{char}</td>
       <td>T{char}</td>
-      <td>Position cursor before {char}</td>
+      <td>Position cursor before {char} (search till char)</td>
     </tr>
     <tr>
       <td>;</td>
@@ -911,6 +912,11 @@ following <a href="http://vimcasts.org/episodes/the-edit-command/">this</a> Vimc
   <li>
     <p>To navigate file trees, I use <code class="language-plaintext highlighter-rouge">netrw</code> and <code class="language-plaintext highlighter-rouge">vinegar</code>.</p>
   </li>
+  <li>
+    <p>Deleting folders: <code class="language-plaintext highlighter-rouge">netrw</code> uses <code class="language-plaintext highlighter-rouge">delete()</code> with the <code class="language-plaintext highlighter-rouge">d</code> flat to delete
+directories. As explained in <code class="language-plaintext highlighter-rouge">:h delete()</code>, this only removes empty
+directories. I leave this default for now.</p>
+  </li>
 </ul>
 
 <p><code class="language-plaintext highlighter-rouge">netrw</code> commands:</p>
@@ -947,6 +953,114 @@ following <a href="http://vimcasts.org/episodes/the-edit-command/">this</a> Vimc
     </tr>
   </tbody>
 </table>
+
+<h1 id="moving">
+<a class="anchor" href="#moving" aria-hidden="true"><span class="octicon octicon-link"></span></a>Moving</h1>
+
+<ul>
+  <li>
+    <p>Motions move within a file, jumps between files.</p>
+  </li>
+  <li>
+    <p>Learn more motions by working your way through <code class="language-plaintext highlighter-rouge">:h motion.txt</code></p>
+  </li>
+</ul>
+
+<p>General:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;C-g&gt;</code></td>
+      <td>Shows current filepath and line number</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Lines:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">g{line-motion}</code></td>
+      <td>Move by display rather than real line (e.g. <code class="language-plaintext highlighter-rouge">gj</code> vs <code class="language-plaintext highlighter-rouge">j</code>)</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">j</code>/<code class="language-plaintext highlighter-rouge">k</code>
+</td>
+      <td>Down/up one line (think of <code class="language-plaintext highlighter-rouge">j</code> as a down arrow)</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">0</code>/<code class="language-plaintext highlighter-rouge">^</code>/<code class="language-plaintext highlighter-rouge">$</code>
+</td>
+      <td>To first non-blank/first/last character of line.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Words:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td>Capital w/e/b below</td>
+      <td>Move WORD rather than word wise</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">w</code>/<code class="language-plaintext highlighter-rouge">e</code>
+</td>
+      <td>Forward to start/end of current or next word</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">b</code>/<code class="language-plaintext highlighter-rouge">ge</code>
+</td>
+      <td>Backward to start/end of current or previous word</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Search:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">f{char}</code>`F{char}`</td>
+      <td>Forward/backward to next occurrence of {char}</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">t{char}</code>`T{char}`</td>
+      <td>Forward/backward till (before) next occurrence of {char}</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">f,dt.</code></td>
+      <td>Useful example: deletes the last clause of a sentence</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Some sentence out of which I delete unneeded words without fuss.</p>
 
 <h1 id="extra-functionality-and-awesome-plugins">
 <a class="anchor" href="#extra-functionality-and-awesome-plugins" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extra functionality and awesome plugins</h1>
@@ -1001,6 +1115,24 @@ available keys.</li>
   <li>
 <code class="language-plaintext highlighter-rouge">\ll</code> toggles continuous compilation using <code class="language-plaintext highlighter-rouge">latexmk</code>.</li>
 </ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\ll</code></td>
+      <td>Toggle continuous compilation using <code class="language-plaintext highlighter-rouge">latexmk</code>
+</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;C-x&gt;&lt;C-o&gt;/</code></td>
+      <td>Citation completion (inside <code class="language-plaintext highlighter-rouge">\cite{</code>)</td>
+    </tr>
+  </tbody>
+</table>
 
 <h1 id="sources">
 <a class="anchor" href="#sources" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sources</h1>
