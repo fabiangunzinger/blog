@@ -44,6 +44,7 @@ Trigger   | Effect
 `c`       | Change
 `d`       | Delete
 `y`       | Yank into register
+`~`       | Swap case (behaves like operator only if `tildeop` is on)
 `g~`      | Swap case
 `gu`      | Make lowercase
 `gU`      | Make uppercase
@@ -293,25 +294,40 @@ Command             | Effect
 `D`                 | Delete file or directory under cursor
 
 
-# Moving
+# Navigation
 
 - Motions move within a file, jumps between files.
 
-- Learn more motions by working your way through `:h motion.txt`
+- Each motion can be prepended by a count (`5l` moves five characters to the
+  right).
 
 
 General:
 
 Command             | Effect
 `<C-g>`             | Shows current filepath and line number
+`zz`                | Redraw line in middle of window
+`zt`                | Redraw line at top of window
 
+Left-right and up-down:
 
-Lines:
+- `f,dt` deletes the last clause of a sentence
+- You can also use search after an operator to great effect. For instance: typing
+  `d\to g<CR>` when the cursor is at the beginning of `after` in the previous
+  sentence turns it into "You can use search to greate effect". This works
+  because `d` is an exclusive operator (`h: exclusive`) and doesn't apply the
+  operation on the endpoint of the selection.
 
 Command             | Effect
-`g{line-motion}`    | Move by display rather than real line (e.g. `gj` vs `j`)
+`h`/`l`             | Move left/right 
 `j`/`k`             | Down/up one line (think of `j` as a down arrow)
-`0`/`^`/`$`         | To first non-blank/first/last character of line.
+`gj`/`gk`           | Down/up by display rather than real lines
+`0`/`^`/`$`         | To first non-blank/first/last character of line
+`G`                 | Goto line `[count]`, default is last line
+`gg`                | Goto line `[count]`, default is first line
+`f{char}`\`F{char}` | Forward/backward to next occurrence of {char}
+`t{char}`\`T{char}` | Forward/backward till (before) next occurrence of {char}
+
 
 Words:
 
@@ -320,15 +336,33 @@ Capital w/e/b below | Move WORD rather than word wise
 `w`/`e`             | Forward to start/end of current or next word
 `b`/`ge`            | Backward to start/end of current or previous word
 
-Search:
+
+Text objects:
+
+- Text objects come in two types: those within a pair of delimiters (e.g. text
+  inside parentheses) and chucks of text. 
+
+- They can be moved over or selected.
+
+- Text object selection start with `i` (inside) or `a` (around). For example: `vi)`
+  highlights text inside parentheses but not the parentheses themselves, while `va)`
+  highlights the parentheses as well.
 
 Command             | Effect
-`f{char}`\`F{char}` | Forward/backward to next occurrence of {char}
-`t{char}`\`T{char}` | Forward/backward till (before) next occurrence of {char}
-`f,dt.`             | Useful example: deletes the last clause of a sentence
+`)`/`(`             | Move [count] sentences forward/backward
+`}`/`{`             | Move [count] paragraphs forward/backward
 
-Some sentence out of which I delete unneeded words without fuss.
 
+Command             | Select inside or around...
+`w`/`W`             | word/WORD
+`s`                 | sentence
+`p`                 | paragraph
+`]`                 | a [] block
+`)` or `b`          | a () block
+`}` or `B`          | a {} block
+`<`                 | a <> block
+`t`                 | a tag block
+```/`'`/`"`         | a ``/''/"" block
 
 
 
