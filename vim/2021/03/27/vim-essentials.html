@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      9 min read
+      10 min read
     
 </span></p>
 
@@ -129,7 +129,7 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#opening-files">Opening files</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h1"><a href="#moving">Moving</a></li>
+<li class="toc-entry toc-h1"><a href="#navigation">Navigation</a></li>
 <li class="toc-entry toc-h1"><a href="#extra-functionality-and-awesome-plugins">Extra functionality and awesome plugins</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#vim-unimpaired">vim-unimpaired</a></li>
@@ -207,6 +207,10 @@ of them does).</p>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">y</code></td>
       <td>Yank into register</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">~</code></td>
+      <td>Swap case (behaves like operator only if <code class="language-plaintext highlighter-rouge">tildeop</code> is on)</td>
     </tr>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">g~</code></td>
@@ -954,15 +958,16 @@ directories. I leave this default for now.</p>
   </tbody>
 </table>
 
-<h1 id="moving">
-<a class="anchor" href="#moving" aria-hidden="true"><span class="octicon octicon-link"></span></a>Moving</h1>
+<h1 id="navigation">
+<a class="anchor" href="#navigation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Navigation</h1>
 
 <ul>
   <li>
     <p>Motions move within a file, jumps between files.</p>
   </li>
   <li>
-    <p>Learn more motions by working your way through <code class="language-plaintext highlighter-rouge">:h motion.txt</code></p>
+    <p>Each motion can be prepended by a count (<code class="language-plaintext highlighter-rouge">5l</code> moves five characters to the
+right).</p>
   </li>
 </ul>
 
@@ -978,10 +983,28 @@ directories. I leave this default for now.</p>
       <td><code class="language-plaintext highlighter-rouge">&lt;C-g&gt;</code></td>
       <td>Shows current filepath and line number</td>
     </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">zz</code></td>
+      <td>Redraw line in middle of window</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">zt</code></td>
+      <td>Redraw line at top of window</td>
+    </tr>
   </tbody>
 </table>
 
-<p>Lines:</p>
+<p>Left-right and up-down:</p>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">f,dt</code> deletes the last clause of a sentence</li>
+  <li>You can also use search after an operator to great effect. For instance: typing
+<code class="language-plaintext highlighter-rouge">d\to g&lt;CR&gt;</code> when the cursor is at the beginning of <code class="language-plaintext highlighter-rouge">after</code> in the previous
+sentence turns it into “You can use search to greate effect”. This works
+because <code class="language-plaintext highlighter-rouge">d</code> is an exclusive operator (<code class="language-plaintext highlighter-rouge">h: exclusive</code>) and doesn’t apply the
+operation on the endpoint of the selection.</li>
+</ul>
 
 <table>
   <tbody>
@@ -990,8 +1013,10 @@ directories. I leave this default for now.</p>
       <td>Effect</td>
     </tr>
     <tr>
-      <td><code class="language-plaintext highlighter-rouge">g{line-motion}</code></td>
-      <td>Move by display rather than real line (e.g. <code class="language-plaintext highlighter-rouge">gj</code> vs <code class="language-plaintext highlighter-rouge">j</code>)</td>
+      <td>
+<code class="language-plaintext highlighter-rouge">h</code>/<code class="language-plaintext highlighter-rouge">l</code>
+</td>
+      <td>Move left/right</td>
     </tr>
     <tr>
       <td>
@@ -1001,9 +1026,33 @@ directories. I leave this default for now.</p>
     </tr>
     <tr>
       <td>
+<code class="language-plaintext highlighter-rouge">gj</code>/<code class="language-plaintext highlighter-rouge">gk</code>
+</td>
+      <td>Down/up by display rather than real lines</td>
+    </tr>
+    <tr>
+      <td>
 <code class="language-plaintext highlighter-rouge">0</code>/<code class="language-plaintext highlighter-rouge">^</code>/<code class="language-plaintext highlighter-rouge">$</code>
 </td>
-      <td>To first non-blank/first/last character of line.</td>
+      <td>To first non-blank/first/last character of line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">G</code></td>
+      <td>Goto line <code class="language-plaintext highlighter-rouge">[count]</code>, default is last line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">gg</code></td>
+      <td>Goto line <code class="language-plaintext highlighter-rouge">[count]</code>, default is first line</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">f{char}</code>`F{char}`</td>
+      <td>Forward/backward to next occurrence of {char}</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">t{char}</code>`T{char}`</td>
+      <td>Forward/backward till (before) next occurrence of {char}</td>
     </tr>
   </tbody>
 </table>
@@ -1035,7 +1084,22 @@ directories. I leave this default for now.</p>
   </tbody>
 </table>
 
-<p>Search:</p>
+<p>Text objects:</p>
+
+<ul>
+  <li>
+    <p>Text objects come in two types: those within a pair of delimiters (e.g. text
+inside parentheses) and chucks of text.</p>
+  </li>
+  <li>
+    <p>They can be moved over or selected.</p>
+  </li>
+  <li>
+    <p>Text object selection start with <code class="language-plaintext highlighter-rouge">i</code> (inside) or <code class="language-plaintext highlighter-rouge">a</code> (around). For example: <code class="language-plaintext highlighter-rouge">vi)</code>
+highlights text inside parentheses but not the parentheses themselves, while <code class="language-plaintext highlighter-rouge">va)</code>
+highlights the parentheses as well.</p>
+  </li>
+</ul>
 
 <table>
   <tbody>
@@ -1045,22 +1109,70 @@ directories. I leave this default for now.</p>
     </tr>
     <tr>
       <td>
-<code class="language-plaintext highlighter-rouge">f{char}</code>`F{char}`</td>
-      <td>Forward/backward to next occurrence of {char}</td>
+<code class="language-plaintext highlighter-rouge">)</code>/<code class="language-plaintext highlighter-rouge">(</code>
+</td>
+      <td>Move [count] sentences forward/backward</td>
     </tr>
     <tr>
       <td>
-<code class="language-plaintext highlighter-rouge">t{char}</code>`T{char}`</td>
-      <td>Forward/backward till (before) next occurrence of {char}</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">f,dt.</code></td>
-      <td>Useful example: deletes the last clause of a sentence</td>
+<code class="language-plaintext highlighter-rouge">}</code>/<code class="language-plaintext highlighter-rouge">{</code>
+</td>
+      <td>Move [count] paragraphs forward/backward</td>
     </tr>
   </tbody>
 </table>
 
-<p>Some sentence out of which I delete unneeded words without fuss.</p>
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Select inside or around…</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">w</code>/<code class="language-plaintext highlighter-rouge">W</code>
+</td>
+      <td>word/WORD</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">s</code></td>
+      <td>sentence</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">p</code></td>
+      <td>paragraph</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">]</code></td>
+      <td>a [] block</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">)</code> or <code class="language-plaintext highlighter-rouge">b</code>
+</td>
+      <td>a () block</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">}</code> or <code class="language-plaintext highlighter-rouge">B</code>
+</td>
+      <td>a {} block</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;</code></td>
+      <td>a &lt;&gt; block</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">t</code></td>
+      <td>a tag block</td>
+    </tr>
+    <tr>
+      <td>```/<code class="language-plaintext highlighter-rouge">'</code>/<code class="language-plaintext highlighter-rouge">"</code>
+</td>
+      <td>a ``/’’/”” block</td>
+    </tr>
+  </tbody>
+</table>
 
 <h1 id="extra-functionality-and-awesome-plugins">
 <a class="anchor" href="#extra-functionality-and-awesome-plugins" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extra functionality and awesome plugins</h1>
