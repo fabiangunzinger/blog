@@ -2,7 +2,7 @@
 hide: false
 toc: true
 layout: post
-> description: My data workflow
+description: My data workflow
 categories: [principles]
 title: My data workflow 
 ---

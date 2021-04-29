@@ -301,18 +301,19 @@ Command             | Effect
 - Each motion can be prepended by a count (`5l` moves five characters to the
   right).
 
+## Within files
 
 General:
 
 Command             | Effect
 `<C-g>`             | Shows current filepath and line number
-`zz`                | Redraw line in middle of window
-`zt`                | Redraw line at top of window
+`zz`                | Redraw current line in middle of window
+`zt`                | Redraw current line at top of window
 
 Left-right and up-down:
 
 - `f,dt` deletes the last clause of a sentence
-- You can also use search after an operator to great effect. For instance: typing
+- You can use search after an operator to great effect. For instance: typing
   `d\to g<CR>` when the cursor is at the beginning of `after` in the previous
   sentence turns it into "You can use search to greate effect". This works
   because `d` is an exclusive operator (`h: exclusive`) and doesn't apply the
@@ -327,20 +328,22 @@ Command             | Effect
 `gg`                | Goto line `[count]`, default is first line
 `f{char}`\`F{char}` | Forward/backward to next occurrence of {char}
 `t{char}`\`T{char}` | Forward/backward till (before) next occurrence of {char}
+`H`/`M`/`L`         | Jump to the top/middle/bottom of the screen
 
 
 Words:
 
 Command             | Effect
-Capital w/e/b below | Move WORD rather than word wise
 `w`/`e`             | Forward to start/end of current or next word
 `b`/`ge`            | Backward to start/end of current or previous word
+Capital w/e/b       | Move WORD rather than word wise
 
 
 Text objects:
 
 - Text objects come in two types: those within a pair of delimiters (e.g. text
-  inside parentheses) and chucks of text. 
+  inside parentheses) and chucks of text (Vim calls them "block" and "non-block"
+  objects).
 
 - They can be moved over or selected.
 
@@ -362,7 +365,32 @@ Command             | Select inside or around...
 `}` or `B`          | a {} block
 `<`                 | a <> block
 `t`                 | a tag block
-```/`'`/`"`         | a ``/''/"" block
+`` ` ``/`'`/`"`     | a ``` `` ```/''/"" block
+
+Marks:
+
+Command             | Effect
+`m{a-zA-Z}`         | Set lowercase (local) or uppercase (global) mark
+`` `{mark} ``       | Jump to mark
+``` `` ```          | Go to position before last jump
+`` `. ``            | Go to position of last change
+`%`                 | Go to matching bracket
+
+
+## Between files
+
+Traversing the jumps and changes lists
+
+- A jump is a long-range motion (which, roughly, means moving faster than
+  WORD-wise).
+
+Command             | Effect
+`:jumps`            | Show the jump list
+`<C-o>` / `<C-i`>   | Traverse jump history backwards/forwards
+`:changes`          | Show the change list
+`g;`/`g,`           | Traverse change list backwards/forwards
+`gf`                | Jump to file under cursor
+`<C-]>`             | Jump to definition of keyword under cursor
 
 
 
@@ -383,9 +411,13 @@ Command             | Select inside or around...
   `yor` relative line numbers, `yos` the spell checker.
 
 
+## vim-surround
+
 
 
 ## Python 
+
+- Look into using `matchit` or something similar for faster code navigation.
 
 ## Snippets
 
