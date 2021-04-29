@@ -8,15 +8,15 @@
 <meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="Linux" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Useful Linux commands for my future self" />
-<meta property="og:description" content="Useful Linux commands for my future self" />
+<meta name="description" content="Useful Linux and command line commands for my future self" />
+<meta property="og:description" content="Useful Linux and command line commands for my future self" />
 <link rel="canonical" href="https://fabiangunzinger.github.io/blog/tools/linux/2021/02/08/linux.html" />
 <meta property="og:url" content="https://fabiangunzinger.github.io/blog/tools/linux/2021/02/08/linux.html" />
 <meta property="og:site_name" content="Fabian’s online notebook" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-02-08T00:00:00-06:00" />
 <script type="application/ld+json">
-{"url":"https://fabiangunzinger.github.io/blog/tools/linux/2021/02/08/linux.html","@type":"BlogPosting","headline":"Linux","dateModified":"2021-02-08T00:00:00-06:00","datePublished":"2021-02-08T00:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://fabiangunzinger.github.io/blog/tools/linux/2021/02/08/linux.html"},"description":"Useful Linux commands for my future self","@context":"https://schema.org"}</script>
+{"url":"https://fabiangunzinger.github.io/blog/tools/linux/2021/02/08/linux.html","@type":"BlogPosting","headline":"Linux","dateModified":"2021-02-08T00:00:00-06:00","datePublished":"2021-02-08T00:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://fabiangunzinger.github.io/blog/tools/linux/2021/02/08/linux.html"},"description":"Useful Linux and command line commands for my future self","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://fabiangunzinger.github.io/blog/feed.xml" title="Fabian's online notebook" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -87,7 +87,7 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Linux</h1><p class="page-description">Useful Linux commands for my future self</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-02-08T00:00:00-06:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">Linux</h1><p class="page-description">Useful Linux and command line commands for my future self</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-02-08T00:00:00-06:00" itemprop="datePublished">
         Feb 8, 2021
       </time>
        • <span class="read-time" title="Estimated read time">
@@ -114,23 +114,21 @@ window.onload = wrap_img;
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
 <li class="toc-entry toc-h1"><a href="#getting-help-and-finding-stuff">Getting help and finding stuff</a></li>
-<li class="toc-entry toc-h1"><a href="#stuff-i-often-use">Stuff I often use</a></li>
-<li class="toc-entry toc-h1"><a href="#basics">Basics</a>
+<li class="toc-entry toc-h1"><a href="#basics">Basics</a></li>
+<li class="toc-entry toc-h1"><a href="#misc-useful-stuff-i-use-often">Misc. useful stuff I use often</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#file-handling">File handling</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h1"><a href="#processes">Processes</a></li>
-<li class="toc-entry toc-h1"><a href="#bash-scripting">Bash scripting</a>
-<ul>
-<li class="toc-entry toc-h2"><a href="#permissions">Permissions</a></li>
-</ul>
-</li>
+<li class="toc-entry toc-h1"><a href="#bash-scripting">Bash scripting</a></li>
+<li class="toc-entry toc-h1"><a href="#permissions">Permissions</a></li>
 <li class="toc-entry toc-h1"><a href="#sources">Sources</a></li>
-</ul><p>Notes on useful linux functionality as reference for my future self.</p>
+</ul><p>Notes on useful linux and mac command line functionality as reference for my future self.</p>
 
 <h1 id="getting-help-and-finding-stuff">
 <a class="anchor" href="#getting-help-and-finding-stuff" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting help and finding stuff</h1>
+
 <ul>
   <li>
 <code class="language-plaintext highlighter-rouge">man &lt;command&gt;</code> opens the manual for <code class="language-plaintext highlighter-rouge">&lt;command&gt;</code>.</li>
@@ -140,24 +138,34 @@ window.onload = wrap_img;
   <li>Search inside manual works as in vim.</li>
 </ul>
 
-<h1 id="stuff-i-often-use">
-<a class="anchor" href="#stuff-i-often-use" aria-hidden="true"><span class="octicon octicon-link"></span></a>Stuff I often use</h1>
-<ul>
-  <li>
-<code class="language-plaintext highlighter-rouge">ln -s [OPTIONS] FILE LINK</code>. Create a soft link for FILE at LINK. If you use
-<code class="language-plaintext highlighter-rouge">.</code> for LINK, a link with the same name as FILE will be created in the current
-location.</li>
-</ul>
-
 <h1 id="basics">
 <a class="anchor" href="#basics" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basics</h1>
+
 <ul>
   <li>A process is a running instance of a program.</li>
   <li>Everything is a fiele (the keyboard is read-only, the screen write only)</li>
 </ul>
 
+<h1 id="misc-useful-stuff-i-use-often">
+<a class="anchor" href="#misc-useful-stuff-i-use-often" aria-hidden="true"><span class="octicon octicon-link"></span></a>Misc. useful stuff I use often</h1>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">ln -s [OPTIONS] FILE LINK</code>. Create a soft link for FILE at LINK. If you use
+<code class="language-plaintext highlighter-rouge">.</code> for LINK, a link with the same name as FILE will be created in the current
+location.</p>
+  </li>
+  <li>
+    <p>In mac terminal, <code class="language-plaintext highlighter-rouge">pbcopy</code> and <code class="language-plaintext highlighter-rouge">pbpaste</code> allow you to copy from and paste to
+the terminal. I often use <code class="language-plaintext highlighter-rouge">pwd | pbcopy</code> to get a directory path for use
+elsewhere, and <code class="language-plaintext highlighter-rouge">pbpaste &gt; .gitignore</code> to create a gitignore file from a
+template (e.g. from gitignore.io).</p>
+  </li>
+</ul>
+
 <h2 id="file-handling">
 <a class="anchor" href="#file-handling" aria-hidden="true"><span class="octicon octicon-link"></span></a>File handling</h2>
+
 <ul>
   <li>
 <code class="language-plaintext highlighter-rouge">file</code> lists file type of all files in a directory.</li>
@@ -178,6 +186,7 @@ location.</li>
 
 <h1 id="processes">
 <a class="anchor" href="#processes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Processes</h1>
+
 <ul>
   <li>
 <code class="language-plaintext highlighter-rouge">top</code> to list most memory-intensive processes.</li>
@@ -194,6 +203,7 @@ location.</li>
 
 <h1 id="bash-scripting">
 <a class="anchor" href="#bash-scripting" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bash scripting</h1>
+
 <p>Variables</p>
 <ul>
   <li>
@@ -229,8 +239,9 @@ location.</li>
 </commands>
   </li>
 </ul>
-<h2 id="permissions">
-<a class="anchor" href="#permissions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Permissions</h2>
+<h1 id="permissions">
+<a class="anchor" href="#permissions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Permissions</h1>
+
 <ul>
   <li>Three actions: <code class="language-plaintext highlighter-rouge">r</code> (read), <code class="language-plaintext highlighter-rouge">w</code> (write), <code class="language-plaintext highlighter-rouge">x</code> (execute).</li>
   <li>Three types of people: owner or user (u), group (g), and others (o). (a) applies to
@@ -302,6 +313,7 @@ location.</li>
 
 <h1 id="sources">
 <a class="anchor" href="#sources" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sources</h1>
+
 <ul>
   <li><a href="https://ryanstutorials.net/bash-scripting-tutorial/">Ryan’s bash-scripting tutorial</a></li>
   <li><a href="https://ryanstutorials.net/bash-scripting-tutorial/">Ryan’s linux tutorial</a></li>
