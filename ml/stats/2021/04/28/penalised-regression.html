@@ -4,19 +4,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Concurrency | Fabian’s online notebook</title>
+<title>Penalised regression | Fabian’s online notebook</title>
 <meta name="generator" content="Jekyll v4.1.1" />
-<meta property="og:title" content="Concurrency" />
+<meta property="og:title" content="Penalised regression" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Online notebook for code and thoughts." />
 <meta property="og:description" content="Online notebook for code and thoughts." />
-<link rel="canonical" href="https://fabiangunzinger.github.io/blog/python/2021/04/27/concurrency.html" />
-<meta property="og:url" content="https://fabiangunzinger.github.io/blog/python/2021/04/27/concurrency.html" />
+<link rel="canonical" href="https://fabiangunzinger.github.io/blog/ml/stats/2021/04/28/penalised-regression.html" />
+<meta property="og:url" content="https://fabiangunzinger.github.io/blog/ml/stats/2021/04/28/penalised-regression.html" />
 <meta property="og:site_name" content="Fabian’s online notebook" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2021-04-27T00:00:00-05:00" />
+<meta property="article:published_time" content="2021-04-28T00:00:00-05:00" />
 <script type="application/ld+json">
-{"url":"https://fabiangunzinger.github.io/blog/python/2021/04/27/concurrency.html","@type":"BlogPosting","headline":"Concurrency","dateModified":"2021-04-27T00:00:00-05:00","datePublished":"2021-04-27T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://fabiangunzinger.github.io/blog/python/2021/04/27/concurrency.html"},"description":"Online notebook for code and thoughts.","@context":"https://schema.org"}</script>
+{"url":"https://fabiangunzinger.github.io/blog/ml/stats/2021/04/28/penalised-regression.html","@type":"BlogPosting","headline":"Penalised regression","dateModified":"2021-04-28T00:00:00-05:00","datePublished":"2021-04-28T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://fabiangunzinger.github.io/blog/ml/stats/2021/04/28/penalised-regression.html"},"description":"Online notebook for code and thoughts.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://fabiangunzinger.github.io/blog/feed.xml" title="Fabian's online notebook" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -87,20 +87,23 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Concurrency</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-04-27T00:00:00-05:00" itemprop="datePublished">
-        Apr 27, 2021
+    <h1 class="post-title p-name" itemprop="name headline">Penalised regression</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-04-28T00:00:00-05:00" itemprop="datePublished">
+        Apr 28, 2021
       </time>
        • <span class="read-time" title="Estimated read time">
     
     
-      1 min read
+      2 min read
     
 </span></p>
 
     
       <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
       
-        <a class="category-tags-link" href="/blog/categories/#python">python</a>
+        <a class="category-tags-link" href="/blog/categories/#ml">ml</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#stats">stats</a>
         
       
       </p>
@@ -117,14 +120,14 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
-<li class="toc-entry toc-h2"><a href="#Theory">Theory </a></li>
-<li class="toc-entry toc-h2"><a href="#Usage">Usage </a></li>
-<li class="toc-entry toc-h2"><a href="#Sources">Sources </a></li>
+<li class="toc-entry toc-h2"><a href="#Difference-between-approaches">Difference between approaches </a></li>
+<li class="toc-entry toc-h2"><a href="#Bayesian-intuition-behind-difference-in-performance">Bayesian intuition behind difference in performance </a></li>
+<li class="toc-entry toc-h1"><a href="#Sources">Sources </a></li>
 </ul><!--
 #################################################
 ### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
 #################################################
-# file to edit: _notebooks/3020-11-06-concurrency.ipynb
+# file to edit: _notebooks/3030-04-01-penalised-regression.ipynb
 -->
 
 <div class="container" id="notebook-container">
@@ -136,11 +139,10 @@ window.onload = wrap_img;
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">imports</span> <span class="kn">import</span> <span class="o">*</span>
-
-<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = 'retina'
-<span class="o">%</span><span class="k">load_ext</span> autoreload
-<span class="o">%</span><span class="k">autoreload</span> 2
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
 </pre></div>
 
     </div>
@@ -153,69 +155,41 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Theory">
-<a class="anchor" href="#Theory" aria-hidden="true"><span class="octicon octicon-link"></span></a>Theory<a class="anchor-link" href="#Theory"> </a>
+<ul>
+<li>
+<p>Both are methods to penalise large coefficients.</p>
+</li>
+<li>
+<p>Why would we want to do this? Because we know from bias-variance trade-off -- the U-Shaped curve in complexity-MSE space -- that an increase in bias will result in a reduction of the variance. Now, on some points on that curve, increasing bias by a little might lead to a comparatively large reduction in variance, and thus reduce MSE. Exploiting this possibility is the idea behind penalising large coefficients: biasing coefficients towards zero will introduce a bit of bias, but we hope to get rewarded by lower variance so that overall model performance improves.</p>
+</li>
+</ul>
+<h2 id="Difference-between-approaches">
+<a class="anchor" href="#Difference-between-approaches" aria-hidden="true"><span class="octicon octicon-link"></span></a>Difference between approaches<a class="anchor-link" href="#Difference-between-approaches"> </a>
 </h2>
-<p>Elements:</p>
-<ul>
-<li>RAM</li>
-<li>memory controller (interface between cup and ram)</li>
-<li>CPU</li>
-<li>
-<p>Kernel</p>
-<ul>
-<li>Lowest level of software. It manages cpu resources, file system, memory resources, drivers, networking, etc.</li>
-</ul>
-</li>
-<li>
-<p>Program</p>
-<ul>
-<li>Code and data structures that can be executed (like newspaper)</li>
-</ul>
-</li>
-</ul>
 <ul>
 <li>
-<p>Cores (units of cpu?)</p>
-<ul>
-<li>Multi core: instead of dividing up cpu time among different processes, can actually run stuff in parallel, but within each core, the process is exactly the same as with only one core.</li>
-</ul>
+<p>Ridge uses the sum of L2 norms as the penalty: the sum of the squared coefficients.</p>
 </li>
 <li>
-<p>Process</p>
-<ul>
-<li>A logical container that tells kernel what program to run. Process has id, priority, status, memory space, etc.. Kernel uses that info to allocate cpu time to each program. Because happens at milisecond level, creates illusion of concurrency (comic analogy).</li>
-<li>A program that competes for CPU resources (e.g. a web browser, or a bit of cleaning code)</li>
-<li>The program in execution. Given that program is composed of multiple threads, program is program + state of all threads executing the program </li>
-</ul>
+<p>Lasso used the sum of L1 norms: the sum of absolute coefficients.</p>
 </li>
 <li>
-<p>Threads</p>
-<ul>
-<li>Threads run within a single process, to allow it to do multiple things at once (like a newspaper)</li>
-<li>They are lines of control cursing through the code and data structures of the program (called a thread of execution through the program). Akin to one reader scanning through a section of the newspaper.</li>
-<li>Multiple threads: different lines of control cursing through the program (multiple readers reading different sections of the newspaper).</li>
-<li>Potential conflict: threads operate on (read/update) same data structures. Solution: locks</li>
-<li>A ... running within a program (e.g. reading data, processing, writing to disk) </li>
-</ul>
-</li>
-</ul>
-<p>Type of tasks:</p>
-<ul>
-<li>
-<p>CPU-bound tasks: using CPU to crunch numbers</p>
+<p>With lasso, some coefficients might become exactly zero and thus drop out of the model, which is why Lasso is considered a model selection approach.</p>
 </li>
 <li>
-<p>I/O-bound tasks: waiting for some I/O operations to complete (downloading files from internet, reading and writing to file-system)</p>
+<p>The reason for this is shape of the penalties in coefficient size - penalty space: when we square penalties as in Ridge, that gives us a smooth U-shaped parabola that's fairly flat at teh bottom, meaning that as we move towards zero coefficient size, the reduction in the penalty gets increasingly small and will eventually hit a point where a further reduction in coefficient size is not worth it. In contrast, using absolute penalties leads to a triangle shaped curve with equal (absolute) slope on all points except zero. This means that the marginal gain of moving coefficient size to zero stays constant, so that, for some coefficients, going all the way might be worth it.</p>
 </li>
 </ul>
-<p>Theading:</p>
+<h2 id="Bayesian-intuition-behind-difference-in-performance">
+<a class="anchor" href="#Bayesian-intuition-behind-difference-in-performance" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bayesian intuition behind difference in performance<a class="anchor-link" href="#Bayesian-intuition-behind-difference-in-performance"> </a>
+</h2>
 <ul>
-<li>Gives speed ups for I/O-bound tasks</li>
-</ul>
-<p>Multiprocessing:</p>
-<ul>
-<li>Run CPU-bound tasks in prallel </li>
+<li>
+<p>Lasso and ridge regression implicitly assume a world where most coefficients are very small (or zero, in the case of lasso) and don't contribute much to our prediction capacity and only a few are helpful. As opposted to an alternative world where we think most variables we can measure contribute a little bit in equal part to our model's predictive power. Laplace vs gaussian vs uniform distribution of true coefficient values.</p>
+</li>
+<li>
+<p>If the world is truly Laplacian, then biasing our model towards it by using penalised regression will improve the model's performance. If the world is uniform, then penalised regression will perform worse than linear regression.</p>
+</li>
 </ul>
 
 </div>
@@ -224,61 +198,12 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Usage">
-<a class="anchor" href="#Usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage<a class="anchor-link" href="#Usage"> </a>
-</h2>
-</div>
-</div>
-</div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>8</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Sources">
+<h1 id="Sources">
 <a class="anchor" href="#Sources" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sources<a class="anchor-link" href="#Sources"> </a>
-</h2>
+</h1>
 <ul>
-<li><a href="https://www.youtube.com/watch?v=O3EyzlZxx3g">Udacity on process vs threads</a></li>
-<li><a href="https://www.youtube.com/watch?v=h_HwkHobfs0">Gary explains - processes and threads</a></li>
-<li><a href="https://www.youtube.com/watch?v=mycVSMyShk8">Gary explains - what is a kernel</a></li>
-<li><a href="https://www.youtube.com/watch?v=IEEhzQoKtQU">Corey Schafer on threading</a></li>
-<li><a href="https://www.oreilly.com/library/view/fluent-python/9781491946237/">Fluent Python</a></li>
-<li><a href="https://www.oreilly.com/library/view/python-cookbook-3rd/9781449357337/">Python Cookbook</a></li>
-<li><a href="https://www.oreilly.com/library/view/learning-python-5th/9781449355722/">Learning Python</a></li>
-<li><a href="https://www.oreilly.com/library/view/python-for-data/9781491957653/">Python for Data Analysis</a></li>
-<li><a href="https://www.oreilly.com/library/view/python-data-science/9781491912126/">Python Data Science Handbook</a></li>
+<li><a href="http://themlbook.com">The hundred-page machine learning book</a></li>
+<li><a href="https://www.statlearning.com">An introduction to statistical learning</a></li>
 </ul>
 
 </div>
@@ -296,7 +221,7 @@ window.onload = wrap_img;
         theme="github-light"
         crossorigin="anonymous"
         async>
-</script><a class="u-url" href="/blog/python/2021/04/27/concurrency.html" hidden></a>
+</script><a class="u-url" href="/blog/ml/stats/2021/04/28/penalised-regression.html" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">

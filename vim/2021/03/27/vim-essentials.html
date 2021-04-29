@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      10 min read
+      11 min read
     
 </span></p>
 
@@ -129,10 +129,16 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#opening-files">Opening files</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h1"><a href="#navigation">Navigation</a></li>
+<li class="toc-entry toc-h1"><a href="#navigation">Navigation</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#within-files">Within files</a></li>
+<li class="toc-entry toc-h2"><a href="#between-files">Between files</a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h1"><a href="#extra-functionality-and-awesome-plugins">Extra functionality and awesome plugins</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#vim-unimpaired">vim-unimpaired</a></li>
+<li class="toc-entry toc-h2"><a href="#vim-surround">vim-surround</a></li>
 <li class="toc-entry toc-h2"><a href="#python">Python</a></li>
 <li class="toc-entry toc-h2"><a href="#snippets">Snippets</a></li>
 <li class="toc-entry toc-h2"><a href="#latex-integration">Latex integration</a></li>
@@ -971,6 +977,9 @@ right).</p>
   </li>
 </ul>
 
+<h2 id="within-files">
+<a class="anchor" href="#within-files" aria-hidden="true"><span class="octicon octicon-link"></span></a>Within files</h2>
+
 <p>General:</p>
 
 <table>
@@ -985,11 +994,11 @@ right).</p>
     </tr>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">zz</code></td>
-      <td>Redraw line in middle of window</td>
+      <td>Redraw current line in middle of window</td>
     </tr>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">zt</code></td>
-      <td>Redraw line at top of window</td>
+      <td>Redraw current line at top of window</td>
     </tr>
   </tbody>
 </table>
@@ -999,7 +1008,7 @@ right).</p>
 <ul>
   <li>
 <code class="language-plaintext highlighter-rouge">f,dt</code> deletes the last clause of a sentence</li>
-  <li>You can also use search after an operator to great effect. For instance: typing
+  <li>You can use search after an operator to great effect. For instance: typing
 <code class="language-plaintext highlighter-rouge">d\to g&lt;CR&gt;</code> when the cursor is at the beginning of <code class="language-plaintext highlighter-rouge">after</code> in the previous
 sentence turns it into “You can use search to greate effect”. This works
 because <code class="language-plaintext highlighter-rouge">d</code> is an exclusive operator (<code class="language-plaintext highlighter-rouge">h: exclusive</code>) and doesn’t apply the
@@ -1054,6 +1063,12 @@ operation on the endpoint of the selection.</li>
 <code class="language-plaintext highlighter-rouge">t{char}</code>`T{char}`</td>
       <td>Forward/backward till (before) next occurrence of {char}</td>
     </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">H</code>/<code class="language-plaintext highlighter-rouge">M</code>/<code class="language-plaintext highlighter-rouge">L</code>
+</td>
+      <td>Jump to the top/middle/bottom of the screen</td>
+    </tr>
   </tbody>
 </table>
 
@@ -1064,10 +1079,6 @@ operation on the endpoint of the selection.</li>
     <tr>
       <td>Command</td>
       <td>Effect</td>
-    </tr>
-    <tr>
-      <td>Capital w/e/b below</td>
-      <td>Move WORD rather than word wise</td>
     </tr>
     <tr>
       <td>
@@ -1081,6 +1092,10 @@ operation on the endpoint of the selection.</li>
 </td>
       <td>Backward to start/end of current or previous word</td>
     </tr>
+    <tr>
+      <td>Capital w/e/b</td>
+      <td>Move WORD rather than word wise</td>
+    </tr>
   </tbody>
 </table>
 
@@ -1089,7 +1104,8 @@ operation on the endpoint of the selection.</li>
 <ul>
   <li>
     <p>Text objects come in two types: those within a pair of delimiters (e.g. text
-inside parentheses) and chucks of text.</p>
+inside parentheses) and chucks of text (Vim calls them “block” and “non-block”
+objects).</p>
   </li>
   <li>
     <p>They can be moved over or selected.</p>
@@ -1167,9 +1183,87 @@ highlights the parentheses as well.</p>
       <td>a tag block</td>
     </tr>
     <tr>
-      <td>```/<code class="language-plaintext highlighter-rouge">'</code>/<code class="language-plaintext highlighter-rouge">"</code>
+      <td>
+<code class="language-plaintext highlighter-rouge">`</code>/<code class="language-plaintext highlighter-rouge">'</code>/<code class="language-plaintext highlighter-rouge">"</code>
 </td>
-      <td>a ``/’’/”” block</td>
+      <td>a <code class="language-plaintext highlighter-rouge">``</code>/’’/”” block</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Marks:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">m{a-zA-Z}</code></td>
+      <td>Set lowercase (local) or uppercase (global) mark</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">`{mark}</code></td>
+      <td>Jump to mark</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">``</code></td>
+      <td>Go to position before last jump</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">`.</code></td>
+      <td>Go to position of last change</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">%</code></td>
+      <td>Go to matching bracket</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="between-files">
+<a class="anchor" href="#between-files" aria-hidden="true"><span class="octicon octicon-link"></span></a>Between files</h2>
+
+<p>Traversing the jumps and changes lists</p>
+
+<ul>
+  <li>A jump is a long-range motion (which, roughly, means moving faster than
+WORD-wise).</li>
+</ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:jumps</code></td>
+      <td>Show the jump list</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">&lt;C-o&gt;</code> / <code class="language-plaintext highlighter-rouge">&lt;C-i</code>&gt;</td>
+      <td>Traverse jump history backwards/forwards</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:changes</code></td>
+      <td>Show the change list</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">g;</code>/<code class="language-plaintext highlighter-rouge">g,</code>
+</td>
+      <td>Traverse change list backwards/forwards</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">gf</code></td>
+      <td>Jump to file under cursor</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;C-]&gt;</code></td>
+      <td>Jump to definition of keyword under cursor</td>
     </tr>
   </tbody>
 </table>
@@ -1199,8 +1293,15 @@ cursor. Mnemonic: <code class="language-plaintext highlighter-rouge">]</code> is
   </li>
 </ul>
 
+<h2 id="vim-surround">
+<a class="anchor" href="#vim-surround" aria-hidden="true"><span class="octicon octicon-link"></span></a>vim-surround</h2>
+
 <h2 id="python">
 <a class="anchor" href="#python" aria-hidden="true"><span class="octicon octicon-link"></span></a>Python</h2>
+
+<ul>
+  <li>Look into using <code class="language-plaintext highlighter-rouge">matchit</code> or something similar for faster code navigation.</li>
+</ul>
 
 <h2 id="snippets">
 <a class="anchor" href="#snippets" aria-hidden="true"><span class="octicon octicon-link"></span></a>Snippets</h2>
