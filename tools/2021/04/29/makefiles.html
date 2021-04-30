@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      2 min read
+      3 min read
     
 </span></p>
 
@@ -110,18 +110,18 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#best-practices">Best practices</a></li>
 </ul><ul>
   <li>
     <p>A makefile is a data base that tells the <code class="language-plaintext highlighter-rouge">make</code> utilit how to recompile a
-system. In the default use case, <code class="language-plaintext highlighter-rouge">$: make</code> recompiles any changed files and
-any files that depend on them. In the way I use makefiles, <code class="language-plaintext highlighter-rouge">$: make &lt;rule&gt;</code>
+system. In the default use case, <code class="language-plaintext highlighter-rouge">$: make &lt;filename&gt;</code> checks whether <code class="language-plaintext highlighter-rouge">filename</code> is out of date and, if so, recompiles it. In the way I use makefiles, <code class="language-plaintext highlighter-rouge">$: make &lt;rule&gt;</code>
 executes a predefined rule to accomplish a certain task like cleaning a
 particular dataset.</p>
   </li>
   <li>
-    <p>Rules consist of a target (the name of a file to be modified), prerequisits
+    <p>Rules consist of a target (the name of a file to be modified), prerequisites
 (other files on which the target depends on), and commands to be run in order
-to update the traget based on changes in the prerequisits.</p>
+to update the traget based on changes in the prerequisites.</p>
   </li>
   <li>
     <p>A rule tells <code class="language-plaintext highlighter-rouge">make</code> when a target is out of date and how to update it. A
@@ -129,23 +129,19 @@ target is out of date if it doesn’t exist or is older then one of its
 prerequisite files.</p>
   </li>
   <li>
-    <p>If a target is an action to be performed rather than a file to be updated,
-then it’s called a <code class="language-plaintext highlighter-rouge">phony target</code>.</p>
+    <p><code class="language-plaintext highlighter-rouge">$: make</code> executes the first specified rule, <code class="language-plaintext highlighter-rouge">$: make &lt;rule&gt;</code> executes a
+particular rule.</p>
   </li>
   <li>
     <p>A normal prerequisite makes both an <em>order statement</em> and a <em>dependency statement</em>:
 the order statement ensures that all commands needed to produce the
 prerequisete are fully executed before any commands to produce the target,
-while the dependency statement ensures that target updated every time a
+while the dependency statement ensures that the target is updated every time a
 prerequisite changes. Occasionally, we want a prerequisite to invoke the order without the
 dependency statement (i.e. target is not udpated when the prerequisite
 changes, but when target is being updated, then the prerequisite commandas are
 run first). We can do this by writing the rule as <code class="language-plaintext highlighter-rouge">target:
 normal-prerequisites | order-only-prerequisites</code>.</p>
-  </li>
-  <li>
-    <p>Variables are defined using <code class="language-plaintext highlighter-rouge">&lt;varname&gt; = &lt;content&gt;</code> and called using
-<code class="language-plaintext highlighter-rouge">$(varname)</code>.</p>
   </li>
   <li>
     <p><code class="language-plaintext highlighter-rouge">make</code> does its work in two phases: during the <em>read-in</em> phase, it reads the
@@ -158,13 +154,13 @@ so.</p>
     <p>As a result, variable and function expansion can happen either <em>immediately</em>
 (during the read-in phase) or <em>deferred</em> (after the read-in phase). Variables
 defined as <code class="language-plaintext highlighter-rouge">varname := value</code> get parsed immediately, for those defined as
-<code class="language-plaintext highlighter-rouge">varname = value</code> parsing is deferred.</p>
+<code class="language-plaintext highlighter-rouge">varname = value</code> parsing is deferred. We call a variable using <code class="language-plaintext highlighter-rouge">$(varname)</code>.</p>
   </li>
   <li>
     <p>To define a variable containing all csv files in a directory, do <code class="language-plaintext highlighter-rouge">csvs :=
 $(wildcard *.csv)</code>. The <code class="language-plaintext highlighter-rouge">wildcard</code> function is needed here so that the
-wildcard gets expanded during funciton creation (as opposed to creating the
-variable with value <code class="language-plaintext highlighter-rouge">*.csv</code>). Based on <code class="language-plaintext highlighter-rouge">csvs</code>, I could also create a list
+wildcard gets expanded during function creation (as opposed to creating the
+variable with value <code class="language-plaintext highlighter-rouge">*.csv</code>). I could also create a list
 containing the same files but with a parquet extensions like so: `parqs :=
 $(patsubst %.csv,%.parquet,$(wildcard *.csv)).</p>
   </li>
@@ -172,7 +168,59 @@ $(patsubst %.csv,%.parquet,$(wildcard *.csv)).</p>
     <p>Automatic variables: <code class="language-plaintext highlighter-rouge">$^</code> is a list of all prerequisites, <code class="language-plaintext highlighter-rouge">$@</code> is the target,
 <code class="language-plaintext highlighter-rouge">$&lt;</code> the first prerequisite.</p>
   </li>
+  <li>
+    <p>If a target is an action to be performed rather than a file to be updated,
+then it’s called a <code class="language-plaintext highlighter-rouge">phony target</code>. In this case, telling <code class="language-plaintext highlighter-rouge">make</code> that we’re
+using a phone target explicitly by prepending the rule with a line like
+<code class="language-plaintext highlighter-rouge">.PHONY : nameofrule</code> is useful for two reasons: <code class="language-plaintext highlighter-rouge">make</code> doesn’t think of a
+file called <code class="language-plaintext highlighter-rouge">nameofrule</code> as the target (which, if it did, would mean that our
+rule never gets run because it has no prerequisites so that <code class="language-plaintext highlighter-rouge">make</code> would think
+of <code class="language-plaintext highlighter-rouge">nameofrule</code> as always up to date) and it doesn’t check for implicit
+commands to update the target, which improves performance.</p>
+  </li>
+  <li>
+    <p>Commands begin with a tab and, unless specified otherwise, are executed by
+<code class="language-plaintext highlighter-rouge">bin/sh</code>. You can set a different shell by changing the value of the <code class="language-plaintext highlighter-rouge">SHELL</code>
+variable (I usually use <code class="language-plaintext highlighter-rouge">SHELL := /bin/bash</code>. Each line that begines with a tab and appears within a rule context
+(anything between the start of one rule and another) is interpreted as a
+command and sent to the shell.</p>
+  </li>
+  <li>
+    <p>The only thing <code class="language-plaintext highlighter-rouge">make</code> does with commands is to check for <code class="language-plaintext highlighter-rouge">\</code> before newline,
+and for variables to expand (if you want <code class="language-plaintext highlighter-rouge">$</code> to appear in the command, use
+<code class="language-plaintext highlighter-rouge">$$</code>). To prevent <code class="language-plaintext highlighter-rouge">make</code> from echoing a command, prepend it with <code class="language-plaintext highlighter-rouge">@</code>.</p>
+  </li>
+  <li>
+    <p>Prepend a command with <code class="language-plaintext highlighter-rouge">-</code> if you want <code class="language-plaintext highlighter-rouge">make</code> to continue regardless of
+errors. This can be useful for commands like <code class="language-plaintext highlighter-rouge">-rm tempfile.csv</code>, where you
+probaby want to continue even if the file didn’t exist and could thus not be
+removed.</p>
+  </li>
 </ul>
+
+<h2 id="best-practices">
+<a class="anchor" href="#best-practices" aria-hidden="true"><span class="octicon octicon-link"></span></a>Best practices</h2>
+
+<p>Define a phony target:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.PHONY: clean
+clean:
+    rm *.csv
+</code></pre></div></div>
+
+<p>Make <code class="language-plaintext highlighter-rouge">$: make</code> run all rules:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.PHONY: all
+all : rule1 rule2
+
+.PHONY: rule1
+rule1:
+    mkdir hello
+
+.PHONY: rule2
+rule2:
+    rm -rf hello
+</code></pre></div></div>
 
 
   </div><a class="u-url" href="/blog/tools/2021/04/29/makefiles.html" hidden></a>
