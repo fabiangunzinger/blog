@@ -117,8 +117,12 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#Preprocessing-pipeline">Preprocessing pipeline </a>
+<ul>
 <li class="toc-entry toc-h3"><a href="#Reorder-dataframe-columns">Reorder dataframe columns </a></li>
 <li class="toc-entry toc-h3"><a href="#Select-a-subset-of-users-from-a-panel-dataset-based-on-user-level-criteria">Select a subset of users from a panel dataset based on user-level criteria </a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h1"><a href="#Misc.">Misc. </a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#Use-ast.literal_eval()-instead-of-eval()">Use ast.literal_eval() instead of eval() </a></li>
@@ -154,6 +158,38 @@ window.onload = wrap_img;
 <span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = 'retina'
 <span class="o">%</span><span class="k">load_ext</span> autoreload
 <span class="o">%</span><span class="k">autoreload</span> 2
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Preprocessing-pipeline">
+<a class="anchor" href="#Preprocessing-pipeline" aria-hidden="true"><span class="octicon octicon-link"></span></a>Preprocessing pipeline<a class="anchor-link" href="#Preprocessing-pipeline"> </a>
+</h2>
+<p>Each dataset is unique, but the steps to clean it are not. Here I document a series steps I use to clean each and ensure the quality of each dataset I work with.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># clean (standardise varnames, drop unneeded vars, etc.)</span>
+<span class="c1"># reshape</span>
+<span class="c1"># ...</span>
+<span class="c1"># test</span>
+<span class="c1"># write to disk or s3</span>
 </pre></div>
 
     </div>

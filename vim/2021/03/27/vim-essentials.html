@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      11 min read
+      12 min read
     
 </span></p>
 
@@ -110,9 +110,13 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
-<li class="toc-entry toc-h1"><a href="#setup">Setup</a></li>
-<li class="toc-entry toc-h1"><a href="#mental-models-and-reminders">Mental models and reminders</a></li>
-<li class="toc-entry toc-h1"><a href="#approach-to-problem-solving">Approach to problem solving</a></li>
+<li class="toc-entry toc-h1"><a href="#intro">Intro</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#setup">Setup</a></li>
+<li class="toc-entry toc-h2"><a href="#mental-models-and-reminders">Mental models and reminders</a></li>
+<li class="toc-entry toc-h2"><a href="#approach-to-problem-solving">Approach to problem solving</a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h1"><a href="#modes">Modes</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#normal-mode">Normal mode</a></li>
@@ -135,6 +139,12 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#between-files">Between files</a></li>
 </ul>
 </li>
+<li class="toc-entry toc-h1"><a href="#registers">Registers</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#copy-and-paste">Copy and paste</a></li>
+<li class="toc-entry toc-h2"><a href="#macros">Macros</a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h1"><a href="#extra-functionality-and-awesome-plugins">Extra functionality and awesome plugins</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#vim-unimpaired">vim-unimpaired</a></li>
@@ -145,16 +155,19 @@ window.onload = wrap_img;
 </ul>
 </li>
 <li class="toc-entry toc-h1"><a href="#sources">Sources</a></li>
-</ul><h1 id="setup">
-<a class="anchor" href="#setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setup</h1>
+</ul><h1 id="intro">
+<a class="anchor" href="#intro" aria-hidden="true"><span class="octicon octicon-link"></span></a>Intro</h1>
+
+<h2 id="setup">
+<a class="anchor" href="#setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setup</h2>
 
 <ul>
   <li>I’ve remaped the Caps Look key to <ctrl>.</ctrl>
 </li>
 </ul>
 
-<h1 id="mental-models-and-reminders">
-<a class="anchor" href="#mental-models-and-reminders" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mental models and reminders</h1>
+<h2 id="mental-models-and-reminders">
+<a class="anchor" href="#mental-models-and-reminders" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mental models and reminders</h2>
 
 <ul>
   <li>
@@ -169,8 +182,8 @@ window.onload = wrap_img;
   </li>
 </ul>
 
-<h1 id="approach-to-problem-solving">
-<a class="anchor" href="#approach-to-problem-solving" aria-hidden="true"><span class="octicon octicon-link"></span></a>Approach to problem solving</h1>
+<h2 id="approach-to-problem-solving">
+<a class="anchor" href="#approach-to-problem-solving" aria-hidden="true"><span class="octicon octicon-link"></span></a>Approach to problem solving</h2>
 
 <ul>
   <li>
@@ -389,12 +402,17 @@ of them does).</p>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">C</code></td>
       <td>
-<code class="language-plaintext highlighter-rouge">c$</code> (delete until end of line and start insert)</td>
+<code class="language-plaintext highlighter-rouge">c$</code> (delete from cursor until end of line and start insert)</td>
     </tr>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">D</code></td>
       <td>
-<code class="language-plaintext highlighter-rouge">d$</code> (delete until end of line)</td>
+<code class="language-plaintext highlighter-rouge">d$</code> (delete from cursor until end of line)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Y</code></td>
+      <td>
+<code class="language-plaintext highlighter-rouge">y$</code> (similar to above, but has to be manually mapped, see <code class="language-plaintext highlighter-rouge">h: Y</code>)</td>
     </tr>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">s</code></td>
@@ -405,6 +423,16 @@ of them does).</p>
       <td><code class="language-plaintext highlighter-rouge">S</code></td>
       <td>
 <code class="language-plaintext highlighter-rouge">^c</code> (delete entire line and start inster, synonym for <code class="language-plaintext highlighter-rouge">cc</code>)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">x</code></td>
+      <td>
+<code class="language-plaintext highlighter-rouge">dl</code> (delete one character to the right)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">X</code></td>
+      <td>
+<code class="language-plaintext highlighter-rouge">dh</code> (delete one character to the left)</td>
     </tr>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">I</code></td>
@@ -1268,6 +1296,64 @@ WORD-wise).</li>
   </tbody>
 </table>
 
+<h1 id="registers">
+<a class="anchor" href="#registers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Registers</h1>
+
+<h2 id="copy-and-paste">
+<a class="anchor" href="#copy-and-paste" aria-hidden="true"><span class="octicon octicon-link"></span></a>Copy and paste</h2>
+
+<ul>
+  <li>
+    <p>A register is a container that holds text. By default, Vim deletes, yanks and
+puts to and from the <code class="language-plaintext highlighter-rouge">unnamed</code> register <code class="language-plaintext highlighter-rouge">"</code>. We can set the register with with
+a command interacts by prepending the command with <code class="language-plaintext highlighter-rouge">"{register}{cmd}</code> (e.g. to
+explicitly state that we want to delete the current line to the unnamed register, we’d use
+<code class="language-plaintext highlighter-rouge">""dd</code>; to put the just copied text, <code class="language-plaintext highlighter-rouge">""p</code>. But theser are equivalent to <code class="language-plaintext highlighter-rouge">dd</code>
+and <code class="language-plaintext highlighter-rouge">p</code>, so we’d probably not do that.)</p>
+  </li>
+  <li>
+    <p>Transposing characters and lines: to correct “Thi sis”, starting from the last letter, use <code class="language-plaintext highlighter-rouge">F&lt;space&gt;xp</code>; to swap the current with the subsequent line, use <code class="language-plaintext highlighter-rouge">ddp</code>. (As an alternative to <code class="language-plaintext highlighter-rouge">ddp</code>, which is useful to move lines up and down more flexibly, use <code class="language-plaintext highlighter-rouge">]e</code> from <code class="language-plaintext highlighter-rouge">vim-unimpaired</code> (see below).</p>
+  </li>
+</ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">"{reg}{cmd}</code></td>
+      <td>Make {cmd} interact with register {reg}</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">""</code></td>
+      <td>The unnamed register (redundant, as it’s the default)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">"o</code></td>
+      <td>The yank register</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">"_</code></td>
+      <td>The black hole register (nothing returns from it)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">"{a-z}</code></td>
+      <td>Named registers (replace with {a-z}, append with {A-Z})</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:reg "0</code></td>
+      <td>List content of unnamed and yank register</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="macros">
+<a class="anchor" href="#macros" aria-hidden="true"><span class="octicon octicon-link"></span></a>Macros</h2>
+
+<p>Practical vim</p>
+
 <h1 id="extra-functionality-and-awesome-plugins">
 <a class="anchor" href="#extra-functionality-and-awesome-plugins" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extra functionality and awesome plugins</h1>
 
@@ -1281,17 +1367,50 @@ WORD-wise).</li>
 are listed below.</p>
   </li>
   <li>
-    <p><code class="language-plaintext highlighter-rouge">]&lt;space&gt;</code> adds [count] blank lines below the cursor; <code class="language-plaintext highlighter-rouge">[&lt;space&gt;</code>, above the
-cursor. Mnemonic: <code class="language-plaintext highlighter-rouge">]</code> is next, here the next line, which is the line below.</p>
-  </li>
-  <li>
-    <p><code class="language-plaintext highlighter-rouge">]e</code> exchanges the current line with the line below; <code class="language-plaintext highlighter-rouge">[e</code>, with the line above.</p>
-  </li>
-  <li>
-    <p><code class="language-plaintext highlighter-rouge">yob</code> toggles light background, <code class="language-plaintext highlighter-rouge">yoc</code> the cursor line, <code class="language-plaintext highlighter-rouge">yon</code> line numbers,
-<code class="language-plaintext highlighter-rouge">yor</code> relative line numbers, <code class="language-plaintext highlighter-rouge">yos</code> the spell checker.</p>
+    <p>The mnemonic is that <code class="language-plaintext highlighter-rouge">]</code> is next in general and “next line” here.</p>
   </li>
 </ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">]&lt;space&gt;</code>/<code class="language-plaintext highlighter-rouge">[&lt;space&gt;</code>
+</td>
+      <td>Add [count] blank lines below/above the cursor</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">]e</code>/<code class="language-plaintext highlighter-rouge">[e</code>
+</td>
+      <td>Exchanges the current line with the one below/above</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">yob</code></td>
+      <td>Toggle light background</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">yoc</code></td>
+      <td>Toggle cursor line highlighting</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">yon</code></td>
+      <td>Toggle line numbers</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">yor</code></td>
+      <td>Toggle relative line numbers</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">yos</code></td>
+      <td>Toggle the spell checker</td>
+    </tr>
+  </tbody>
+</table>
 
 <h2 id="vim-surround">
 <a class="anchor" href="#vim-surround" aria-hidden="true"><span class="octicon octicon-link"></span></a>vim-surround</h2>
