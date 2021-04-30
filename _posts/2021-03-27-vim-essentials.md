@@ -7,12 +7,14 @@ categories: [vim]
 title: vim essentials
 ---
 
-# Setup
+# Intro
+
+## Setup
 
 - I've remaped the Caps Look key to <Ctrl>.
 
 
-# Mental models and reminders
+## Mental models and reminders
 
 - One keystroke to move, one to execute: e.g. the dot-formula (PV p. 11)
 
@@ -21,13 +23,13 @@ title: vim essentials
 
 - If you hit cursor keys more than 2 or 3 times, there is a better way. If you press backspace more than a couple times, there is a better way. If you perform the same change on several lines, there is a better way.
 
-# Approach to problem solving
+
+## Approach to problem solving
 
 - Don't solve a problem unless I come across it frequently.
 
 - Check whether one of Tim Pope's plugins solves the problem (chances are oen
   of them does).
-
 
 
 # Modes
@@ -83,10 +85,13 @@ Execute a sequence of changes       | qx{change}q       | @x        | u
 Compound commands:
 
 Compound command | Equivalent in longhand
-`C` | `c$` (delete until end of line and start insert)
-`D` | `d$` (delete until end of line)
+`C` | `c$` (delete from cursor until end of line and start insert)
+`D` | `d$` (delete from cursor until end of line)
+`Y` | `y$` (similar to above, but has to be manually mapped, see `h: Y`)
 `s` | `cl` (delete single character and start insert)
 `S` | `^c` (delete entire line and start inster, synonym for `cc`)
+`x` | `dl` (delete one character to the right)
+`X` | `dh` (delete one character to the left)
 `I` | `^i` (jump to beginning of line and start insert)
 `A` | `$a` (jumpt to end of line and start insert)
 `o` | `A<cr>`
@@ -219,6 +224,7 @@ Command             | Effect
 `:lcd`              | Set directory for current window
 `:tcd`              | Set directory for current tab
 
+
 ## Buffers
 
 - A buffer is an in-memory representation of a file.
@@ -271,6 +277,7 @@ Command             | Effect
 `{N}`gt             | Go to tab {N} if specified, or to next otherwise
 `gT`                | Go to previous tab
 
+
 ## Opening files
 
 - To easily open a new file from the same directory as the current buffer in a
@@ -300,6 +307,7 @@ Command             | Effect
 
 - Each motion can be prepended by a count (`5l` moves five characters to the
   right).
+
 
 ## Within files
 
@@ -393,6 +401,32 @@ Command             | Effect
 `<C-]>`             | Jump to definition of keyword under cursor
 
 
+# Registers
+
+## Copy and paste
+
+- A register is a container that holds text. By default, Vim deletes, yanks and
+  puts to and from the `unnamed` register `"`. We can set the register with with
+  a command interacts by prepending the command with `"{register}{cmd}` (e.g. to
+  explicitly state that we want to delete the current line to the unnamed register, we'd use
+  `""dd`; to put the just copied text, `""p`. But theser are equivalent to `dd`
+  and `p`, so we'd probably not do that.)
+
+- Transposing characters and lines: to correct "Thi sis", starting from the last letter, use `F<space>xp`; to swap the current with the subsequent line, use `ddp`. (As an alternative to `ddp`, which is useful to move lines up and down more flexibly, use `]e` from `vim-unimpaired` (see below).
+
+
+Command             | Effect
+`"{reg}{cmd}`       | Make {cmd} interact with register {reg}
+`""`                | The unnamed register (redundant, as it's the default)
+`"o`                | The yank register
+`"_`                | The black hole register (nothing returns from it)
+`"{a-z}`            | Named registers (replace with {a-z}, append with {A-Z})
+`:reg "0`           | List content of unnamed and yank register
+
+
+## Macros
+
+Practical vim
 
 # Extra functionality and awesome plugins
 
@@ -402,18 +436,19 @@ Command             | Effect
   (`[`), toggle **options**, and special **pasting**. Some commands I use often
   are listed below.
 
-- `]<space>` adds [count] blank lines below the cursor; `[<space>`, above the
-  cursor. Mnemonic: `]` is next, here the next line, which is the line below.
+- The mnemonic is that `]` is next in general and "next line" here.
 
-- `]e` exchanges the current line with the line below; `[e`, with the line above.
-
-- `yob` toggles light background, `yoc` the cursor line, `yon` line numbers,
-  `yor` relative line numbers, `yos` the spell checker.
+Command                 | Effect
+`]<space>`/`[<space>`   | Add [count] blank lines below/above the cursor
+`]e`/`[e`               | Exchanges the current line with the one below/above
+`yob`                   | Toggle light background
+`yoc`                   | Toggle cursor line highlighting
+`yon`                   | Toggle line numbers
+`yor`                   | Toggle relative line numbers
+`yos`                   | Toggle the spell checker
 
 
 ## vim-surround
-
-
 
 ## Python 
 
