@@ -44,8 +44,10 @@ Common operators:
 
 Trigger   | Effect
 `c`       | Change
-`d`       | Delete
+`d`       | Delete into register
 `y`       | Yank into register
+`p`       | Paste after cursor
+`P`       | Paste before cursor
 `~`       | Swap case (behaves like operator only if `tildeop` is on)
 `g~`      | Swap case
 `gu`      | Make lowercase
@@ -414,6 +416,10 @@ Command             | Effect
 
 - Transposing characters and lines: to correct "Thi sis", starting from the last letter, use `F<space>xp`; to swap the current with the subsequent line, use `ddp`. (As an alternative to `ddp`, which is useful to move lines up and down more flexibly, use `]e` from `vim-unimpaired` (see below).
 
+- Expression register: when we fetch the content of the expression register, Vim drops into
+  command-line mode with a `=` prompt. When we enter Vim script and press
+  `<CR>`, Vim will coerce the result into a string if possible and use it.
+
 
 Command             | Effect
 `"{reg}{cmd}`       | Make {cmd} interact with register {reg}
@@ -421,12 +427,32 @@ Command             | Effect
 `"o`                | The yank register
 `"_`                | The black hole register (nothing returns from it)
 `"{a-z}`            | Named registers (replace with {a-z}, append with {A-Z})
+`"+`                | The system clipboard
+`"%`                | Name of current file (e.g. `"%p`)
+`"#`                | Name of alternate file
+`".`                | Last inserted text
+`":`                | Last Ex command
+`"/`                | Last search pattern
 `:reg "0`           | List content of unnamed and yank register
+`<C-r>{reg}`        | Paste content of {reg} in insert mode
 
 
 ## Macros
 
-Practical vim
+
+# Common patterns
+
+- Replace firstword with secondword. Solution 1: cursor at beginning of firstword;
+  `ye`; `ww`; `ve`; `p`. Solution 2: cursor at beginning of firstword; `ye`;
+  `ww`; `cw`; `<C-r>0`. Has advantage that `.` now replaces current word with
+  `firstword`. 
+
+- Swap firstword and secondword. Solution: cursor at beginning of firstword;
+  `de`; `mm`; `ww`; `ve`; `p`; `` `m ``; `P`.
+
+- Complete the statement 27 * 45 = x. Solution: cursor at x and in insert
+  mode; `<C-r>=27*45<CR>`.
+
 
 # Extra functionality and awesome plugins
 
