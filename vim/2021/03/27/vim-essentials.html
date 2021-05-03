@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      12 min read
+      13 min read
     
 </span></p>
 
@@ -145,6 +145,7 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#macros">Macros</a></li>
 </ul>
 </li>
+<li class="toc-entry toc-h1"><a href="#common-patterns">Common patterns</a></li>
 <li class="toc-entry toc-h1"><a href="#extra-functionality-and-awesome-plugins">Extra functionality and awesome plugins</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#vim-unimpaired">vim-unimpaired</a></li>
@@ -221,11 +222,19 @@ of them does).</p>
     </tr>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">d</code></td>
-      <td>Delete</td>
+      <td>Delete into register</td>
     </tr>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">y</code></td>
       <td>Yank into register</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">p</code></td>
+      <td>Paste after cursor</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">P</code></td>
+      <td>Paste before cursor</td>
     </tr>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">~</code></td>
@@ -1314,6 +1323,11 @@ and <code class="language-plaintext highlighter-rouge">p</code>, so we’d proba
   <li>
     <p>Transposing characters and lines: to correct “Thi sis”, starting from the last letter, use <code class="language-plaintext highlighter-rouge">F&lt;space&gt;xp</code>; to swap the current with the subsequent line, use <code class="language-plaintext highlighter-rouge">ddp</code>. (As an alternative to <code class="language-plaintext highlighter-rouge">ddp</code>, which is useful to move lines up and down more flexibly, use <code class="language-plaintext highlighter-rouge">]e</code> from <code class="language-plaintext highlighter-rouge">vim-unimpaired</code> (see below).</p>
   </li>
+  <li>
+    <p>Expression register: when we fetch the content of the expression register, Vim drops into
+command-line mode with a <code class="language-plaintext highlighter-rouge">=</code> prompt. When we enter Vim script and press
+<code class="language-plaintext highlighter-rouge">&lt;CR&gt;</code>, Vim will coerce the result into a string if possible and use it.</p>
+  </li>
 </ul>
 
 <table>
@@ -1343,8 +1357,36 @@ and <code class="language-plaintext highlighter-rouge">p</code>, so we’d proba
       <td>Named registers (replace with {a-z}, append with {A-Z})</td>
     </tr>
     <tr>
+      <td><code class="language-plaintext highlighter-rouge">"+</code></td>
+      <td>The system clipboard</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">"%</code></td>
+      <td>Name of current file (e.g. <code class="language-plaintext highlighter-rouge">"%p</code>)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">"#</code></td>
+      <td>Name of alternate file</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">".</code></td>
+      <td>Last inserted text</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">":</code></td>
+      <td>Last Ex command</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">"/</code></td>
+      <td>Last search pattern</td>
+    </tr>
+    <tr>
       <td><code class="language-plaintext highlighter-rouge">:reg "0</code></td>
       <td>List content of unnamed and yank register</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;C-r&gt;{reg}</code></td>
+      <td>Paste content of {reg} in insert mode</td>
     </tr>
   </tbody>
 </table>
@@ -1352,7 +1394,25 @@ and <code class="language-plaintext highlighter-rouge">p</code>, so we’d proba
 <h2 id="macros">
 <a class="anchor" href="#macros" aria-hidden="true"><span class="octicon octicon-link"></span></a>Macros</h2>
 
-<p>Practical vim</p>
+<h1 id="common-patterns">
+<a class="anchor" href="#common-patterns" aria-hidden="true"><span class="octicon octicon-link"></span></a>Common patterns</h1>
+
+<ul>
+  <li>
+    <p>Replace firstword with secondword. Solution 1: cursor at beginning of firstword;
+<code class="language-plaintext highlighter-rouge">ye</code>; <code class="language-plaintext highlighter-rouge">ww</code>; <code class="language-plaintext highlighter-rouge">ve</code>; <code class="language-plaintext highlighter-rouge">p</code>. Solution 2: cursor at beginning of firstword; <code class="language-plaintext highlighter-rouge">ye</code>;
+<code class="language-plaintext highlighter-rouge">ww</code>; <code class="language-plaintext highlighter-rouge">cw</code>; <code class="language-plaintext highlighter-rouge">&lt;C-r&gt;0</code>. Has advantage that <code class="language-plaintext highlighter-rouge">.</code> now replaces current word with
+<code class="language-plaintext highlighter-rouge">firstword</code>.</p>
+  </li>
+  <li>
+    <p>Swap firstword and secondword. Solution: cursor at beginning of firstword;
+<code class="language-plaintext highlighter-rouge">de</code>; <code class="language-plaintext highlighter-rouge">mm</code>; <code class="language-plaintext highlighter-rouge">ww</code>; <code class="language-plaintext highlighter-rouge">ve</code>; <code class="language-plaintext highlighter-rouge">p</code>; <code class="language-plaintext highlighter-rouge">`m</code>; <code class="language-plaintext highlighter-rouge">P</code>.</p>
+  </li>
+  <li>
+    <p>Complete the statement 27 * 45 = x. Solution: cursor at x and in insert
+mode; <code class="language-plaintext highlighter-rouge">&lt;C-r&gt;=27*45&lt;CR&gt;</code>.</p>
+  </li>
+</ul>
 
 <h1 id="extra-functionality-and-awesome-plugins">
 <a class="anchor" href="#extra-functionality-and-awesome-plugins" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extra functionality and awesome plugins</h1>
