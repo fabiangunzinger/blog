@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      2 min read
+      3 min read
     
 </span></p>
 
@@ -111,6 +111,7 @@ window.onload = wrap_img;
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
 <li class="toc-entry toc-h1"><a href="#modules">Modules</a></li>
+<li class="toc-entry toc-h1"><a href="#running-a-module-as-a-script">Running a module as a script</a></li>
 <li class="toc-entry toc-h1"><a href="#packages">Packages</a></li>
 <li class="toc-entry toc-h1"><a href="#sources">Sources</a></li>
 </ul><h1 id="modules">
@@ -161,6 +162,19 @@ list all names that are currently defined.</p>
   </li>
 </ul>
 
+<h1 id="running-a-module-as-a-script">
+<a class="anchor" href="#running-a-module-as-a-script" aria-hidden="true"><span class="octicon octicon-link"></span></a>Running a module as a script</h1>
+
+<ul>
+  <li>
+    <p>For relative imports to work as described, for instance, here and in Chapter 8 in Python Essential References and in recipees 10.1 and 10.3 in the Python Cookbook, the file into which you import has itself to be a module rather than a top-level script. If it’s the latter, it’s name will be main and it won’t be considered part of a package, regardless of where on the file system it is saved. Generally, for a file to be considered part of a package, it needs to nave a dot (.) in its name, as in package.submodule.modulename.</p>
+  </li>
+  <li>
+    <p>To import modules into a main script, one (somewhat unideal) solution is to
+add the absolute path to the package to <code class="language-plaintext highlighter-rouge">sys.path</code>.</p>
+  </li>
+</ul>
+
 <h1 id="packages">
 <a class="anchor" href="#packages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Packages</h1>
 
@@ -176,8 +190,14 @@ multi-module packages.</li>
 <a class="anchor" href="#sources" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sources</h1>
 
 <ul>
-  <li><a href="https://docs.python.org/3/tutorial/modules.html#executing-modules-as-scripts">Python docs -
-Modules</a></li>
+  <li>
+    <p><a href="https://docs.python.org/3/tutorial/modules.html#executing-modules-as-scripts">Python docs -
+Modules</a></p>
+  </li>
+  <li>
+    <p><a href="https://stackoverflow.com/questions/14132789/relative-imports-in-python-2-7/14132912#14132912">SO answer on relative imports for
+scripts</a></p>
+  </li>
 </ul>
 
 
