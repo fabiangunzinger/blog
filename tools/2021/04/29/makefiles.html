@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      3 min read
+      4 min read
     
 </span></p>
 
@@ -152,9 +152,15 @@ so.</p>
   </li>
   <li>
     <p>As a result, variable and function expansion can happen either <em>immediately</em>
-(during the read-in phase) or <em>deferred</em> (after the read-in phase). Variables
-defined as <code class="language-plaintext highlighter-rouge">varname := value</code> get parsed immediately, for those defined as
-<code class="language-plaintext highlighter-rouge">varname = value</code> parsing is deferred. We call a variable using <code class="language-plaintext highlighter-rouge">$(varname)</code>.</p>
+(during the read-in phase) or <em>deferred</em> (after the read-in phase), and gives
+rise to two flavours of variables: <em>recursively expanded variables</em>, defined by
+<code class="language-plaintext highlighter-rouge">varname = value</code> are expanded at the time the variable is substituted during
+the target-update phase. Before that point, <code class="language-plaintext highlighter-rouge">varname</code> contains the content of
+<code class="language-plaintext highlighter-rouge">value</code> verbatim (e.g. if <code class="language-plaintext highlighter-rouge">value</code> is <code class="language-plaintext highlighter-rouge">$(othervar)</code>, then that last string is
+the value of <code class="language-plaintext highlighter-rouge">varname</code>). In contrast, <em>simply expanded variables</em>, defined by
+<code class="language-plaintext highlighter-rouge">varname := value</code> is expanded immediately when the variable is defined during
+the read-in phase (and <code class="language-plaintext highlighter-rouge">varname</code> would be bound to the value of <code class="language-plaintext highlighter-rouge">othervar</code> in
+the above example).</p>
   </li>
   <li>
     <p>To define a variable containing all csv files in a directory, do <code class="language-plaintext highlighter-rouge">csvs :=

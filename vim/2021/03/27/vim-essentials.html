@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      13 min read
+      15 min read
     
 </span></p>
 
@@ -117,6 +117,7 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#approach-to-problem-solving">Approach to problem solving</a></li>
 </ul>
 </li>
+<li class="toc-entry toc-h1"><a href="#miscellaneous">Miscellaneous</a></li>
 <li class="toc-entry toc-h1"><a href="#modes">Modes</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#normal-mode">Normal mode</a></li>
@@ -196,6 +197,22 @@ of them does).</p>
   </li>
 </ul>
 
+<h1 id="miscellaneous">
+<a class="anchor" href="#miscellaneous" aria-hidden="true"><span class="octicon octicon-link"></span></a>Miscellaneous</h1>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">set: {cmd}?</code></td>
+      <td>Show present setting for {cmd}</td>
+    </tr>
+  </tbody>
+</table>
+
 <h1 id="modes">
 <a class="anchor" href="#modes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Modes</h1>
 
@@ -238,7 +255,7 @@ of them does).</p>
     </tr>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">~</code></td>
-      <td>Swap case (behaves like operator only if <code class="language-plaintext highlighter-rouge">tildeop</code> is on)</td>
+      <td>Swap case of character under cursor and move right</td>
     </tr>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">g~</code></td>
@@ -1394,19 +1411,113 @@ command-line mode with a <code class="language-plaintext highlighter-rouge">=</c
 <h2 id="macros">
 <a class="anchor" href="#macros" aria-hidden="true"><span class="octicon octicon-link"></span></a>Macros</h2>
 
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">q{a-z}</code></td>
+      <td>Start recording macro to register</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">q</code></td>
+      <td>End recording</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[count]@{a-z}</code></td>
+      <td>Invoke macro in register [count] times</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">@@</code></td>
+      <td>Replay last invoked macro</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">q{A-Z}</code></td>
+      <td>Append to macro (e.g. if I forgot something)</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>We can execute macros in sequence (e.g. <code class="language-plaintext highlighter-rouge">22@a</code>) or in parallel (<code class="language-plaintext highlighter-rouge">jVG:normal
+@a</code>). The former can be useful as it aborts on failure, which could be what we
+want. But if it’s not, then the latter approach is more useful (example: you
+want to repeat a change in a line for all lines that follow a certain pattern,
+e.g. are list items, but not other lines). See examples below.</li>
+</ul>
+
+<p>Useful patterns:</p>
+
+<ul>
+  <li>In the list below, change <code class="language-plaintext highlighter-rouge">.</code> to <code class="language-plaintext highlighter-rouge">)</code> and words to uppercase. Solution: start
+with cursor anywhere on first line; <code class="language-plaintext highlighter-rouge">qq0</code>; <code class="language-plaintext highlighter-rouge">f.</code>; <code class="language-plaintext highlighter-rouge">r)</code>; <code class="language-plaintext highlighter-rouge">w~</code>; <code class="language-plaintext highlighter-rouge">jq</code>; <code class="language-plaintext highlighter-rouge">j@q</code>.</li>
+</ul>
+
+<ol>
+  <li>ho</li>
+  <li>hi</li>
+  <li>he</li>
+</ol>
+
+<ul>
+  <li>Do the same but for the new list below. Solution: start anywhere on first
+line; <code class="language-plaintext highlighter-rouge">qq0f.r)w~q</code>; <code class="language-plaintext highlighter-rouge">jV}</code>; <code class="language-plaintext highlighter-rouge">:normal @q</code>. Explanation: while above solution
+executes macro <em>in series</em>, this one executes it <em>in parallel</em>, which is
+required here because the serial approach would abort execution at the
+comment.</li>
+</ul>
+
+<ol>
+  <li>ho</li>
+  <li>hi
+// a comment</li>
+  <li>he</li>
+</ol>
+
+<ul>
+  <li>
+    <p>Macro <code class="language-plaintext highlighter-rouge">q</code> hits its target with <code class="language-plaintext highlighter-rouge">n</code>; invoke it quickly for all 12 search
+results in the document. Solution: <code class="language-plaintext highlighter-rouge">22@q</code>. Explanation: Because <code class="language-plaintext highlighter-rouge">q</code> uses <code class="language-plaintext highlighter-rouge">n</code>
+to hit its targets, it will automatically abort once there are no more
+results. We can thus avoid counting matches and simply use a number that’s
+comfortably above the number of matches. 22 is convenient because, on my
+keyboard, it’s the same key as @.</p>
+  </li>
+  <li>
+    <p>Repeate a <code class="language-plaintext highlighter-rouge">;.</code>-pattern 7 times. Solution: <code class="language-plaintext highlighter-rouge">qq;.q22@q</code>. Explanation: <code class="language-plaintext highlighter-rouge">22;.</code> or
+<code class="language-plaintext highlighter-rouge">:22.</code> wouldn’t work because they would each repeat the immediately following
+step only, so we need to store the whole pattern as a macro, which we can then
+invoke mutiple Times (logic of 22 is same as above).</p>
+  </li>
+  <li>
+    <p>Turn the below lines into a numbered list. Solution: start anywhere on the
+first line; <code class="language-plaintext highlighter-rouge">let i=1</code>; <code class="language-plaintext highlighter-rouge">qq0cl&lt;C-r&gt;=i&lt;CR&gt;)&lt;Esc&gt;</code>; <code class="language-plaintext highlighter-rouge">let i+=1</code>; <code class="language-plaintext highlighter-rouge">q</code>; <code class="language-plaintext highlighter-rouge">jVj:normal
+@q</code>.</p>
+  </li>
+  <li>first</li>
+  <li>second</li>
+  <li>third</li>
+</ul>
+
 <h1 id="common-patterns">
 <a class="anchor" href="#common-patterns" aria-hidden="true"><span class="octicon octicon-link"></span></a>Common patterns</h1>
 
 <ul>
   <li>
-    <p>Replace firstword with secondword. Solution 1: cursor at beginning of firstword;
-<code class="language-plaintext highlighter-rouge">ye</code>; <code class="language-plaintext highlighter-rouge">ww</code>; <code class="language-plaintext highlighter-rouge">ve</code>; <code class="language-plaintext highlighter-rouge">p</code>. Solution 2: cursor at beginning of firstword; <code class="language-plaintext highlighter-rouge">ye</code>;
-<code class="language-plaintext highlighter-rouge">ww</code>; <code class="language-plaintext highlighter-rouge">cw</code>; <code class="language-plaintext highlighter-rouge">&lt;C-r&gt;0</code>. Has advantage that <code class="language-plaintext highlighter-rouge">.</code> now replaces current word with
+    <p>Replace firstword with secondword. Solution 1: cursor at beginning of
+secondword;
+<code class="language-plaintext highlighter-rouge">ye</code>; <code class="language-plaintext highlighter-rouge">bb</code>; <code class="language-plaintext highlighter-rouge">ve</code>; <code class="language-plaintext highlighter-rouge">p</code>. Solution 2: cursor at beginning of secondword; <code class="language-plaintext highlighter-rouge">ye</code>;
+<code class="language-plaintext highlighter-rouge">bb</code>; <code class="language-plaintext highlighter-rouge">cw</code>; <code class="language-plaintext highlighter-rouge">&lt;C-r&gt;0</code>. Has advantage that <code class="language-plaintext highlighter-rouge">.</code> now replaces current word with
 <code class="language-plaintext highlighter-rouge">firstword</code>.</p>
   </li>
   <li>
     <p>Swap firstword and secondword. Solution: cursor at beginning of firstword;
-<code class="language-plaintext highlighter-rouge">de</code>; <code class="language-plaintext highlighter-rouge">mm</code>; <code class="language-plaintext highlighter-rouge">ww</code>; <code class="language-plaintext highlighter-rouge">ve</code>; <code class="language-plaintext highlighter-rouge">p</code>; <code class="language-plaintext highlighter-rouge">`m</code>; <code class="language-plaintext highlighter-rouge">P</code>.</p>
+<code class="language-plaintext highlighter-rouge">de</code>; <code class="language-plaintext highlighter-rouge">mm</code>; <code class="language-plaintext highlighter-rouge">ww</code>; <code class="language-plaintext highlighter-rouge">ve</code>; <code class="language-plaintext highlighter-rouge">p</code>; <code class="language-plaintext highlighter-rouge">`m</code>; <code class="language-plaintext highlighter-rouge">P</code>. Explanation: this exploits a quirk
+in the behaviour or <code class="language-plaintext highlighter-rouge">p</code> in visual mode. When we paste in visual mode, we put
+the content of the default register in place of the highlighted text, and the
+highlighted text into the default register.</p>
   </li>
   <li>
     <p>Complete the statement 27 * 45 = x. Solution: cursor at x and in insert
