@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      15 min read
+      16 min read
     
 </span></p>
 
@@ -146,7 +146,9 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#macros">Macros</a></li>
 </ul>
 </li>
+<li class="toc-entry toc-h1"><a href="#patterns">Patterns</a></li>
 <li class="toc-entry toc-h1"><a href="#common-patterns">Common patterns</a></li>
+<li class="toc-entry toc-h1"><a href="#common-issues">Common issues</a></li>
 <li class="toc-entry toc-h1"><a href="#extra-functionality-and-awesome-plugins">Extra functionality and awesome plugins</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#vim-unimpaired">vim-unimpaired</a></li>
@@ -1501,6 +1503,9 @@ first line; <code class="language-plaintext highlighter-rouge">let i=1</code>; <
   <li>third</li>
 </ul>
 
+<h1 id="patterns">
+<a class="anchor" href="#patterns" aria-hidden="true"><span class="octicon octicon-link"></span></a>Patterns</h1>
+
 <h1 id="common-patterns">
 <a class="anchor" href="#common-patterns" aria-hidden="true"><span class="octicon octicon-link"></span></a>Common patterns</h1>
 
@@ -1523,6 +1528,15 @@ highlighted text into the default register.</p>
     <p>Complete the statement 27 * 45 = x. Solution: cursor at x and in insert
 mode; <code class="language-plaintext highlighter-rouge">&lt;C-r&gt;=27*45&lt;CR&gt;</code>.</p>
   </li>
+</ul>
+
+<h1 id="common-issues">
+<a class="anchor" href="#common-issues" aria-hidden="true"><span class="octicon octicon-link"></span></a>Common issues</h1>
+
+<ul>
+  <li>I want to open a file and get an <code class="language-plaintext highlighter-rouge">E325: ATTENTION Found a swap file</code> warning.
+What happened? For me, it’s most likely I accidentally closed a terminal
+window while still editing the file. What to do? First, check that I’m not already editing the file elsewhere. Second, recover the file, save it under a new name (<code class="language-plaintext highlighter-rouge">:w filename2</code>), force quit the session, compare the original and the new file (<code class="language-plaintext highlighter-rouge">diff filename filename2</code>), use the file with the content I need and delete the other one and the swap file. (Based on <a href="https://superuser.com/a/498658">this</a> great SE answer.)</li>
 </ul>
 
 <h1 id="extra-functionality-and-awesome-plugins">
