@@ -32,6 +32,13 @@ title: vim essentials
   of them does).
 
 
+# Miscellaneous
+
+Command             | Effect
+`set: {cmd}?`       | Show present setting for {cmd}
+
+
+
 # Modes
 
 ## Normal mode
@@ -48,7 +55,7 @@ Trigger   | Effect
 `y`       | Yank into register
 `p`       | Paste after cursor
 `P`       | Paste before cursor
-`~`       | Swap case (behaves like operator only if `tildeop` is on)
+`~`       | Swap case of character under cursor and move right
 `g~`      | Swap case
 `gu`      | Make lowercase
 `gU`      | Make uppercase
@@ -439,16 +446,75 @@ Command             | Effect
 
 ## Macros
 
+Command             | Effect
+`q{a-z}`            | Start recording macro to register
+`q`                 | End recording
+`[count]@{a-z}`     | Invoke macro in register [count] times
+`@@`                | Replay last invoked macro
+`q{A-Z}`            | Append to macro (e.g. if I forgot something)
+
+
+- We can execute macros in sequence (e.g. `22@a`) or in parallel (`jVG:normal
+  @a`). The former can be useful as it aborts on failure, which could be what we
+  want. But if it's not, then the latter approach is more useful (example: you
+  want to repeat a change in a line for all lines that follow a certain pattern,
+  e.g. are list items, but not other lines). See examples below.
+
+
+Useful patterns:
+
+- In the list below, change `.` to `)` and words to uppercase. Solution: start
+  with cursor anywhere on first line; `qq0`; `f.`; `r)`; `w~`; `jq`; `j@q`.
+
+1. ho
+2. hi
+12. he
+
+- Do the same but for the new list below. Solution: start anywhere on first
+  line; `qq0f.r)w~q`; `jV}`; `:normal @q`. Explanation: while above solution
+  executes macro *in series*, this one executes it *in parallel*, which is
+  required here because the serial approach would abort execution at the
+  comment.
+
+1. ho
+2. hi
+// a comment
+12. he
+
+- Macro `q` hits its target with `n`; invoke it quickly for all 12 search
+  results in the document. Solution: `22@q`. Explanation: Because `q` uses `n`
+  to hit its targets, it will automatically abort once there are no more
+  results. We can thus avoid counting matches and simply use a number that's
+  comfortably above the number of matches. 22 is convenient because, on my
+  keyboard, it's the same key as @.
+
+- Repeate a `;.`-pattern 7 times. Solution: `qq;.q22@q`. Explanation: `22;.` or
+  `:22.` wouldn't work because they would each repeat the immediately following
+  step only, so we need to store the whole pattern as a macro, which we can then
+  invoke mutiple Times (logic of 22 is same as above).
+
+- Turn the below lines into a numbered list. Solution: start anywhere on the
+  first line; `let i=1`; `qq0cl<C-r>=i<CR>)<Esc>`; `let i+=1`; `q`; `jVj:normal
+  @q`.
+
+- first
+- second
+- third
+
 
 # Common patterns
 
-- Replace firstword with secondword. Solution 1: cursor at beginning of firstword;
-  `ye`; `ww`; `ve`; `p`. Solution 2: cursor at beginning of firstword; `ye`;
-  `ww`; `cw`; `<C-r>0`. Has advantage that `.` now replaces current word with
+- Replace firstword with secondword. Solution 1: cursor at beginning of
+  secondword;
+  `ye`; `bb`; `ve`; `p`. Solution 2: cursor at beginning of secondword; `ye`;
+  `bb`; `cw`; `<C-r>0`. Has advantage that `.` now replaces current word with
   `firstword`. 
 
 - Swap firstword and secondword. Solution: cursor at beginning of firstword;
-  `de`; `mm`; `ww`; `ve`; `p`; `` `m ``; `P`.
+  `de`; `mm`; `ww`; `ve`; `p`; `` `m ``; `P`. Explanation: this exploits a quirk
+  in the behaviour or `p` in visual mode. When we paste in visual mode, we put
+  the content of the default register in place of the highlighted text, and the
+  highlighted text into the default register.
 
 - Complete the statement 27 * 45 = x. Solution: cursor at x and in insert
   mode; `<C-r>=27*45<CR>`.

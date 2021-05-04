@@ -40,9 +40,15 @@ title: Makefiles
   so.
 
 - As a result, variable and function expansion can happen either *immediately*
-  (during the read-in phase) or *deferred* (after the read-in phase). Variables
-  defined as `varname := value` get parsed immediately, for those defined as
-  `varname = value` parsing is deferred. We call a variable using `$(varname)`.
+  (during the read-in phase) or *deferred* (after the read-in phase), and gives
+  rise to two flavours of variables: *recursively expanded variables*, defined by
+  `varname = value` are expanded at the time the variable is substituted during
+  the target-update phase. Before that point, `varname` contains the content of
+  `value` verbatim (e.g. if `value` is `$(othervar)`, then that last string is
+  the value of `varname`). In contrast, *simply expanded variables*, defined by
+  `varname := value` is expanded immediately when the variable is defined during
+  the read-in phase (and `varname` would be bound to the value of `othervar` in
+  the above example).
 
 - To define a variable containing all csv files in a directory, do `csvs :=
   $(wildcard *.csv)`. The `wildcard` function is needed here so that the
