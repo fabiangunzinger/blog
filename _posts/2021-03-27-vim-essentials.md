@@ -501,6 +501,7 @@ Useful patterns:
 - second
 - third
 
+# Patterns
 
 # Common patterns
 
@@ -518,6 +519,13 @@ Useful patterns:
 
 - Complete the statement 27 * 45 = x. Solution: cursor at x and in insert
   mode; `<C-r>=27*45<CR>`.
+
+
+# Common issues
+
+- I want to open a file and get an `E325: ATTENTION Found a swap file` warning.
+  What happened? For me, it's most likely I accidentally closed a terminal
+  window while still editing the file. What to do? First, check that I'm not already editing the file elsewhere. Second, recover the file, save it under a new name (`:w filename2`), force quit the session, compare the original and the new file (`diff filename filename2`), use the file with the content I need and delete the other one and the swap file. (Based on [this](https://superuser.com/a/498658) great SE answer.)
 
 
 # Extra functionality and awesome plugins
