@@ -42,6 +42,15 @@ title: Python modules and packages
 - Use `dir(modulename)` to list all names defined in `modulname`, or `dir()` to
   list all names that are currently defined.
 
+
+# Running a module as a script
+
+- For relative imports to work as described, for instance, here and in Chapter 8 in Python Essential References and in recipees 10.1 and 10.3 in the Python Cookbook, the file into which you import has itself to be a module rather than a top-level script. If it's the latter, it's name will be main and it won't be considered part of a package, regardless of where on the file system it is saved. Generally, for a file to be considered part of a package, it needs to nave a dot (.) in its name, as in package.submodule.modulename.
+
+- To import modules into a main script, one (somewhat unideal) solution is to
+  add the absolute path to the package to `sys.path`.
+
+
 # Packages
 
 - Packages are collections of modules. They help structure Python's module namespace by using dotted module
@@ -57,5 +66,6 @@ title: Python modules and packages
 - [Python docs -
   Modules](https://docs.python.org/3/tutorial/modules.html#executing-modules-as-scripts)
 
-
+- [SO answer on relative imports for
+  scripts](https://stackoverflow.com/questions/14132789/relative-imports-in-python-2-7/14132912#14132912)
 
