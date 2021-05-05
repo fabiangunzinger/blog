@@ -454,14 +454,26 @@ Command             | Effect
 `q{A-Z}`            | Append to macro (e.g. if I forgot something)
 
 
-- We can execute macros in sequence (e.g. `22@a`) or in parallel (`jVG:normal
+- We can execute macros *in sequence* (e.g. `22@a`) or *in parallel* (`jVG:normal
   @a`). The former can be useful as it aborts on failure, which could be what we
-  want. But if it's not, then the latter approach is more useful (example: you
+  want (e.g. replace all search results). But if it's not, then the latter approach is more useful (example: you
   want to repeat a change in a line for all lines that follow a certain pattern,
   e.g. are list items, but not other lines). See examples below.
 
 
 Useful patterns:
+
+- Macro `q` hits its target with `n`; invoke it quickly for all 12 search
+  results in the document. Solution: `22@q`. Explanation: Because `q` uses `n`
+  to hit its targets, it will automatically abort once there are no more
+  results. We can thus avoid counting matches and simply use a number that's
+  comfortably above the number of matches. 22 is convenient because, on my
+  keyboard, it's the same key as @.
+
+- Repeate a `;.`-pattern 7 times. Solution: `qq;.q22@q`. Explanation: `22;.` or
+  `:22.` wouldn't work because they would each repeat the immediately following
+  step only, so we need to store the whole pattern as a macro, which we can then
+  invoke mutiple Times (logic of 22 is same as above).
 
 - In the list below, change `.` to `)` and words to uppercase. Solution: start
   with cursor anywhere on first line; `qq0`; `f.`; `r)`; `w~`; `jq`; `j@q`.
@@ -476,22 +488,10 @@ Useful patterns:
   required here because the serial approach would abort execution at the
   comment.
 
-1. ho
+1) ho
 2. hi
 // a comment
 12. he
-
-- Macro `q` hits its target with `n`; invoke it quickly for all 12 search
-  results in the document. Solution: `22@q`. Explanation: Because `q` uses `n`
-  to hit its targets, it will automatically abort once there are no more
-  results. We can thus avoid counting matches and simply use a number that's
-  comfortably above the number of matches. 22 is convenient because, on my
-  keyboard, it's the same key as @.
-
-- Repeate a `;.`-pattern 7 times. Solution: `qq;.q22@q`. Explanation: `22;.` or
-  `:22.` wouldn't work because they would each repeat the immediately following
-  step only, so we need to store the whole pattern as a macro, which we can then
-  invoke mutiple Times (logic of 22 is same as above).
 
 - Turn the below lines into a numbered list. Solution: start anywhere on the
   first line; `let i=1`; `qq0cl<C-r>=i<CR>)<Esc>`; `let i+=1`; `q`; `jVj:normal
@@ -501,7 +501,61 @@ Useful patterns:
 - second
 - third
 
+
 # Patterns
+
+## Matching patterns and literals
+
+- In my `.vimrv`, I use `set: ignorecase` and `set: smartcase` to set the
+  default search to be case insensitive except when I use an uppercase character
+  in my pattern.
+
+- You can use pattern swtiches anywhere in the search pattern. 
+
+- Use `\v` for regex search, `\V` for verbatim search.
+
+
+Pattern switch      | Effect
+`\c`                | Force case insensitive search
+`\C`                | Force case sensitive search
+`\v` (very magic)   | All characters assume special meaning (regex-like)
+`\V` (very nomagic) | No character (except `\`) has special meaning
+`%`                 | When prepending `()`, don't capture submatch
+`<`/`>`             | Word boundaries when used with `\v` switch
+
+
+Useful patterns:
+
+- Find `the` but not words it is a part of (e.g. `these`). Solution:
+  `/\v<the><CR>`.
+
+- In a CSS file, find all hex colour codes. Solution: `/\v#(\x{6}|\x{3})`.
+  Explanation: use `\v` for regex search and `\x` to capture hexadecimal
+  characters (equivalent to `[0-9a-fA-F]`).
+
+- Find "a.k.a." in a file. Solution: `/\Va.k.a.`. Explanation: we need `\V`
+  or else `.` matches any character and we'd also find words like "backwards".
+
+- Check for words that occurr twice in a row. Solution: `/\v(\w+)\_s+\1`.
+  Explanation: `(\w+)` captures any word, `\_s` matches a linebreak or a space
+  (see `h: /\_`), and `\1` is the reference to the previously captured word.
+
+- Reverse the order of all occurrences of `Fab Gunzinger` and `Fabian
+  Gunzinger`. Solution: `/(Fa%(b|bian)) (Gunzinger)`; `:%s//\2, \1/g`.
+  Explanation: the first bit captures the short and full version of my first
+  name, and my my last name, without capturing the `b` or `bian` fragments.
+  First and last name can now be references using `\1` and `\2`, respectively.
+  The substitution command finds the last search pattern (since we leave pattern
+  blank) and replaces it with my first and last names reversed.
+
+
+## Search
+
+## Substitution
+
+## Global commans
+
+
 
 # Common patterns
 
