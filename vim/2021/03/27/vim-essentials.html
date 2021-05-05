@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      16 min read
+      17 min read
     
 </span></p>
 
@@ -146,7 +146,14 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#macros">Macros</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h1"><a href="#patterns">Patterns</a></li>
+<li class="toc-entry toc-h1"><a href="#patterns">Patterns</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#matching-patterns-and-literals">Matching patterns and literals</a></li>
+<li class="toc-entry toc-h2"><a href="#search">Search</a></li>
+<li class="toc-entry toc-h2"><a href="#substitution">Substitution</a></li>
+<li class="toc-entry toc-h2"><a href="#global-commans">Global commans</a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h1"><a href="#common-patterns">Common patterns</a></li>
 <li class="toc-entry toc-h1"><a href="#common-issues">Common issues</a></li>
 <li class="toc-entry toc-h1"><a href="#extra-functionality-and-awesome-plugins">Extra functionality and awesome plugins</a>
@@ -1443,40 +1450,14 @@ command-line mode with a <code class="language-plaintext highlighter-rouge">=</c
 </table>
 
 <ul>
-  <li>We can execute macros in sequence (e.g. <code class="language-plaintext highlighter-rouge">22@a</code>) or in parallel (<code class="language-plaintext highlighter-rouge">jVG:normal
+  <li>We can execute macros <em>in sequence</em> (e.g. <code class="language-plaintext highlighter-rouge">22@a</code>) or <em>in parallel</em> (<code class="language-plaintext highlighter-rouge">jVG:normal
 @a</code>). The former can be useful as it aborts on failure, which could be what we
-want. But if it’s not, then the latter approach is more useful (example: you
+want (e.g. replace all search results). But if it’s not, then the latter approach is more useful (example: you
 want to repeat a change in a line for all lines that follow a certain pattern,
 e.g. are list items, but not other lines). See examples below.</li>
 </ul>
 
 <p>Useful patterns:</p>
-
-<ul>
-  <li>In the list below, change <code class="language-plaintext highlighter-rouge">.</code> to <code class="language-plaintext highlighter-rouge">)</code> and words to uppercase. Solution: start
-with cursor anywhere on first line; <code class="language-plaintext highlighter-rouge">qq0</code>; <code class="language-plaintext highlighter-rouge">f.</code>; <code class="language-plaintext highlighter-rouge">r)</code>; <code class="language-plaintext highlighter-rouge">w~</code>; <code class="language-plaintext highlighter-rouge">jq</code>; <code class="language-plaintext highlighter-rouge">j@q</code>.</li>
-</ul>
-
-<ol>
-  <li>ho</li>
-  <li>hi</li>
-  <li>he</li>
-</ol>
-
-<ul>
-  <li>Do the same but for the new list below. Solution: start anywhere on first
-line; <code class="language-plaintext highlighter-rouge">qq0f.r)w~q</code>; <code class="language-plaintext highlighter-rouge">jV}</code>; <code class="language-plaintext highlighter-rouge">:normal @q</code>. Explanation: while above solution
-executes macro <em>in series</em>, this one executes it <em>in parallel</em>, which is
-required here because the serial approach would abort execution at the
-comment.</li>
-</ul>
-
-<ol>
-  <li>ho</li>
-  <li>hi
-// a comment</li>
-  <li>he</li>
-</ol>
 
 <ul>
   <li>
@@ -1494,6 +1475,34 @@ step only, so we need to store the whole pattern as a macro, which we can then
 invoke mutiple Times (logic of 22 is same as above).</p>
   </li>
   <li>
+    <p>In the list below, change <code class="language-plaintext highlighter-rouge">.</code> to <code class="language-plaintext highlighter-rouge">)</code> and words to uppercase. Solution: start
+with cursor anywhere on first line; <code class="language-plaintext highlighter-rouge">qq0</code>; <code class="language-plaintext highlighter-rouge">f.</code>; <code class="language-plaintext highlighter-rouge">r)</code>; <code class="language-plaintext highlighter-rouge">w~</code>; <code class="language-plaintext highlighter-rouge">jq</code>; <code class="language-plaintext highlighter-rouge">j@q</code>.</p>
+  </li>
+</ul>
+
+<ol>
+  <li>ho</li>
+  <li>hi</li>
+  <li>he</li>
+</ol>
+
+<ul>
+  <li>Do the same but for the new list below. Solution: start anywhere on first
+line; <code class="language-plaintext highlighter-rouge">qq0f.r)w~q</code>; <code class="language-plaintext highlighter-rouge">jV}</code>; <code class="language-plaintext highlighter-rouge">:normal @q</code>. Explanation: while above solution
+executes macro <em>in series</em>, this one executes it <em>in parallel</em>, which is
+required here because the serial approach would abort execution at the
+comment.</li>
+</ul>
+
+<p>1) ho</p>
+<ol>
+  <li>hi
+// a comment</li>
+  <li>he</li>
+</ol>
+
+<ul>
+  <li>
     <p>Turn the below lines into a numbered list. Solution: start anywhere on the
 first line; <code class="language-plaintext highlighter-rouge">let i=1</code>; <code class="language-plaintext highlighter-rouge">qq0cl&lt;C-r&gt;=i&lt;CR&gt;)&lt;Esc&gt;</code>; <code class="language-plaintext highlighter-rouge">let i+=1</code>; <code class="language-plaintext highlighter-rouge">q</code>; <code class="language-plaintext highlighter-rouge">jVj:normal
 @q</code>.</p>
@@ -1505,6 +1514,101 @@ first line; <code class="language-plaintext highlighter-rouge">let i=1</code>; <
 
 <h1 id="patterns">
 <a class="anchor" href="#patterns" aria-hidden="true"><span class="octicon octicon-link"></span></a>Patterns</h1>
+
+<h2 id="matching-patterns-and-literals">
+<a class="anchor" href="#matching-patterns-and-literals" aria-hidden="true"><span class="octicon octicon-link"></span></a>Matching patterns and literals</h2>
+
+<ul>
+  <li>
+    <p>In my <code class="language-plaintext highlighter-rouge">.vimrv</code>, I use <code class="language-plaintext highlighter-rouge">set: ignorecase</code> and <code class="language-plaintext highlighter-rouge">set: smartcase</code> to set the
+default search to be case insensitive except when I use an uppercase character
+in my pattern.</p>
+  </li>
+  <li>
+    <p>You can use pattern swtiches anywhere in the search pattern.</p>
+  </li>
+  <li>
+    <p>Use <code class="language-plaintext highlighter-rouge">\v</code> for regex search, <code class="language-plaintext highlighter-rouge">\V</code> for verbatim search.</p>
+  </li>
+</ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Pattern switch</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\c</code></td>
+      <td>Force case insensitive search</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\C</code></td>
+      <td>Force case sensitive search</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">\v</code> (very magic)</td>
+      <td>All characters assume special meaning (regex-like)</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">\V</code> (very nomagic)</td>
+      <td>No character (except <code class="language-plaintext highlighter-rouge">\</code>) has special meaning</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">%</code></td>
+      <td>When prepending <code class="language-plaintext highlighter-rouge">()</code>, don’t capture submatch</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">&lt;</code>/<code class="language-plaintext highlighter-rouge">&gt;</code>
+</td>
+      <td>Word boundaries when used with <code class="language-plaintext highlighter-rouge">\v</code> switch</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Useful patterns:</p>
+
+<ul>
+  <li>
+    <p>Find <code class="language-plaintext highlighter-rouge">the</code> but not words it is a part of (e.g. <code class="language-plaintext highlighter-rouge">these</code>). Solution:
+<code class="language-plaintext highlighter-rouge">/\v&lt;the&gt;&lt;CR&gt;</code>.</p>
+  </li>
+  <li>
+    <p>In a CSS file, find all hex colour codes. Solution: <code class="language-plaintext highlighter-rouge">/\v#(\x{6}|\x{3})</code>.
+Explanation: use <code class="language-plaintext highlighter-rouge">\v</code> for regex search and <code class="language-plaintext highlighter-rouge">\x</code> to capture hexadecimal
+characters (equivalent to <code class="language-plaintext highlighter-rouge">[0-9a-fA-F]</code>).</p>
+  </li>
+  <li>
+    <p>Find “a.k.a.” in a file. Solution: <code class="language-plaintext highlighter-rouge">/\Va.k.a.</code>. Explanation: we need <code class="language-plaintext highlighter-rouge">\V</code>
+or else <code class="language-plaintext highlighter-rouge">.</code> matches any character and we’d also find words like “backwards”.</p>
+  </li>
+  <li>
+    <p>Check for words that occurr twice in a row. Solution: <code class="language-plaintext highlighter-rouge">/\v(\w+)\_s+\1</code>.
+Explanation: <code class="language-plaintext highlighter-rouge">(\w+)</code> captures any word, <code class="language-plaintext highlighter-rouge">\_s</code> matches a linebreak or a space
+(see <code class="language-plaintext highlighter-rouge">h: /\_</code>), and <code class="language-plaintext highlighter-rouge">\1</code> is the reference to the previously captured word.</p>
+  </li>
+  <li>
+    <p>Reverse the order of all occurrences of <code class="language-plaintext highlighter-rouge">Fab Gunzinger</code> and <code class="language-plaintext highlighter-rouge">Fabian
+Gunzinger</code>. Solution: <code class="language-plaintext highlighter-rouge">/(Fa%(b|bian)) (Gunzinger)</code>; <code class="language-plaintext highlighter-rouge">:%s//\2, \1/g</code>.
+Explanation: the first bit captures the short and full version of my first
+name, and my my last name, without capturing the <code class="language-plaintext highlighter-rouge">b</code> or <code class="language-plaintext highlighter-rouge">bian</code> fragments.
+First and last name can now be references using <code class="language-plaintext highlighter-rouge">\1</code> and <code class="language-plaintext highlighter-rouge">\2</code>, respectively.
+The substitution command finds the last search pattern (since we leave pattern
+blank) and replaces it with my first and last names reversed.</p>
+  </li>
+</ul>
+
+<h2 id="search">
+<a class="anchor" href="#search" aria-hidden="true"><span class="octicon octicon-link"></span></a>Search</h2>
+
+<h2 id="substitution">
+<a class="anchor" href="#substitution" aria-hidden="true"><span class="octicon octicon-link"></span></a>Substitution</h2>
+
+<h2 id="global-commans">
+<a class="anchor" href="#global-commans" aria-hidden="true"><span class="octicon octicon-link"></span></a>Global commans</h2>
 
 <h1 id="common-patterns">
 <a class="anchor" href="#common-patterns" aria-hidden="true"><span class="octicon octicon-link"></span></a>Common patterns</h1>
