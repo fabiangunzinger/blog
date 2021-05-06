@@ -9,7 +9,14 @@ title: vim essentials
 
 # Intro
 
-## Setup
+## Acknowledgements
+
+This cheat sheet started out as a summary of Drew Neil's phenomenal [Practical
+Vim](https://pragprog.com/titles/dnvim2/practical-vim-second-edition/), which I
+can't recommend enough as a start to learning Vim seriously.
+
+
+## Vim setup
 
 - I've remaped the Caps Look key to <Ctrl>.
 
@@ -346,6 +353,8 @@ Command             | Effect
 `f{char}`\`F{char}` | Forward/backward to next occurrence of {char}
 `t{char}`\`T{char}` | Forward/backward till (before) next occurrence of {char}
 `H`/`M`/`L`         | Jump to the top/middle/bottom of the screen
+`<C-e>`/`<C-y>`     | Scroll down/up linewise
+`<C-d>`/`<C-u>`     | Scroll down/up half-screen-wise 
 
 
 Words:
@@ -522,6 +531,7 @@ Pattern switch      | Effect
 `\V` (very nomagic) | No character (except `\`) has special meaning
 `%`                 | When prepending `()`, don't capture submatch
 `<`/`>`             | Word boundaries when used with `\v` switch
+`\zs`/`\ze`         | Start and end of match
 
 
 Useful patterns:
@@ -548,8 +558,28 @@ Useful patterns:
   The substitution command finds the last search pattern (since we leave pattern
   blank) and replaces it with my first and last names reversed.
 
+- Find all occurences of "Vim" that are part of "Practical Vim". Solution:
+  `/Practical \zsVim<CR>`.
+
+- Find all quoted text. Solution: `/\v"\zs[^"]+\ze"`. Explanation: `"[^"]+"`
+  matches quotes followed by one or more occurances of anything but quotes
+  followed by quotes (this is a useful regex idiom). `\zs` and `\ze` exclude the
+  quotes from the match.
+
+- Find `http://someurl.com/search?=\//`. Solution: Yank pattern into a register,
+  `u` for url, say; `/\V<C-r>=escape(@u, getcmdtype().'\')<CR>`. Explanation:
+  see tip 79 in PV.
 
 ## Search
+
+Command             | Effect
+`/<CR>`             | Search previous pattern forward
+`?<CR>`             | Search previous pattern backwards
+`/<UP>`             | Access search history (similar for backward search)
+
+
+
+
 
 ## Substitution
 
