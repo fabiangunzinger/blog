@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      17 min read
+      18 min read
     
 </span></p>
 
@@ -112,7 +112,8 @@ window.onload = wrap_img;
     <ul class="section-nav">
 <li class="toc-entry toc-h1"><a href="#intro">Intro</a>
 <ul>
-<li class="toc-entry toc-h2"><a href="#setup">Setup</a></li>
+<li class="toc-entry toc-h2"><a href="#acknowledgements">Acknowledgements</a></li>
+<li class="toc-entry toc-h2"><a href="#vim-setup">Vim setup</a></li>
 <li class="toc-entry toc-h2"><a href="#mental-models-and-reminders">Mental models and reminders</a></li>
 <li class="toc-entry toc-h2"><a href="#approach-to-problem-solving">Approach to problem solving</a></li>
 </ul>
@@ -169,8 +170,15 @@ window.onload = wrap_img;
 </ul><h1 id="intro">
 <a class="anchor" href="#intro" aria-hidden="true"><span class="octicon octicon-link"></span></a>Intro</h1>
 
-<h2 id="setup">
-<a class="anchor" href="#setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setup</h2>
+<h2 id="acknowledgements">
+<a class="anchor" href="#acknowledgements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Acknowledgements</h2>
+
+<p>This cheat sheet started out as a summary of Drew Neil’s phenomenal <a href="https://pragprog.com/titles/dnvim2/practical-vim-second-edition/">Practical
+Vim</a>, which I
+can’t recommend enough as a start to learning Vim seriously.</p>
+
+<h2 id="vim-setup">
+<a class="anchor" href="#vim-setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Vim setup</h2>
 
 <ul>
   <li>I’ve remaped the Caps Look key to <ctrl>.</ctrl>
@@ -1132,6 +1140,18 @@ operation on the endpoint of the selection.</li>
 </td>
       <td>Jump to the top/middle/bottom of the screen</td>
     </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">&lt;C-e&gt;</code>/<code class="language-plaintext highlighter-rouge">&lt;C-y&gt;</code>
+</td>
+      <td>Scroll down/up linewise</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">&lt;C-d&gt;</code>/<code class="language-plaintext highlighter-rouge">&lt;C-u&gt;</code>
+</td>
+      <td>Scroll down/up half-screen-wise</td>
+    </tr>
   </tbody>
 </table>
 
@@ -1566,6 +1586,12 @@ in my pattern.</p>
 </td>
       <td>Word boundaries when used with <code class="language-plaintext highlighter-rouge">\v</code> switch</td>
     </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">\zs</code>/<code class="language-plaintext highlighter-rouge">\ze</code>
+</td>
+      <td>Start and end of match</td>
+    </tr>
   </tbody>
 </table>
 
@@ -1599,10 +1625,46 @@ First and last name can now be references using <code class="language-plaintext 
 The substitution command finds the last search pattern (since we leave pattern
 blank) and replaces it with my first and last names reversed.</p>
   </li>
+  <li>
+    <p>Find all occurences of “Vim” that are part of “Practical Vim”. Solution:
+<code class="language-plaintext highlighter-rouge">/Practical \zsVim&lt;CR&gt;</code>.</p>
+  </li>
+  <li>
+    <p>Find all quoted text. Solution: <code class="language-plaintext highlighter-rouge">/\v"\zs[^"]+\ze"</code>. Explanation: <code class="language-plaintext highlighter-rouge">"[^"]+"</code>
+matches quotes followed by one or more occurances of anything but quotes
+followed by quotes (this is a useful regex idiom). <code class="language-plaintext highlighter-rouge">\zs</code> and <code class="language-plaintext highlighter-rouge">\ze</code> exclude the
+quotes from the match.</p>
+  </li>
+  <li>
+    <p>Find <code class="language-plaintext highlighter-rouge">http://someurl.com/search?=\//</code>. Solution: Yank pattern into a register,
+<code class="language-plaintext highlighter-rouge">u</code> for url, say; <code class="language-plaintext highlighter-rouge">/\V&lt;C-r&gt;=escape(@u, getcmdtype().'\')&lt;CR&gt;</code>. Explanation:
+see tip 79 in PV.</p>
+  </li>
 </ul>
 
 <h2 id="search">
 <a class="anchor" href="#search" aria-hidden="true"><span class="octicon octicon-link"></span></a>Search</h2>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/&lt;CR&gt;</code></td>
+      <td>Search previous pattern forward</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">?&lt;CR&gt;</code></td>
+      <td>Search previous pattern backwards</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/&lt;UP&gt;</code></td>
+      <td>Access search history (similar for backward search)</td>
+    </tr>
+  </tbody>
+</table>
 
 <h2 id="substitution">
 <a class="anchor" href="#substitution" aria-hidden="true"><span class="octicon octicon-link"></span></a>Substitution</h2>
