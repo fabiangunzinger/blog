@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      18 min read
+      19 min read
     
 </span></p>
 
@@ -118,7 +118,7 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#approach-to-problem-solving">Approach to problem solving</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h1"><a href="#miscellaneous">Miscellaneous</a></li>
+<li class="toc-entry toc-h1"><a href="#commonly-used-useful-stuff">Commonly used useful stuff</a></li>
 <li class="toc-entry toc-h1"><a href="#modes">Modes</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#normal-mode">Normal mode</a></li>
@@ -155,6 +155,7 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#global-commans">Global commans</a></li>
 </ul>
 </li>
+<li class="toc-entry toc-h1"><a href="#writing">Writing</a></li>
 <li class="toc-entry toc-h1"><a href="#common-patterns">Common patterns</a></li>
 <li class="toc-entry toc-h1"><a href="#common-issues">Common issues</a></li>
 <li class="toc-entry toc-h1"><a href="#extra-functionality-and-awesome-plugins">Extra functionality and awesome plugins</a>
@@ -181,8 +182,12 @@ can’t recommend enough as a start to learning Vim seriously.</p>
 <a class="anchor" href="#vim-setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Vim setup</h2>
 
 <ul>
-  <li>I’ve remaped the Caps Look key to <ctrl>.</ctrl>
-</li>
+  <li>
+    <p>I use <code class="language-plaintext highlighter-rouge">nvim</code>.</p>
+  </li>
+  <li>
+    <p>I’ve remaped the Caps Look key to <ctrl>.</ctrl></p>
+  </li>
 </ul>
 
 <h2 id="mental-models-and-reminders">
@@ -214,14 +219,18 @@ of them does).</p>
   </li>
 </ul>
 
-<h1 id="miscellaneous">
-<a class="anchor" href="#miscellaneous" aria-hidden="true"><span class="octicon octicon-link"></span></a>Miscellaneous</h1>
+<h1 id="commonly-used-useful-stuff">
+<a class="anchor" href="#commonly-used-useful-stuff" aria-hidden="true"><span class="octicon octicon-link"></span></a>Commonly used useful stuff</h1>
 
 <table>
   <tbody>
     <tr>
       <td>Command</td>
       <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:e $M[YVIMRC]</code></td>
+      <td>Open my vimrc (in any session)</td>
     </tr>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">set: {cmd}?</code></td>
@@ -1663,14 +1672,49 @@ see tip 79 in PV.</p>
       <td><code class="language-plaintext highlighter-rouge">/&lt;UP&gt;</code></td>
       <td>Access search history (similar for backward search)</td>
     </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;C-r&gt;&lt;C-w&gt;</code></td>
+      <td>Autocomplete search field based on preview match</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/{pattern}/e&lt;CR&gt;</code></td>
+      <td>Use search offset to jump to end of match</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">gn</code></td>
+      <td>Operate on a complete search match</td>
+    </tr>
   </tbody>
 </table>
+
+<ul>
+  <li>
+    <p>Replace all occurrences of “lang” or “langs” with “language” or “languages”.
+Solution: <code class="language-plaintext highlighter-rouge">/lang/e&lt;CR&gt;auage</code>; then <code class="language-plaintext highlighter-rouge">n.</code>.</p>
+  </li>
+  <li>
+    <p>Replace all occurrences of “PyCode” and “PythonCode” with “PYCode” or
+“PYTHONCode”. Solution: <code class="language-plaintext highlighter-rouge">/\vPy(thon)?\C&lt;CR&gt;</code>; <code class="language-plaintext highlighter-rouge">gUgn</code>; <code class="language-plaintext highlighter-rouge">.</code>. Explanation: <code class="language-plaintext highlighter-rouge">gn</code>
+applies the pending operator (<code class="language-plaintext highlighter-rouge">gU</code> in this case) to the current match or – if
+the curser isn’t on a match – on the next one. After executing <code class="language-plaintext highlighter-rouge">gUgn</code> for the
+first time, the cursor changes the first match and remains there. Once we
+press <code class="language-plaintext highlighter-rouge">.</code>, the word under the cursor no longer is a match, so Vim jumps to the
+next match and applies the pending <code class="language-plaintext highlighter-rouge">gU</code> operator. Drew Neil calls this the
+“Improved dot-formula”, since it we can use <code class="language-plaintext highlighter-rouge">.</code> to achieve <code class="language-plaintext highlighter-rouge">n.</code>.</p>
+  </li>
+</ul>
 
 <h2 id="substitution">
 <a class="anchor" href="#substitution" aria-hidden="true"><span class="octicon octicon-link"></span></a>Substitution</h2>
 
 <h2 id="global-commans">
 <a class="anchor" href="#global-commans" aria-hidden="true"><span class="octicon octicon-link"></span></a>Global commans</h2>
+
+<h1 id="writing">
+<a class="anchor" href="#writing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Writing</h1>
+
+<p>-<code class="language-plaintext highlighter-rouge">gq{motion}</code> formats text. By default, it splits wrapped into single lines,
+which is what I often want.</p>
 
 <h1 id="common-patterns">
 <a class="anchor" href="#common-patterns" aria-hidden="true"><span class="octicon octicon-link"></span></a>Common patterns</h1>
