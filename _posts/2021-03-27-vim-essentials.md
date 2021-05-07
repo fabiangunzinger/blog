@@ -18,6 +18,8 @@ can't recommend enough as a start to learning Vim seriously.
 
 ## Vim setup
 
+- I use `nvim`.
+
 - I've remaped the Caps Look key to <Ctrl>.
 
 
@@ -39,9 +41,10 @@ can't recommend enough as a start to learning Vim seriously.
   of them does).
 
 
-# Miscellaneous
+# Commonly used useful stuff
 
 Command             | Effect
+`:e $M[YVIMRC]`     | Open my vimrc (in any session)
 `set: {cmd}?`       | Show present setting for {cmd}
 
 
@@ -576,8 +579,22 @@ Command             | Effect
 `/<CR>`             | Search previous pattern forward
 `?<CR>`             | Search previous pattern backwards
 `/<UP>`             | Access search history (similar for backward search)
+`<C-r><C-w>`        | Autocomplete search field based on preview match
+`/{pattern}/e<CR>`  | Use search offset to jump to end of match
+`gn`                | Operate on a complete search match
 
 
+- Replace all occurrences of "lang" or "langs" with "language" or "languages".
+  Solution: `/lang/e<CR>auage`; then `n.`. 
+
+- Replace all occurrences of "PyCode" and "PythonCode" with "PYCode" or
+  "PYTHONCode". Solution: `/\vPy(thon)?\C<CR>`; `gUgn`; `.`. Explanation: `gn`
+  applies the pending operator (`gU` in this case) to the current match or -- if
+  the curser isn't on a match -- on the next one. After executing `gUgn` for the
+  first time, the cursor changes the first match and remains there. Once we
+  press `.`, the word under the cursor no longer is a match, so Vim jumps to the
+  next match and applies the pending `gU` operator. Drew Neil calls this the
+  "Improved dot-formula", since it we can use `.` to achieve `n.`.
 
 
 
@@ -586,6 +603,10 @@ Command             | Effect
 ## Global commans
 
 
+# Writing
+
+-`gq{motion}` formats text. By default, it splits wrapped into single lines,
+which is what I often want.  
 
 # Common patterns
 
