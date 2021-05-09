@@ -178,27 +178,25 @@ o        | Toggle the free end of a selection
   the file without moving the cursor -- they strike far and wide.
 
 - The general syntax for Ex-commands is `:[range]{command}`, where `[range]` is
-either a single address or a range of addresses of the form `{start},{stop}`. There are three types of addresses: line numbers, visual selections, and
-patterns.
+  either a single address or a range of addresses of the form `{start},{stop}`.
+  There are three types of addresses: line numbers, visual selections, and
+  patterns.
 
 - To execute a command on all selected lines, use visual mode to make the
-selection and press `:`. This will start the command prompt with `'<, '>:`, to
-which you can then add the command.
+  selection and press `:`. This will start the command prompt with `'<, '>:`, to
+  which you can then add the command.
 
 - We can also specify offsets. For example, `:/<tag>/+1<\/tag>/-1{cmd}` would
-operate on the lines inside the html tag but not the lines containing the tag
-marks.
+  operate on the lines inside the html tag but not the lines containing the tag
+  marks.
 
-- To wrap all elements in the first column of a table in quotes, I could
-  use `:{start},{stop}normal ysaW'`.
 
-- `<C-r><C-w>` inserts the word under the cursor in the command prompt. Can be
-  useful for substitution (cursor to word, `*`, `cw{new}<Esc>`,
-  `:%s//<C-r><C-w>/g`) or to get vim help for word under cursor (`:h
-  <C-r><C-w>`).
+Command                     | Effect
+`q:`/`q/`/`q?`              | Opens command line mode
+`<C-z>`/`fg`                | Put vim in background / return to vim
+`<C-r><C-w>`                | Insert word under cursor in command prompt 
 
-- `<C-z>` puts vim in the background and returns to bash, `fg` returns back to
-  vim.
+
 
 Types of addresses:
 
@@ -231,6 +229,17 @@ s[ubstitute]  | Substitute (e.g. `s/old/new`)
 n[ormal]      | Execute normal mode command
 m[ove]        | Move to `{address}`, (e.g. `:1,5m$` moves lines to end of file)
 copy (or t)   | Copy to `{address}`, (e.g. `:6t.` copies line 6 to current line)
+
+
+Useful idioms:
+
+- Wrap all elements in the first column of a table in quotes. Solution:
+  cursor on word in first row; `:{start},{stop}normal ysaW'`.
+
+- Substitute the word under the cursor. Solution: `*`; `cw{change}<CR>`;
+  `:%s//<C-r><C-w>/g`
+
+- Open help for word under the cursor. Solution: `:h <C-r><C-w><CR>`
 
 
 # Files
@@ -443,7 +452,7 @@ Command             | Effect
 Command             | Effect
 `"{reg}{cmd}`       | Make {cmd} interact with register {reg}
 `""`                | The unnamed register (redundant, as it's the default)
-`"o`                | The yank register
+`"0`                | The yank register
 `"_`                | The black hole register (nothing returns from it)
 `"{a-z}`            | Named registers (replace with {a-z}, append with {A-Z})
 `"+`                | The system clipboard
@@ -597,16 +606,47 @@ Command             | Effect
   "Improved dot-formula", since it we can use `.` to achieve `n.`.
 
 
-
 ## Substitution
+
+- Full syntax is `:[range]s[ubstitute]/{pattern}/{string}/[flags]
+
+Flags:
+
+Command             | Effect
+`g`                 | Substitute all matches on line (global)
+`c`                 | Confirm substitution
+`n`                 | Count number of matches instead of substitution
+
+Replacement strings:
+
+Command             | Effect
+`\1`                | Insert first submatch (similar for {1-9})
+`\0`/`&`            | Insert entire matched pattern
+`\={vim scrip}`     | Evaluate vim-script expression
+
+
+Useful idioms:
+
+- Decouple pattern matching and subssitution (useful for complex patterns that
+  require trial and error). Solution `/{pattern}` until you get it right (maybe
+  use `q/`), then `:s//{string}`. Explanation: leaving {pattern} blank uses last
+  search pattern.
+
+- Use last search pattern in substitute command. Solution: `:s/<C-r>//{string}`
+
+- Substitute the highlighted text fragment. Solution: `` *:s//{string} ``.
+  Explanation: with [vim visual
+  star](https://github.com/nelstrom/vim-visual-star-search) plugin installed,
+  ``*`` searches for pattern highlighted in visual mode.
+
 
 ## Global commans
 
 
 # Writing
 
--`gq{motion}` formats text. By default, it splits wrapped into single lines,
-which is what I often want.  
+Command                 | Effect
+`gq{motion}             | Formats text, defaults to wrapping long lines.
 
 # Common patterns
 
