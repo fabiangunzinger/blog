@@ -1,15 +1,39 @@
 ---
-title: Software design principles
+hide: false
+toc: true
+layout: post
+description: 
+categories: [tools]
+title: Coding principles
 ---
 
-# Fundamentals
+# Definitions
+
+- A design pattern is a general repeatable solution to a frequently occuring
+  problem.
+
+- An idiom is the translation of a design pattern into code using the language
+  clearly and correctly.
+
+
+# Coding principles
+
+## Stuff to remember
+
+- Get to proof of concept asap.
+
+- "You ain't gonna need it" (YAGNI). Don't add functionality before it's really
+  necessary.
+
+
+## Fundamentals
 
 - A function should do one and only one thing (and -- as a rule of thumb --  be no longer than 50 lines of code).
 
 - Don't reapeat yourself. (Don't copy and paste more than once.)
 
 
-# SOLID
+## SOLID
 
 ## Single-responsibility principle
 
