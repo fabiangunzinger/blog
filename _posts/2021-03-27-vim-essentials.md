@@ -616,18 +616,29 @@ Command             | Effect
 `g`                 | Substitute all matches on line (global)
 `c`                 | Confirm substitution
 `n`                 | Count number of matches instead of substitution
+`&`                 | Reuse flags from previous substitution
+
 
 Replacement strings:
 
 Command             | Effect
 `\1`                | Insert first submatch (similar for {1-9})
 `\0`/`&`            | Insert entire matched pattern
+`~`                 | Use string from previous substitution
 `\={vim scrip}`     | Evaluate vim-script expression
+
+
+Useful commands
+
+Command             | Effect
+`:&`                | Rerun last substitution (flags aren't remembered)
+`:&&`               | Rerun last substitution and reuse flags
+`:g&`               | Rerun last search globally
 
 
 Useful idioms:
 
-- Decouple pattern matching and subssitution (useful for complex patterns that
+- Decouple pattern matching and substitution (useful for complex patterns that
   require trial and error). Solution `/{pattern}` until you get it right (maybe
   use `q/`), then `:s//{string}`. Explanation: leaving {pattern} blank uses last
   search pattern.
@@ -639,8 +650,12 @@ Useful idioms:
   star](https://github.com/nelstrom/vim-visual-star-search) plugin installed,
   ``*`` searches for pattern highlighted in visual mode.
 
+- Rerun the last line-wise substitution globally. Solution: `g&`.
 
-## Global commans
+- In a file with columns "name", "age", "height", change order to "height",
+  "name", "age". Solution: `/\v^([^,]), ([^,]), ([^,])$`; `:%s//\3, \1, \2`.
+
+## Global commands
 
 
 # Writing
@@ -694,6 +709,27 @@ Command                 | Effect
 
 
 ## vim-surround
+
+## [vim-abolish](https://github.com/tpope/vim-abolish)
+
+Deals with word variants and provides powerful substitution and case coercion.
+
+- Replace all variants of chiltren to adults: `:S/child{,ren}/adult{,s}/g`.
+
+- Swap all occurrences of man to dog: `:S/{man, dog}/{dog, man}g`.
+
+- Coerce `camelCase` to `snake_case`: `crs`.
+
+Command             | Effect
+`crs`               | Coerce to `snake_case`
+`crc`               | Coerce to `camelCase`
+`crm`               | Coerce to `MixedCase`
+`cru`               | Coerce to `UPPER_CASE`
+`cr-`               | Coerce to `dash-case`
+`cr.`               | Coerce to `dot.case`
+`cr<space>`         | Coerce to `space case`
+`crt`               | Coerce to `Title Case`
+
 
 ## Python 
 
