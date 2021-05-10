@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      20 min read
+      21 min read
     
 </span></p>
 
@@ -152,7 +152,7 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#matching-patterns-and-literals">Matching patterns and literals</a></li>
 <li class="toc-entry toc-h2"><a href="#search">Search</a></li>
 <li class="toc-entry toc-h2"><a href="#substitution">Substitution</a></li>
-<li class="toc-entry toc-h2"><a href="#global-commans">Global commans</a></li>
+<li class="toc-entry toc-h2"><a href="#global-commands">Global commands</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h1"><a href="#writing">Writing</a></li>
@@ -162,6 +162,7 @@ window.onload = wrap_img;
 <ul>
 <li class="toc-entry toc-h2"><a href="#vim-unimpaired">vim-unimpaired</a></li>
 <li class="toc-entry toc-h2"><a href="#vim-surround">vim-surround</a></li>
+<li class="toc-entry toc-h2"><a href="#vim-abolish">vim-abolish</a></li>
 <li class="toc-entry toc-h2"><a href="#python">Python</a></li>
 <li class="toc-entry toc-h2"><a href="#snippets">Snippets</a></li>
 <li class="toc-entry toc-h2"><a href="#latex-integration">Latex integration</a></li>
@@ -1758,6 +1759,10 @@ next match and applies the pending <code class="language-plaintext highlighter-r
       <td><code class="language-plaintext highlighter-rouge">n</code></td>
       <td>Count number of matches instead of substitution</td>
     </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&amp;</code></td>
+      <td>Reuse flags from previous substitution</td>
+    </tr>
   </tbody>
 </table>
 
@@ -1780,8 +1785,35 @@ next match and applies the pending <code class="language-plaintext highlighter-r
       <td>Insert entire matched pattern</td>
     </tr>
     <tr>
+      <td><code class="language-plaintext highlighter-rouge">~</code></td>
+      <td>Use string from previous substitution</td>
+    </tr>
+    <tr>
       <td><code class="language-plaintext highlighter-rouge">\={vim scrip}</code></td>
       <td>Evaluate vim-script expression</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Useful commands</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:&amp;</code></td>
+      <td>Rerun last substitution (flags aren’t remembered)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:&amp;&amp;</code></td>
+      <td>Rerun last substitution and reuse flags</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:g&amp;</code></td>
+      <td>Rerun last search globally</td>
     </tr>
   </tbody>
 </table>
@@ -1790,7 +1822,7 @@ next match and applies the pending <code class="language-plaintext highlighter-r
 
 <ul>
   <li>
-    <p>Decouple pattern matching and subssitution (useful for complex patterns that
+    <p>Decouple pattern matching and substitution (useful for complex patterns that
 require trial and error). Solution <code class="language-plaintext highlighter-rouge">/{pattern}</code> until you get it right (maybe
 use <code class="language-plaintext highlighter-rouge">q/</code>), then <code class="language-plaintext highlighter-rouge">:s//{string}</code>. Explanation: leaving {pattern} blank uses last
 search pattern.</p>
@@ -1804,10 +1836,17 @@ Explanation: with <a href="https://github.com/nelstrom/vim-visual-star-search">v
 star</a> plugin installed,
 <code class="language-plaintext highlighter-rouge">*</code> searches for pattern highlighted in visual mode.</p>
   </li>
+  <li>
+    <p>Rerun the last line-wise substitution globally. Solution: <code class="language-plaintext highlighter-rouge">g&amp;</code>.</p>
+  </li>
+  <li>
+    <p>In a file with columns “name”, “age”, “height”, change order to “height”,
+“name”, “age”. Solution: <code class="language-plaintext highlighter-rouge">/\v^([^,]), ([^,]), ([^,])$</code>; <code class="language-plaintext highlighter-rouge">:%s//\3, \1, \2</code>.</p>
+  </li>
 </ul>
 
-<h2 id="global-commans">
-<a class="anchor" href="#global-commans" aria-hidden="true"><span class="octicon octicon-link"></span></a>Global commans</h2>
+<h2 id="global-commands">
+<a class="anchor" href="#global-commands" aria-hidden="true"><span class="octicon octicon-link"></span></a>Global commands</h2>
 
 <h1 id="writing">
 <a class="anchor" href="#writing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Writing</h1>
@@ -1918,6 +1957,73 @@ are listed below.</p>
 
 <h2 id="vim-surround">
 <a class="anchor" href="#vim-surround" aria-hidden="true"><span class="octicon octicon-link"></span></a>vim-surround</h2>
+
+<h2 id="vim-abolish">
+<a class="anchor" href="#vim-abolish" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="https://github.com/tpope/vim-abolish">vim-abolish</a>
+</h2>
+
+<p>Deals with word variants and provides powerful substitution and case coercion.</p>
+
+<ul>
+  <li>
+    <p>Replace all variants of chiltren to adults: <code class="language-plaintext highlighter-rouge">:S/child{,ren}/adult{,s}/g</code>.</p>
+  </li>
+  <li>
+    <p>Swap all occurrences of man to dog: <code class="language-plaintext highlighter-rouge">:S/{man, dog}/{dog, man}g</code>.</p>
+  </li>
+  <li>
+    <p>Coerce <code class="language-plaintext highlighter-rouge">camelCase</code> to <code class="language-plaintext highlighter-rouge">snake_case</code>: <code class="language-plaintext highlighter-rouge">crs</code>.</p>
+  </li>
+</ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">crs</code></td>
+      <td>Coerce to <code class="language-plaintext highlighter-rouge">snake_case</code>
+</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">crc</code></td>
+      <td>Coerce to <code class="language-plaintext highlighter-rouge">camelCase</code>
+</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">crm</code></td>
+      <td>Coerce to <code class="language-plaintext highlighter-rouge">MixedCase</code>
+</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">cru</code></td>
+      <td>Coerce to <code class="language-plaintext highlighter-rouge">UPPER_CASE</code>
+</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">cr-</code></td>
+      <td>Coerce to <code class="language-plaintext highlighter-rouge">dash-case</code>
+</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">cr.</code></td>
+      <td>Coerce to <code class="language-plaintext highlighter-rouge">dot.case</code>
+</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">cr&lt;space&gt;</code></td>
+      <td>Coerce to <code class="language-plaintext highlighter-rouge">space case</code>
+</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">crt</code></td>
+      <td>Coerce to <code class="language-plaintext highlighter-rouge">Title Case</code>
+</td>
+    </tr>
+  </tbody>
+</table>
 
 <h2 id="python">
 <a class="anchor" href="#python" aria-hidden="true"><span class="octicon octicon-link"></span></a>Python</h2>
