@@ -237,6 +237,10 @@ of them does).</p>
       <td><code class="language-plaintext highlighter-rouge">set: {cmd}?</code></td>
       <td>Show present setting for {cmd}</td>
     </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">|</code></td>
+      <td>Command separator (equivalent to <code class="language-plaintext highlighter-rouge">:</code> in shell)</td>
+    </tr>
   </tbody>
 </table>
 
@@ -1843,6 +1847,24 @@ star</a> plugin installed,
     <p>In a file with columns “name”, “age”, “height”, change order to “height”,
 “name”, “age”. Solution: <code class="language-plaintext highlighter-rouge">/\v^([^,]), ([^,]), ([^,])$</code>; <code class="language-plaintext highlighter-rouge">:%s//\3, \1, \2</code>.</p>
   </li>
+  <li>
+    <p>Replace “Hello” in (and only in) “Hello World” with “Hi” in all files in my
+project. Solution:</p>
+
+    <ol>
+      <li>
+        <p>Test pattern in current buffer: <code class="language-plaintext highlighter-rouge">/Hello\ze World&lt;CR&gt;</code></p>
+      </li>
+      <li>
+        <p>Search all files in project and populate quickfix list with files that
+have a match: <code class="language-plaintext highlighter-rouge">:vimgrep // **/*.txt</code></p>
+      </li>
+      <li>
+        <p>Iterate through the files in the quickfix list to execute the substitute
+and update commands: <code class="language-plaintext highlighter-rouge">:cfdo %s//Hi/gc | update</code></p>
+      </li>
+    </ol>
+  </li>
 </ul>
 
 <h2 id="global-commands">
@@ -1894,7 +1916,12 @@ mode; <code class="language-plaintext highlighter-rouge">&lt;C-r&gt;=27*45&lt;CR
 <ul>
   <li>I want to open a file and get an <code class="language-plaintext highlighter-rouge">E325: ATTENTION Found a swap file</code> warning.
 What happened? For me, it’s most likely I accidentally closed a terminal
-window while still editing the file. What to do? First, check that I’m not already editing the file elsewhere. Second, recover the file, save it under a new name (<code class="language-plaintext highlighter-rouge">:w filename2</code>), force quit the session, compare the original and the new file (<code class="language-plaintext highlighter-rouge">diff filename filename2</code>), use the file with the content I need and delete the other one and the swap file. (Based on <a href="https://superuser.com/a/498658">this</a> great SE answer.)</li>
+window while still editing the file. What to do? First, check that I’m not
+already editing the file elsewhere. Second, recover the file, save it under a
+new name (<code class="language-plaintext highlighter-rouge">:w filename2</code>), force quit the session, compare the original and
+the new file (<code class="language-plaintext highlighter-rouge">diff filename filename2</code>), use the file with the content I need
+and delete the other one and the swap file. (Based on
+<a href="https://superuser.com/a/498658">this</a> great SE answer.)</li>
 </ul>
 
 <h1 id="extra-functionality-and-awesome-plugins">
@@ -1969,12 +1996,11 @@ are listed below.</p>
     <p>Replace all variants of chiltren to adults: <code class="language-plaintext highlighter-rouge">:S/child{,ren}/adult{,s}/g</code>.</p>
   </li>
   <li>
-    <p>Swap all occurrences of man to dog: <code class="language-plaintext highlighter-rouge">:S/{man, dog}/{dog, man}g</code>.</p>
-  </li>
-  <li>
-    <p>Coerce <code class="language-plaintext highlighter-rouge">camelCase</code> to <code class="language-plaintext highlighter-rouge">snake_case</code>: <code class="language-plaintext highlighter-rouge">crs</code>.</p>
+    <p>Swap all occurrences of man to dog: <code class="language-plaintext highlighter-rouge">:S/{man, dog}/{dog, man}/g</code>.</p>
   </li>
 </ul>
+
+<p>Case coercion:</p>
 
 <table>
   <tbody>
