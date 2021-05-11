@@ -286,6 +286,8 @@ Command             | Effect
 `<C-w>v`            | Split window vertically
 `:sp[lit] {file}`   | Horizontally split window and load {file} into new buffer
 `:vsp[lit] {file}`  | Vertically split window and load {file} into new buffer
+`:new`              | Split horizontally with new file
+`:vne[w]`           | Split vertically with new file
 `on[ly]`            | Close all but current window
 `<C-w>=`            | Equalize width and height of all windows
 `<C-w>r`            | Rorate windows
@@ -670,6 +672,26 @@ Useful idioms:
 
 
 ## Global commands
+
+- Full syntax: `:[range] global[!] /{pattern}/ {cmd}`. Range defaults to the
+  entire file, leaving the pattern empty uses last search pattern, and command
+  defaults to print.
+
+Command                 | Effect
+`g[lobal]`              | Global command
+`v[global]`             | Invert global
+`g[lobal]!`             | Invert global
+
+
+Useful idioms:
+
+- Delete all lines that contain "Hi". Solution: `:g/Hi/d` (`:g/re/d`).
+
+- Keep only lines that contain "Hi". Solution: `:v/Hi/d` (`:v/re/d`).
+
+- Print all lines that contain "Hi". Solution: `:g/Hi`.
+
+- Glance at markdown file structure. Solution: `g/^#`e
 
 
 # Writing
