@@ -955,6 +955,14 @@ one window.</li>
       <td>Vertically split window and load {file} into new buffer</td>
     </tr>
     <tr>
+      <td><code class="language-plaintext highlighter-rouge">:new</code></td>
+      <td>Split horizontally with new file</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:vne[w]</code></td>
+      <td>Split vertically with new file</td>
+    </tr>
+    <tr>
       <td><code class="language-plaintext highlighter-rouge">on[ly]</code></td>
       <td>Close all but current window</td>
     </tr>
@@ -1869,6 +1877,50 @@ and update commands: <code class="language-plaintext highlighter-rouge">:cfdo %s
 
 <h2 id="global-commands">
 <a class="anchor" href="#global-commands" aria-hidden="true"><span class="octicon octicon-link"></span></a>Global commands</h2>
+
+<ul>
+  <li>Full syntax: <code class="language-plaintext highlighter-rouge">:[range] global[!] /{pattern}/ {cmd}</code>. Range defaults to the
+entire file, leaving the pattern empty uses last search pattern, and command
+defaults to print.</li>
+</ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">g[lobal]</code></td>
+      <td>Global command</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">v[global]</code></td>
+      <td>Invert global</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">g[lobal]!</code></td>
+      <td>Invert global</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Useful idioms:</p>
+
+<ul>
+  <li>
+    <p>Delete all lines that contain “Hi”. Solution: <code class="language-plaintext highlighter-rouge">:g/Hi/d</code> (<code class="language-plaintext highlighter-rouge">:g/re/d</code>).</p>
+  </li>
+  <li>
+    <p>Keep only lines that contain “Hi”. Solution: <code class="language-plaintext highlighter-rouge">:v/Hi/d</code> (<code class="language-plaintext highlighter-rouge">:v/re/d</code>).</p>
+  </li>
+  <li>
+    <p>Print all lines that contain “Hi”. Solution: <code class="language-plaintext highlighter-rouge">:g/Hi</code>.</p>
+  </li>
+  <li>
+    <p>Glance at markdown file structure. Solution: <code class="language-plaintext highlighter-rouge">g/^#</code>e</p>
+  </li>
+</ul>
 
 <h1 id="writing">
 <a class="anchor" href="#writing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Writing</h1>
