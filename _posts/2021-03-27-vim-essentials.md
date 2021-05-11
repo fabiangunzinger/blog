@@ -46,6 +46,7 @@ can't recommend enough as a start to learning Vim seriously.
 Command             | Effect
 `:e $M[YVIMRC]`     | Open my vimrc (in any session)
 `set: {cmd}?`       | Show present setting for {cmd}
+`|`                 | Command separator (equivalent to `:` in shell)
 
 
 
@@ -655,6 +656,19 @@ Useful idioms:
 - In a file with columns "name", "age", "height", change order to "height",
   "name", "age". Solution: `/\v^([^,]), ([^,]), ([^,])$`; `:%s//\3, \1, \2`.
 
+- Replace "Hello" in (and only in) "Hello World" with "Hi" in all files in my
+  project. Solution:
+
+    1. Test pattern in current buffer: `/Hello\ze World<CR>`
+
+    2. Search all files in project and populate quickfix list with files that
+       have a match: ``:vimgrep // **/*.txt``
+
+    3. Iterate through the files in the quickfix list to execute the substitute
+       and update commands: `:cfdo %s//Hi/gc | update`
+
+
+
 ## Global commands
 
 
@@ -685,7 +699,12 @@ Command                 | Effect
 
 - I want to open a file and get an `E325: ATTENTION Found a swap file` warning.
   What happened? For me, it's most likely I accidentally closed a terminal
-  window while still editing the file. What to do? First, check that I'm not already editing the file elsewhere. Second, recover the file, save it under a new name (`:w filename2`), force quit the session, compare the original and the new file (`diff filename filename2`), use the file with the content I need and delete the other one and the swap file. (Based on [this](https://superuser.com/a/498658) great SE answer.)
+  window while still editing the file. What to do? First, check that I'm not
+  already editing the file elsewhere. Second, recover the file, save it under a
+  new name (`:w filename2`), force quit the session, compare the original and
+  the new file (`diff filename filename2`), use the file with the content I need
+  and delete the other one and the swap file. (Based on
+  [this](https://superuser.com/a/498658) great SE answer.)
 
 
 # Extra functionality and awesome plugins
@@ -716,9 +735,10 @@ Deals with word variants and provides powerful substitution and case coercion.
 
 - Replace all variants of chiltren to adults: `:S/child{,ren}/adult{,s}/g`.
 
-- Swap all occurrences of man to dog: `:S/{man, dog}/{dog, man}g`.
+- Swap all occurrences of man to dog: `:S/{man, dog}/{dog, man}/g`.
 
-- Coerce `camelCase` to `snake_case`: `crs`.
+
+Case coercion:
 
 Command             | Effect
 `crs`               | Coerce to `snake_case`
