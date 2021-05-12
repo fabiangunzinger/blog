@@ -47,6 +47,7 @@ Command             | Effect
 `:e $M[YVIMRC]`     | Open my vimrc (in any session)
 `set: {cmd}?`       | Show present setting for {cmd}
 `|`                 | Command separator (equivalent to `:` in shell)
+`<C-z>`/`fg`        | Put vim in background / return to vim
 
 
 
@@ -192,11 +193,16 @@ o        | Toggle the free end of a selection
   marks.
 
 
+Command mode commands:
+
 Command                     | Effect
 `q:`/`q/`/`q?`              | Opens command line mode
-`<C-z>`/`fg`                | Put vim in background / return to vim
 `<C-r><C-w>`                | Insert word under cursor in command prompt 
-
+`<left>`/`<right>`          | Move one character left or right
+`<S-left>`                  | Move one word left (similar for right)
+`<C-b>`/`<C-e>`             | Move to the beginning/end of the command
+`<C-w>`                     | Delete last word
+`<C-u>`                     | Delete entire line
 
 
 Types of addresses:
@@ -207,6 +213,7 @@ Command                     | Effect
 `:/#/{cmd}`                 | execute command on next line with an `#`
 `:/<tag>/<\/tag>/{cmd}`     | Execute command inside next occurring html tag
 `:'<,'>{cmd}`               | Execute command on selected lines
+
 
 Useful address/range characters:
 
@@ -219,6 +226,7 @@ Symobol | Address
 `'<`      | Start of visual selection
 `'>`      | End of visual selection
 `%`       | The entire file (short for :1,$)
+
 
 Common Ex-commands: 
 
@@ -468,6 +476,24 @@ Command             | Effect
 `<C-r>{reg}`        | Paste content of {reg} in insert mode
 
 
+Useful patterns:
+
+- Replace firstword with secondword. Solution 1: cursor at beginning of
+  secondword;
+  `ye`; `bb`; `ve`; `p`. Solution 2: cursor at beginning of secondword; `ye`;
+  `bb`; `cw`; `<C-r>0`. Has advantage that `.` now replaces current word with
+  `firstword`. 
+
+- Swap firstword and secondword. Solution: cursor at beginning of firstword;
+  `de`; `mm`; `ww`; `ve`; `p`; `` `m ``; `P`. Explanation: this exploits a quirk
+  in the behaviour or `p` in visual mode. When we paste in visual mode, we put
+  the content of the default register in place of the highlighted text, and the
+  highlighted text into the default register.
+
+- Complete the statement 27 * 45 = x. Solution: cursor at x and in insert
+  mode; `<C-r>=27*45<CR>`.
+
+
 ## Macros
 
 Command             | Effect
@@ -677,6 +703,11 @@ Useful idioms:
   entire file, leaving the pattern empty uses last search pattern, and command
   defaults to print.
 
+- A generalised version of the command, useful to operate inside text or code
+  blocks, is `:g/{start} .,{finish} [cmd]`, which applies the command to each
+  range of lines that begins with {start} and ends with {finish}. See CSS
+  sorting example below.
+
 Command                 | Effect
 `g[lobal]`              | Global command
 `v[global]`             | Invert global
@@ -691,30 +722,26 @@ Useful idioms:
 
 - Print all lines that contain "Hi". Solution: `:g/Hi`.
 
+- Yank all lines that contain "TODO" into register a. Solution: `qaq` (to empty
+  register); `:g/TODO/yank A`. Explanation: need capital `A` to append to rather
+  than overwrite register.
+
 - Glance at markdown file structure. Solution: `g/^#`e
+
+- Alphabetically sort properties inside each rule of a CSS file. Solution:
+  `:g/{/ .+1,/}/-1 sort`. Explanation: `/{/` is the pattern of the global
+  command and searches for all lines that contain
+  an `{`. `.+1,/}/-1` is the range of the Ex command, specified as from the
+  current line until the next line that contains a closing curly bracket. The
+  offsets narrow the range to exclude the lines with curly brackets. The current
+  line address here stands for each line in turn that matches the `/{/` pattern.
+
 
 
 # Writing
 
 Command                 | Effect
 `gq{motion}             | Formats text, defaults to wrapping long lines.
-
-# Common patterns
-
-- Replace firstword with secondword. Solution 1: cursor at beginning of
-  secondword;
-  `ye`; `bb`; `ve`; `p`. Solution 2: cursor at beginning of secondword; `ye`;
-  `bb`; `cw`; `<C-r>0`. Has advantage that `.` now replaces current word with
-  `firstword`. 
-
-- Swap firstword and secondword. Solution: cursor at beginning of firstword;
-  `de`; `mm`; `ww`; `ve`; `p`; `` `m ``; `P`. Explanation: this exploits a quirk
-  in the behaviour or `p` in visual mode. When we paste in visual mode, we put
-  the content of the default register in place of the highlighted text, and the
-  highlighted text into the default register.
-
-- Complete the statement 27 * 45 = x. Solution: cursor at x and in insert
-  mode; `<C-r>=27*45<CR>`.
 
 
 # Common issues
@@ -730,6 +757,10 @@ Command                 | Effect
 
 
 # Extra functionality and awesome plugins
+
+## ctags
+
+- 
 
 ## vim-unimpaired
 
