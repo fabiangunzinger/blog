@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      21 min read
+      22 min read
     
 </span></p>
 
@@ -156,10 +156,10 @@ window.onload = wrap_img;
 </ul>
 </li>
 <li class="toc-entry toc-h1"><a href="#writing">Writing</a></li>
-<li class="toc-entry toc-h1"><a href="#common-patterns">Common patterns</a></li>
 <li class="toc-entry toc-h1"><a href="#common-issues">Common issues</a></li>
 <li class="toc-entry toc-h1"><a href="#extra-functionality-and-awesome-plugins">Extra functionality and awesome plugins</a>
 <ul>
+<li class="toc-entry toc-h2"><a href="#ctags">ctags</a></li>
 <li class="toc-entry toc-h2"><a href="#vim-unimpaired">vim-unimpaired</a></li>
 <li class="toc-entry toc-h2"><a href="#vim-surround">vim-surround</a></li>
 <li class="toc-entry toc-h2"><a href="#vim-abolish">vim-abolish</a></li>
@@ -240,6 +240,12 @@ of them does).</p>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">|</code></td>
       <td>Command separator (equivalent to <code class="language-plaintext highlighter-rouge">:</code> in shell)</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">&lt;C-z&gt;</code>/<code class="language-plaintext highlighter-rouge">fg</code>
+</td>
+      <td>Put vim in background / return to vim</td>
     </tr>
   </tbody>
 </table>
@@ -710,6 +716,8 @@ marks.</p>
   </li>
 </ul>
 
+<p>Command mode commands:</p>
+
 <table>
   <tbody>
     <tr>
@@ -723,14 +731,32 @@ marks.</p>
       <td>Opens command line mode</td>
     </tr>
     <tr>
-      <td>
-<code class="language-plaintext highlighter-rouge">&lt;C-z&gt;</code>/<code class="language-plaintext highlighter-rouge">fg</code>
-</td>
-      <td>Put vim in background / return to vim</td>
-    </tr>
-    <tr>
       <td><code class="language-plaintext highlighter-rouge">&lt;C-r&gt;&lt;C-w&gt;</code></td>
       <td>Insert word under cursor in command prompt</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">&lt;left&gt;</code>/<code class="language-plaintext highlighter-rouge">&lt;right&gt;</code>
+</td>
+      <td>Move one character left or right</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;S-left&gt;</code></td>
+      <td>Move one word left (similar for right)</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">&lt;C-b&gt;</code>/<code class="language-plaintext highlighter-rouge">&lt;C-e&gt;</code>
+</td>
+      <td>Move to the beginning/end of the command</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;C-w&gt;</code></td>
+      <td>Delete last word</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;C-u&gt;</code></td>
+      <td>Delete entire line</td>
     </tr>
   </tbody>
 </table>
@@ -1486,6 +1512,29 @@ command-line mode with a <code class="language-plaintext highlighter-rouge">=</c
   </tbody>
 </table>
 
+<p>Useful patterns:</p>
+
+<ul>
+  <li>
+    <p>Replace firstword with secondword. Solution 1: cursor at beginning of
+secondword;
+<code class="language-plaintext highlighter-rouge">ye</code>; <code class="language-plaintext highlighter-rouge">bb</code>; <code class="language-plaintext highlighter-rouge">ve</code>; <code class="language-plaintext highlighter-rouge">p</code>. Solution 2: cursor at beginning of secondword; <code class="language-plaintext highlighter-rouge">ye</code>;
+<code class="language-plaintext highlighter-rouge">bb</code>; <code class="language-plaintext highlighter-rouge">cw</code>; <code class="language-plaintext highlighter-rouge">&lt;C-r&gt;0</code>. Has advantage that <code class="language-plaintext highlighter-rouge">.</code> now replaces current word with
+<code class="language-plaintext highlighter-rouge">firstword</code>.</p>
+  </li>
+  <li>
+    <p>Swap firstword and secondword. Solution: cursor at beginning of firstword;
+<code class="language-plaintext highlighter-rouge">de</code>; <code class="language-plaintext highlighter-rouge">mm</code>; <code class="language-plaintext highlighter-rouge">ww</code>; <code class="language-plaintext highlighter-rouge">ve</code>; <code class="language-plaintext highlighter-rouge">p</code>; <code class="language-plaintext highlighter-rouge">`m</code>; <code class="language-plaintext highlighter-rouge">P</code>. Explanation: this exploits a quirk
+in the behaviour or <code class="language-plaintext highlighter-rouge">p</code> in visual mode. When we paste in visual mode, we put
+the content of the default register in place of the highlighted text, and the
+highlighted text into the default register.</p>
+  </li>
+  <li>
+    <p>Complete the statement 27 * 45 = x. Solution: cursor at x and in insert
+mode; <code class="language-plaintext highlighter-rouge">&lt;C-r&gt;=27*45&lt;CR&gt;</code>.</p>
+  </li>
+</ul>
+
 <h2 id="macros">
 <a class="anchor" href="#macros" aria-hidden="true"><span class="octicon octicon-link"></span></a>Macros</h2>
 
@@ -1879,9 +1928,17 @@ and update commands: <code class="language-plaintext highlighter-rouge">:cfdo %s
 <a class="anchor" href="#global-commands" aria-hidden="true"><span class="octicon octicon-link"></span></a>Global commands</h2>
 
 <ul>
-  <li>Full syntax: <code class="language-plaintext highlighter-rouge">:[range] global[!] /{pattern}/ {cmd}</code>. Range defaults to the
+  <li>
+    <p>Full syntax: <code class="language-plaintext highlighter-rouge">:[range] global[!] /{pattern}/ {cmd}</code>. Range defaults to the
 entire file, leaving the pattern empty uses last search pattern, and command
-defaults to print.</li>
+defaults to print.</p>
+  </li>
+  <li>
+    <p>A generalised version of the command, useful to operate inside text or code
+blocks, is <code class="language-plaintext highlighter-rouge">:g/{start} .,{finish} [cmd]</code>, which applies the command to each
+range of lines that begins with {start} and ends with {finish}. See CSS
+sorting example below.</p>
+  </li>
 </ul>
 
 <table>
@@ -1918,7 +1975,21 @@ defaults to print.</li>
     <p>Print all lines that contain “Hi”. Solution: <code class="language-plaintext highlighter-rouge">:g/Hi</code>.</p>
   </li>
   <li>
+    <p>Yank all lines that contain “TODO” into register a. Solution: <code class="language-plaintext highlighter-rouge">qaq</code> (to empty
+register); <code class="language-plaintext highlighter-rouge">:g/TODO/yank A</code>. Explanation: need capital <code class="language-plaintext highlighter-rouge">A</code> to append to rather
+than overwrite register.</p>
+  </li>
+  <li>
     <p>Glance at markdown file structure. Solution: <code class="language-plaintext highlighter-rouge">g/^#</code>e</p>
+  </li>
+  <li>
+    <p>Alphabetically sort properties inside each rule of a CSS file. Solution:
+<code class="language-plaintext highlighter-rouge">:g/{/ .+1,/}/-1 sort</code>. Explanation: <code class="language-plaintext highlighter-rouge">/{/</code> is the pattern of the global
+command and searches for all lines that contain
+an <code class="language-plaintext highlighter-rouge">{</code>. <code class="language-plaintext highlighter-rouge">.+1,/}/-1</code> is the range of the Ex command, specified as from the
+current line until the next line that contains a closing curly bracket. The
+offsets narrow the range to exclude the lines with curly brackets. The current
+line address here stands for each line in turn that matches the <code class="language-plaintext highlighter-rouge">/{/</code> pattern.</p>
   </li>
 </ul>
 
@@ -1938,30 +2009,6 @@ defaults to print.</li>
   </tbody>
 </table>
 
-<h1 id="common-patterns">
-<a class="anchor" href="#common-patterns" aria-hidden="true"><span class="octicon octicon-link"></span></a>Common patterns</h1>
-
-<ul>
-  <li>
-    <p>Replace firstword with secondword. Solution 1: cursor at beginning of
-secondword;
-<code class="language-plaintext highlighter-rouge">ye</code>; <code class="language-plaintext highlighter-rouge">bb</code>; <code class="language-plaintext highlighter-rouge">ve</code>; <code class="language-plaintext highlighter-rouge">p</code>. Solution 2: cursor at beginning of secondword; <code class="language-plaintext highlighter-rouge">ye</code>;
-<code class="language-plaintext highlighter-rouge">bb</code>; <code class="language-plaintext highlighter-rouge">cw</code>; <code class="language-plaintext highlighter-rouge">&lt;C-r&gt;0</code>. Has advantage that <code class="language-plaintext highlighter-rouge">.</code> now replaces current word with
-<code class="language-plaintext highlighter-rouge">firstword</code>.</p>
-  </li>
-  <li>
-    <p>Swap firstword and secondword. Solution: cursor at beginning of firstword;
-<code class="language-plaintext highlighter-rouge">de</code>; <code class="language-plaintext highlighter-rouge">mm</code>; <code class="language-plaintext highlighter-rouge">ww</code>; <code class="language-plaintext highlighter-rouge">ve</code>; <code class="language-plaintext highlighter-rouge">p</code>; <code class="language-plaintext highlighter-rouge">`m</code>; <code class="language-plaintext highlighter-rouge">P</code>. Explanation: this exploits a quirk
-in the behaviour or <code class="language-plaintext highlighter-rouge">p</code> in visual mode. When we paste in visual mode, we put
-the content of the default register in place of the highlighted text, and the
-highlighted text into the default register.</p>
-  </li>
-  <li>
-    <p>Complete the statement 27 * 45 = x. Solution: cursor at x and in insert
-mode; <code class="language-plaintext highlighter-rouge">&lt;C-r&gt;=27*45&lt;CR&gt;</code>.</p>
-  </li>
-</ul>
-
 <h1 id="common-issues">
 <a class="anchor" href="#common-issues" aria-hidden="true"><span class="octicon octicon-link"></span></a>Common issues</h1>
 
@@ -1978,6 +2025,13 @@ and delete the other one and the swap file. (Based on
 
 <h1 id="extra-functionality-and-awesome-plugins">
 <a class="anchor" href="#extra-functionality-and-awesome-plugins" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extra functionality and awesome plugins</h1>
+
+<h2 id="ctags">
+<a class="anchor" href="#ctags" aria-hidden="true"><span class="octicon octicon-link"></span></a>ctags</h2>
+
+<ul>
+  <li>
+</ul>
 
 <h2 id="vim-unimpaired">
 <a class="anchor" href="#vim-unimpaired" aria-hidden="true"><span class="octicon octicon-link"></span></a>vim-unimpaired</h2>
