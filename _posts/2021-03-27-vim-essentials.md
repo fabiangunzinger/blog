@@ -758,9 +758,27 @@ Command                 | Effect
 
 # Extra functionality and awesome plugins
 
-## ctags
+## Ctags
 
-- 
+- I love Ctags!
+
+- I've followed Tim Pope's
+  [approach](https://tbaggery.com/2011/08/08/effortless-ctags-with-git.html) to
+  set this up.
+
+- For newly initialised or cloned directories, this automatically creates hooks
+  and indexes the code with Ctags.
+
+- For existing directories, you need to run `git init` to copy the hook
+  templates into the local `.git/hooks`, and then `git ctags` to index the code.
+
+
+Command             | Effect
+`<C-]>`             | Jump to definition of keyword under cursor
+`g<C-]>`            | As above, but select definition of there are multiple
+`:tag {keyword}`    | Jump to definition of keyword
+`:tjump {keyword}`  | Jump but select definition if multiple
+    
 
 ## vim-unimpaired
 
