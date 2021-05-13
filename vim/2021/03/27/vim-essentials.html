@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      22 min read
+      23 min read
     
 </span></p>
 
@@ -159,7 +159,7 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h1"><a href="#common-issues">Common issues</a></li>
 <li class="toc-entry toc-h1"><a href="#extra-functionality-and-awesome-plugins">Extra functionality and awesome plugins</a>
 <ul>
-<li class="toc-entry toc-h2"><a href="#ctags">ctags</a></li>
+<li class="toc-entry toc-h2"><a href="#ctags">Ctags</a></li>
 <li class="toc-entry toc-h2"><a href="#vim-unimpaired">vim-unimpaired</a></li>
 <li class="toc-entry toc-h2"><a href="#vim-surround">vim-surround</a></li>
 <li class="toc-entry toc-h2"><a href="#vim-abolish">vim-abolish</a></li>
@@ -2027,11 +2027,51 @@ and delete the other one and the swap file. (Based on
 <a class="anchor" href="#extra-functionality-and-awesome-plugins" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extra functionality and awesome plugins</h1>
 
 <h2 id="ctags">
-<a class="anchor" href="#ctags" aria-hidden="true"><span class="octicon octicon-link"></span></a>ctags</h2>
+<a class="anchor" href="#ctags" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ctags</h2>
 
 <ul>
   <li>
+    <p>I love Ctags!</p>
+  </li>
+  <li>
+    <p>I’ve followed Tim Pope’s
+<a href="https://tbaggery.com/2011/08/08/effortless-ctags-with-git.html">approach</a> to
+set this up.</p>
+  </li>
+  <li>
+    <p>For newly initialised or cloned directories, this automatically creates hooks
+and indexes the code with Ctags.</p>
+  </li>
+  <li>
+    <p>For existing directories, you need to run <code class="language-plaintext highlighter-rouge">git init</code> to copy the hook
+templates into the local <code class="language-plaintext highlighter-rouge">.git/hooks</code>, and then <code class="language-plaintext highlighter-rouge">git ctags</code> to index the code.</p>
+  </li>
 </ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;C-]&gt;</code></td>
+      <td>Jump to definition of keyword under cursor</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">g&lt;C-]&gt;</code></td>
+      <td>As above, but select definition of there are multiple</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:tag {keyword}</code></td>
+      <td>Jump to definition of keyword</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:tjump {keyword}</code></td>
+      <td>Jump but select definition if multiple</td>
+    </tr>
+  </tbody>
+</table>
 
 <h2 id="vim-unimpaired">
 <a class="anchor" href="#vim-unimpaired" aria-hidden="true"><span class="octicon octicon-link"></span></a>vim-unimpaired</h2>
