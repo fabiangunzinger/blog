@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      23 min read
+      24 min read
     
 </span></p>
 
@@ -125,6 +125,7 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#insert-mode">Insert mode</a></li>
 <li class="toc-entry toc-h2"><a href="#visual-mode">Visual mode</a></li>
 <li class="toc-entry toc-h2"><a href="#command-line-mode">Command-line mode</a></li>
+<li class="toc-entry toc-h2"><a href="#quickfix-list">Quickfix List</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h1"><a href="#files">Files</a>
@@ -891,6 +892,39 @@ cursor on word in first row; <code class="language-plaintext highlighter-rouge">
   </li>
 </ul>
 
+<h2 id="quickfix-list">
+<a class="anchor" href="#quickfix-list" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quickfix List</h2>
+
+<ul>
+  <li>
+    <p>The quickfix list is a special mode to speed up the edit-compile-edit cycle.
+But it can be used more generally to find a list of positions in files (e.g.
+list could hold search matches from running <code class="language-plaintext highlighter-rouge">:vimgrep</code>).</p>
+  </li>
+  <li>
+    <p>The Location list is a local version of the quickfix list that is bound to the
+currently active window. There can be as many local lists as there are
+windows, while there is only a single globally available quickfix list.</p>
+  </li>
+</ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:make [target]</code></td>
+      <td>Compile target (and jump to first error if there are some)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:make! [target]</code></td>
+      <td>Compile target without jumping to first error</td>
+    </tr>
+  </tbody>
+</table>
+
 <h1 id="files">
 <a class="anchor" href="#files" aria-hidden="true"><span class="octicon octicon-link"></span></a>Files</h1>
 
@@ -1009,6 +1043,10 @@ one window.</li>
       <td>Close current window</td>
     </tr>
     <tr>
+      <td><code class="language-plaintext highlighter-rouge">:sb[uffer]</code></td>
+      <td>Open buffer number N in horizontal split</td>
+    </tr>
+    <tr>
       <td><code class="language-plaintext highlighter-rouge">:vert sb N</code></td>
       <td>Open buffer number N in vertical split</td>
     </tr>
@@ -1033,6 +1071,10 @@ one window.</li>
       <td>Open new tab with {file} if specified or empty otherwise</td>
     </tr>
     <tr>
+      <td><code class="language-plaintext highlighter-rouge">:[count]tabnew</code></td>
+      <td>Open a new tab in an empty window.</td>
+    </tr>
+    <tr>
       <td><code class="language-plaintext highlighter-rouge">&lt;C-w&gt;T</code></td>
       <td>Move current window into new tab</td>
     </tr>
@@ -1052,6 +1094,33 @@ one window.</li>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">gT</code></td>
       <td>Go to previous tab</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Handy [count] options for <code class="language-plaintext highlighter-rouge">tabnew</code>:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Count</td>
+      <td>Opens new tab …</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[.]</code></td>
+      <td>… after current one</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-</code></td>
+      <td>… before current one</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0</code></td>
+      <td>… before first one</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$</code></td>
+      <td>… after last one</td>
     </tr>
   </tbody>
 </table>
@@ -1980,7 +2049,7 @@ register); <code class="language-plaintext highlighter-rouge">:g/TODO/yank A</co
 than overwrite register.</p>
   </li>
   <li>
-    <p>Glance at markdown file structure. Solution: <code class="language-plaintext highlighter-rouge">g/^#</code>e</p>
+    <p>Glance at markdown file structure (create a table of contents). Solution: <code class="language-plaintext highlighter-rouge">g/^#</code>e</p>
   </li>
   <li>
     <p>Alphabetically sort properties inside each rule of a CSS file. Solution:
@@ -2030,22 +2099,12 @@ and delete the other one and the swap file. (Based on
 <a class="anchor" href="#ctags" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ctags</h2>
 
 <ul>
-  <li>
-    <p>I love Ctags!</p>
-  </li>
-  <li>
-    <p>I’ve followed Tim Pope’s
+  <li>I’ve followed Tim Pope’s
 <a href="https://tbaggery.com/2011/08/08/effortless-ctags-with-git.html">approach</a> to
-set this up.</p>
-  </li>
-  <li>
-    <p>For newly initialised or cloned directories, this automatically creates hooks
-and indexes the code with Ctags.</p>
-  </li>
-  <li>
-    <p>For existing directories, you need to run <code class="language-plaintext highlighter-rouge">git init</code> to copy the hook
-templates into the local <code class="language-plaintext highlighter-rouge">.git/hooks</code>, and then <code class="language-plaintext highlighter-rouge">git ctags</code> to index the code.</p>
-  </li>
+set this up. For newly initialised or cloned directories, this setup
+automatically creates hooks and indexes the code with Ctags. For existing
+directories, you need to run <code class="language-plaintext highlighter-rouge">git init</code> to copy the hook templates into the
+local <code class="language-plaintext highlighter-rouge">.git/hooks</code>, and then <code class="language-plaintext highlighter-rouge">git ctags</code> to index the code.</li>
 </ul>
 
 <table>
