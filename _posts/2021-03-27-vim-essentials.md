@@ -250,6 +250,21 @@ Useful idioms:
 
 - Open help for word under the cursor. Solution: `:h <C-r><C-w><CR>`
 
+## Quickfix List
+
+- The quickfix list is a special mode to speed up the edit-compile-edit cycle.
+  But it can be used more generally to find a list of positions in files (e.g.
+  list could hold search matches from running `:vimgrep`).
+
+- The Location list is a local version of the quickfix list that is bound to the
+  currently active window. There can be as many local lists as there are
+  windows, while there is only a single globally available quickfix list.
+
+
+Command             | Effect
+`:make [target]`    | Compile target (and jump to first error if there are some)
+`:make! [target]`   | Compile target without jumping to first error
+
 
 # Files
 
@@ -301,6 +316,7 @@ Command             | Effect
 `<C-w>r`            | Rorate windows
 `<C-w>x`            | Exchange position of current window with its neighbour
 `q[uit]`            | Close current window
+`:sb[uffer]`        | Open buffer number N in horizontal split
 `:vert sb N`        | Open buffer number N in vertical split
 
 
@@ -310,11 +326,20 @@ Command             | Effect
 
 Command             | Effect
 `:tabe[dit]{file}`  | Open new tab with {file} if specified or empty otherwise
+`:[count]tabnew`    | Open a new tab in an empty window.
 `<C-w>T`            | Move current window into new tab
 `:tabc[lose]`       | Close current tab with all its windows
 `:tabo[nly]`        | Close all tabs but the current one
 `{N}`gt             | Go to tab {N} if specified, or to next otherwise
 `gT`                | Go to previous tab
+
+Handy [count] options for `tabnew`:
+
+Count  | Opens new tab ...
+`[.]`  | ... after current one
+`-`    | ... before current one
+`0`    | ... before first one
+`$`    | ... after last one
 
 
 ## Opening files
@@ -726,7 +751,7 @@ Useful idioms:
   register); `:g/TODO/yank A`. Explanation: need capital `A` to append to rather
   than overwrite register.
 
-- Glance at markdown file structure. Solution: `g/^#`e
+- Glance at markdown file structure (create a table of contents). Solution: `g/^#`e
 
 - Alphabetically sort properties inside each rule of a CSS file. Solution:
   `:g/{/ .+1,/}/-1 sort`. Explanation: `/{/` is the pattern of the global
@@ -760,17 +785,12 @@ Command                 | Effect
 
 ## Ctags
 
-- I love Ctags!
-
 - I've followed Tim Pope's
   [approach](https://tbaggery.com/2011/08/08/effortless-ctags-with-git.html) to
-  set this up.
-
-- For newly initialised or cloned directories, this automatically creates hooks
-  and indexes the code with Ctags.
-
-- For existing directories, you need to run `git init` to copy the hook
-  templates into the local `.git/hooks`, and then `git ctags` to index the code.
+  set this up. For newly initialised or cloned directories, this setup
+  automatically creates hooks and indexes the code with Ctags. For existing
+  directories, you need to run `git init` to copy the hook templates into the
+  local `.git/hooks`, and then `git ctags` to index the code.
 
 
 Command             | Effect
