@@ -45,10 +45,10 @@ can't recommend enough as a start to learning Vim seriously.
 
 Command             | Effect
 `:e $M[YVIMRC]`     | Open my vimrc (in any session)
-`set: {cmd}?`       | Show present setting for {cmd}
+`set: {option}?`    | Show present setting for {option}
+`set: {option}&`    | Set option back to default value
 `|`                 | Command separator (equivalent to `:` in shell)
 `<C-z>`/`fg`        | Put vim in background / return to vim
-
 
 
 # Modes
@@ -260,10 +260,14 @@ Useful idioms:
   currently active window. There can be as many local lists as there are
   windows, while there is only a single globally available quickfix list.
 
+- Navigate quickfix list using `vim-unimpaired` shortcuts.
 
 Command             | Effect
 `:make [target]`    | Compile target (and jump to first error if there are some)
 `:make! [target]`   | Compile target without jumping to first error
+`:copen`            | Open quickfix window
+`:cclose`           | Close quickfix window
+
 
 
 # Files
@@ -273,6 +277,7 @@ Setting the working directory:
 Command             | Effect
 `:pwd`              | Show current directory window
 `:cd`               | Set directory for all windows
+`:cd -`             | Revert back to previous directory
 `:lcd`              | Set directory for current window
 `:tcd`              | Set directory for current tab
 
@@ -297,6 +302,8 @@ Command             | Effect
 - `:[range]bd` deletes buffers in range, with `[range]` working as for other
   Ex-commands (see above).
 
+Command             | Effect
+`:x`                | Like `:wq` but only write if file was changed
 
 ## Windows 
 
@@ -638,6 +645,8 @@ Useful patterns:
 
 ## Search
 
+### Within a file
+
 Command             | Effect
 `/<CR>`             | Search previous pattern forward
 `?<CR>`             | Search previous pattern backwards
@@ -648,7 +657,8 @@ Command             | Effect
 
 
 - Replace all occurrences of "lang" or "langs" with "language" or "languages".
-  Solution: `/lang/e<CR>auage`; then `n.`. 
+  Solution: `/lang/<CR>`; `ea`; `uage`; `n.`. Explanation: the second `/` denotes
+  teh end of the pattern, so from then on we're back in command line mode.
 
 - Replace all occurrences of "PyCode" and "PythonCode" with "PYCode" or
   "PYTHONCode". Solution: `/\vPy(thon)?\C<CR>`; `gUgn`; `.`. Explanation: `gn`
@@ -658,6 +668,20 @@ Command             | Effect
   press `.`, the word under the cursor no longer is a match, so Vim jumps to the
   next match and applies the pending `gU` operator. Drew Neil calls this the
   "Improved dot-formula", since it we can use `.` to achieve `n.`.
+
+
+### Across files
+
+- `:vimgrep` has the advantage that we can use the Vim native regular
+  expressions, which means we can test a complex regex in the current buffer and
+  then execute it across many files. It's disadvantage is that it's very slow.
+
+- `:grep` is a wrapper around command line grep, which uses POSIX regex.
+
+- `:Ack` uses ack, which uses Perl regex and is also faster.
+
+- I'll probably use `:vimgrep` when I need its advantages and `:Ack` otherwise.
+
 
 
 ## Substitution
@@ -762,6 +786,29 @@ Useful idioms:
   line address here stands for each line in turn that matches the `/{/` pattern.
 
 
+# Autocompletion
+
+Command                 | Effect
+`<C-n>`/`<C-p>`         | Trigger autocompletion and navigate
+`<C-e>`                 | Dismiss autocomplete window
+`<C-n><C-p>`            | Filter suggestions as we type
+`<C-x><C-k>`            | Dictionary lookup (requires spellchecker on - `yos`)
+`<C-x><C-l>`            | Autocomplete entire line
+`<C-x><C-f>`            | Autocomplete filename (relative to pwd)
+
+
+# Spell checking
+
+Command                 | Effect
+`yos`                   | Toggle spell checker (uses `vim-unimpaired`)
+`]s`/`[s`               | Jump to next/previous misspelled word
+`z=`                    | Suggest corrections
+`[n]z=`                 | Correct word with nth suggestion
+`zg`                    | Add current word to spell file (mnem: "good")
+`zw`                    | Remove current word from spell file (mnem: "wrong")
+`zug`                   | Revert `zg` or `zw` command for current word
+
+
 
 # Writing
 
@@ -782,6 +829,14 @@ Command                 | Effect
 
 
 # Extra functionality and awesome plugins
+
+## Python coding workflow
+
+- Execute makefiles using `:make` (Set up quicklist such that I can jump to
+  errors directly, this currently doesn't work. Probably requires some
+  additional setup to recognise Python errors.)
+
+
 
 ## Ctags
 
