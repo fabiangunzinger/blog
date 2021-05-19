@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      24 min read
+      25 min read
     
 </span></p>
 
@@ -151,15 +151,23 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h1"><a href="#patterns">Patterns</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#matching-patterns-and-literals">Matching patterns and literals</a></li>
-<li class="toc-entry toc-h2"><a href="#search">Search</a></li>
+<li class="toc-entry toc-h2"><a href="#search">Search</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#within-a-file">Within a file</a></li>
+<li class="toc-entry toc-h3"><a href="#across-files">Across files</a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h2"><a href="#substitution">Substitution</a></li>
 <li class="toc-entry toc-h2"><a href="#global-commands">Global commands</a></li>
 </ul>
 </li>
+<li class="toc-entry toc-h1"><a href="#autocompletion">Autocompletion</a></li>
+<li class="toc-entry toc-h1"><a href="#spell-checking">Spell checking</a></li>
 <li class="toc-entry toc-h1"><a href="#writing">Writing</a></li>
 <li class="toc-entry toc-h1"><a href="#common-issues">Common issues</a></li>
 <li class="toc-entry toc-h1"><a href="#extra-functionality-and-awesome-plugins">Extra functionality and awesome plugins</a>
 <ul>
+<li class="toc-entry toc-h2"><a href="#python-coding-workflow">Python coding workflow</a></li>
 <li class="toc-entry toc-h2"><a href="#ctags">Ctags</a></li>
 <li class="toc-entry toc-h2"><a href="#vim-unimpaired">vim-unimpaired</a></li>
 <li class="toc-entry toc-h2"><a href="#vim-surround">vim-surround</a></li>
@@ -235,8 +243,12 @@ of them does).</p>
       <td>Open my vimrc (in any session)</td>
     </tr>
     <tr>
-      <td><code class="language-plaintext highlighter-rouge">set: {cmd}?</code></td>
-      <td>Show present setting for {cmd}</td>
+      <td><code class="language-plaintext highlighter-rouge">set: {option}?</code></td>
+      <td>Show present setting for {option}</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">set: {option}&amp;</code></td>
+      <td>Set option back to default value</td>
     </tr>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">|</code></td>
@@ -906,6 +918,9 @@ list could hold search matches from running <code class="language-plaintext high
 currently active window. There can be as many local lists as there are
 windows, while there is only a single globally available quickfix list.</p>
   </li>
+  <li>
+    <p>Navigate quickfix list using <code class="language-plaintext highlighter-rouge">vim-unimpaired</code> shortcuts.</p>
+  </li>
 </ul>
 
 <table>
@@ -921,6 +936,14 @@ windows, while there is only a single globally available quickfix list.</p>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">:make! [target]</code></td>
       <td>Compile target without jumping to first error</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:copen</code></td>
+      <td>Open quickfix window</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:cclose</code></td>
+      <td>Close quickfix window</td>
     </tr>
   </tbody>
 </table>
@@ -943,6 +966,10 @@ windows, while there is only a single globally available quickfix list.</p>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">:cd</code></td>
       <td>Set directory for all windows</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:cd -</code></td>
+      <td>Revert back to previous directory</td>
     </tr>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">:lcd</code></td>
@@ -982,6 +1009,19 @@ writes changed buffers to disk.</p>
 Ex-commands (see above).</p>
   </li>
 </ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:x</code></td>
+      <td>Like <code class="language-plaintext highlighter-rouge">:wq</code> but only write if file was changed</td>
+    </tr>
+  </tbody>
+</table>
 
 <h2 id="windows">
 <a class="anchor" href="#windows" aria-hidden="true"><span class="octicon octicon-link"></span></a>Windows</h2>
@@ -1812,6 +1852,9 @@ see tip 79 in PV.</p>
 <h2 id="search">
 <a class="anchor" href="#search" aria-hidden="true"><span class="octicon octicon-link"></span></a>Search</h2>
 
+<h3 id="within-a-file">
+<a class="anchor" href="#within-a-file" aria-hidden="true"><span class="octicon octicon-link"></span></a>Within a file</h3>
+
 <table>
   <tbody>
     <tr>
@@ -1848,7 +1891,8 @@ see tip 79 in PV.</p>
 <ul>
   <li>
     <p>Replace all occurrences of “lang” or “langs” with “language” or “languages”.
-Solution: <code class="language-plaintext highlighter-rouge">/lang/e&lt;CR&gt;auage</code>; then <code class="language-plaintext highlighter-rouge">n.</code>.</p>
+Solution: <code class="language-plaintext highlighter-rouge">/lang/&lt;CR&gt;</code>; <code class="language-plaintext highlighter-rouge">ea</code>; <code class="language-plaintext highlighter-rouge">uage</code>; <code class="language-plaintext highlighter-rouge">n.</code>. Explanation: the second <code class="language-plaintext highlighter-rouge">/</code> denotes
+teh end of the pattern, so from then on we’re back in command line mode.</p>
   </li>
   <li>
     <p>Replace all occurrences of “PyCode” and “PythonCode” with “PYCode” or
@@ -1859,6 +1903,26 @@ first time, the cursor changes the first match and remains there. Once we
 press <code class="language-plaintext highlighter-rouge">.</code>, the word under the cursor no longer is a match, so Vim jumps to the
 next match and applies the pending <code class="language-plaintext highlighter-rouge">gU</code> operator. Drew Neil calls this the
 “Improved dot-formula”, since it we can use <code class="language-plaintext highlighter-rouge">.</code> to achieve <code class="language-plaintext highlighter-rouge">n.</code>.</p>
+  </li>
+</ul>
+
+<h3 id="across-files">
+<a class="anchor" href="#across-files" aria-hidden="true"><span class="octicon octicon-link"></span></a>Across files</h3>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">:vimgrep</code> has the advantage that we can use the Vim native regular
+expressions, which means we can test a complex regex in the current buffer and
+then execute it across many files. It’s disadvantage is that it’s very slow.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">:grep</code> is a wrapper around command line grep, which uses POSIX regex.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">:Ack</code> uses ack, which uses Perl regex and is also faster.</p>
+  </li>
+  <li>
+    <p>I’ll probably use <code class="language-plaintext highlighter-rouge">:vimgrep</code> when I need its advantages and <code class="language-plaintext highlighter-rouge">:Ack</code> otherwise.</p>
   </li>
 </ul>
 
@@ -2062,6 +2126,86 @@ line address here stands for each line in turn that matches the <code class="lan
   </li>
 </ul>
 
+<h1 id="autocompletion">
+<a class="anchor" href="#autocompletion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Autocompletion</h1>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">&lt;C-n&gt;</code>/<code class="language-plaintext highlighter-rouge">&lt;C-p&gt;</code>
+</td>
+      <td>Trigger autocompletion and navigate</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;C-e&gt;</code></td>
+      <td>Dismiss autocomplete window</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;C-n&gt;&lt;C-p&gt;</code></td>
+      <td>Filter suggestions as we type</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;C-x&gt;&lt;C-k&gt;</code></td>
+      <td>Dictionary lookup (requires spellchecker on - <code class="language-plaintext highlighter-rouge">yos</code>)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;C-x&gt;&lt;C-l&gt;</code></td>
+      <td>Autocomplete entire line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;C-x&gt;&lt;C-f&gt;</code></td>
+      <td>Autocomplete filename (relative to pwd)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="spell-checking">
+<a class="anchor" href="#spell-checking" aria-hidden="true"><span class="octicon octicon-link"></span></a>Spell checking</h1>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">yos</code></td>
+      <td>Toggle spell checker (uses <code class="language-plaintext highlighter-rouge">vim-unimpaired</code>)</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">]s</code>/<code class="language-plaintext highlighter-rouge">[s</code>
+</td>
+      <td>Jump to next/previous misspelled word</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">z=</code></td>
+      <td>Suggest corrections</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[n]z=</code></td>
+      <td>Correct word with nth suggestion</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">zg</code></td>
+      <td>Add current word to spell file (mnem: “good”)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">zw</code></td>
+      <td>Remove current word from spell file (mnem: “wrong”)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">zug</code></td>
+      <td>Revert <code class="language-plaintext highlighter-rouge">zg</code> or <code class="language-plaintext highlighter-rouge">zw</code> command for current word</td>
+    </tr>
+  </tbody>
+</table>
+
 <h1 id="writing">
 <a class="anchor" href="#writing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Writing</h1>
 
@@ -2094,6 +2238,15 @@ and delete the other one and the swap file. (Based on
 
 <h1 id="extra-functionality-and-awesome-plugins">
 <a class="anchor" href="#extra-functionality-and-awesome-plugins" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extra functionality and awesome plugins</h1>
+
+<h2 id="python-coding-workflow">
+<a class="anchor" href="#python-coding-workflow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Python coding workflow</h2>
+
+<ul>
+  <li>Execute makefiles using <code class="language-plaintext highlighter-rouge">:make</code> (Set up quicklist such that I can jump to
+errors directly, this currently doesn’t work. Probably requires some
+additional setup to recognise Python errors.)</li>
+</ul>
 
 <h2 id="ctags">
 <a class="anchor" href="#ctags" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ctags</h2>
