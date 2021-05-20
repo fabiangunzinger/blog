@@ -809,6 +809,22 @@ Command                 | Effect
 `zug`                   | Revert `zg` or `zw` command for current word
 
 
+# Mappings
+
+- General syntax: `{cmd} {attr} {lhs} {rhs}`.
+
+- Mapping process: define the sequence of keys to be mapped, decide the editing
+  mode in which the mapping will work, find a suitable and free key sequence.
+
+- Understanding `noremap` mappings: by default, vim mappings are recursive (i.e.
+  if a is mapped to b and b to c, then a is really mapped to c because b will be
+  expanded on the rhs). This behaviour is set with the `remap` option. To define
+  non-recursive mappings, we can use the `noremap` mappings.
+
+Command                 | Effect
+`:nmap {char}`		| List all normal mode mappings starting with {char}
+`:verbose nmap {char}`	| As above, but shows location where maps are defined
+
 
 # Writing
 
@@ -877,9 +893,10 @@ Command                 | Effect
 
 ## [vim-abolish](https://github.com/tpope/vim-abolish)
 
-Deals with word variants and provides powerful substitution and case coercion.
+- Deals with word variants and provides powerful searching, grepping, substitution
+and case coercion.
 
-- Replace all variants of chiltren to adults: `:S/child{,ren}/adult{,s}/g`.
+- Replace all variants of children to adults: `:S/child{,ren}/adult{,s}/g`.
 
 - Swap all occurrences of man to dog: `:S/{man, dog}/{dog, man}/g`.
 
@@ -896,6 +913,16 @@ Command             | Effect
 `cr<space>`         | Coerce to `space case`
 `crt`               | Coerce to `Title Case`
 
+
+## [vim-commentary](https://github.com/tpope/vim-commentary)
+
+- Comment stuff out
+
+Main commands:
+- `gc{motion}`
+- `gcc`
+- `{Visual}gc`
+- `:[range]Commentary`
 
 ## Python 
 
@@ -928,3 +955,6 @@ Command             | Effect
 
 - [Practical
     Vim (PV)](https://pragprog.com/titles/dnvim2/practical-vim-second-edition/)
+
+- [Vim Fandom mappings
+  tutorial](https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_2))
