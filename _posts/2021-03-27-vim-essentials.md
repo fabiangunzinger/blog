@@ -7,23 +7,17 @@ categories: [vim]
 title: vim essentials
 ---
 
-# Intro
 
-## Acknowledgements
-
-This cheat sheet started out as a summary of Drew Neil's phenomenal [Practical
-Vim](https://pragprog.com/titles/dnvim2/practical-vim-second-edition/), which I
-can't recommend enough as a start to learning Vim seriously.
-
-
-## Vim setup
+# My setup
 
 - I use `nvim`.
 
 - I've remaped the Caps Look key to <Ctrl>.
 
 
-## Mental models and reminders
+# Reminders
+
+Mental models: 
 
 - One keystroke to move, one to execute: e.g. the dot-formula (PV p. 11)
 
@@ -33,7 +27,7 @@ can't recommend enough as a start to learning Vim seriously.
 - If you hit cursor keys more than 2 or 3 times, there is a better way. If you press backspace more than a couple times, there is a better way. If you perform the same change on several lines, there is a better way.
 
 
-## Approach to problem solving
+Problem solving: 
 
 - Don't solve a problem unless I come across it frequently.
 
@@ -41,14 +35,23 @@ can't recommend enough as a start to learning Vim seriously.
   of them does).
 
 
-# Commonly used useful stuff
+Useful stuff I tend to forget:
 
 Command             | Effect
-`:e $M[YVIMRC]`     | Open my vimrc (in any session)
+`:vsp $M[YVIMRC]`   | Open my vimrc (in any session), mapped to `<leader>ve`
 `set: {option}?`    | Show present setting for {option}
 `set: {option}&`    | Set option back to default value
 `|`                 | Command separator (equivalent to `:` in shell)
 `<C-z>`/`fg`        | Put vim in background / return to vim
+
+- I want to open a file and get an `E325: ATTENTION Found a swap file` warning.
+  What happened? For me, it's most likely I accidentally closed a terminal
+  window while still editing the file. What to do? First, check that I'm not
+  already editing the file elsewhere. Second, recover the file, save it under a
+  new name (`:w filename2`), force quit the session, compare the original and
+  the new file (`diff filename filename2`), use the file with the content I need
+  and delete the other one and the swap file. (Based on
+  [this](https://superuser.com/a/498658) great SE answer.)
 
 
 # Modes
@@ -305,6 +308,25 @@ Command             | Effect
 Command             | Effect
 `:x`                | Like `:wq` but only write if file was changed
 
+[vim-eunuch](https://github.com/tpope/vim-eunuch) commands:
+
+Command             | Effect
+`Move[!] {file}`    | Like `:saveas`, but deletes old file
+`Rename[!] {file}`  | Rename current buffer and file
+`Chmod {mode}`	    | Change permissions of current file
+`Mkdir {dir}`	    | Create dir with `mkdir()`
+`Mkdir! {dir}`	    | Create dir with `mkdir()` with "p" argument (mkdir -p)
+
+Toggle buffer settings from vim-unimpaired
+
+Command                 | Effect
+`yob`                   | Toggle light background
+`yoc`                   | Toggle cursor line highlighting
+`yon`                   | Toggle line numbers
+`yor`                   | Toggle relative line numbers
+`yos`                   | Toggle the spell checker
+
+
 ## Windows 
 
 - A window is a viewport onto a buffer. We can open different windows that all
@@ -472,6 +494,19 @@ Command             | Effect
 `g;`/`g,`           | Traverse change list backwards/forwards
 `gf`                | Jump to file under cursor
 `<C-]>`             | Jump to definition of keyword under cursor
+
+
+## Back and forth
+
+- Vim-unimpaired provides a set of normal mode commands to move between **next** (`]`) and **previous**
+  (`[`), toggle **options**, and special **pasting**. Some commands I use often
+  are listed below. The mnemonic is that `]` is next in general and "next line" here, and
+  lowercase navigates one by one while lowercase jumpts to first or last (e.g.
+  `[b` moves to previous buffer, `[B` jumps to first one).
+
+Command                 | Effect
+`]<space>`/`[<space>`   | Add [count] blank lines below/above the cursor
+`]e`/`[e`               | Exchanges the current line with the one below/above
 
 
 # Registers
@@ -775,7 +810,7 @@ Useful idioms:
   register); `:g/TODO/yank A`. Explanation: need capital `A` to append to rather
   than overwrite register.
 
-- Glance at markdown file structure (create a table of contents). Solution: `g/^#`e
+- Glance at markdown file structure (create a table of contents). Solution: `g/^#`
 
 - Alphabetically sort properties inside each rule of a CSS file. Solution:
   `:g/{/ .+1,/}/-1 sort`. Explanation: `/{/` is the pattern of the global
@@ -784,29 +819,6 @@ Useful idioms:
   current line until the next line that contains a closing curly bracket. The
   offsets narrow the range to exclude the lines with curly brackets. The current
   line address here stands for each line in turn that matches the `/{/` pattern.
-
-
-# Autocompletion
-
-Command                 | Effect
-`<C-n>`/`<C-p>`         | Trigger autocompletion and navigate
-`<C-e>`                 | Dismiss autocomplete window
-`<C-n><C-p>`            | Filter suggestions as we type
-`<C-x><C-k>`            | Dictionary lookup (requires spellchecker on - `yos`)
-`<C-x><C-l>`            | Autocomplete entire line
-`<C-x><C-f>`            | Autocomplete filename (relative to pwd)
-
-
-# Spell checking
-
-Command                 | Effect
-`yos`                   | Toggle spell checker (uses `vim-unimpaired`)
-`]s`/`[s`               | Jump to next/previous misspelled word
-`z=`                    | Suggest corrections
-`[n]z=`                 | Correct word with nth suggestion
-`zg`                    | Add current word to spell file (mnem: "good")
-`zw`                    | Remove current word from spell file (mnem: "wrong")
-`zug`                   | Revert `zg` or `zw` command for current word
 
 
 # Mappings
@@ -826,82 +838,40 @@ Command                 | Effect
 `:verbose nmap {char}`	| As above, but shows location where maps are defined
 
 
-# Writing
+# Editing
+
+## Autocompletion:
+
+Command                 | Effect
+`<C-n>`/`<C-p>`         | Trigger autocompletion and navigate
+`<C-e>`                 | Dismiss autocomplete window
+`<C-n><C-p>`            | Filter suggestions as we type
+`<C-x><C-k>`            | Dictionary lookup (requires spellchecker on - `yos`)
+`<C-x><C-l>`            | Autocomplete entire line
+`<C-x><C-f>`            | Autocomplete filename (relative to pwd)
+
+
+## Spell checking:
+
+Command                 | Effect
+`yos`                   | Toggle spell checker (uses `vim-unimpaired`)
+`]s`/`[s`               | Jump to next/previous misspelled word
+`z=`                    | Suggest corrections
+`[n]z=`                 | Correct word with nth suggestion
+`zg`                    | Add current word to spell file (mnem: "good")
+`zw`                    | Remove current word from spell file (mnem: "wrong")
+`zug`                   | Revert `zg` or `zw` command for current word
+
+
+## Formatting
 
 Command                 | Effect
 `gq{motion}             | Formats text, defaults to wrapping long lines.
 
 
-# Common issues
+## Case coercion
 
-- I want to open a file and get an `E325: ATTENTION Found a swap file` warning.
-  What happened? For me, it's most likely I accidentally closed a terminal
-  window while still editing the file. What to do? First, check that I'm not
-  already editing the file elsewhere. Second, recover the file, save it under a
-  new name (`:w filename2`), force quit the session, compare the original and
-  the new file (`diff filename filename2`), use the file with the content I need
-  and delete the other one and the swap file. (Based on
-  [this](https://superuser.com/a/498658) great SE answer.)
-
-
-# Extra functionality and awesome plugins
-
-## Python coding workflow
-
-- Execute makefiles using `:make` (Set up quicklist such that I can jump to
-  errors directly, this currently doesn't work. Probably requires some
-  additional setup to recognise Python errors.)
-
-
-
-## Ctags
-
-- I've followed Tim Pope's
-  [approach](https://tbaggery.com/2011/08/08/effortless-ctags-with-git.html) to
-  set this up. For newly initialised or cloned directories, this setup
-  automatically creates hooks and indexes the code with Ctags. For existing
-  directories, you need to run `git init` to copy the hook templates into the
-  local `.git/hooks`, and then `git ctags` to index the code.
-
-
-Command             | Effect
-`<C-]>`             | Jump to definition of keyword under cursor
-`g<C-]>`            | As above, but select definition of there are multiple
-`:tag {keyword}`    | Jump to definition of keyword
-`:tjump {keyword}`  | Jump but select definition if multiple
-    
-
-## vim-unimpaired
-
-- Provides a set of normal mode commands to move between **next** (`]`) and **previous**
-  (`[`), toggle **options**, and special **pasting**. Some commands I use often
-  are listed below.
-
-- The mnemonic is that `]` is next in general and "next line" here.
-
-Command                 | Effect
-`]<space>`/`[<space>`   | Add [count] blank lines below/above the cursor
-`]e`/`[e`               | Exchanges the current line with the one below/above
-`yob`                   | Toggle light background
-`yoc`                   | Toggle cursor line highlighting
-`yon`                   | Toggle line numbers
-`yor`                   | Toggle relative line numbers
-`yos`                   | Toggle the spell checker
-
-
-## vim-surround
-
-## [vim-abolish](https://github.com/tpope/vim-abolish)
-
-- Deals with word variants and provides powerful searching, grepping, substitution
-and case coercion.
-
-- Replace all variants of children to adults: `:S/child{,ren}/adult{,s}/g`.
-
-- Swap all occurrences of man to dog: `:S/{man, dog}/{dog, man}/g`.
-
-
-Case coercion:
+Uses [vim-abolish](https://github.com/tpope/vim-abolish)
 
 Command             | Effect
 `crs`               | Coerce to `snake_case`
@@ -913,10 +883,17 @@ Command             | Effect
 `cr<space>`         | Coerce to `space case`
 `crt`               | Coerce to `Title Case`
 
+- Abolish deals with word variants and provides powerful searching, grepping, substitution
+and case coercion.
 
-## [vim-commentary](https://github.com/tpope/vim-commentary)
+- Replace all variants of children to adults: `:S/child{,ren}/adult{,s}/g`.
 
-- Comment stuff out
+- Swap all occurrences of man to dog: `:S/{man, dog}/{dog, man}/g`.
+
+
+## Commenting stuff out 
+
+Uses [vim-commentary](https://github.com/tpope/vim-commentary)
 
 Main commands:
 - `gc{motion}`
@@ -924,13 +901,41 @@ Main commands:
 - `{Visual}gc`
 - `:[range]Commentary`
 
-## Python 
 
+# Snippets
+
+# Git
+
+- I use basic commands from vim-fugitive
+
+
+# Python
+
+- Execute makefiles using `:make` (Set up quicklist such that I can jump to
+  errors directly, this currently doesn't work. Probably requires some
+  additional setup to recognise Python errors.)
+
+
+- I use Ctags to navigate my codebase. I've followed Tim Pope's
+  [approach](https://tbaggery.com/2011/08/08/effortless-ctags-with-git.html) to
+  set this up. For newly initialised or cloned directories, this setup
+  automatically creates hooks and indexes the code with Ctags. For existing
+  directories, you need to run `git init` to copy the hook templates into the
+  local `.git/hooks`, and then `git ctags` to index the code.
+
+
+Ctag commands:
+
+Command             | Effect
+`<C-]>`             | Jump to definition of keyword under cursor
+`g<C-]>`            | As above, but select definition of there are multiple
+`:tag {keyword}`    | Jump to definition of keyword
+`:tjump {keyword}`  | Jump but select definition if multiple
+    
 - Look into using `matchit` or something similar for faster code navigation.
 
-## Snippets
 
-## Latex integration
+# Latex
 
 No plugins:
 
@@ -951,10 +956,13 @@ Command             | Effect
 `<C-x><C-o>/`       | Citation completion (inside `\cite{`)
 
 
-# Sources
+# Acknowledgements and sources
 
-- [Practical
-    Vim (PV)](https://pragprog.com/titles/dnvim2/practical-vim-second-edition/)
+This cheat sheet started out as a summary of Drew Neil's phenomenal [Practical
+Vim](https://pragprog.com/titles/dnvim2/practical-vim-second-edition/), which I
+can't recommend enough as a start to learning Vim seriously.
+
+Other useful resources:
 
 - [Vim Fandom mappings
   tutorial](https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_2))
