@@ -22,16 +22,18 @@ Mental models:
 - One keystroke to move, one to execute: e.g. the dot-formula (PV p. 11)
 
 - Chunk your undos; all changes in single insert-mode session count as a single
-    change, so go in and out of insert mode strategically.
+  change, so go in and out of insert mode strategically.
 
-- If you hit cursor keys more than 2 or 3 times, there is a better way. If you press backspace more than a couple times, there is a better way. If you perform the same change on several lines, there is a better way.
+- If you hit cursor keys more than 2 or 3 times, there is a better way. If you
+  press backspace more than a couple times, there is a better way. If you
+  perform the same change on several lines, there is a better way.
 
 
 Problem solving: 
 
-- Don't solve a problem unless I come across it frequently.
+- Don't solve a problem unless you come across it frequently.
 
-- Check whether one of Tim Pope's plugins solves the problem (chances are oen
+- Check whether one of Tim Pope's plugins solves the problem (chances are one
   of them does).
 
 
@@ -41,11 +43,11 @@ Command             | Effect
 `:vsp $M[YVIMRC]`   | Open my vimrc (in any session), mapped to `<leader>ve`
 `set: {option}?`    | Show present setting for {option}
 `set: {option}&`    | Set option back to default value
-`|`                 | Command separator (equivalent to `:` in shell)
+`|`                 | Command separator (equivalent to `;` in shell)
 `<C-z>`/`fg`        | Put vim in background / return to vim
 
 - I want to open a file and get an `E325: ATTENTION Found a swap file` warning.
-  What happened? For me, it's most likely I accidentally closed a terminal
+  What happened? For me, it's most likely that I accidentally closed a terminal
   window while still editing the file. What to do? First, check that I'm not
   already editing the file elsewhere. Second, recover the file, save it under a
   new name (`:w filename2`), force quit the session, compare the original and
@@ -54,30 +56,40 @@ Command             | Effect
   [this](https://superuser.com/a/498658) great SE answer.)
 
 
+# Help
+
+Command             | Effect
+`gO`                | Show table of contents for current help file
+`:helpc[lose]`      | Close help windows if any are open
+`:vert h {keyword}` | Open help in a vertical split
+
+
 # Modes
 
 ## Normal mode
 
-- Operators work as follows: operator + motion = action. E.g. `dl` deletes character to the right, `diw`
-    the word under the cursor (without the surrounding whitespace), `dap` the current paragraph (including the surrounding whitespace). Similarly, `gUap`
-    converts the current paragraph to uppercase.
+- Operators work as follows: operator + motion = action. E.g. `dl` deletes
+  character to the right, `diw` the word under the cursor (without the
+  surrounding whitespace), `dap` the current paragraph (including the
+  surrounding whitespace). Similarly, `gUap` converts the current paragraph to
+  uppercase.
 
 Common operators:
 
-Trigger   | Effect
-`c`       | Change
-`d`       | Delete into register
-`y`       | Yank into register
-`p`       | Paste after cursor
-`P`       | Paste before cursor
-`~`       | Swap case of character under cursor and move right
-`g~`      | Swap case
-`gu`      | Make lowercase
-`gU`      | Make uppercase
-`>`       | Shift right
-`<`       | Shift left
-`=`       | Autoindent
-`!`       | Filter {motion} lines through an external program
+Trigger    | Effect
+`c`        | Change
+`d`        | Delete into register
+`y`        | Yank into register
+`p`        | Paste after cursor
+`P`        | Paste before cursor
+`~`        | Swap case of character under cursor and move right
+`gu`       | Make lowercase
+`gU`       | Make uppercase
+`g~`       | Swap case
+`>`        | Shift right
+`<`        | Shift left
+`=`        | Autoindent
+`!`        | Filter {motion} lines through an external program
 
 Move back and forth:
 
@@ -111,7 +123,7 @@ Compound commands:
 Compound command | Equivalent in longhand
 `C` | `c$` (delete from cursor until end of line and start insert)
 `D` | `d$` (delete from cursor until end of line)
-`Y` | `y$` (similar to above, but has to be manually mapped, see `h: Y`)
+`Y` | `y$` (similar to above, but has to be mapped, see `h: Y`)
 `s` | `cl` (delete single character and start insert)
 `S` | `^c` (delete entire line and start inster, synonym for `cc`)
 `x` | `dl` (delete one character to the right)
@@ -125,7 +137,7 @@ Miscellaneous:
 
 Command             | Effect
 `<C-a>`/ `<C-x>`    | Add / subtract from the next number
-`<C-o>`/ `<C-l>`    | Move backwards to last / forward to previous location
+`<C-o>`/ `<C-i>`    | Move backwards to last / forward to previous location
 `u`/`<C-r>`         | Undo / redo change
 `ga`                | Reveal numeric representation of character under cursor
 
@@ -180,7 +192,7 @@ o        | Toggle the free end of a selection
 ## Command-line mode
 
 - Ex-commands allow you to make changes (in multiple places) anywhere in
-  the file without moving the cursor -- they strike far and wide.
+  the file without moving the cursor -- they "strike far and wide".
 
 - The general syntax for Ex-commands is `:[range]{command}`, where `[range]` is
   either a single address or a range of addresses of the form `{start},{stop}`.
@@ -199,7 +211,7 @@ o        | Toggle the free end of a selection
 Command mode commands:
 
 Command                     | Effect
-`q:`/`q/`/`q?`              | Opens command line mode
+`q:`/`q/`/`q?`              | Opens command line / search /reverse search mode
 `<C-r><C-w>`                | Insert word under cursor in command prompt 
 `<left>`/`<right>`          | Move one character left or right
 `<S-left>`                  | Move one word left (similar for right)
@@ -243,7 +255,7 @@ m[ove]        | Move to `{address}`, (e.g. `:1,5m$` moves lines to end of file)
 copy (or t)   | Copy to `{address}`, (e.g. `:6t.` copies line 6 to current line)
 
 
-Useful idioms:
+
 
 - Wrap all elements in the first column of a table in quotes. Solution:
   cursor on word in first row; `:{start},{stop}normal ysaW'`.
@@ -252,6 +264,7 @@ Useful idioms:
   `:%s//<C-r><C-w>/g`
 
 - Open help for word under the cursor. Solution: `:h <C-r><C-w><CR>`
+
 
 ## Quickfix List
 
@@ -329,11 +342,13 @@ Command                 | Effect
 
 ## Windows 
 
-- A window is a viewport onto a buffer. We can open different windows that all
-  provide a (different) view onto the same buffer, or load multiple buffers into
-  one window.
+- A window is a viewport onto a buffer.
+
+- We can open different windows that all provide a (different) view onto the
+  same buffer, or load multiple buffers into one window.
 
 Command             | Effect
+`<C-w>w`            | Go to next window
 `<C-w>s`            | Split window horizontally
 `<C-w>v`            | Split window vertically
 `:sp[lit] {file}`   | Horizontally split window and load {file} into new buffer
@@ -413,12 +428,15 @@ Command             | Effect
 
 Left-right and up-down:
 
-- `f,dt` deletes the last clause of a sentence
 - You can use search after an operator to great effect. For instance: typing
-  `d\to g<CR>` when the cursor is at the beginning of `after` in the previous
+  `d/to <CR>` when the cursor is at the beginning of "after" in the previous
   sentence turns it into "You can use search to greate effect". This works
   because `d` is an exclusive operator (`h: exclusive`) and doesn't apply the
   operation on the endpoint of the selection.
+
+- I use `vim-smoothie` for smoother screening behaviour of half-screen and
+  screen-wise scrolling.
+
 
 Command             | Effect
 `h`/`l`             | Move left/right 
@@ -431,7 +449,8 @@ Command             | Effect
 `t{char}`\`T{char}` | Forward/backward till (before) next occurrence of {char}
 `H`/`M`/`L`         | Jump to the top/middle/bottom of the screen
 `<C-e>`/`<C-y>`     | Scroll down/up linewise
-`<C-d>`/`<C-u>`     | Scroll down/up half-screen-wise 
+`<C-d>`/`<C-u>`     | Scroll down/up half-screen-wise
+`<C-f>`/`<C-b>`     | Scroll down/up screen-wise 
 
 
 Words:
@@ -450,9 +469,9 @@ Text objects:
 
 - They can be moved over or selected.
 
-- Text object selection start with `i` (inside) or `a` (around). For example: `vi)`
-  highlights text inside parentheses but not the parentheses themselves, while `va)`
-  highlights the parentheses as well.
+- Text object selection start with `i` ("inner sentence") or `a` ("a sentence").
+  For example: `vi)` highlights text inside parentheses but not the parentheses
+  themselves, while `va)` highlights the parentheses as well.
 
 Command             | Effect
 `)`/`(`             | Move [count] sentences forward/backward
@@ -489,7 +508,7 @@ Traversing the jumps and changes lists
 
 Command             | Effect
 `:jumps`            | Show the jump list
-`<C-o>` / `<C-i`>   | Traverse jump history backwards/forwards
+`<C-o>`/`<C-i`>   | Traverse jump history backwards/forwards
 `:changes`          | Show the change list
 `g;`/`g,`           | Traverse change list backwards/forwards
 `gf`                | Jump to file under cursor
@@ -944,16 +963,36 @@ No plugins:
   the .bib file in another buffer and `<C-N>` will provide a list of
   available keys.
 
-[vimtex](https://github.com/lervag/vimtex)
+- I use [vimtex](https://github.com/lervag/vimtex), with `Skim` as my viewer. In
+  vimtex, most shortcuts use `localleader`, which, by default, is set to `\`.
 
-- Most shortcuts use `localleader`, which, by default, is set to `\`.
-- I use `skim` as my viewer.
-
-- `\ll` toggles continuous compilation using `latexmk`.
+Vimtex commands:
 
 Command             | Effect
 `\ll`               | Toggle continuous compilation using `latexmk`
+`\lk`               | Kill compilation process
+`\lc`               | Clear auxiliary files
+`\lt`               | Show table of contents
+`\ds{c/e/$/d}`      | Delete surrounding command/environment/math env/delimiter
+`\cs{c/e/$/d}`      | Change surrounding command/environment/math env/delimiter
+`:VimtexDocPackage` | Show docs for argument under cursor or supplied package
+`:VimtexCountWords` | Count words in document
 `<C-x><C-o>/`       | Citation completion (inside `\cite{`)
+`]]`                | To next section
+`]m`                | To next environment
+`]n`                | To next math zone
+`]r`                | To next frame
+
+Vimtex text objects:
+
+Command             | Effect
+`c`                 | Command
+`d`                 | Delimiters (e.g. `[`, `{`)
+`e`                 | Environment
+`$`                 | Inline math environment
+`P`                 | Sections
+`m`                 | Items
+
 
 
 # Acknowledgements and sources

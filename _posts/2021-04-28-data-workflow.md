@@ -1,11 +1,21 @@
 ---
-hide: false
+hide: true
 toc: true
 layout: post
 description: My data workflow
 categories: [principles]
 title: My data workflow 
 ---
+
+
+# Principles
+
+- Do not rename variables unless there is a very good reason for it.
+
+- Do not drop variables when sampling data (you might use those columns even if
+  you don't think you will).
+
+
 
 # Conda
 
