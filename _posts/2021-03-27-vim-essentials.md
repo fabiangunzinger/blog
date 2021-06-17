@@ -10,7 +10,13 @@ title: vim essentials
 
 # My setup
 
-- I use `nvim`.
+- I use `neovim` rather than vim because it seems to be the future; it's open
+  source, uses lua rather than vim-script, and is used by
+  [people](https://www.youtube.com/watch?v=T7TAX653_OM&t=549s) I implicitly
+  trust. From browsing on the web, it seems like many people are contemplating
+  switching over, and as someone who's just starting out, it seems like there is
+  no good reason to carefully set up vim with an expectation to switch in the
+  future.
 
 - I've remaped the Caps Look key to <Ctrl>.
 
@@ -40,11 +46,12 @@ Problem solving:
 Useful stuff I tend to forget:
 
 Command             | Effect
-`:vsp $M[YVIMRC]`   | Open my vimrc (in any session), mapped to `<leader>ve`
 `set: {option}?`    | Show present setting for {option}
 `set: {option}&`    | Set option back to default value
 `|`                 | Command separator (equivalent to `;` in shell)
 `<C-z>`/`fg`        | Put vim in background / return to vim
+`gx`                | Open url under cursor
+`:x`                | Like `:wq` but only write if file was changed
 
 - I want to open a file and get an `E325: ATTENTION Found a swap file` warning.
   What happened? For me, it's most likely that I accidentally closed a terminal
@@ -124,7 +131,7 @@ Compound command | Equivalent in longhand
 `C` | `c$` (delete from cursor until end of line and start insert)
 `D` | `d$` (delete from cursor until end of line)
 `Y` | `y$` (similar to above, but has to be mapped, see `h: Y`)
-`s` | `cl` (delete single character and start insert)
+`s` | `cl` (selete single character and start insert)
 `S` | `^c` (delete entire line and start inster, synonym for `cc`)
 `x` | `dl` (delete one character to the right)
 `X` | `dh` (delete one character to the left)
@@ -143,14 +150,6 @@ Command             | Effect
 
 
 ## Insert mode
-
-- To enter insert mode to replace existing text, use `cc` to replace the
-  current line, or `cc{motion}` as needed (e.g. `ci"` to replace text inside
-  quotes).
-
-- `<C-w>` to delete last few words without leaving insert mode
-
-- `<C-o>zz` to move current line to middle of screen without leaving insert mode
 
 Entering insert mode:
 
@@ -203,7 +202,7 @@ o        | Toggle the free end of a selection
   selection and press `:`. This will start the command prompt with `'<, '>:`, to
   which you can then add the command.
 
-- We can also specify offsets. For example, `:/<tag>/+1<\/tag>/-1{cmd}` would
+- You can also specify offsets. For example, `:/<tag>/+1<\/tag>/-1{cmd}` would
   operate on the lines inside the html tag but not the lines containing the tag
   marks.
 
@@ -217,7 +216,7 @@ Command                     | Effect
 `<S-left>`                  | Move one word left (similar for right)
 `<C-b>`/`<C-e>`             | Move to the beginning/end of the command
 `<C-w>`                     | Delete last word
-`<C-u>`                     | Delete entire line
+`<C-u>`                     | Delete from cursor to beginning of line
 
 
 Types of addresses:
@@ -226,7 +225,7 @@ Command                     | Effect
 `:4{cmd}`                   | execute command on line 4
 `:4,8{cmd}`                 | execute command on lines 4 to 8 (inclusive)
 `:/#/{cmd}`                 | execute command on next line with an `#`
-`:/<tag>/<\/tag>/{cmd}`     | Execute command inside next occurring html tag
+`:/<tag>/<\/tag>/{cmd}`     | Execute command on next occurring html tag
 `:'<,'>{cmd}`               | Execute command on selected lines
 
 
@@ -252,18 +251,16 @@ j[oin]        | Join lines
 s[ubstitute]  | Substitute (e.g. `s/old/new`)
 n[ormal]      | Execute normal mode command
 m[ove]        | Move to `{address}`, (e.g. `:1,5m$` moves lines to end of file)
-copy (or t)   | Copy to `{address}`, (e.g. `:6t.` copies line 6 to current line)
-
-
+co[py] (or t) | Copy to `{address}`, (e.g. `:6t.` copies line 6 to current line)
 
 
 - Wrap all elements in the first column of a table in quotes. Solution:
   cursor on word in first row; `:{start},{stop}normal ysaW'`.
 
 - Substitute the word under the cursor. Solution: `*`; `cw{change}<CR>`;
-  `:%s//<C-r><C-w>/g`
+  `:%s//<C-r><C-w>/g`.
 
-- Open help for word under the cursor. Solution: `:h <C-r><C-w><CR>`
+- Open help for word under the cursor. Solution: `:h <C-r><C-w><CR>`.
 
 
 ## Quickfix List
@@ -361,7 +358,7 @@ Command             | Effect
 `<C-w>x`            | Exchange position of current window with its neighbour
 `q[uit]`            | Close current window
 `:sb[uffer]`        | Open buffer number N in horizontal split
-`:vert sb N`        | Open buffer number N in vertical split
+`:vert sb N`        | Open buffer number N in vertical split (`<leader>vb`)
 
 
 ## Tabs
@@ -407,6 +404,9 @@ Command             | Effect
 `d`                 | Create new directory in current one
 `R`                 | Rename file or directory under cursor
 `D`                 | Delete file or directory under cursor
+`gh`                | Toggle hiding dot-files
+`:Ve`               | Open explorer in vertical split
+`:Rex`              | Exit/return to explorer
 
 
 # Navigation
@@ -449,8 +449,8 @@ Command             | Effect
 `t{char}`\`T{char}` | Forward/backward till (before) next occurrence of {char}
 `H`/`M`/`L`         | Jump to the top/middle/bottom of the screen
 `<C-e>`/`<C-y>`     | Scroll down/up linewise
-`<C-d>`/`<C-u>`     | Scroll down/up half-screen-wise
-`<C-f>`/`<C-b>`     | Scroll down/up screen-wise 
+`<C-d>`/`<C-u>`     | Scroll down/up half-screen-wise ("down-up")
+`<C-f>`/`<C-b>`     | Scroll down/up screen-wise ("forwards-backwards")
 
 
 Words:
@@ -869,6 +869,17 @@ Command                 | Effect
 `<C-x><C-l>`            | Autocomplete entire line
 `<C-x><C-f>`            | Autocomplete filename (relative to pwd)
 
+I've experimented with `youcompleteme`, which I deleted again because it seems
+too clunky. In case I want to install again in the future, this might be
+helpful:
+[Often](https://github.com/ycm-core/YouCompleteMe/wiki/FAQ#ycm-does-not-work-with-my-anaconda-python-setup)
+doesn't work with Anaconda Python, and I seem to be one of those cases. Followed
+the suggestion in the link. I first tried compiling with `/usr/bin/python3`, but
+this didn't work.I then tried `/usr/local/bin/python3.9`, following
+[this](https://stackoverflow.com/questions/62546912/youcompleteme-completed-failed),
+which seems to have worked.
+
+
 
 ## Spell checking:
 
@@ -1005,3 +1016,9 @@ Other useful resources:
 
 - [Vim Fandom mappings
   tutorial](https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_2))
+- Dough Black's [good vimrc](https://dougblack.io/words/a-good-vimrc.html#fold)
+- Using help: https://vim.fandom.com/wiki/Learn_to_use_help
+- [Idiomatic VIM](https://github.com/romainl/idiomatic-vimrc)
+- Awesome vimrc: https://github.com/amix/vimrc
+- Vim as Python IDE: https://realpython.com/vim-and-python-a-match-made-in-heaven/
+
