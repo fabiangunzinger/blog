@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>SQL essentials | Fabian’s online notebook</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="SQL essentials" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="&lt;!– SQL essentials" />
+<meta property="og:description" content="&lt;!– SQL essentials" />
+<link rel="canonical" href="https://fabiangunzinger.github.io/blog/sql/2021/05/19/sql-essentials.html" />
+<meta property="og:url" content="https://fabiangunzinger.github.io/blog/sql/2021/05/19/sql-essentials.html" />
+<meta property="og:site_name" content="Fabian’s online notebook" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-05-19T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"&lt;!– SQL essentials","url":"https://fabiangunzinger.github.io/blog/sql/2021/05/19/sql-essentials.html","@type":"BlogPosting","headline":"SQL essentials","dateModified":"2021-05-19T00:00:00-05:00","datePublished":"2021-05-19T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://fabiangunzinger.github.io/blog/sql/2021/05/19/sql-essentials.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://fabiangunzinger.github.io/blog/feed.xml" title="Fabian's online notebook" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">Fabian&#39;s online notebook</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">SQL essentials</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-05-19T00:00:00-05:00" itemprop="datePublished">
+        May 19, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      1 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/blog/categories/#sql">sql</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+</ul><!-- 
+# SQL essentials
+
+## Querying data
+
+```
+SELECT col FROM table;
+SELECT col1, col2 FROM table;
+SELECT * FROM table LIMIT 10;
+SELECT DISTINCT col_values FROM table;
+```
+
+
+# Counting
+
+SELECT COUNT(*) FROM table;				# Count rows of table
+SELECT COUNT(col) FROM table;			# Count non-missing values in col
+SELECT COUNT(DISTINCT col) FROM table;	# Count distinct values in col
+
+
+# Filtering
+
+SELECT * FROM table WHERE col1 > 2010:	# Get rows for which col1 > 2010
+SELECT COUNT(*) FROM table WHERE x < y	# Count number of rows for which x < y
+SELECT * FROM table WHERE x > Y AND y < z
+SELECT * FROM table WHERE x > Y OR y < z
+SELECT * FROM table WHERE x BETWEEN a AND b 	# between a and b inclusive
+SELECT * FROM table WHERE x IN (a, b, c)
+
+SELECT title FROM films
+WHERE (release_year = 1994 OR release_year = 1995)
+AND (certification = 'PG' OR certification = 'R');
+
+
+# Filter based on results from aggregate function
+
+SELECT release_year
+FROM films
+GROUP BY release_year
+HAVING COUNT(title) > 10;
+
+
+# Missing values
+
+SELECT COUNT(*)
+FROM people
+WHERE birthdate IS NULL;
+
+SELECT name
+FROM people
+WHERE birthdate IS NOT NULL;
+
+
+# Wildcards
+
+SELECT name
+FROM companies
+WHERE name LIKE 'Data%';		# % matches zero, one, or many characters
+
+SELECT name
+FROM companies
+WHERE name LIKE 'DataC_mp';		# _ matches exactly one character
+
+SELECT name
+FROM people
+WHERE name NOT LIKE 'A%';
+
+
+# Aggregate functions
+
+SELECT AVG(budget)		# Also MAX, MIN, SUM,
+FROM films;
+
+
+# Aliasing
+
+SELECT MAX(budget) AS max_budget,
+       MAX(duration) AS max_duration
+FROM films;
+
+
+# Arithmetic
+
+SELECT COUNT(deathdate) * 100.0 / COUNT(*) AS percentage_dead
+FROM people
+
+
+# Order by
+
+SELECT title
+FROM films
+ORDER BY release_year;
+
+SELECT title
+FROM films
+ORDER BY release_year DESC;
+
+
+# Group by
+
+SELECT sex, count(*)
+FROM employees
+GROUP BY sex;
+
+SELECT release_year, MAX(budget)
+FROM films
+GROUP BY release_year;
+
+
+# Building a database
+#######################
+
+
+# Create tables
+
+CREATE TABLE professors (
+ firstname text,
+ lastname text
+);
+
+
+# Alter tables
+
+ALTER TABLE table_name
+ADD COLUMN column_name data_type;
+
+ALTER TABLE table_name
+DROP COLUMN column_name;
+
+ALTER TABLE table_name
+RENAME COLUMN old_name TO new_name;
+
+DROP TABLE table_name
+
+
+# Insert values
+
+INSERT INTO transactions (transaction_date, amount, fee)
+VALUES ('2018-09-24', 5454, '30');
+
+SELECT transaction_date, amount + CAST(fee AS integer) AS net_amount
+FROM transactions;
+
+# Migrating data
+
+INSERT INTO target_table
+SELECT DISTINCT column_names
+FROM source_table;
+
+
+# Integrity constraints
+# 1. Attribute constraints (data types)
+# 2. Key constraints (primary keys)
+# 3. Referential integrity constraints (enforced through foreign keys)
+
+
+# Attribute constraints
+
+ALTER TABLE professors
+ALTER COLUMN firstname
+TYPE varchar(16)
+USING SUBSTRING(firstname FROM 1 FOR 16)
+
+ALTER TABLE professors
+ALTER COLUMN firstname
+SET NOT NULL;
+
+ALTER TABLE universities
+ADD CONSTRAINT university_shortname_unq UNIQUE(university_shortname);
+
+
+# Key constraints
+
+# Superkey: each combination of attributes that identifies rows uniquely
+# Candidate key: a superkey from which no column can be removed
+# Primary key: one candidate key chosen to act as primary key
+# Surrogate key: artificially created key (eg due to unsuitable candidate keys)
+# Foreign keys: points to the primary key of another table
+
+
+ALTER TABLE organizations
+RENAME COLUMN organization TO id;
+ALTER TABLE organizations
+ADD CONSTRAINT organization_pk PRIMARY KEY (id);
+
+ALTER TABLE affiliations
+DROP CONSTRAINT affiliations_organizations_id_fkey;
+
+ALTER TABLE professors
+ADD COLUMN ID serial
+
+UPDATE table_name
+SET new_var = CONCAT(v1, v2);
+
+-- Add a professor_id column that references id in professors table
+ALTER TABLE affiliations
+ADD COLUMN professor_id integer REFERENCES professors (id);
+-- Rename the organization column to organization_id
+ALTER TABLE affiliations
+RENAME organization TO organization_id;
+-- Add a foreign key on organization_id
+ALTER TABLE affiliations
+ADD CONSTRAINT affiliations_organization_fkey FOREIGN KEY (organization_id) REFERENCES organizations (id);
+
+-- Update professor_id to professors.id where firstname, lastname correspond to rows in professors
+UPDATE affiliations
+SET professor_id = professors.id
+FROM professors
+WHERE affiliations.firstname = professors.firstname AND affiliations.lastname = professors.lastname;
+
+
+# Referential integrity
+
+CREATE TABLE a (
+	id integer PRIMARY KEY,
+	col_a, varchar(64),
+	...,
+	b_id integer REFERENCES b (id) VIOLATION SETTING)
+# Where violation setting is one of the following:
+# ON DELETE NO ACTION: 	Deleting id in b that's referenced in a throws error
+# ON DELETE CASCADE:	Deleting id in b deletes references in all tables
+# RESTRICT:				Similar to no action
+# SET NULL				Set referencing column to null
+# SET DEFAULT			Set referencing column to default
+
+
+
+# Joins
+
+SELECT table_a.column1, table_a.column2, table_b.column1, table_b.column2, ...
+FROM table_a
+JOIN table_b
+ON table_a_foreign_key = table_b_primary_key
+WHERE condition;
+
+ -->
+
+  </div><a class="u-url" href="/blog/sql/2021/05/19/sql-essentials.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Online notebook for code and thoughts.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

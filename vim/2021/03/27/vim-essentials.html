@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      25 min read
+      28 min read
     
 </span></p>
 
@@ -110,15 +110,9 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
-<li class="toc-entry toc-h1"><a href="#intro">Intro</a>
-<ul>
-<li class="toc-entry toc-h2"><a href="#acknowledgements">Acknowledgements</a></li>
-<li class="toc-entry toc-h2"><a href="#vim-setup">Vim setup</a></li>
-<li class="toc-entry toc-h2"><a href="#mental-models-and-reminders">Mental models and reminders</a></li>
-<li class="toc-entry toc-h2"><a href="#approach-to-problem-solving">Approach to problem solving</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h1"><a href="#commonly-used-useful-stuff">Commonly used useful stuff</a></li>
+<li class="toc-entry toc-h1"><a href="#my-setup">My setup</a></li>
+<li class="toc-entry toc-h1"><a href="#reminders">Reminders</a></li>
+<li class="toc-entry toc-h1"><a href="#help">Help</a></li>
 <li class="toc-entry toc-h1"><a href="#modes">Modes</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#normal-mode">Normal mode</a></li>
@@ -140,6 +134,7 @@ window.onload = wrap_img;
 <ul>
 <li class="toc-entry toc-h2"><a href="#within-files">Within files</a></li>
 <li class="toc-entry toc-h2"><a href="#between-files">Between files</a></li>
+<li class="toc-entry toc-h2"><a href="#back-and-forth">Back and forth</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h1"><a href="#registers">Registers</a>
@@ -161,47 +156,40 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#global-commands">Global commands</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h1"><a href="#autocompletion">Autocompletion</a></li>
-<li class="toc-entry toc-h1"><a href="#spell-checking">Spell checking</a></li>
-<li class="toc-entry toc-h1"><a href="#writing">Writing</a></li>
-<li class="toc-entry toc-h1"><a href="#common-issues">Common issues</a></li>
-<li class="toc-entry toc-h1"><a href="#extra-functionality-and-awesome-plugins">Extra functionality and awesome plugins</a>
+<li class="toc-entry toc-h1"><a href="#mappings">Mappings</a></li>
+<li class="toc-entry toc-h1"><a href="#editing">Editing</a>
 <ul>
-<li class="toc-entry toc-h2"><a href="#python-coding-workflow">Python coding workflow</a></li>
-<li class="toc-entry toc-h2"><a href="#ctags">Ctags</a></li>
-<li class="toc-entry toc-h2"><a href="#vim-unimpaired">vim-unimpaired</a></li>
-<li class="toc-entry toc-h2"><a href="#vim-surround">vim-surround</a></li>
-<li class="toc-entry toc-h2"><a href="#vim-abolish">vim-abolish</a></li>
-<li class="toc-entry toc-h2"><a href="#python">Python</a></li>
-<li class="toc-entry toc-h2"><a href="#snippets">Snippets</a></li>
-<li class="toc-entry toc-h2"><a href="#latex-integration">Latex integration</a></li>
+<li class="toc-entry toc-h2"><a href="#autocompletion">Autocompletion:</a></li>
+<li class="toc-entry toc-h2"><a href="#commenting-stuff-out">Commenting stuff out</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h1"><a href="#sources">Sources</a></li>
-</ul><h1 id="intro">
-<a class="anchor" href="#intro" aria-hidden="true"><span class="octicon octicon-link"></span></a>Intro</h1>
-
-<h2 id="acknowledgements">
-<a class="anchor" href="#acknowledgements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Acknowledgements</h2>
-
-<p>This cheat sheet started out as a summary of Drew Neil’s phenomenal <a href="https://pragprog.com/titles/dnvim2/practical-vim-second-edition/">Practical
-Vim</a>, which I
-can’t recommend enough as a start to learning Vim seriously.</p>
-
-<h2 id="vim-setup">
-<a class="anchor" href="#vim-setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Vim setup</h2>
+<li class="toc-entry toc-h1"><a href="#snippets">Snippets</a></li>
+<li class="toc-entry toc-h1"><a href="#git">Git</a></li>
+<li class="toc-entry toc-h1"><a href="#python">Python</a></li>
+<li class="toc-entry toc-h1"><a href="#latex">Latex</a></li>
+<li class="toc-entry toc-h1"><a href="#acknowledgements-and-sources">Acknowledgements and sources</a></li>
+</ul><h1 id="my-setup">
+<a class="anchor" href="#my-setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>My setup</h1>
 
 <ul>
   <li>
-    <p>I use <code class="language-plaintext highlighter-rouge">nvim</code>.</p>
+    <p>I use <code class="language-plaintext highlighter-rouge">neovim</code> rather than vim because it seems to be the future; it’s open
+source, uses lua rather than vim-script, and is used by
+<a href="https://www.youtube.com/watch?v=T7TAX653_OM&amp;t=549s">people</a> I implicitly
+trust. From browsing on the web, it seems like many people are contemplating
+switching over, and as someone who’s just starting out, it seems like there is
+no good reason to carefully set up vim with an expectation to switch in the
+future.</p>
   </li>
   <li>
     <p>I’ve remaped the Caps Look key to <ctrl>.</ctrl></p>
   </li>
 </ul>
 
-<h2 id="mental-models-and-reminders">
-<a class="anchor" href="#mental-models-and-reminders" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mental models and reminders</h2>
+<h1 id="reminders">
+<a class="anchor" href="#reminders" aria-hidden="true"><span class="octicon octicon-link"></span></a>Reminders</h1>
+
+<p>Mental models:</p>
 
 <ul>
   <li>
@@ -209,38 +197,34 @@ can’t recommend enough as a start to learning Vim seriously.</p>
   </li>
   <li>
     <p>Chunk your undos; all changes in single insert-mode session count as a single
-  change, so go in and out of insert mode strategically.</p>
+change, so go in and out of insert mode strategically.</p>
   </li>
   <li>
-    <p>If you hit cursor keys more than 2 or 3 times, there is a better way. If you press backspace more than a couple times, there is a better way. If you perform the same change on several lines, there is a better way.</p>
+    <p>If you hit cursor keys more than 2 or 3 times, there is a better way. If you
+press backspace more than a couple times, there is a better way. If you
+perform the same change on several lines, there is a better way.</p>
   </li>
 </ul>
 
-<h2 id="approach-to-problem-solving">
-<a class="anchor" href="#approach-to-problem-solving" aria-hidden="true"><span class="octicon octicon-link"></span></a>Approach to problem solving</h2>
+<p>Problem solving:</p>
 
 <ul>
   <li>
-    <p>Don’t solve a problem unless I come across it frequently.</p>
+    <p>Don’t solve a problem unless you come across it frequently.</p>
   </li>
   <li>
-    <p>Check whether one of Tim Pope’s plugins solves the problem (chances are oen
+    <p>Check whether one of Tim Pope’s plugins solves the problem (chances are one
 of them does).</p>
   </li>
 </ul>
 
-<h1 id="commonly-used-useful-stuff">
-<a class="anchor" href="#commonly-used-useful-stuff" aria-hidden="true"><span class="octicon octicon-link"></span></a>Commonly used useful stuff</h1>
+<p>Useful stuff I tend to forget:</p>
 
 <table>
   <tbody>
     <tr>
       <td>Command</td>
       <td>Effect</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">:e $M[YVIMRC]</code></td>
-      <td>Open my vimrc (in any session)</td>
     </tr>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">set: {option}?</code></td>
@@ -252,13 +236,56 @@ of them does).</p>
     </tr>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">|</code></td>
-      <td>Command separator (equivalent to <code class="language-plaintext highlighter-rouge">:</code> in shell)</td>
+      <td>Command separator (equivalent to <code class="language-plaintext highlighter-rouge">;</code> in shell)</td>
     </tr>
     <tr>
       <td>
 <code class="language-plaintext highlighter-rouge">&lt;C-z&gt;</code>/<code class="language-plaintext highlighter-rouge">fg</code>
 </td>
       <td>Put vim in background / return to vim</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">gx</code></td>
+      <td>Open url under cursor</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:x</code></td>
+      <td>Like <code class="language-plaintext highlighter-rouge">:wq</code> but only write if file was changed</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>I want to open a file and get an <code class="language-plaintext highlighter-rouge">E325: ATTENTION Found a swap file</code> warning.
+What happened? For me, it’s most likely that I accidentally closed a terminal
+window while still editing the file. What to do? First, check that I’m not
+already editing the file elsewhere. Second, recover the file, save it under a
+new name (<code class="language-plaintext highlighter-rouge">:w filename2</code>), force quit the session, compare the original and
+the new file (<code class="language-plaintext highlighter-rouge">diff filename filename2</code>), use the file with the content I need
+and delete the other one and the swap file. (Based on
+<a href="https://superuser.com/a/498658">this</a> great SE answer.)</li>
+</ul>
+
+<h1 id="help">
+<a class="anchor" href="#help" aria-hidden="true"><span class="octicon octicon-link"></span></a>Help</h1>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">gO</code></td>
+      <td>Show table of contents for current help file</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:helpc[lose]</code></td>
+      <td>Close help windows if any are open</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:vert h {keyword}</code></td>
+      <td>Open help in a vertical split</td>
     </tr>
   </tbody>
 </table>
@@ -270,9 +297,11 @@ of them does).</p>
 <a class="anchor" href="#normal-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Normal mode</h2>
 
 <ul>
-  <li>Operators work as follows: operator + motion = action. E.g. <code class="language-plaintext highlighter-rouge">dl</code> deletes character to the right, <code class="language-plaintext highlighter-rouge">diw</code>
-  the word under the cursor (without the surrounding whitespace), <code class="language-plaintext highlighter-rouge">dap</code> the current paragraph (including the surrounding whitespace). Similarly, <code class="language-plaintext highlighter-rouge">gUap</code>
-  converts the current paragraph to uppercase.</li>
+  <li>Operators work as follows: operator + motion = action. E.g. <code class="language-plaintext highlighter-rouge">dl</code> deletes
+character to the right, <code class="language-plaintext highlighter-rouge">diw</code> the word under the cursor (without the
+surrounding whitespace), <code class="language-plaintext highlighter-rouge">dap</code> the current paragraph (including the
+surrounding whitespace). Similarly, <code class="language-plaintext highlighter-rouge">gUap</code> converts the current paragraph to
+uppercase.</li>
 </ul>
 
 <p>Common operators:</p>
@@ -308,16 +337,16 @@ of them does).</p>
       <td>Swap case of character under cursor and move right</td>
     </tr>
     <tr>
-      <td><code class="language-plaintext highlighter-rouge">g~</code></td>
-      <td>Swap case</td>
-    </tr>
-    <tr>
       <td><code class="language-plaintext highlighter-rouge">gu</code></td>
       <td>Make lowercase</td>
     </tr>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">gU</code></td>
       <td>Make uppercase</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">g~</code></td>
+      <td>Swap case</td>
     </tr>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">&gt;</code></td>
@@ -488,12 +517,12 @@ of them does).</p>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">Y</code></td>
       <td>
-<code class="language-plaintext highlighter-rouge">y$</code> (similar to above, but has to be manually mapped, see <code class="language-plaintext highlighter-rouge">h: Y</code>)</td>
+<code class="language-plaintext highlighter-rouge">y$</code> (similar to above, but has to be mapped, see <code class="language-plaintext highlighter-rouge">h: Y</code>)</td>
     </tr>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">s</code></td>
       <td>
-<code class="language-plaintext highlighter-rouge">cl</code> (delete single character and start insert)</td>
+<code class="language-plaintext highlighter-rouge">cl</code> (selete single character and start insert)</td>
     </tr>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">S</code></td>
@@ -547,7 +576,7 @@ of them does).</p>
     </tr>
     <tr>
       <td>
-<code class="language-plaintext highlighter-rouge">&lt;C-o&gt;</code>/ <code class="language-plaintext highlighter-rouge">&lt;C-l&gt;</code>
+<code class="language-plaintext highlighter-rouge">&lt;C-o&gt;</code>/ <code class="language-plaintext highlighter-rouge">&lt;C-i&gt;</code>
 </td>
       <td>Move backwards to last / forward to previous location</td>
     </tr>
@@ -566,20 +595,6 @@ of them does).</p>
 
 <h2 id="insert-mode">
 <a class="anchor" href="#insert-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Insert mode</h2>
-
-<ul>
-  <li>
-    <p>To enter insert mode to replace existing text, use <code class="language-plaintext highlighter-rouge">cc</code> to replace the
-current line, or <code class="language-plaintext highlighter-rouge">cc{motion}</code> as needed (e.g. <code class="language-plaintext highlighter-rouge">ci"</code> to replace text inside
-quotes).</p>
-  </li>
-  <li>
-    <p><code class="language-plaintext highlighter-rouge">&lt;C-w&gt;</code> to delete last few words without leaving insert mode</p>
-  </li>
-  <li>
-    <p><code class="language-plaintext highlighter-rouge">&lt;C-o&gt;zz</code> to move current line to middle of screen without leaving insert mode</p>
-  </li>
-</ul>
 
 <p>Entering insert mode:</p>
 
@@ -709,7 +724,7 @@ quotes).</p>
 <ul>
   <li>
     <p>Ex-commands allow you to make changes (in multiple places) anywhere in
-the file without moving the cursor – they strike far and wide.</p>
+the file without moving the cursor – they “strike far and wide”.</p>
   </li>
   <li>
     <p>The general syntax for Ex-commands is <code class="language-plaintext highlighter-rouge">:[range]{command}</code>, where <code class="language-plaintext highlighter-rouge">[range]</code> is
@@ -723,7 +738,7 @@ selection and press <code class="language-plaintext highlighter-rouge">:</code>.
 which you can then add the command.</p>
   </li>
   <li>
-    <p>We can also specify offsets. For example, <code class="language-plaintext highlighter-rouge">:/&lt;tag&gt;/+1&lt;\/tag&gt;/-1{cmd}</code> would
+    <p>You can also specify offsets. For example, <code class="language-plaintext highlighter-rouge">:/&lt;tag&gt;/+1&lt;\/tag&gt;/-1{cmd}</code> would
 operate on the lines inside the html tag but not the lines containing the tag
 marks.</p>
   </li>
@@ -741,7 +756,7 @@ marks.</p>
       <td>
 <code class="language-plaintext highlighter-rouge">q:</code>/<code class="language-plaintext highlighter-rouge">q/</code>/<code class="language-plaintext highlighter-rouge">q?</code>
 </td>
-      <td>Opens command line mode</td>
+      <td>Opens command line / search /reverse search mode</td>
     </tr>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">&lt;C-r&gt;&lt;C-w&gt;</code></td>
@@ -769,7 +784,7 @@ marks.</p>
     </tr>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">&lt;C-u&gt;</code></td>
-      <td>Delete entire line</td>
+      <td>Delete from cursor to beginning of line</td>
     </tr>
   </tbody>
 </table>
@@ -797,7 +812,7 @@ marks.</p>
     </tr>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">:/&lt;tag&gt;/&lt;\/tag&gt;/{cmd}</code></td>
-      <td>Execute command inside next occurring html tag</td>
+      <td>Execute command on next occurring html tag</td>
     </tr>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">:'&lt;,'&gt;{cmd}</code></td>
@@ -882,13 +897,11 @@ marks.</p>
       <td>Move to <code class="language-plaintext highlighter-rouge">{address}</code>, (e.g. <code class="language-plaintext highlighter-rouge">:1,5m$</code> moves lines to end of file)</td>
     </tr>
     <tr>
-      <td>copy (or t)</td>
+      <td>co[py] (or t)</td>
       <td>Copy to <code class="language-plaintext highlighter-rouge">{address}</code>, (e.g. <code class="language-plaintext highlighter-rouge">:6t.</code> copies line 6 to current line)</td>
     </tr>
   </tbody>
 </table>
-
-<p>Useful idioms:</p>
 
 <ul>
   <li>
@@ -897,10 +910,10 @@ cursor on word in first row; <code class="language-plaintext highlighter-rouge">
   </li>
   <li>
     <p>Substitute the word under the cursor. Solution: <code class="language-plaintext highlighter-rouge">*</code>; <code class="language-plaintext highlighter-rouge">cw{change}&lt;CR&gt;</code>;
-<code class="language-plaintext highlighter-rouge">:%s//&lt;C-r&gt;&lt;C-w&gt;/g</code></p>
+<code class="language-plaintext highlighter-rouge">:%s//&lt;C-r&gt;&lt;C-w&gt;/g</code>.</p>
   </li>
   <li>
-    <p>Open help for word under the cursor. Solution: <code class="language-plaintext highlighter-rouge">:h &lt;C-r&gt;&lt;C-w&gt;&lt;CR&gt;</code></p>
+    <p>Open help for word under the cursor. Solution: <code class="language-plaintext highlighter-rouge">:h &lt;C-r&gt;&lt;C-w&gt;&lt;CR&gt;</code>.</p>
   </li>
 </ul>
 
@@ -1023,13 +1036,80 @@ Ex-commands (see above).</p>
   </tbody>
 </table>
 
+<p><a href="https://github.com/tpope/vim-eunuch">vim-eunuch</a> commands:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Move[!] {file}</code></td>
+      <td>Like <code class="language-plaintext highlighter-rouge">:saveas</code>, but deletes old file</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Rename[!] {file}</code></td>
+      <td>Rename current buffer and file</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Chmod {mode}</code></td>
+      <td>Change permissions of current file</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Mkdir {dir}</code></td>
+      <td>Create dir with <code class="language-plaintext highlighter-rouge">mkdir()</code>
+</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Mkdir! {dir}</code></td>
+      <td>Create dir with <code class="language-plaintext highlighter-rouge">mkdir()</code> with “p” argument (mkdir -p)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Toggle buffer settings from vim-unimpaired</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">yob</code></td>
+      <td>Toggle light background</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">yoc</code></td>
+      <td>Toggle cursor line highlighting</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">yon</code></td>
+      <td>Toggle line numbers</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">yor</code></td>
+      <td>Toggle relative line numbers</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">yos</code></td>
+      <td>Toggle the spell checker</td>
+    </tr>
+  </tbody>
+</table>
+
 <h2 id="windows">
 <a class="anchor" href="#windows" aria-hidden="true"><span class="octicon octicon-link"></span></a>Windows</h2>
 
 <ul>
-  <li>A window is a viewport onto a buffer. We can open different windows that all
-provide a (different) view onto the same buffer, or load multiple buffers into
-one window.</li>
+  <li>
+    <p>A window is a viewport onto a buffer.</p>
+  </li>
+  <li>
+    <p>We can open different windows that all provide a (different) view onto the
+same buffer, or load multiple buffers into one window.</p>
+  </li>
 </ul>
 
 <table>
@@ -1037,6 +1117,10 @@ one window.</li>
     <tr>
       <td>Command</td>
       <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;C-w&gt;w</code></td>
+      <td>Go to next window</td>
     </tr>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">&lt;C-w&gt;s</code></td>
@@ -1088,7 +1172,7 @@ one window.</li>
     </tr>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">:vert sb N</code></td>
-      <td>Open buffer number N in vertical split</td>
+      <td>Open buffer number N in vertical split (<code class="language-plaintext highlighter-rouge">&lt;leader&gt;vb</code>)</td>
     </tr>
   </tbody>
 </table>
@@ -1216,6 +1300,18 @@ directories. I leave this default for now.</p>
       <td><code class="language-plaintext highlighter-rouge">D</code></td>
       <td>Delete file or directory under cursor</td>
     </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">gh</code></td>
+      <td>Toggle hiding dot-files</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:Ve</code></td>
+      <td>Open explorer in vertical split</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:Rex</code></td>
+      <td>Exit/return to explorer</td>
+    </tr>
   </tbody>
 </table>
 
@@ -1262,12 +1358,16 @@ right).</p>
 
 <ul>
   <li>
-<code class="language-plaintext highlighter-rouge">f,dt</code> deletes the last clause of a sentence</li>
-  <li>You can use search after an operator to great effect. For instance: typing
-<code class="language-plaintext highlighter-rouge">d\to g&lt;CR&gt;</code> when the cursor is at the beginning of <code class="language-plaintext highlighter-rouge">after</code> in the previous
+    <p>You can use search after an operator to great effect. For instance: typing
+<code class="language-plaintext highlighter-rouge">d/to &lt;CR&gt;</code> when the cursor is at the beginning of “after” in the previous
 sentence turns it into “You can use search to greate effect”. This works
 because <code class="language-plaintext highlighter-rouge">d</code> is an exclusive operator (<code class="language-plaintext highlighter-rouge">h: exclusive</code>) and doesn’t apply the
-operation on the endpoint of the selection.</li>
+operation on the endpoint of the selection.</p>
+  </li>
+  <li>
+    <p>I use <code class="language-plaintext highlighter-rouge">vim-smoothie</code> for smoother screening behaviour of half-screen and
+screen-wise scrolling.</p>
+  </li>
 </ul>
 
 <table>
@@ -1334,7 +1434,13 @@ operation on the endpoint of the selection.</li>
       <td>
 <code class="language-plaintext highlighter-rouge">&lt;C-d&gt;</code>/<code class="language-plaintext highlighter-rouge">&lt;C-u&gt;</code>
 </td>
-      <td>Scroll down/up half-screen-wise</td>
+      <td>Scroll down/up half-screen-wise (“down-up”)</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">&lt;C-f&gt;</code>/<code class="language-plaintext highlighter-rouge">&lt;C-b&gt;</code>
+</td>
+      <td>Scroll down/up screen-wise (“forwards-backwards”)</td>
     </tr>
   </tbody>
 </table>
@@ -1378,9 +1484,9 @@ objects).</p>
     <p>They can be moved over or selected.</p>
   </li>
   <li>
-    <p>Text object selection start with <code class="language-plaintext highlighter-rouge">i</code> (inside) or <code class="language-plaintext highlighter-rouge">a</code> (around). For example: <code class="language-plaintext highlighter-rouge">vi)</code>
-highlights text inside parentheses but not the parentheses themselves, while <code class="language-plaintext highlighter-rouge">va)</code>
-highlights the parentheses as well.</p>
+    <p>Text object selection start with <code class="language-plaintext highlighter-rouge">i</code> (“inner sentence”) or <code class="language-plaintext highlighter-rouge">a</code> (“a sentence”).
+For example: <code class="language-plaintext highlighter-rouge">vi)</code> highlights text inside parentheses but not the parentheses
+themselves, while <code class="language-plaintext highlighter-rouge">va)</code> highlights the parentheses as well.</p>
   </li>
 </ul>
 
@@ -1511,7 +1617,7 @@ WORD-wise).</li>
     </tr>
     <tr>
       <td>
-<code class="language-plaintext highlighter-rouge">&lt;C-o&gt;</code> / <code class="language-plaintext highlighter-rouge">&lt;C-i</code>&gt;</td>
+<code class="language-plaintext highlighter-rouge">&lt;C-o&gt;</code>/<code class="language-plaintext highlighter-rouge">&lt;C-i</code>&gt;</td>
       <td>Traverse jump history backwards/forwards</td>
     </tr>
     <tr>
@@ -1531,6 +1637,38 @@ WORD-wise).</li>
     <tr>
       <td><code class="language-plaintext highlighter-rouge">&lt;C-]&gt;</code></td>
       <td>Jump to definition of keyword under cursor</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="back-and-forth">
+<a class="anchor" href="#back-and-forth" aria-hidden="true"><span class="octicon octicon-link"></span></a>Back and forth</h2>
+
+<ul>
+  <li>Vim-unimpaired provides a set of normal mode commands to move between <strong>next</strong> (<code class="language-plaintext highlighter-rouge">]</code>) and <strong>previous</strong>
+(<code class="language-plaintext highlighter-rouge">[</code>), toggle <strong>options</strong>, and special <strong>pasting</strong>. Some commands I use often
+are listed below. The mnemonic is that <code class="language-plaintext highlighter-rouge">]</code> is next in general and “next line” here, and
+lowercase navigates one by one while lowercase jumpts to first or last (e.g.
+<code class="language-plaintext highlighter-rouge">[b</code> moves to previous buffer, <code class="language-plaintext highlighter-rouge">[B</code> jumps to first one).</li>
+</ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">]&lt;space&gt;</code>/<code class="language-plaintext highlighter-rouge">[&lt;space&gt;</code>
+</td>
+      <td>Add [count] blank lines below/above the cursor</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">]e</code>/<code class="language-plaintext highlighter-rouge">[e</code>
+</td>
+      <td>Exchanges the current line with the one below/above</td>
     </tr>
   </tbody>
 </table>
@@ -2113,7 +2251,7 @@ register); <code class="language-plaintext highlighter-rouge">:g/TODO/yank A</co
 than overwrite register.</p>
   </li>
   <li>
-    <p>Glance at markdown file structure (create a table of contents). Solution: <code class="language-plaintext highlighter-rouge">g/^#</code>e</p>
+    <p>Glance at markdown file structure (create a table of contents). Solution: <code class="language-plaintext highlighter-rouge">g/^#</code></p>
   </li>
   <li>
     <p>Alphabetically sort properties inside each rule of a CSS file. Solution:
@@ -2126,8 +2264,47 @@ line address here stands for each line in turn that matches the <code class="lan
   </li>
 </ul>
 
-<h1 id="autocompletion">
-<a class="anchor" href="#autocompletion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Autocompletion</h1>
+<h1 id="mappings">
+<a class="anchor" href="#mappings" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mappings</h1>
+
+<ul>
+  <li>
+    <p>General syntax: <code class="language-plaintext highlighter-rouge">{cmd} {attr} {lhs} {rhs}</code>.</p>
+  </li>
+  <li>
+    <p>Mapping process: define the sequence of keys to be mapped, decide the editing
+mode in which the mapping will work, find a suitable and free key sequence.</p>
+  </li>
+  <li>
+    <p>Understanding <code class="language-plaintext highlighter-rouge">noremap</code> mappings: by default, vim mappings are recursive (i.e.
+if a is mapped to b and b to c, then a is really mapped to c because b will be
+expanded on the rhs). This behaviour is set with the <code class="language-plaintext highlighter-rouge">remap</code> option. To define
+non-recursive mappings, we can use the <code class="language-plaintext highlighter-rouge">noremap</code> mappings.</p>
+  </li>
+</ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:nmap {char}</code></td>
+      <td>List all normal mode mappings starting with {char}</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:verbose nmap {char}</code></td>
+      <td>As above, but shows location where maps are defined</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="editing">
+<a class="anchor" href="#editing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Editing</h1>
+
+<h2 id="autocompletion">
+<a class="anchor" href="#autocompletion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Autocompletion:</h2>
 
 <table>
   <tbody>
@@ -2164,8 +2341,17 @@ line address here stands for each line in turn that matches the <code class="lan
   </tbody>
 </table>
 
-<h1 id="spell-checking">
-<a class="anchor" href="#spell-checking" aria-hidden="true"><span class="octicon octicon-link"></span></a>Spell checking</h1>
+<p>I’ve experimented with <code class="language-plaintext highlighter-rouge">youcompleteme</code>, which I deleted again because it seems
+too clunky. In case I want to install again in the future, this might be
+helpful:
+<a href="https://github.com/ycm-core/YouCompleteMe/wiki/FAQ#ycm-does-not-work-with-my-anaconda-python-setup">Often</a>
+doesn’t work with Anaconda Python, and I seem to be one of those cases. Followed
+the suggestion in the link. I first tried compiling with <code class="language-plaintext highlighter-rouge">/usr/bin/python3</code>, but
+this didn’t work.I then tried <code class="language-plaintext highlighter-rouge">/usr/local/bin/python3.9</code>, following
+<a href="https://stackoverflow.com/questions/62546912/youcompleteme-completed-failed">this</a>,
+which seems to have worked.</p>
+
+<p>## Spell checking:</p>
 
 <table>
   <tbody>
@@ -2206,8 +2392,7 @@ line address here stands for each line in turn that matches the <code class="lan
   </tbody>
 </table>
 
-<h1 id="writing">
-<a class="anchor" href="#writing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Writing</h1>
+<p>## Formatting</p>
 
 <table>
   <tbody>
@@ -2222,143 +2407,9 @@ line address here stands for each line in turn that matches the <code class="lan
   </tbody>
 </table>
 
-<h1 id="common-issues">
-<a class="anchor" href="#common-issues" aria-hidden="true"><span class="octicon octicon-link"></span></a>Common issues</h1>
+<p>## Case coercion</p>
 
-<ul>
-  <li>I want to open a file and get an <code class="language-plaintext highlighter-rouge">E325: ATTENTION Found a swap file</code> warning.
-What happened? For me, it’s most likely I accidentally closed a terminal
-window while still editing the file. What to do? First, check that I’m not
-already editing the file elsewhere. Second, recover the file, save it under a
-new name (<code class="language-plaintext highlighter-rouge">:w filename2</code>), force quit the session, compare the original and
-the new file (<code class="language-plaintext highlighter-rouge">diff filename filename2</code>), use the file with the content I need
-and delete the other one and the swap file. (Based on
-<a href="https://superuser.com/a/498658">this</a> great SE answer.)</li>
-</ul>
-
-<h1 id="extra-functionality-and-awesome-plugins">
-<a class="anchor" href="#extra-functionality-and-awesome-plugins" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extra functionality and awesome plugins</h1>
-
-<h2 id="python-coding-workflow">
-<a class="anchor" href="#python-coding-workflow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Python coding workflow</h2>
-
-<ul>
-  <li>Execute makefiles using <code class="language-plaintext highlighter-rouge">:make</code> (Set up quicklist such that I can jump to
-errors directly, this currently doesn’t work. Probably requires some
-additional setup to recognise Python errors.)</li>
-</ul>
-
-<h2 id="ctags">
-<a class="anchor" href="#ctags" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ctags</h2>
-
-<ul>
-  <li>I’ve followed Tim Pope’s
-<a href="https://tbaggery.com/2011/08/08/effortless-ctags-with-git.html">approach</a> to
-set this up. For newly initialised or cloned directories, this setup
-automatically creates hooks and indexes the code with Ctags. For existing
-directories, you need to run <code class="language-plaintext highlighter-rouge">git init</code> to copy the hook templates into the
-local <code class="language-plaintext highlighter-rouge">.git/hooks</code>, and then <code class="language-plaintext highlighter-rouge">git ctags</code> to index the code.</li>
-</ul>
-
-<table>
-  <tbody>
-    <tr>
-      <td>Command</td>
-      <td>Effect</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">&lt;C-]&gt;</code></td>
-      <td>Jump to definition of keyword under cursor</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">g&lt;C-]&gt;</code></td>
-      <td>As above, but select definition of there are multiple</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">:tag {keyword}</code></td>
-      <td>Jump to definition of keyword</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">:tjump {keyword}</code></td>
-      <td>Jump but select definition if multiple</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="vim-unimpaired">
-<a class="anchor" href="#vim-unimpaired" aria-hidden="true"><span class="octicon octicon-link"></span></a>vim-unimpaired</h2>
-
-<ul>
-  <li>
-    <p>Provides a set of normal mode commands to move between <strong>next</strong> (<code class="language-plaintext highlighter-rouge">]</code>) and <strong>previous</strong>
-(<code class="language-plaintext highlighter-rouge">[</code>), toggle <strong>options</strong>, and special <strong>pasting</strong>. Some commands I use often
-are listed below.</p>
-  </li>
-  <li>
-    <p>The mnemonic is that <code class="language-plaintext highlighter-rouge">]</code> is next in general and “next line” here.</p>
-  </li>
-</ul>
-
-<table>
-  <tbody>
-    <tr>
-      <td>Command</td>
-      <td>Effect</td>
-    </tr>
-    <tr>
-      <td>
-<code class="language-plaintext highlighter-rouge">]&lt;space&gt;</code>/<code class="language-plaintext highlighter-rouge">[&lt;space&gt;</code>
-</td>
-      <td>Add [count] blank lines below/above the cursor</td>
-    </tr>
-    <tr>
-      <td>
-<code class="language-plaintext highlighter-rouge">]e</code>/<code class="language-plaintext highlighter-rouge">[e</code>
-</td>
-      <td>Exchanges the current line with the one below/above</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">yob</code></td>
-      <td>Toggle light background</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">yoc</code></td>
-      <td>Toggle cursor line highlighting</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">yon</code></td>
-      <td>Toggle line numbers</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">yor</code></td>
-      <td>Toggle relative line numbers</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">yos</code></td>
-      <td>Toggle the spell checker</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="vim-surround">
-<a class="anchor" href="#vim-surround" aria-hidden="true"><span class="octicon octicon-link"></span></a>vim-surround</h2>
-
-<h2 id="vim-abolish">
-<a class="anchor" href="#vim-abolish" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="https://github.com/tpope/vim-abolish">vim-abolish</a>
-</h2>
-
-<p>Deals with word variants and provides powerful substitution and case coercion.</p>
-
-<ul>
-  <li>
-    <p>Replace all variants of chiltren to adults: <code class="language-plaintext highlighter-rouge">:S/child{,ren}/adult{,s}/g</code>.</p>
-  </li>
-  <li>
-    <p>Swap all occurrences of man to dog: <code class="language-plaintext highlighter-rouge">:S/{man, dog}/{dog, man}/g</code>.</p>
-  </li>
-</ul>
-
-<p>Case coercion:</p>
+<p>Uses <a href="https://github.com/tpope/vim-abolish">vim-abolish</a></p>
 
 <table>
   <tbody>
@@ -2409,38 +2460,111 @@ are listed below.</p>
   </tbody>
 </table>
 
-<h2 id="python">
-<a class="anchor" href="#python" aria-hidden="true"><span class="octicon octicon-link"></span></a>Python</h2>
+<ul>
+  <li>
+    <p>Abolish deals with word variants and provides powerful searching, grepping, substitution
+and case coercion.</p>
+  </li>
+  <li>
+    <p>Replace all variants of children to adults: <code class="language-plaintext highlighter-rouge">:S/child{,ren}/adult{,s}/g</code>.</p>
+  </li>
+  <li>
+    <p>Swap all occurrences of man to dog: <code class="language-plaintext highlighter-rouge">:S/{man, dog}/{dog, man}/g</code>.</p>
+  </li>
+</ul>
+
+<h2 id="commenting-stuff-out">
+<a class="anchor" href="#commenting-stuff-out" aria-hidden="true"><span class="octicon octicon-link"></span></a>Commenting stuff out</h2>
+
+<p>Uses <a href="https://github.com/tpope/vim-commentary">vim-commentary</a></p>
+
+<p>Main commands:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">gc{motion}</code></li>
+  <li><code class="language-plaintext highlighter-rouge">gcc</code></li>
+  <li><code class="language-plaintext highlighter-rouge">{Visual}gc</code></li>
+  <li><code class="language-plaintext highlighter-rouge">:[range]Commentary</code></li>
+</ul>
+
+<h1 id="snippets">
+<a class="anchor" href="#snippets" aria-hidden="true"><span class="octicon octicon-link"></span></a>Snippets</h1>
+
+<h1 id="git">
+<a class="anchor" href="#git" aria-hidden="true"><span class="octicon octicon-link"></span></a>Git</h1>
+
+<ul>
+  <li>I use basic commands from vim-fugitive</li>
+</ul>
+
+<h1 id="python">
+<a class="anchor" href="#python" aria-hidden="true"><span class="octicon octicon-link"></span></a>Python</h1>
+
+<ul>
+  <li>
+    <p>Execute makefiles using <code class="language-plaintext highlighter-rouge">:make</code> (Set up quicklist such that I can jump to
+errors directly, this currently doesn’t work. Probably requires some
+additional setup to recognise Python errors.)</p>
+  </li>
+  <li>
+    <p>I use Ctags to navigate my codebase. I’ve followed Tim Pope’s
+<a href="https://tbaggery.com/2011/08/08/effortless-ctags-with-git.html">approach</a> to
+set this up. For newly initialised or cloned directories, this setup
+automatically creates hooks and indexes the code with Ctags. For existing
+directories, you need to run <code class="language-plaintext highlighter-rouge">git init</code> to copy the hook templates into the
+local <code class="language-plaintext highlighter-rouge">.git/hooks</code>, and then <code class="language-plaintext highlighter-rouge">git ctags</code> to index the code.</p>
+  </li>
+</ul>
+
+<p>Ctag commands:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;C-]&gt;</code></td>
+      <td>Jump to definition of keyword under cursor</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">g&lt;C-]&gt;</code></td>
+      <td>As above, but select definition of there are multiple</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:tag {keyword}</code></td>
+      <td>Jump to definition of keyword</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:tjump {keyword}</code></td>
+      <td>Jump but select definition if multiple</td>
+    </tr>
+  </tbody>
+</table>
 
 <ul>
   <li>Look into using <code class="language-plaintext highlighter-rouge">matchit</code> or something similar for faster code navigation.</li>
 </ul>
 
-<h2 id="snippets">
-<a class="anchor" href="#snippets" aria-hidden="true"><span class="octicon octicon-link"></span></a>Snippets</h2>
-
-<h2 id="latex-integration">
-<a class="anchor" href="#latex-integration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Latex integration</h2>
+<h1 id="latex">
+<a class="anchor" href="#latex" aria-hidden="true"><span class="octicon octicon-link"></span></a>Latex</h1>
 
 <p>No plugins:</p>
 
 <ul>
-  <li>You can use <code class="language-plaintext highlighter-rouge">&lt;C-N&gt;</code> completion for words that already appear in one of the
+  <li>
+    <p>You can use <code class="language-plaintext highlighter-rouge">&lt;C-N&gt;</code> completion for words that already appear in one of the
 open buffers. This is especially useful for bibliography completion: just open
 the .bib file in another buffer and <code class="language-plaintext highlighter-rouge">&lt;C-N&gt;</code> will provide a list of
-available keys.</li>
-</ul>
-
-<p><a href="https://github.com/lervag/vimtex">vimtex</a></p>
-
-<ul>
-  <li>Most shortcuts use <code class="language-plaintext highlighter-rouge">localleader</code>, which, by default, is set to <code class="language-plaintext highlighter-rouge">\</code>.</li>
-  <li>
-    <p>I use <code class="language-plaintext highlighter-rouge">skim</code> as my viewer.</p>
+available keys.</p>
   </li>
   <li>
-<code class="language-plaintext highlighter-rouge">\ll</code> toggles continuous compilation using <code class="language-plaintext highlighter-rouge">latexmk</code>.</li>
+    <p>I use <a href="https://github.com/lervag/vimtex">vimtex</a>, with <code class="language-plaintext highlighter-rouge">Skim</code> as my viewer. In
+vimtex, most shortcuts use <code class="language-plaintext highlighter-rouge">localleader</code>, which, by default, is set to <code class="language-plaintext highlighter-rouge">\</code>.</p>
+  </li>
 </ul>
+
+<p>Vimtex commands:</p>
 
 <table>
   <tbody>
@@ -2454,19 +2578,111 @@ available keys.</li>
 </td>
     </tr>
     <tr>
+      <td><code class="language-plaintext highlighter-rouge">\lk</code></td>
+      <td>Kill compilation process</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\lc</code></td>
+      <td>Clear auxiliary files</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\lt</code></td>
+      <td>Show table of contents</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\ds{c/e/$/d}</code></td>
+      <td>Delete surrounding command/environment/math env/delimiter</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\cs{c/e/$/d}</code></td>
+      <td>Change surrounding command/environment/math env/delimiter</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:VimtexDocPackage</code></td>
+      <td>Show docs for argument under cursor or supplied package</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:VimtexCountWords</code></td>
+      <td>Count words in document</td>
+    </tr>
+    <tr>
       <td><code class="language-plaintext highlighter-rouge">&lt;C-x&gt;&lt;C-o&gt;/</code></td>
       <td>Citation completion (inside <code class="language-plaintext highlighter-rouge">\cite{</code>)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">]]</code></td>
+      <td>To next section</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">]m</code></td>
+      <td>To next environment</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">]n</code></td>
+      <td>To next math zone</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">]r</code></td>
+      <td>To next frame</td>
     </tr>
   </tbody>
 </table>
 
-<h1 id="sources">
-<a class="anchor" href="#sources" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sources</h1>
+<p>Vimtex text objects:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td>Effect</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">c</code></td>
+      <td>Command</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">d</code></td>
+      <td>Delimiters (e.g. <code class="language-plaintext highlighter-rouge">[</code>, <code class="language-plaintext highlighter-rouge">{</code>)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">e</code></td>
+      <td>Environment</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$</code></td>
+      <td>Inline math environment</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">P</code></td>
+      <td>Sections</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">m</code></td>
+      <td>Items</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="acknowledgements-and-sources">
+<a class="anchor" href="#acknowledgements-and-sources" aria-hidden="true"><span class="octicon octicon-link"></span></a>Acknowledgements and sources</h1>
+
+<p>This cheat sheet started out as a summary of Drew Neil’s phenomenal <a href="https://pragprog.com/titles/dnvim2/practical-vim-second-edition/">Practical
+Vim</a>, which I
+can’t recommend enough as a start to learning Vim seriously.</p>
+
+<p>Other useful resources:</p>
 
 <ul>
-  <li><a href="https://pragprog.com/titles/dnvim2/practical-vim-second-edition/">Practical
-  Vim (PV)</a></li>
+  <li><a href="https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_2)">Vim Fandom mappings
+tutorial</a></li>
+  <li>Dough Black’s <a href="https://dougblack.io/words/a-good-vimrc.html#fold">good vimrc</a>
+</li>
+  <li>Using help: https://vim.fandom.com/wiki/Learn_to_use_help</li>
+  <li><a href="https://github.com/romainl/idiomatic-vimrc">Idiomatic VIM</a></li>
+  <li>Awesome vimrc: https://github.com/amix/vimrc</li>
+  <li>Vim as Python IDE: https://realpython.com/vim-and-python-a-match-made-in-heaven/</li>
 </ul>
+
 
   </div><a class="u-url" href="/blog/vim/2021/03/27/vim-essentials.html" hidden></a>
 </article>
