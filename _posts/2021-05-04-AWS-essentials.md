@@ -1,5 +1,5 @@
 ---
-hide: false
+hide: true
 toc: true
 layout: post
 description: AWS cli commands I use (and forget) often
